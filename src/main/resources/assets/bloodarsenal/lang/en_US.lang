@@ -1,0 +1,44 @@
+#CreativeTab
+itemGroup.BA_TAB=Blood Arsenal
+
+#Blocks
+tile.blood_stone.blood_stone_1.name=Blank Blood Stone
+tile.blood_stone.blood_stone_2.name=Reinforced Blood Stone
+tile.blood_stone.blood_stone_3.name=Imbued Blood Stone
+tile.blood_stone.blood_stone_4.name=Demonic Blood Stone
+tile.blood_tnt.name=Blood TNT
+tile.blood_stained_glass.name=Blood Stained Glass
+tile.blood_stained_ice.name=Blood Stained Ice
+tile.blood_stained_ice_packed.name=Blood Stained Packed Ice
+tile.blood_infused_wood.name=Blood Infused Wood
+tile.blood_infused_planks.name=Blood Infused Wooden Plank
+tile.blood_infused_iron_block.name=Blood Infused Iron Block
+
+#Items
+item.bound_bow.name=Bound Bow
+item.blood_orange.name=Blood Orange
+item.blood_infused_stick.name=Blood Infused Stick
+item.blood_infused_pickaxe_wood.name=Blood Infused Wooden Pickaxe
+item.blood_infused_axe_wood.name=Blood Infused Wooden Axe
+item.blood_infused_shovel_wood.name=Blood Infused Wooden Shovel
+item.blood_infused_sword_wood.name=Blood Infused Wooden Sword
+item.blood_infused_sickle_wood.name=Blood Infused Wooden Sickle
+item.amorphic_catalyst.name=Amorphic Catalyst
+item.bound_sickle.name=Bound Sickle
+item.bound_shears.name=Bound Shears
+item.blood_infused_iron.name=Blood Infused Iron
+item.blood_infused_pickaxe_iron.name=Blood Infused Iron Pickaxe
+item.blood_infused_axe_iron.name=Blood Infused Iron Axe
+item.blood_infused_shovel_iron.name=Blood Infused Iron Shovel
+item.blood_infused_sword_iron.name=Blood Infused Iron Sword
+item.blood_infused_sickle_iron.name=Blood Infused Iron Sickle
+item.blood_diamond.name=Blood Diamond
+item.blood_infused_diamond_unactive.name=Blood Infused Diamond (Unactive)
+item.blood_infused_diamond_active.name=Blood Infused Diamond (Active)
+item.blood_infused_diamond_bound.name=Bound Diamond
+item.blood_infused_pickaxe_diamond.name=Blood Infused Diamond Pickaxe
+item.blood_infused_axe_diamond.name=Blood Infused Diamond Axe
+item.blood_infused_shovel_diamond.name=Blood Infused Diamond Shovel
+item.blood_infused_sword_diamond.name=Blood Infused Diamond Sword
+item.blood_infused_sickle_diamond.name=Blood Infused Diamond Sickle
+item.heart.name=Heart
