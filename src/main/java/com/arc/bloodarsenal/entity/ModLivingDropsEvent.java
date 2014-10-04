@@ -1,6 +1,6 @@
 package com.arc.bloodarsenal.entity;
 
-import com.arc.bloodarsenal.item.ModItems;
+import com.arc.bloodarsenal.items.ModItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;

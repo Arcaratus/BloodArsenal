@@ -1,7 +1,7 @@
 package com.arc.bloodarsenal;
 
 import com.arc.bloodarsenal.entity.ModLivingDropsEvent;
-import com.arc.bloodarsenal.item.ModItems;
+import com.arc.bloodarsenal.items.ModItems;
 import com.arc.bloodarsenal.rituals.RitualRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -9,7 +9,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import com.arc.bloodarsenal.block.ModBlocks;
+import com.arc.bloodarsenal.blocks.ModBlocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 

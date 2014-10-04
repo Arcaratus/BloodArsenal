@@ -1,7 +1,7 @@
 package com.arc.bloodarsenal;
 
 import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
-import com.arc.bloodarsenal.item.ModItems;
+import com.arc.bloodarsenal.items.ModItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 

@@ -3,8 +3,8 @@ package com.arc.bloodarsenal;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;
 import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
-import com.arc.bloodarsenal.block.ModBlocks;
-import com.arc.bloodarsenal.item.ModItems;
+import com.arc.bloodarsenal.blocks.ModBlocks;
+import com.arc.bloodarsenal.items.ModItems;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -55,18 +55,17 @@ public class BloodArsenalRecipes
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_pickaxe_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_pickaxe_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb));
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_shovel_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_shovel_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb));
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_sword_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_sword_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_sickle_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_sickle_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb));
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_diamond), "aba", "bcb", "aba", 'a', Blocks.glass, 'b', Items.diamond, 'c', masterOrb));
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_diamond_unactive), "aba", "bcb", "ada", 'a', ModItems.amorphic_catalyst, 'b', ModBlocks.blood_infused_iron_block, 'c', ModItems.blood_diamond, 'd', masterOrb));
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_axe_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_axe_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb));
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_pickaxe_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_pickaxe_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb));
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_shovel_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_shovel_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb));
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_sword_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_sword_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_sickle_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_sickle_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb));
     }
 
     public static void registerRecipes()
     {
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_door_wood), "aa", "aa", "aa", 'a', ModBlocks.blood_infused_planks);
         GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_stained_ice_packed), "aa", "aa", 'a', ModBlocks.blood_stained_ice);
         GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_door_wood), "aa", "aa", "aa", 'a', ModBlocks.blood_infused_planks);
         GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_stick), "a", "a", 'a', ModBlocks.blood_infused_planks);
@@ -74,7 +73,6 @@ public class BloodArsenalRecipes
         GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_axe_wood), "aa ", "ab ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
         GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_shovel_wood), " a ", " b ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
         GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_sword_wood), " a ", " a ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
-        GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_sickle_wood), " aa", "  a", "baa", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blood_infused_planks, 4), ModBlocks.blood_infused_wood);
         //This is a long one
