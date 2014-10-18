@@ -1,8 +1,7 @@
 package com.arc.bloodarsenal.items;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
-import com.arc.bloodarsenal.items.block.BloodDoorWood;
-import com.arc.bloodarsenal.items.sigil.TeleportationSigil;
+import com.arc.bloodarsenal.items.block.*;
 import com.arc.bloodarsenal.items.tool.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.material.Material;
@@ -12,7 +11,6 @@ public class ModItems
 {
     public static Item bound_bow;
     public static Item blood_orange;
-    public static Item teleportation_sigil;
     public static Item blood_infused_pickaxe_wood;
     public static Item blood_infused_axe_wood;
     public static Item blood_infused_shovel_wood;
@@ -35,14 +33,20 @@ public class ModItems
     public static Item blood_infused_shovel_diamond;
     public static Item blood_infused_sword_diamond;
     public static Item heart;
+    public static Item soul_fragment;
     public static Item item_blood_door_wood;
     public static Item blood_door_iron;
+    public static Item bound_flint_and_steel;
+    public static Item soul_booster;
+    public static Item soul_nullifier;
+    public static Item blood_cookie;
+    public static Item orange_juice;
+    public static Item juice_and_cookies;
 
     public static void init()
     {
         bound_bow = new BoundBow();
         blood_orange = new ItemBloodOrange();
-        teleportation_sigil = new TeleportationSigil();
         blood_infused_pickaxe_wood = new InfusedWoodPickaxe();
         blood_infused_axe_wood = new InfusedWoodAxe();
         blood_infused_shovel_wood = new InfusedWoodShovel();
@@ -65,14 +69,20 @@ public class ModItems
         blood_infused_shovel_diamond = new InfusedDiamondShovel();
         blood_infused_sword_diamond = new InfusedDiamondSword();
         heart = new ItemHeart();
+        soul_fragment = new ItemSoulFragment();
         item_blood_door_wood = new BloodDoorWood(Material.wood);
+        bound_flint_and_steel = new BoundFlintAndSteel();
+        soul_booster = new ItemSoulBooster();
+        soul_nullifier = new ItemSoulNullifier();
+        blood_cookie = new ItemBloodCookie();
+        orange_juice = new ItemOrangeJuice();
+        juice_and_cookies = new ItemJuiceAndCookies();
     }
 
     public static void registerItems()
     {
         GameRegistry.registerItem(ModItems.bound_bow, "bound_bow");
         GameRegistry.registerItem(ModItems.blood_orange, "blood_orange");
-        GameRegistry.registerItem(ModItems.teleportation_sigil, "teleportation_sigil");
         GameRegistry.registerItem(ModItems.blood_infused_pickaxe_wood, "blood_infused_pickaxe_wood");
         GameRegistry.registerItem(ModItems.blood_infused_axe_wood, "blood_infused_axe_wood");
         GameRegistry.registerItem(ModItems.blood_infused_shovel_wood, "blood_infused_shovel_wood");
@@ -95,6 +105,13 @@ public class ModItems
         GameRegistry.registerItem(ModItems.blood_infused_shovel_diamond, "blood_infused_shovel_diamond");
         GameRegistry.registerItem(ModItems.blood_infused_sword_diamond, "blood_infused_sword_diamond");
         GameRegistry.registerItem(ModItems.heart, "heart");
+        GameRegistry.registerItem(ModItems.soul_fragment, "soul_fragment");
         GameRegistry.registerItem(ModItems.item_blood_door_wood, "item_blood_door_wood");
+        GameRegistry.registerItem(ModItems.bound_flint_and_steel, "bound_flint_and_steel");
+        GameRegistry.registerItem(ModItems.soul_booster, "soul_booster");
+        GameRegistry.registerItem(ModItems.soul_nullifier, "soul_nullfier");
+        GameRegistry.registerItem(ModItems.blood_cookie, "blood_cookie");
+        GameRegistry.registerItem(ModItems.orange_juice, "orange_juice");
+        GameRegistry.registerItem(ModItems.juice_and_cookies, "juice_and_cookies");
     }
 }

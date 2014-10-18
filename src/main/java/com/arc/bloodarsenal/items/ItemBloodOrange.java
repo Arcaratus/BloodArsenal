@@ -11,15 +11,15 @@ public class ItemBloodOrange extends ItemFood
 {
     public ItemBloodOrange()
     {
-        super(2, false);
+        super(2, 0.2F, false);
         setUnlocalizedName("blood_orange");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setTextureName("BloodArsenal:blood_orange");
+        setCreativeTab(BloodArsenal.BA_TAB);
     }
 
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        par3List.add("Ironic food source");
+        par3List.add("Completely organic");
     }
 }

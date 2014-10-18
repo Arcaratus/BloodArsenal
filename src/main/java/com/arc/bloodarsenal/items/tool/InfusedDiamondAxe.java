@@ -122,7 +122,7 @@ public class InfusedDiamondAxe extends ItemAxe implements IBindable
             case 2:
             {
                 Block blck = world.getBlock(x, y, z);
-                if (ToolCapabilities.isWoodLog(world, x, y, z))
+                if (ToolCapabilities.isWood(world, x, y, z))
                 {
                     while (blck != Blocks.air)
                     {

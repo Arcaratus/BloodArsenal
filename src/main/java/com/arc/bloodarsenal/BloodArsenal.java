@@ -13,11 +13,13 @@ import com.arc.bloodarsenal.blocks.ModBlocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 
-@Mod(modid="BloodArsenal", version="1.0.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime")
+import java.io.File;
+
+@Mod(modid="BloodArsenal", version="0.8.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime")
 public class BloodArsenal
 {
     public static String MODID = "BloodArsenal";
-    public static String VERSION = "1.0.0";
+    public static String VERSION = "0.8.0";
     public static String NAME = "Blood Arsenal";
 
     @SidedProxy(clientSide = "com.arc.bloodarsenal.ClientProxy", serverSide = "com.arc.bloodarsenal.CommonProxy")
@@ -47,6 +49,8 @@ public class BloodArsenal
 
         ModItems.init();
         ModItems.registerItems();
+
+        BloodArsenalConfig.init(new File(event.getModConfigurationDirectory(), "BloodArsenal.cfg"));
 
         Object dropsEvent = new ModLivingDropsEvent();
         MinecraftForge.EVENT_BUS.register(dropsEvent);

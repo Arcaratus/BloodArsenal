@@ -9,7 +9,6 @@ public class TileOwned extends TileBloodArsenal
 {
     public String owner = "";
     public ArrayList<String> accessList = new ArrayList();
-    public boolean safeToRemove = false;
 
     public boolean canUpdate()
     {
@@ -52,5 +51,10 @@ public class TileOwned extends TileBloodArsenal
     public void writeCustomNBT(NBTTagCompound nbttagcompound)
     {
         nbttagcompound.setString("owner", this.owner);
+    }
+
+    public String getOwner()
+    {
+        return this.owner;
     }
 }

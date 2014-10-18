@@ -38,10 +38,8 @@ public class BoundShears extends ItemShears implements IBindable
     {
         super();
         setMaxStackSize(1);
-        setMaxDamage(0);
         setUnlocalizedName("bound_shears");
         setCreativeTab(BloodArsenal.BA_TAB);
-        setFull3D();
         setEnergyUsed(50);
     }
 
@@ -88,34 +86,38 @@ public class BoundShears extends ItemShears implements IBindable
     @Override
     public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity)
     {
-        if (!player.capabilities.isCreativeMode)
-        {
-            EnergyItems.syphonBatteries(itemstack, player, 50);
-        }
+        NBTTagCompound tag = itemstack.stackTagCompound;
 
-        if (entity.worldObj.isRemote)
+        if (tag.getBoolean("isActive"))
         {
-            return false;
-        }
-        if (entity instanceof IShearable)
-        {
-            IShearable target = (IShearable)entity;
-            if (target.isShearable(itemstack, entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ))
+            if (!player.capabilities.isCreativeMode)
             {
-                ArrayList<ItemStack> drops = target.onSheared(itemstack, entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ,
-                EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
-
-                Random rand = new Random();
-                for (ItemStack stack : drops)
-                {
-                    EntityItem ent = entity.entityDropItem(stack, 1.0F);
-                    ent.motionY += rand.nextFloat() * 0.05F;
-                    ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-                    ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-                }
-                itemstack.damageItem(1, entity);
+                EnergyItems.syphonBatteries(itemstack, player, 50);
             }
-            return true;
+
+            if (entity.worldObj.isRemote)
+            {
+                return false;
+            }
+            if (entity instanceof IShearable)
+            {
+                IShearable target = (IShearable)entity;
+                if (target.isShearable(itemstack, entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ))
+                {
+                    ArrayList<ItemStack> drops = target.onSheared(itemstack, entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ,
+                            EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
+
+                    Random rand = new Random();
+                    for (ItemStack stack : drops)
+                    {
+                        EntityItem ent = entity.entityDropItem(stack, 1.0F);
+                        ent.motionY += rand.nextFloat() * 0.05F;
+                        ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+                        ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+                    }
+                }
+                return true;
+            }
         }
         return false;
     }
@@ -123,33 +125,36 @@ public class BoundShears extends ItemShears implements IBindable
     @Override
     public boolean onBlockStartBreak(ItemStack itemstack, int x, int y, int z, EntityPlayer player)
     {
-        if (player.worldObj.isRemote)
+        NBTTagCompound tag = itemstack.stackTagCompound;
+
+        if (tag.getBoolean("isActive"))
         {
-            return false;
-        }
-        Block block = player.worldObj.getBlock(x, y, z);
-        if (block instanceof IShearable)
-        {
-            IShearable target = (IShearable)block;
-            if (target.isShearable(itemstack, player.worldObj, x, y, z))
+            if (player.worldObj.isRemote)
             {
-                ArrayList<ItemStack> drops = target.onSheared(itemstack, player.worldObj, x, y, z,
-                EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
-                Random rand = new Random();
-
-                for(ItemStack stack : drops)
+                return false;
+            }
+            Block block = player.worldObj.getBlock(x, y, z);
+            if (block instanceof IShearable)
+            {
+                IShearable target = (IShearable)block;
+                if (target.isShearable(itemstack, player.worldObj, x, y, z))
                 {
-                    float f = 0.7F;
-                    double d  = (double)(rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-                    double d1 = (double)(rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-                    double d2 = (double)(rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-                    EntityItem entityitem = new EntityItem(player.worldObj, (double)x + d, (double)y + d1, (double)z + d2, stack);
-                    entityitem.delayBeforeCanPickup = 10;
-                    player.worldObj.spawnEntityInWorld(entityitem);
-                }
+                    ArrayList<ItemStack> drops = target.onSheared(itemstack, player.worldObj, x, y, z,
+                            EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
+                    Random rand = new Random();
 
-                itemstack.damageItem(1, player);
-                player.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
+                    for(ItemStack stack : drops)
+                    {
+                        float f = 0.7F;
+                        double d  = (double)(rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+                        double d1 = (double)(rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+                        double d2 = (double)(rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+                        EntityItem entityitem = new EntityItem(player.worldObj, (double)x + d, (double)y + d1, (double)z + d2, stack);
+                        entityitem.delayBeforeCanPickup = 10;
+                        player.worldObj.spawnEntityInWorld(entityitem);
+                    }
+                    player.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
+                }
             }
         }
         return false;
@@ -277,11 +282,5 @@ public class BoundShears extends ItemShears implements IBindable
 
         par1ItemStack.setItemDamage(0);
         return;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public boolean isFull3D()
-    {
-        return true;
     }
 }

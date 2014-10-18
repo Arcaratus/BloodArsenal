@@ -115,7 +115,7 @@ public class RitualEffectMidas extends RitualEffect
                     ItemStack spawnedItem = new ItemStack(Items.gold_ingot);
                     rand = Math.random();
 
-                    if (rand > 0.9F)
+                    if (rand + 0.5F > 0.6F)
                     {
                         if (spawnedItem != null)
                         {

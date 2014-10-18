@@ -102,24 +102,24 @@ public final class ToolCapabilities
         }
     }
 
-    static int lastx = 0;
-    static int lasty = 0;
-    static int lastz = 0;
-    static double lastdistance = 0.0D;
+    public static int lastx = 0;
+    public static int lasty = 0;
+    public static int lastz = 0;
+    public static double lastdistance = 0.0D;
 
-    public static boolean isWoodLog(IBlockAccess world, int x, int y, int z)
+    public static boolean isWood(IBlockAccess world, int x, int y, int z)
     {
-        Block bi = world.getBlock(x, y, z);
-        int md = world.getBlockMetadata(x, y, z);
-        if (bi == Blocks.air)
+        Block blk = world.getBlock(x, y, z);
+        int metadata = world.getBlockMetadata(x, y, z);
+        if (blk == Blocks.air)
         {
             return false;
         }
-        if (bi.canSustainLeaves(world, x, y, z))
+        if (blk.canSustainLeaves(world, x, y, z))
         {
             return true;
         }
-        if (InfusedDiamondAxe.oreDictLogs.contains(Arrays.asList(new Object[]{bi, Integer.valueOf(md)})))
+        if (InfusedDiamondAxe.oreDictLogs.contains(Arrays.asList(new Object[]{blk, Integer.valueOf(metadata)})))
         {
             return true;
         }
@@ -173,7 +173,7 @@ public final class ToolCapabilities
                     {
                         return;
                     }
-                    if ((world.getBlock(lastx + xx, lasty + yy, lastz + zz) == block) && (isWoodLog(world, lastx + xx, lasty + yy, lastz + zz)) && (block.getBlockHardness(world, lastx + xx, lasty + yy, lastz + zz) >= 0.0F))
+                    if ((world.getBlock(lastx + xx, lasty + yy, lastz + zz) == block) && (isWood(world, lastx + xx, lasty + yy, lastz + zz)) && (block.getBlockHardness(world, lastx + xx, lasty + yy, lastz + zz) >= 0.0F))
                     {
                         double xd = lastx + xx - x;
                         double yd = lasty + yy - y;
@@ -197,12 +197,12 @@ public final class ToolCapabilities
     public static boolean harvestBlock(World world, EntityPlayer player, int x, int y, int z)
     {
         Block block = world.getBlock(x, y, z);
-        int i1 = world.getBlockMetadata(x, y, z);
+        int metadata = world.getBlockMetadata(x, y, z);
         if (block.getBlockHardness(world, x, y, z) < 0.0F)
         {
             return false;
         }
-        world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (i1 << 12));
+        world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (metadata << 12));
 
         boolean flag = false;
         if (player.capabilities.isCreativeMode)
@@ -214,12 +214,12 @@ public final class ToolCapabilities
             boolean flag1 = false;
             if (block != null)
             {
-                flag1 = block.canHarvestBlock(player, i1);
+                flag1 = block.canHarvestBlock(player, metadata);
             }
             flag = removeBlock(world, x, y, z, player);
             if ((flag) && (flag1))
             {
-                block.harvestBlock(world, player, x, y, z, i1);
+                block.harvestBlock(world, player, x, y, z, metadata);
             }
         }
         return true;
@@ -228,15 +228,15 @@ public final class ToolCapabilities
     private static boolean removeBlock(World world, int par1, int par2, int par3, EntityPlayer player)
     {
         Block block = world.getBlock(par1, par2, par3);
-        int l = world.getBlockMetadata(par1, par2, par3);
+        int metadata = world.getBlockMetadata(par1, par2, par3);
         if (block != null)
         {
-            block.onBlockHarvested(world, par1, par2, par3, l, player);
+            block.onBlockHarvested(world, par1, par2, par3, metadata, player);
         }
         boolean flag = (block != null) && (block.removedByPlayer(world, player, par1, par2, par3));
         if ((block != null) && (flag))
         {
-            block.onBlockDestroyedByPlayer(world, par1, par2, par3, l);
+            block.onBlockDestroyedByPlayer(world, par1, par2, par3, metadata);
         }
         return flag;
     }
@@ -252,8 +252,12 @@ public final class ToolCapabilities
         float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
         double d0 = player.prevPosX + (player.posX - player.prevPosX) * f;
         double d1 = player.prevPosY + (player.posY - player.prevPosY) * f;
+
         if (!world.isRemote && player instanceof EntityPlayer)
+        {
             d1 += 1.62D;
+        }
+
         double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
         Vec3 vec3 = Vec3.createVectorHelper(d0, d1, d2);
         float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
@@ -263,9 +267,12 @@ public final class ToolCapabilities
         float f7 = f4 * f5;
         float f8 = f3 * f5;
         double d3 = range;
-        if (player instanceof EntityPlayerMP)
 
+        if (player instanceof EntityPlayerMP)
+        {
             d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
+        }
+
         Vec3 vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
         return world.rayTraceBlocks(vec3, vec31, par3);
     }

@@ -1,5 +1,6 @@
 package com.arc.bloodarsenal.blocks;
 
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.items.ModItems;
 import com.arc.bloodarsenal.tileentity.TileOwned;
@@ -11,10 +12,12 @@ import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.IconFlipped;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
@@ -34,7 +37,6 @@ public class BlockInfusedWoodenDoor extends BlockContainer
     public BlockInfusedWoodenDoor()
     {
         super(Material.wood);
-        setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(4.0F);
         setResistance(6.0F);
         setStepSound(soundTypeWood);
@@ -139,6 +141,17 @@ public class BlockInfusedWoodenDoor extends BlockContainer
     public Item getItem(World world, int x, int y, int z)
     {
         return blockMaterial == Material.iron ? Items.iron_door : ModItems.item_blood_door_wood;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemStack)
+    {
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+
+        if (tileEntity instanceof TileOwned && entity instanceof EntityPlayer)
+        {
+
+        }
     }
 
     @Override
@@ -287,7 +300,6 @@ public class BlockInfusedWoodenDoor extends BlockContainer
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
-
         int i1 = func_150012_g(world, x, y, z);
         int j1 = i1 & 7;
         j1 ^= 4;
@@ -363,15 +375,6 @@ public class BlockInfusedWoodenDoor extends BlockContainer
                 if (!world.isRemote)
                 {
                     dropBlockAsItem(world, x, y, z, l, 0);
-                }
-            }
-            else
-            {
-                boolean flag1 = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
-
-                if ((flag1 || block.canProvidePower()) && block != this)
-                {
-                    func_150014_a(world, x, y, z, flag1);
                 }
             }
         }

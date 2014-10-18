@@ -60,58 +60,67 @@ public class BoundSickle extends ItemTool implements IBindable
 
     public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World, Block par3Block, int x, int y, int z, EntityLivingBase par7EntityLivingBase)
     {
+        NBTTagCompound tag = par1ItemStack.stackTagCompound;
+
         boolean use = false;
 
-        if (!(par7EntityLivingBase instanceof EntityPlayer)) return false;
-        EntityPlayer player = (EntityPlayer) par7EntityLivingBase;
-
-        if (!player.capabilities.isCreativeMode)
+        if (tag.getBoolean("isActive"))
         {
-            EnergyItems.syphonBatteries(par1ItemStack, player, 50);
-        }
-
-        if ((par3Block !=null) && (par3Block.isLeaves(par2World, x, y, z)))
-        {
-            for (int i = -radiusLeaf; i <= radiusLeaf; i++)
+            if (!(par7EntityLivingBase instanceof EntityPlayer))
             {
-                for (int j = -radiusLeaf; j <= radiusLeaf; j++)
-                {
-                    for (int k = -radiusLeaf; k <= radiusLeaf; k++)
-                    {
-                        Block blockToCheck = par2World.getBlock(x + i, y + j, z + k);
-                        int meta = par2World.getBlockMetadata(x + i, y + j, z + k);
+                return false;
+            }
 
-                        if ((blockToCheck !=null) && (blockToCheck.isLeaves(par2World, x + i, y + j, z + k)))
+            EntityPlayer player = (EntityPlayer) par7EntityLivingBase;
+
+            if (!player.capabilities.isCreativeMode)
+            {
+                EnergyItems.syphonBatteries(par1ItemStack, player, 50);
+            }
+
+            if ((par3Block !=null) && (par3Block.isLeaves(par2World, x, y, z)))
+            {
+                for (int i = -radiusLeaf; i <= radiusLeaf; i++)
+                {
+                    for (int j = -radiusLeaf; j <= radiusLeaf; j++)
+                    {
+                        for (int k = -radiusLeaf; k <= radiusLeaf; k++)
                         {
-                            if (blockToCheck.canHarvestBlock(player, meta))
+                            Block blockToCheck = par2World.getBlock(x + i, y + j, z + k);
+                            int meta = par2World.getBlockMetadata(x + i, y + j, z + k);
+
+                            if ((blockToCheck !=null) && (blockToCheck.isLeaves(par2World, x + i, y + j, z + k)))
                             {
-                                blockToCheck.harvestBlock(par2World, player, x + i, y + j, z + k, meta);
+                                if (blockToCheck.canHarvestBlock(player, meta))
+                                {
+                                    blockToCheck.harvestBlock(par2World, player, x + i, y + j, z + k, meta);
+                                }
+                                par2World.setBlock(x + i, y + j, z + k, Blocks.air);
+                                use = true;
                             }
-                            par2World.setBlock(x + i, y + j, z + k, Blocks.air);
-                            use = true;
                         }
                     }
                 }
             }
-        }
 
-        for (int i = -radiusCrop; i <= radiusCrop; i++)
-        {
-            for (int j = -radiusCrop; j <= radiusCrop; j++)
+            for (int i = -radiusCrop; i <= radiusCrop; i++)
             {
-                Block blockToCheck = par2World.getBlock(x + i, y, z + j);
-                int meta = par2World.getBlockMetadata(x + i, y, z + j);
-
-                if (blockToCheck !=null)
+                for (int j = -radiusCrop; j <= radiusCrop; j++)
                 {
-                    if(blockToCheck instanceof BlockBush)
+                    Block blockToCheck = par2World.getBlock(x + i, y, z + j);
+                    int meta = par2World.getBlockMetadata(x + i, y, z + j);
+
+                    if (blockToCheck !=null)
                     {
-                        if (blockToCheck.canHarvestBlock(player, meta))
+                        if(blockToCheck instanceof BlockBush)
                         {
-                            blockToCheck.harvestBlock(par2World, player, x + i, y, z + j, meta);
+                            if (blockToCheck.canHarvestBlock(player, meta))
+                            {
+                                blockToCheck.harvestBlock(par2World, player, x + i, y, z + j, meta);
+                            }
+                            par2World.setBlock(x + i, y, z + j, Blocks.air);
+                            use = true;
                         }
-                        par2World.setBlock(x + i, y, z + j, Blocks.air);
-                        use = true;
                     }
                 }
             }
@@ -145,49 +154,58 @@ public class BoundSickle extends ItemTool implements IBindable
 
     public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int x, int y, int z, int par7, float par8, float par9, float par10)
     {
-        if (!par2EntityPlayer.capabilities.isCreativeMode)
-        {
-            EnergyItems.syphonBatteries(par1ItemStack, par2EntityPlayer, 50);
-        }
+        NBTTagCompound tag = par1ItemStack.stackTagCompound;
 
-        if (!par2EntityPlayer.canPlayerEdit(x, y, z, par7, par1ItemStack))
+        if (tag.getBoolean("isActive"))
         {
-            return false;
-        }
-        else
-        {
-            UseHoeEvent event = new UseHoeEvent(par2EntityPlayer, par1ItemStack, par3World, x, y, z);
-            if (MinecraftForge.EVENT_BUS.post(event))
+            if (!par2EntityPlayer.capabilities.isCreativeMode)
+            {
+                EnergyItems.syphonBatteries(par1ItemStack, par2EntityPlayer, 50);
+            }
+
+            if (!par2EntityPlayer.canPlayerEdit(x, y, z, par7, par1ItemStack))
             {
                 return false;
-            }
-
-            if (event.getResult() == Event.Result.ALLOW)
-            {
-                return true;
-            }
-
-            Block block = par3World.getBlock(x, y, z);
-
-            if (par7 != 0 && par3World.getBlock(x, y + 1, z).isAir(par3World, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt))
-            {
-                Block block1 = Blocks.farmland;
-                par3World.playSoundEffect((double)((float) x + 0.5F), (double)((float) y + 0.5F), (double)((float) z + 0.5F), block1.stepSound.getStepResourcePath(), (block1.stepSound.getVolume() + 1.0F) / 2.0F, block1.stepSound.getPitch() * 0.8F);
-
-                if (par3World.isRemote)
-                {
-                    return true;
-                }
-                else
-                {
-                    par3World.setBlock(x, y, z, block1);
-                    return true;
-                }
             }
             else
             {
-                return false;
+                UseHoeEvent event = new UseHoeEvent(par2EntityPlayer, par1ItemStack, par3World, x, y, z);
+                if (MinecraftForge.EVENT_BUS.post(event))
+                {
+                    return false;
+                }
+
+                if (event.getResult() == Event.Result.ALLOW)
+                {
+                    return true;
+                }
+
+                Block block = par3World.getBlock(x, y, z);
+
+                if (par7 != 0 && par3World.getBlock(x, y + 1, z).isAir(par3World, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt))
+                {
+                    Block block1 = Blocks.farmland;
+                    par3World.playSoundEffect((double)((float) x + 0.5F), (double)((float) y + 0.5F), (double)((float) z + 0.5F), block1.stepSound.getStepResourcePath(), (block1.stepSound.getVolume() + 1.0F) / 2.0F, block1.stepSound.getPitch() * 0.8F);
+
+                    if (par3World.isRemote)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        par3World.setBlock(x, y, z, block1);
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
+        }
+        else
+        {
+            return false;
         }
     }
 

@@ -1,5 +1,6 @@
 package com.arc.bloodarsenal.rituals;
 
+import WayofTime.alchemicalWizardry.api.alchemy.energy.ReagentRegistry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
@@ -18,6 +19,10 @@ import java.util.List;
 
 public class RitualEffectWithering extends RitualEffect
 {
+    public static final int reductusDrain = 15;
+    public static final int virtusDrain = 15;
+    public static final int praesidiumDrain = 5;
+
     @Override
     public void performEffect(IMasterRitualStone ritualStone)
     {
@@ -44,8 +49,10 @@ public class RitualEffectWithering extends RitualEffect
             return;
         }
 
-        int range = 15;
-        int vertRange = 15;
+        boolean hasPraesidium = canDrainReagent(ritualStone, ReagentRegistry.praesidiumReagent, praesidiumDrain, false);
+
+        int range = 15 * (hasPraesidium ? 3 : 1);
+        int vertRange = 15 * (hasPraesidium ? 3 : 1);
 
         List<EntityLivingBase> list = SpellHelper.getLivingEntitiesInRange(world, x + 0.5, y + 0.5, z + 0.5, range, vertRange);
         int entityCount = 0;
@@ -56,13 +63,17 @@ public class RitualEffectWithering extends RitualEffect
             if (livingEntity instanceof EntityPlayer)
             {
                 entityCount += 10;
-            } else
+            }
+            else
             {
                 entityCount++;
             }
         }
 
-        int cost = getCostPerRefresh();
+        boolean hasVirtus = canDrainReagent(ritualStone, ReagentRegistry.virtusReagent, virtusDrain, false);
+
+        int cost = getCostPerRefresh() * (hasVirtus ? 3 : 1);
+        int potency = hasVirtus ? 1 : 0;
 
         if (currentEssence < cost * entityCount)
         {
@@ -72,30 +83,50 @@ public class RitualEffectWithering extends RitualEffect
         {
             entityCount = 0;
 
-            for(EntityLivingBase livingEntity : list)
+            boolean hasReductus = canDrainReagent(ritualStone, ReagentRegistry.reductusReagent, reductusDrain, false);
+
+            for (EntityLivingBase livingEntity : list)
             {
-                if(!(livingEntity instanceof EntityPlayer))
+                hasReductus = hasReductus && canDrainReagent(ritualStone, ReagentRegistry.reductusReagent, reductusDrain, false);
+                if (hasReductus && !(livingEntity instanceof EntityPlayer))
                 {
                     continue;
                 }
-                PotionEffect effect = livingEntity.getActivePotionEffect(Potion.wither);
-                if(effect == null || (effect != null && effect.getDuration() <= timeDelay))
-                {
-                    livingEntity.addPotionEffect(new PotionEffect(Potion.wither.id, timeDelay + 2));
 
-                    if (livingEntity instanceof EntityPlayer)
+                PotionEffect effect = livingEntity.getActivePotionEffect(Potion.wither);
+                if (effect == null || (effect != null && effect.getAmplifier() <= potency && effect.getDuration() <= timeDelay))
+                {
+                    if (!hasVirtus || (canDrainReagent(ritualStone, ReagentRegistry.virtusReagent, virtusDrain, false)))
                     {
-                        entityCount += 10;
-                    }
-                    else
-                    {
-                        entityCount++;
+                        livingEntity.addPotionEffect(new PotionEffect(Potion.wither.id, timeDelay + 2, potency));
+                        if (hasReductus)
+                        {
+                            canDrainReagent(ritualStone, ReagentRegistry.reductusReagent, reductusDrain, true);
+                        }
+                        if (hasVirtus)
+                        {
+                            canDrainReagent(ritualStone, ReagentRegistry.virtusReagent, virtusDrain, true);
+                        }
+
+                        if (livingEntity instanceof EntityPlayer)
+                        {
+                            entityCount += 10;
+                        }
+                        else
+                        {
+                            entityCount++;
+                        }
                     }
                 }
             }
 
-            if (entityCount > 0)
+            if(entityCount > 0)
             {
+                if (hasPraesidium)
+                {
+                    canDrainReagent(ritualStone, ReagentRegistry.praesidiumReagent, praesidiumDrain, true);
+                }
+                data.currentEssence = currentEssence - cost * entityCount;
                 data.markDirty();
             }
         }
