@@ -1,0 +1,50 @@
+#CreativeTab
+itemGroup.BA_TAB=Blood Arsenal
+
+#Blocks
+tile.blood_stone.blood_stone_1.name=空白血石块
+tile.blood_stone.blood_stone_2.name=加强血石块
+tile.blood_stone.blood_stone_3.name=灌输血石块
+tile.blood_stone.blood_stone_4.name=恶魔血石块
+tile.blood_tnt.name=血之TNT
+tile.blood_stained_glass.name=染血玻璃
+tile.blood_stained_ice.name=染血冰块
+tile.blood_stained_ice_packed.name=染血浮冰
+tile.blood_infused_wood.name=注血原木
+tile.blood_infused_planks.name=注血木板
+tile.blood_infused_iron_block.name=注血铁块
+tile.blood_door_wood.name=注血木门
+
+#Items
+item.bound_bow.name=约束之弓
+item.blood_orange.name=血橙
+item.blood_infused_stick.name=注血木棍
+item.blood_infused_pickaxe_wood.name=注血木镐
+item.blood_infused_axe_wood.name=注血木斧
+item.blood_infused_shovel_wood.name=注血木铲
+item.blood_infused_sword_wood.name=注血木剑
+item.amorphic_catalyst.name=无序的催化剂
+item.bound_sickle.name=约束镰刀
+item.bound_shears.name=约束剪刀
+item.blood_infused_iron.name=注血铁锭
+item.blood_infused_pickaxe_iron.name=注血铁镐
+item.blood_infused_axe_iron.name=注血铁斧
+item.blood_infused_shovel_iron.name=注血铁铲
+item.blood_infused_sword_iron.name=注血铁剑
+item.blood_diamond.name=血之钻石
+item.blood_infused_diamond_unactive.name=注血钻石 (未激活)
+item.blood_infused_diamond_active.name=注血钻石 (激活)
+item.blood_infused_diamond_bound.name=约束钻石
+item.blood_infused_pickaxe_diamond.name=注血钻石镐
+item.blood_infused_axe_diamond.name=注血钻石斧 [WIP]
+item.blood_infused_shovel_diamond.name=注血钻石铲
+item.blood_infused_sword_diamond.name=注血钻石剑 [WIP]
+item.heart.name=生命之心
+item.item_blood_door_wood.name=注血木门
+item.bound_flint_and_steel.name=约束打火石
+item.soul_fragment.name=灵魂碎片
+item.soul_booster.name=增益灵魂之石
+item.soul_nullifier.name=减益灵魂之石 [WIP]
+item.blood_cookie.name=染血曲奇
+item.orange_juice.name=橙汁
+item.juice_and_cookies.name=橙汁和曲奇
