@@ -1,8 +1,6 @@
 package com.arc.bloodarsenal.items;
 
 import com.arc.bloodarsenal.BloodArsenal;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

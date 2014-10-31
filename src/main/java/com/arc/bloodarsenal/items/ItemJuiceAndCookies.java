@@ -34,7 +34,7 @@ public class ItemJuiceAndCookies extends ItemFood
     {
         if (!par2World.isRemote)
         {
-            par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.regeneration.id, 6, 1));
+            par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.regeneration.id, 40, 4));
         }
         else
         {

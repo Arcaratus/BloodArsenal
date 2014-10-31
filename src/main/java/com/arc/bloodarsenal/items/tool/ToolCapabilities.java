@@ -21,8 +21,8 @@ public final class ToolCapabilities
     public static Material[] materialsShovel = new Material[]{ Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
     public static Material[] materialsAxe = new Material[]{ Material.coral, Material.leaves, Material.plants, Material.wood };
 
-    public static int getMode(ItemStack tool
-    ) {
+    public static int getMode(ItemStack tool)
+    {
         return tool.getItemDamage();
     }
 
@@ -41,7 +41,8 @@ public final class ToolCapabilities
     {
         for (Material mat : materialsListing)
         {
-            if (material == mat) {
+            if (material == mat)
+            {
                 return true;
             }
         }
@@ -51,6 +52,7 @@ public final class ToolCapabilities
     public static void removeBlocksInIteration(EntityPlayer player, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze, Block block, Material[] materialsListing)
     {
         float blockHardness = (block == null) ? 1.0f : block.getBlockHardness(world, x, y, z);
+
         for (int x1 = xs; x1 < xe; x1++)
         {
             for (int y1 = ys; y1 < ye; y1++)
@@ -79,19 +81,23 @@ public final class ToolCapabilities
 
         int meta = world.getBlockMetadata(x, y, z);
         Material mat = world.getBlock(x, y, z).getMaterial();
+
         if (blk != null && !blk.isAir(world, x, y, z) && ((blk.getPlayerRelativeBlockHardness(player, world, x, y, z) != 0)))
         {
             if (!blk.canHarvestBlock(player, meta) || !isRightMaterial(mat, materialsListing))
             {
                 return;
             }
+
             if (!player.capabilities.isCreativeMode)
             {
                 int localMeta = world.getBlockMetadata(x, y, z);
+
                 if (blk.removedByPlayer(world, player, x, y, z))
                 {
                     blk.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
                 }
+
                 blk.harvestBlock(world, player, x, y, z, localMeta);
                 blk.onBlockHarvested(world, x, y, z, localMeta, player);
             } 
@@ -111,14 +117,17 @@ public final class ToolCapabilities
     {
         Block blk = world.getBlock(x, y, z);
         int metadata = world.getBlockMetadata(x, y, z);
+
         if (blk == Blocks.air)
         {
             return false;
         }
+
         if (blk.canSustainLeaves(world, x, y, z))
         {
             return true;
         }
+
         if (InfusedDiamondAxe.oreDictLogs.contains(Arrays.asList(new Object[]{blk, Integer.valueOf(metadata)})))
         {
             return true;
@@ -136,6 +145,7 @@ public final class ToolCapabilities
         findBlocks(world, x, y, z, block);
 
         boolean worked = harvestBlock(world, player, lastx, lasty, lastz);
+
         if (worked)
         {
             for (int xx = -3; xx <= 3; xx++)
@@ -155,6 +165,7 @@ public final class ToolCapabilities
     private static void findBlocks(World world, int x, int y, int z, Block block)
     {
         int count = 0;
+
         for (int xx = -2; xx <= 2; xx++)
         {
             for (int yy = 2; yy >= -2; yy--)
@@ -165,20 +176,24 @@ public final class ToolCapabilities
                     {
                         return;
                     }
+
                     if (Math.abs(lasty + yy - y) > 48)
                     {
                         return;
                     }
+
                     if (Math.abs(lastz + zz - z) > 24)
                     {
                         return;
                     }
+
                     if ((world.getBlock(lastx + xx, lasty + yy, lastz + zz) == block) && (isWood(world, lastx + xx, lasty + yy, lastz + zz)) && (block.getBlockHardness(world, lastx + xx, lasty + yy, lastz + zz) >= 0.0F))
                     {
                         double xd = lastx + xx - x;
                         double yd = lasty + yy - y;
                         double zd = lastz + zz - z;
                         double d = xd * xd + yd * yd + zd * zd;
+
                         if (d > lastdistance)
                         {
                             lastdistance = d;
@@ -198,13 +213,16 @@ public final class ToolCapabilities
     {
         Block block = world.getBlock(x, y, z);
         int metadata = world.getBlockMetadata(x, y, z);
+
         if (block.getBlockHardness(world, x, y, z) < 0.0F)
         {
             return false;
         }
+
         world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (metadata << 12));
 
         boolean flag = false;
+
         if (player.capabilities.isCreativeMode)
         {
             flag = removeBlock(world, x, y, z, player);
@@ -212,12 +230,14 @@ public final class ToolCapabilities
         else
         {
             boolean flag1 = false;
+
             if (block != null)
             {
                 flag1 = block.canHarvestBlock(player, metadata);
             }
             flag = removeBlock(world, x, y, z, player);
-            if ((flag) && (flag1))
+
+            if (flag && flag1)
             {
                 block.harvestBlock(world, player, x, y, z, metadata);
             }
@@ -229,12 +249,15 @@ public final class ToolCapabilities
     {
         Block block = world.getBlock(par1, par2, par3);
         int metadata = world.getBlockMetadata(par1, par2, par3);
+
         if (block != null)
         {
             block.onBlockHarvested(world, par1, par2, par3, metadata, player);
         }
+
         boolean flag = (block != null) && (block.removedByPlayer(world, player, par1, par2, par3));
-        if ((block != null) && (flag))
+
+        if (block != null && flag)
         {
             block.onBlockDestroyedByPlayer(world, par1, par2, par3, metadata);
         }

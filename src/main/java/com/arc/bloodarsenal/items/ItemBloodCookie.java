@@ -32,7 +32,7 @@ public class ItemBloodCookie extends ItemFood
     {
         if (!par2World.isRemote)
         {
-            par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.regeneration.id, 2, 0));
+            par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.regeneration.id, 20, 2));
         }
         else
         {

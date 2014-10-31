@@ -16,6 +16,8 @@ public class ModBlocks
     public static Block blood_stained_ice_packed;
     public static Block blood_infused_iron_block;
     public static Block blood_door_wood;
+    public static Block blood_door_iron;
+    public static Block blood_cake;
 
     public static void init()
     {
@@ -28,6 +30,8 @@ public class ModBlocks
         blood_stained_ice_packed = new BlockBloodStainedPackedIce();
         blood_infused_iron_block = new BlockInfusedIron();
         blood_door_wood = new BlockInfusedWoodenDoor();
+        blood_door_iron = new BlockInfusedIronDoor();
+        blood_cake = new BlockBloodCake();
     }
 
     public static void registerBlocksInPre()
@@ -41,5 +45,7 @@ public class ModBlocks
         GameRegistry.registerBlock(ModBlocks.blood_stained_ice_packed, "blood_stained_ice_packed");
         GameRegistry.registerBlock(ModBlocks.blood_infused_iron_block, "blood_infused_iron_block");
         GameRegistry.registerBlock(ModBlocks.blood_door_wood, "blood_door_wood");
+        GameRegistry.registerBlock(ModBlocks.blood_door_iron, "blood_door_iron");
+        GameRegistry.registerBlock(ModBlocks.blood_cake, "blood_cake");
     }
 }

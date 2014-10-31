@@ -1,11 +1,16 @@
 package com.arc.bloodarsenal.items;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
+import com.arc.bloodarsenal.BloodArsenal;
+import com.arc.bloodarsenal.blocks.ModBlocks;
+import com.arc.bloodarsenal.items.armor.VampireCostume;
+import com.arc.bloodarsenal.items.bauble.VampireRing;
 import com.arc.bloodarsenal.items.block.*;
 import com.arc.bloodarsenal.items.tool.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemReed;
 
 public class ModItems
 {
@@ -35,13 +40,18 @@ public class ModItems
     public static Item heart;
     public static Item soul_fragment;
     public static Item item_blood_door_wood;
-    public static Item blood_door_iron;
+    public static Item item_blood_door_iron;
     public static Item bound_flint_and_steel;
     public static Item soul_booster;
     public static Item soul_nullifier;
     public static Item blood_cookie;
     public static Item orange_juice;
     public static Item juice_and_cookies;
+    public static Item item_blood_cake;
+    public static Item vampire_cape;
+    public static Item vampire_greaves;
+    public static Item vampire_boots;
+    public static Item vampire_ring;
 
     public static void init()
     {
@@ -70,13 +80,19 @@ public class ModItems
         blood_infused_sword_diamond = new InfusedDiamondSword();
         heart = new ItemHeart();
         soul_fragment = new ItemSoulFragment();
-        item_blood_door_wood = new BloodDoorWood(Material.wood);
+        item_blood_door_wood = new BloodDoor(Material.wood).setUnlocalizedName("item_blood_door_wood").setTextureName("BloodArsenal:item_blood_door_wood");
+        item_blood_door_iron = new BloodDoor(Material.iron).setUnlocalizedName("item_blood_door_iron").setTextureName("BloodArsenal:item_blood_door_iron");
         bound_flint_and_steel = new BoundFlintAndSteel();
         soul_booster = new ItemSoulBooster();
         soul_nullifier = new ItemSoulNullifier();
         blood_cookie = new ItemBloodCookie();
         orange_juice = new ItemOrangeJuice();
         juice_and_cookies = new ItemJuiceAndCookies();
+        item_blood_cake = new ItemReed(ModBlocks.blood_cake).setUnlocalizedName("item_blood_cake").setTextureName("BloodArsenal:item_blood_cake").setCreativeTab(BloodArsenal.BA_TAB);
+        vampire_cape = new VampireCostume(1).setUnlocalizedName("vampire_cape");
+        vampire_greaves = new VampireCostume(2).setUnlocalizedName("vampire_greaves");
+        vampire_boots = new VampireCostume(3).setUnlocalizedName("vampire_boots");
+        vampire_ring = new VampireRing();
     }
 
     public static void registerItems()
@@ -107,11 +123,16 @@ public class ModItems
         GameRegistry.registerItem(ModItems.heart, "heart");
         GameRegistry.registerItem(ModItems.soul_fragment, "soul_fragment");
         GameRegistry.registerItem(ModItems.item_blood_door_wood, "item_blood_door_wood");
+        GameRegistry.registerItem(ModItems.item_blood_door_iron, "item_blood_door_iron");
         GameRegistry.registerItem(ModItems.bound_flint_and_steel, "bound_flint_and_steel");
         GameRegistry.registerItem(ModItems.soul_booster, "soul_booster");
         GameRegistry.registerItem(ModItems.soul_nullifier, "soul_nullfier");
         GameRegistry.registerItem(ModItems.blood_cookie, "blood_cookie");
         GameRegistry.registerItem(ModItems.orange_juice, "orange_juice");
         GameRegistry.registerItem(ModItems.juice_and_cookies, "juice_and_cookies");
+        GameRegistry.registerItem(ModItems.vampire_cape, "vampire_cape");
+        GameRegistry.registerItem(ModItems.vampire_greaves, "vampire_greaves");
+        GameRegistry.registerItem(ModItems.vampire_boots, "vampire_boots");
+        GameRegistry.registerItem(ModItems.vampire_ring, "vampire_ring");
     }
 }

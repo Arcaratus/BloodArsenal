@@ -2,45 +2,50 @@ package com.arc.bloodarsenal.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
 
-public class TileOwned extends TileBloodArsenal
+public class TileOwned extends TileEntity
 {
-    public String owner = "";
-    public ArrayList<String> accessList = new ArrayList();
+    public String owner;
 
+    public TileOwned()
+    {
+        owner = "";
+    }
+
+    @Override
     public boolean canUpdate()
     {
         return false;
     }
 
+    public void setOwner(String owner)
+    {
+        this.owner = owner;
+    }
+
+    public String getOwner()
+    {
+        return owner;
+    }
+
+    @Override
     public void readFromNBT(NBTTagCompound nbttagcompound)
     {
         super.readFromNBT(nbttagcompound);
-        this.owner = nbttagcompound.getString("owner");
-
-        NBTTagList var2 = nbttagcompound.getTagList("access", 10);
-        this.accessList = new ArrayList();
-        for (int var3 = 0; var3 < var2.tagCount(); var3++)
-        {
-            NBTTagCompound var4 = var2.getCompoundTagAt(var3);
-            this.accessList.add(var4.getString("name"));
-        }
+        owner = nbttagcompound.getString("owner");
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound nbttagcompound)
     {
         super.writeToNBT(nbttagcompound);
-
-        NBTTagList var2 = new NBTTagList();
-        for (int var3 = 0; var3 < this.accessList.size(); var3++)
-        {
-            NBTTagCompound var4 = new NBTTagCompound();
-            var4.setString("name", (String)this.accessList.get(var3));
-            var2.appendTag(var4);
-        }
-        nbttagcompound.setTag("access", var2);
+        nbttagcompound.setString("owner", owner);
     }
 
     public void readCustomNBT(NBTTagCompound nbttagcompound)
@@ -53,8 +58,18 @@ public class TileOwned extends TileBloodArsenal
         nbttagcompound.setString("owner", this.owner);
     }
 
-    public String getOwner()
+    @Override
+    public Packet getDescriptionPacket()
     {
-        return this.owner;
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        writeCustomNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, nbttagcompound);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    {
+        super.onDataPacket(net, pkt);
+        readCustomNBT(pkt.func_148857_g());
     }
 }

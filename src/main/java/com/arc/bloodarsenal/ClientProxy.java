@@ -1,23 +1,30 @@
 package com.arc.bloodarsenal;
 
-import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
-import com.arc.bloodarsenal.items.ModItems;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.world.World;
 
 public class ClientProxy extends CommonProxy
 {
     @Override
     public void registerRenders()
     {
-
     }
 
-    public static class BloodArsenalRecipes extends BindingRegistry
+    public void registerEntities()
     {
-        public static void initBindingRecipes()
-        {
-            BindingRegistry.registerRecipe(new ItemStack(ModItems.bound_bow), new ItemStack(Items.bow));
-        }
+    }
+
+    public void registerEvents()
+    {
+    }
+
+    public World getClientWorld()
+    {
+        return null;
+    }
+
+    public ModelBiped getArmorModel(int id)
+    {
+        return null;
     }
 }

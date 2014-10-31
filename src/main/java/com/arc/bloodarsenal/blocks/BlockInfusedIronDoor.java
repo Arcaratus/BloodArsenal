@@ -2,7 +2,7 @@ package com.arc.bloodarsenal.blocks;
 
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import WayofTime.alchemicalWizardry.common.items.EnergyBattery;
+import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.items.ModItems;
 import com.arc.bloodarsenal.tileentity.TileOwned;
 import cpw.mods.fml.relauncher.Side;
@@ -12,11 +12,8 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.IconFlipped;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -25,19 +22,19 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockInfusedWoodenDoor extends BlockContainer
+public class BlockInfusedIronDoor extends BlockContainer
 {
     @SideOnly(Side.CLIENT)
     private IIcon[] doorUp;
     @SideOnly(Side.CLIENT)
     private IIcon[] doorDown;
 
-    public BlockInfusedWoodenDoor()
+    public BlockInfusedIronDoor()
     {
-        super(Material.wood);
-        setHardness(4.0F);
-        setResistance(6.0F);
-        setStepSound(soundTypeWood);
+        super(Material.iron);
+        setHardness(8.0F);
+        setResistance(12.0F);
+        setStepSound(soundTypeMetal);
         disableStats();
         float f = 0.5F;
         float f1 = 1.0F;
@@ -117,8 +114,8 @@ public class BlockInfusedWoodenDoor extends BlockContainer
     {
         doorUp = new IIcon[2];
         doorDown = new IIcon[2];
-        doorUp[0] = iconRegister.registerIcon("BloodArsenal:blood_door_wood_upper");
-        doorDown[0] = iconRegister.registerIcon("BloodArsenal:blood_door_wood_lower");
+        doorUp[0] = iconRegister.registerIcon("BloodArsenal:blood_door_iron_upper");
+        doorDown[0] = iconRegister.registerIcon("BloodArsenal:blood_door_iron_lower");
         doorUp[1] = new IconFlipped(doorUp[0], true, false);
         doorDown[1] = new IconFlipped(doorDown[0], true, false);
     }
@@ -132,13 +129,13 @@ public class BlockInfusedWoodenDoor extends BlockContainer
     @Override
     public Item getItemDropped(int i, Random random, int j)
     {
-        return (i & 8) != 0 ? null : (ModItems.item_blood_door_wood);
+        return (i & 8) != 0 ? null : (ModItems.item_blood_door_iron);
     }
 
     @SideOnly(Side.CLIENT)
     public Item getItem(World world, int x, int y, int z)
     {
-        return ModItems.item_blood_door_wood;
+        return ModItems.item_blood_door_iron;
     }
 
     @Override
@@ -298,60 +295,15 @@ public class BlockInfusedWoodenDoor extends BlockContainer
         }
         else if (!tileEntity.owner.equals(playerName))
         {
-            player.hurtTime = 2;
+
             player.addChatMessage(new ChatComponentTranslation("You feel an odd draining sensation as the door actively resists you."));
-        }
-    }
+            player.setHealth(player.getHealth() - 1);
 
-    @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
-    {
-        TileOwned tileEntity = (TileOwned) world.getTileEntity(x, y, z);
-        tileEntity.setOwner(tileEntity.owner);
-
-        if (player.getCommandSenderName().equals(tileEntity.owner))
-        {
-            int i1 = getFullMetadata(world, x, y, z);
-            int j1 = i1 & 7;
-            j1 ^= 4;
-
-            World worldSave = MinecraftServer.getServer().worldServers[0];
-            LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, tileEntity.owner);
-
-            if (data == null)
+            if (player.getHealth() <= 0.0005f)
             {
-                data = new LifeEssenceNetwork(tileEntity.owner);
-                worldSave.setItemData(tileEntity.owner, data);
-            }
-
-            int currentEssence = data.currentEssence;
-
-            if (currentEssence < 10)
-            {
-                player.addChatMessage(new ChatComponentText("You are too weak to open the door."));
-            }
-            else
-            {
-                if ((i1 & 8) == 0)
-                {
-                    world.setBlockMetadataWithNotify(x, y, z, j1, 2);
-                    world.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
-                }
-                else
-                {
-                    world.setBlockMetadataWithNotify(x, y - 1, z, j1, 2);
-                    world.markBlockRangeForRenderUpdate(x, y - 1, z, x, y, z);
-                }
-
-                world.playAuxSFXAtEntity(player, 1003, x, y, z, 0);
-                SoulNetworkHandler.syphonFromNetwork(tileEntity.owner, 5);
+                player.onDeath(BloodArsenal.deathFromBlood);
             }
         }
-        else
-        {
-            player.addChatComponentMessage(new ChatComponentTranslation("The door is locked."));
-        }
-        return true;
     }
 
     @Override

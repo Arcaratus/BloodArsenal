@@ -29,7 +29,7 @@ public class ItemSoulNullifier extends Item implements IBindable
     @Override
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
-        EnergyItems.checkAndSetItemOwner(par1ItemStack, par3EntityPlayer);
+/*        EnergyItems.checkAndSetItemOwner(par1ItemStack, par3EntityPlayer);
 
         setActivated(par1ItemStack, !getActivated(par1ItemStack));
 
@@ -43,11 +43,12 @@ public class ItemSoulNullifier extends Item implements IBindable
         {
             return par1ItemStack;
         }
+*/
 
         return par1ItemStack;
     }
 
-/*    @Override
+    @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
     {
         if (!(par3Entity instanceof EntityPlayer))
@@ -86,11 +87,8 @@ public class ItemSoulNullifier extends Item implements IBindable
 
                 if (!par3EntityPlayer.isPotionActive(AlchemicalWizardry.customPotionSoulFray.id))
                 {
-                    if (!par2World.isRemote)
-                    {
-                        par3EntityPlayer.removePotionEffect(id);
-                        EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, 100);
-                    }
+                    par3EntityPlayer.removePotionEffect(id);
+                    EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, 100);
                 }
                 else
                 {
@@ -99,7 +97,7 @@ public class ItemSoulNullifier extends Item implements IBindable
             }
         }
     }
-*/
+
     public void setActivated(ItemStack par1ItemStack, boolean newActivated)
     {
         NBTTagCompound itemTag = par1ItemStack.stackTagCompound;

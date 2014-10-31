@@ -8,7 +8,6 @@ import com.arc.bloodarsenal.items.ModItems;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -24,6 +23,7 @@ public class BloodArsenalRecipes
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_diamond_active), new ItemStack(ModItems.blood_infused_diamond_unactive), 4, 50000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.soul_fragment), new ItemStack(ModItems.heart), 4, 10000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_cookie), new ItemStack(Items.cookie), 1, 2000, 5, 5, false);
+        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_cake), new ItemStack(Blocks.cake), 4, 10000, 5, 5, false);
     }
 
     public static void registerBindingRecipes()
@@ -33,6 +33,10 @@ public class BloodArsenalRecipes
         BindingRegistry.registerRecipe(new ItemStack(ModItems.bound_shears), new ItemStack(Items.shears));
         BindingRegistry.registerRecipe(new ItemStack(ModItems.blood_infused_diamond_bound), new ItemStack(ModItems.blood_infused_diamond_active));
         BindingRegistry.registerRecipe(new ItemStack(ModItems.bound_flint_and_steel), new ItemStack(Items.flint_and_steel));
+        //Temporary
+        BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_cape), new ItemStack(Items.leather_chestplate));
+        BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_greaves), new ItemStack(Items.leather_leggings));
+        BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_boots), new ItemStack(Items.leather_boots));
     }
 
     public static void registerOrbRecipes()
@@ -67,6 +71,7 @@ public class BloodArsenalRecipes
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_sword_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_sword_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb));
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.soul_booster), "aaa", "aba", "aca", 'a', ModItems.soul_fragment, 'b', Blocks.beacon, 'c', masterOrb));
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.soul_nullifier), "aaa", "aba", "aca", 'a', ModItems.soul_fragment, 'b', WayofTime.alchemicalWizardry.ModItems.armourInhibitor, 'c', masterOrb));
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.vampire_ring),"ab ", "bcb", " b ", 'a', ModItems.blood_infused_diamond_bound, 'b', Blocks.stone, 'c', masterOrb));
     }
 
     public static void registerRecipes()
@@ -74,6 +79,7 @@ public class BloodArsenalRecipes
         GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_door_wood), "aa", "aa", "aa", 'a', ModBlocks.blood_infused_planks);
         GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_stained_ice_packed), "aa", "aa", 'a', ModBlocks.blood_stained_ice);
         GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_door_wood), "aa", "aa", "aa", 'a', ModBlocks.blood_infused_planks);
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_door_iron), "aa", "aa", "aa", 'a', ModItems.blood_infused_iron);
         GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_stick), "a", "a", 'a', ModBlocks.blood_infused_planks);
         GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_pickaxe_wood), "aaa", " b ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
         GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_axe_wood), "aa ", "ab ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
