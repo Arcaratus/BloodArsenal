@@ -14,6 +14,7 @@ tile.blood_infused_wood.name=注血原木
 tile.blood_infused_planks.name=注血木板
 tile.blood_infused_iron_block.name=注血铁块
 tile.blood_door_wood.name=注血木门
+tile.blood_door_iron.name=注血铁门
 
 #Items
 item.bound_bow.name=约束之弓
@@ -41,6 +42,7 @@ item.blood_infused_shovel_diamond.name=注血钻石铲
 item.blood_infused_sword_diamond.name=注血钻石剑 [WIP]
 item.heart.name=生命之心
 item.item_blood_door_wood.name=注血木门
+item.item_blood_door_iron.name=注血铁门
 item.bound_flint_and_steel.name=约束打火石
 item.soul_fragment.name=灵魂碎片
 item.soul_booster.name=增益灵魂之石
@@ -48,3 +50,10 @@ item.soul_nullifier.name=减益灵魂之石 [WIP]
 item.blood_cookie.name=染血曲奇
 item.orange_juice.name=橙汁
 item.juice_and_cookies.name=橙汁和曲奇
+item.vampire_cape.name=吸血鬼斗篷
+item.vampire_greaves.name=吸血鬼护胫
+item.vampire_boots.name=吸血鬼靴子
+item.vampire_ring.name=吸血鬼指环
+
+#Death Texts
+death.attack.deathFromBlood=%1$s失血过多而死
