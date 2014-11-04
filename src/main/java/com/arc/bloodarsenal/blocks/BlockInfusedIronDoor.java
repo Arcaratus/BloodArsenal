@@ -1,7 +1,5 @@
 package com.arc.bloodarsenal.blocks;
 
-import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
-import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.items.ModItems;
 import com.arc.bloodarsenal.tileentity.TileOwned;
@@ -14,7 +12,6 @@ import net.minecraft.client.renderer.IconFlipped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
@@ -287,16 +284,19 @@ public class BlockInfusedIronDoor extends BlockContainer
         if (tileEntity.owner.equals(null))
         {
             tileEntity.setOwner(playerName);
-            player.addChatMessage(new ChatComponentTranslation("Door successfully bounded to you!"));
+	        if (!world.isRemote)
+                player.addChatMessage(new ChatComponentTranslation("Door successfully bounded to you!"));
         }
         else if (tileEntity.owner.equals(playerName))
         {
-            player.addChatMessage(new ChatComponentTranslation("Door is already bound to you!"));
+	        if (!world.isRemote)
+                player.addChatMessage(new ChatComponentTranslation("Door is already bound to you!"));
         }
         else if (!tileEntity.owner.equals(playerName))
         {
 
-            player.addChatMessage(new ChatComponentTranslation("You feel an odd draining sensation as the door actively resists you."));
+	        if (!world.isRemote)
+                player.addChatMessage(new ChatComponentTranslation("You feel an odd draining sensation as the door actively resists you."));
             player.setHealth(player.getHealth() - 1);
 
             if (player.getHealth() <= 0.0005f)
