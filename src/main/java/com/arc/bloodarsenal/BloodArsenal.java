@@ -26,11 +26,11 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-@Mod(modid="BloodArsenal", version="0.8.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
+@Mod(modid="BloodArsenal", version="1.0.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
 public class BloodArsenal
 {
     public static String MODID = "BloodArsenal";
-    public static String VERSION = "0.8.0";
+    public static String VERSION = "1.0.0";
     public static String NAME = "Blood Arsenal";
 
     @SidedProxy(clientSide = "com.arc.bloodarsenal.ClientProxy", serverSide = "com.arc.bloodarsenal.CommonProxy")
