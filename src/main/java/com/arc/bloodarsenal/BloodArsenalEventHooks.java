@@ -1,5 +1,6 @@
 package com.arc.bloodarsenal;
 
+import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,4 +25,14 @@ public class BloodArsenalEventHooks
             }
         }
     }
+
+	@SubscribeEvent
+	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
+	{
+		if (event.modID.equals(BloodArsenal.MODID))
+		{
+			BloodArsenalConfig.syncConfig();
+			BloodArsenal.logger.info("Refreshing configuration file.");
+		}
+	}
 }

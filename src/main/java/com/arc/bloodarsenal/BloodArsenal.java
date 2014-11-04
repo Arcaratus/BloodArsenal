@@ -19,12 +19,14 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-@Mod(modid="BloodArsenal", version="0.8.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime")
+@Mod(modid="BloodArsenal", version="0.8.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
 public class BloodArsenal
 {
     public static String MODID = "BloodArsenal";
@@ -49,6 +51,7 @@ public class BloodArsenal
 
     public static boolean isBaublesLoaded;
 
+	public static Logger logger = LogManager.getLogger(MODID);
     public static CreativeTabs BA_TAB = new CreativeTabs("BA_TAB")
     {
         @Override
@@ -63,39 +66,40 @@ public class BloodArsenal
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        ModBlocks.init();
-        ModBlocks.registerBlocksInPre();
+	    BloodArsenalConfig.init(new File(event.getModConfigurationDirectory(), "BloodArsenal.cfg"));
 
-        ModItems.init();
-        ModItems.registerItems();
+	    ModBlocks.init();
+	    ModBlocks.registerBlocksInPre();
 
-        Potion[] potionTypes = null;
+	    ModItems.init();
+	    ModItems.registerItems();
 
-        for (Field f : Potion.class.getDeclaredFields())
+	    Potion[] potionTypes = null;
+
+	    for (Field f : Potion.class.getDeclaredFields())
         {
-            f.setAccessible(true);
+	        f.setAccessible(true);
 
-            try
+	        try
             {
-                if (f.getName().equals("potionTypes") || f.getName().equals("field_76425_a"))
+	            if (f.getName().equals("potionTypes") || f.getName().equals("field_76425_a"))
                 {
-                    Field modfield = Field.class.getDeclaredField("modifiers");
-                    modfield.setAccessible(true);
-                    modfield.setInt(f, f.getModifiers() & ~Modifier.FINAL);
-                    potionTypes = (Potion[]) f.get(null);
-                    final Potion[] newPotionTypes = new Potion[256];
-                    System.arraycopy(potionTypes, 0, newPotionTypes, 0, potionTypes.length);
-                    f.set(null, newPotionTypes);
+	                Field modfield = Field.class.getDeclaredField("modifiers");
+	                modfield.setAccessible(true);
+	                modfield.setInt(f, f.getModifiers() & ~Modifier.FINAL);
+	                potionTypes = (Potion[]) f.get(null);
+	                final Potion[] newPotionTypes = new Potion[256];
+	                System.arraycopy(potionTypes, 0, newPotionTypes, 0, potionTypes.length);
+	                f.set(null, newPotionTypes);
                 }
             }
             catch (Exception e)
             {
-                System.err.println("Severe error, please report this to the mod author:");
-                System.err.println(e);
+	            logger.error("Severe error, please report this to the mod author:");
+	            logger.error(e);
             }
         }
 
-        BloodArsenalConfig.init(new File(event.getModConfigurationDirectory(), "BloodArsenal.cfg"));
 
         Object dropsEvent = new ModLivingDropsEvent();
         MinecraftForge.EVENT_BUS.register(dropsEvent);
@@ -125,12 +129,12 @@ public class BloodArsenal
     {
         if (Loader.isModLoaded("Baubles"))
         {
-            this.isBaublesLoaded = true;
-            System.out.println("Loaded Baubles integration");
+            isBaublesLoaded = true;
+            logger.info("Loaded Baubles integration");
         }
         else
         {
-            this.isBaublesLoaded = false;
+            isBaublesLoaded = false;
         }
     }
 }

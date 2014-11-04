@@ -137,9 +137,11 @@ public class BoundFlintAndSteel extends Item implements IBindable
                     world.setBlock(x, y, z, Blocks.fire);
                 }
             }
+
+	        return true;
         }
 
-        return true;
+        return false;
     }
 
     @Override

@@ -7,12 +7,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -134,17 +136,20 @@ public class BlockBloodCake extends Block
             {
                 player.getFoodStats().addStats(2, 1.5F);
                 SoulNetworkHandler.syphonFromNetwork(owner, 200);
-                player.addChatMessage(new ChatComponentText("Omm nom nom"));
+	            if (!world.isRemote)
+                    player.addChatMessage(new ChatComponentText("Omm nom nom"));
             }
             else if (player.canEat(true))
             {
-                player.addChatMessage(new ChatComponentText("You are too full to eat any cake"));
+	            if (!world.isRemote)
+                    player.addChatMessage(new ChatComponentText("You are too full to eat any cake"));
             }
         }
         else
         {
             player.setHealth(player.getHealth() - 2);
-            player.addChatMessage(new ChatComponentText("The cake is a lie!"));
+	        if (!world.isRemote)
+                player.addChatMessage(new ChatComponentText("The cake is a lie!"));
         }
     }
 

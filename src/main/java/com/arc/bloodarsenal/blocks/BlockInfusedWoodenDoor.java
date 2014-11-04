@@ -2,7 +2,6 @@ package com.arc.bloodarsenal.blocks;
 
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import WayofTime.alchemicalWizardry.common.items.EnergyBattery;
 import com.arc.bloodarsenal.items.ModItems;
 import com.arc.bloodarsenal.tileentity.TileOwned;
 import cpw.mods.fml.relauncher.Side;
@@ -12,11 +11,8 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.IconFlipped;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -290,16 +286,19 @@ public class BlockInfusedWoodenDoor extends BlockContainer
         if (tileEntity.owner.equals(null))
         {
             tileEntity.setOwner(playerName);
-            player.addChatMessage(new ChatComponentTranslation("Door successfully bounded to you!"));
+	        if (!world.isRemote)
+	            player.addChatMessage(new ChatComponentText("Door successfully bounded to you!"));
         }
         else if (tileEntity.owner.equals(playerName))
         {
-            player.addChatMessage(new ChatComponentTranslation("Door is already bound to you!"));
+	        if (!world.isRemote)
+                player.addChatMessage(new ChatComponentText("Door is already bound to you!"));
         }
         else if (!tileEntity.owner.equals(playerName))
         {
             player.hurtTime = 2;
-            player.addChatMessage(new ChatComponentTranslation("You feel an odd draining sensation as the door actively resists you."));
+	        if (!world.isRemote)
+                player.addChatMessage(new ChatComponentText("You feel an odd draining sensation as the door actively resists you."));
         }
     }
 
@@ -328,7 +327,8 @@ public class BlockInfusedWoodenDoor extends BlockContainer
 
             if (currentEssence < 10)
             {
-                player.addChatMessage(new ChatComponentText("You are too weak to open the door."));
+	            if (!world.isRemote)
+                    player.addChatMessage(new ChatComponentText("You are too weak to open the door."));
             }
             else
             {
@@ -349,7 +349,8 @@ public class BlockInfusedWoodenDoor extends BlockContainer
         }
         else
         {
-            player.addChatComponentMessage(new ChatComponentTranslation("The door is locked."));
+	        if (!world.isRemote)
+                player.addChatComponentMessage(new ChatComponentTranslation("The door is locked."));
         }
         return true;
     }
