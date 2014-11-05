@@ -11,17 +11,16 @@ buildscript {
 }
 
 apply plugin: 'forge'
+apply plugin: 'maven-publish'
 
-ext.configFile = file "build.properties"
-configFile.withReader {
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
-}
+def build_number = 'CUSTOM'
 
-version = config.mc_version + "-" + config.mod_version + "-" + config.build_number
-group= config.package_group
-archivesBaseName = config.mod_name
+if (System.getenv('BUILD_NUMBER') != null)
+    build_number = System.getenv('BUILD_NUMBER')
+
+group = package_group
+archivesBaseName = mod_name
+version = "${mc_version}-${mod_version}-${build_number}"
 
 import org.ajoberstar.grgit.Grgit
 
@@ -31,8 +30,16 @@ if (new File(projectDir, '.git').exists()) {
     gitHash = repo.log().find().abbreviatedId
 }
 
+repositories {
+
+}
+
+dependencies {
+
+}
+
 minecraft {
-    version = config.mc_version + "-" + config.forge_version
+    version = "${mc_version}-${forge_version}"
     runDir = "run"
 
     if (project.hasProperty('mappings_version'))
@@ -52,13 +59,11 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
         exclude '**/*.properties'
-		exclude '**/*.db'
     }
 }
 
 jar {
-    dependsOn "incrementBuildNumber"
-	classifier = ''
+    classifier = ''
     manifest.mainAttributes(
             "Built-By": System.getProperty('user.name'),
             "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
@@ -92,18 +97,21 @@ tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
 }
 
-task("incrementBuildNumber") {
-	// increment build number
-	doFirst {
-		// increment
-		config.build_number = (config.build_number.toString().toInteger()) + 1
-
-		// write back to the file
-		configFile.withWriter {
-			config.toProperties().store(it, "")
-		}
-	}
+publishing {
+    tasks.publish.dependsOn 'build'
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourceJar
+            artifact javadocJar
+            artifact deobfJar
+        }
+    }
+    repositories {
+        if (project.hasProperty('maven_repo')) {
+            maven { url maven_repo }
+        } else {
+            mavenLocal()
+        }
+    }
 }
-
-// Uncomment this line if you want to auto-upload to CurseForge when you build. This requires you to setup curse.gradle yourself.
-// fileTree('gradle').include('curse.gradle').collect().sort().each { apply from: it }
