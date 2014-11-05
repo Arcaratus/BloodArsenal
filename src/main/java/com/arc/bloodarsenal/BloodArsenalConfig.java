@@ -8,8 +8,6 @@ public class BloodArsenalConfig
 {
     public static Configuration config;
 
-	public static boolean exampleBoolean;
-
     public static void init(File configFile)
     {
         config = new Configuration(configFile);
@@ -17,14 +15,12 @@ public class BloodArsenalConfig
         try
         {
             config.load();
-	        syncConfig();
-
-	        config.addCustomCategoryComment("Example Section", "This is an example section. Isn't it wonderful?");
+            syncConfig();
         }
         catch (Exception e)
         {
-	        BloodArsenal.logger.error("Configuration loading has failed. Please report this.");
-			BloodArsenal.logger.error(e);
+            BloodArsenal.logger.error("Configuration loading has failed. Please report this.");
+            BloodArsenal.logger.error(e);
         }
         finally
         {
@@ -32,12 +28,19 @@ public class BloodArsenalConfig
         }
     }
 
-	public static void syncConfig()
-	{
-		// Options go here
+    public static void syncConfig()
+    {
+//        BloodArsenal.vampiricAuraID = config.get("Potion ID", "Vampiric Aura", 150).getInt();
+//        BloodArsenal.bleedingID = config.get("Potion ID", "Bleeding", 151).getInt();
+//        BloodArsenal.swimmingID = config.get("Potion ID", "Swimming", 122).getInt();
 
-		exampleBoolean = config.get("Example Section", "exampleBoolean", true, "This is an example.").getBoolean(exampleBoolean);
+        BloodArsenal.diamondToolsAllowed = config.get("Tool Settings", "Are Infused Diamond tools allowed", true).getBoolean();
 
-		config.save();
-	}
+        BloodArsenal.ritualDisabledWither = config.get("Ritual Blacklist", "Ritual of Withering", false).getBoolean(false);
+        BloodArsenal.ritualDisabledMidas = config.get("Ritual Blacklist", "Midas Touch", false).getBoolean(false);
+
+        BloodArsenal.isRedGood = config.get("Misc", "Is RED > PURPLE?", false).getBoolean(false);
+
+        config.save();
+    }
 }
