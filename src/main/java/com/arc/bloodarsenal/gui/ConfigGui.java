@@ -10,7 +10,7 @@ import net.minecraftforge.common.config.ConfigElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.arc.bloodarsenal.BloodArsenalConfig.config;
+import static com.arc.bloodarsenal.BloodArsenalConfig.*;
 
 public class ConfigGui extends GuiConfig {
 
@@ -23,7 +23,10 @@ public class ConfigGui extends GuiConfig {
 		List<IConfigElement> list = new ArrayList<IConfigElement>();
 
 		// Adds sections declared in BloodArsenalConfig. toLowerCase() is used because the configuration class automatically does this, so must we.
-		list.add(new ConfigElement<ConfigCategory>(config.getCategory("Example Section".toLowerCase())));
+		list.add(new ConfigElement<ConfigCategory>(config.getCategory(misc.toLowerCase())));
+		list.add(new ConfigElement<ConfigCategory>(config.getCategory(potionid.toLowerCase())));
+		list.add(new ConfigElement<ConfigCategory>(config.getCategory(ritualblacklist.toLowerCase())));
+		list.add(new ConfigElement<ConfigCategory>(config.getCategory(toolsetting.toLowerCase())));
 
 		return list;
 	}
