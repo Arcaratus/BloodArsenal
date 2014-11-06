@@ -8,38 +8,51 @@ public class BloodArsenalConfig
 {
     public static Configuration config;
 
-    public static void init(File configFile)
-    {
-        config = new Configuration(configFile);
+	// Config Categories
+	public static String misc = "Miscellaneous";
+	public static String potionid = "Potion ID";
+	public static String ritualblacklist = "Ritual Blacklist";
+	public static String toolsetting = "Tool Settings";
 
-        try
-        {
-            config.load();
-            syncConfig();
-        }
-        catch (Exception e)
-        {
-            BloodArsenal.logger.error("Configuration loading has failed. Please report this.");
-            BloodArsenal.logger.error(e);
-        }
-        finally
-        {
-            config.save();
-        }
-    }
+	// Config Options
+	// Potion ID's
+	public static int bleedingID;
+	public static int swimmingID;
+	public static int vampiricAuraID;
+
+	// Tool Settings
+	public static boolean diamondToolsAllowed;
+
+	// Ritual Blacklist
+	public static boolean ritualDisabledMidas;
+	public static boolean ritualDisabledWither;
+
+	// Miscellaneous
+	public static boolean isRedGood;
+	
+	public static void init(File file)
+	{
+		config = new Configuration(file);
+		syncConfig();
+	}
 
     public static void syncConfig()
     {
-//        BloodArsenal.vampiricAuraID = config.get("Potion ID", "Vampiric Aura", 150).getInt();
-//        BloodArsenal.bleedingID = config.get("Potion ID", "Bleeding", 151).getInt();
-//        BloodArsenal.swimmingID = config.get("Potion ID", "Swimming", 122).getInt();
+	    config.addCustomCategoryComment(potionid, "Change potion ID's here if you have conflicts");
+	    config.addCustomCategoryComment(toolsetting, "Settings for various tools");
+	    config.addCustomCategoryComment(ritualblacklist, "Blacklist rituals that you don't want/like.");
+	    config.addCustomCategoryComment(misc, "Random things'n'stuff.");
 
-        BloodArsenal.diamondToolsAllowed = config.get("Tool Settings", "Are Infused Diamond tools allowed", true).getBoolean();
+        vampiricAuraID = config.get(potionid, "Vampiric Aura", 30).getInt(vampiricAuraID);
+        bleedingID = config.get(potionid, "Bleeding", 31).getInt(bleedingID);
+        swimmingID = config.get(potionid, "Swimming", 32).getInt(swimmingID);
 
-        BloodArsenal.ritualDisabledWither = config.get("Ritual Blacklist", "Ritual of Withering", false).getBoolean(false);
-        BloodArsenal.ritualDisabledMidas = config.get("Ritual Blacklist", "Midas Touch", false).getBoolean(false);
+        diamondToolsAllowed = config.get(toolsetting, "Are Infused Diamond tools allowed", true).getBoolean(diamondToolsAllowed);
 
-        BloodArsenal.isRedGood = config.get("Misc", "Is RED > PURPLE?", false).getBoolean(false);
+        ritualDisabledWither = config.get(ritualblacklist, "Ritual of Withering", false).getBoolean(ritualDisabledWither);
+        ritualDisabledMidas = config.get(ritualblacklist, "Midas Touch", false).getBoolean(ritualDisabledMidas);
+
+        isRedGood = config.get(misc, "Is RED > PURPLE?", false, "Purple is always better than Red. But I won't tell you how to live your life. Even if it is incorrectly.").getBoolean(isRedGood);
 
         config.save();
     }

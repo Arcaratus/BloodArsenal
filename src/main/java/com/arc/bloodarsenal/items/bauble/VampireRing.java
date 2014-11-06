@@ -2,6 +2,7 @@ package com.arc.bloodarsenal.items.bauble;
 
 import baubles.api.BaubleType;
 import com.arc.bloodarsenal.BloodArsenal;
+import com.arc.bloodarsenal.BloodArsenalConfig;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,9 +26,9 @@ public class VampireRing extends ItemBauble
         {
             if (player.getActivePotionEffect(BloodArsenal.vampiricAura) != null)
             {
-                player.removePotionEffect(BloodArsenal.vampiricAuraID);
+                player.removePotionEffect(BloodArsenalConfig.vampiricAuraID);
             }
-            player.addPotionEffect(new PotionEffect(BloodArsenal.vampiricAuraID, Integer.MAX_VALUE, 0, true));
+            player.addPotionEffect(new PotionEffect(BloodArsenalConfig.vampiricAuraID, Integer.MAX_VALUE, 0, true));
         }
     }
 
@@ -38,7 +39,7 @@ public class VampireRing extends ItemBauble
 
         if (effect != null)
         {
-            player.removePotionEffect(BloodArsenal.vampiricAuraID);
+            player.removePotionEffect(BloodArsenalConfig.vampiricAuraID);
         }
     }
 
