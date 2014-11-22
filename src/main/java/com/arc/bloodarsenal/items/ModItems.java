@@ -4,8 +4,9 @@ import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.blocks.ModBlocks;
 import com.arc.bloodarsenal.items.armor.VampireCostume;
-import com.arc.bloodarsenal.items.bauble.VampireRing;
 import com.arc.bloodarsenal.items.block.*;
+import com.arc.bloodarsenal.items.sigil.SigilEnder;
+import com.arc.bloodarsenal.items.sigil.SigilSwimming;
 import com.arc.bloodarsenal.items.tool.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.material.Material;
@@ -52,6 +53,11 @@ public class ModItems
     public static Item vampire_greaves;
     public static Item vampire_boots;
     public static Item vampire_ring;
+    public static Item energy_gatling;
+    public static Item creative_dagger;
+    public static Item sigil_of_swimming;
+    public static Item sigil_of_ender;
+    public static Item blood_infused_glowstone_dust;
 
     public static void init()
     {
@@ -92,7 +98,11 @@ public class ModItems
         vampire_cape = new VampireCostume(1).setUnlocalizedName("vampire_cape");
         vampire_greaves = new VampireCostume(2).setUnlocalizedName("vampire_greaves");
         vampire_boots = new VampireCostume(3).setUnlocalizedName("vampire_boots");
-        vampire_ring = new VampireRing();
+        energy_gatling = new EnergyGatling();
+        creative_dagger = new ItemCreativeDagger();
+        sigil_of_swimming = new SigilSwimming();
+        sigil_of_ender = new SigilEnder();
+        blood_infused_glowstone_dust = new ItemBloodInfusedGlowstoneDust();
     }
 
     public static void registerItems()
@@ -133,6 +143,10 @@ public class ModItems
         GameRegistry.registerItem(ModItems.vampire_cape, "vampire_cape");
         GameRegistry.registerItem(ModItems.vampire_greaves, "vampire_greaves");
         GameRegistry.registerItem(ModItems.vampire_boots, "vampire_boots");
-        GameRegistry.registerItem(ModItems.vampire_ring, "vampire_ring");
+        GameRegistry.registerItem(ModItems.energy_gatling, "energy_gatling");
+        GameRegistry.registerItem(ModItems.creative_dagger, "creative_dagger");
+        GameRegistry.registerItem(ModItems.sigil_of_swimming, "sigil_of_swimming");
+        GameRegistry.registerItem(ModItems.sigil_of_ender, "sigil_of_ender");
+        GameRegistry.registerItem(ModItems.blood_infused_glowstone_dust, "blood_infused_glowstone_dust");
     }
 }

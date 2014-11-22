@@ -43,7 +43,7 @@ public class BlockBloodStone extends Block
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item par1Item, CreativeTabs par2CreativeTabs, List par3List)
     {
-        if(this.equals(ModBlocks.blood_stone))
+        if (this.equals(ModBlocks.blood_stone))
         {
             par3List.add(new ItemStack(par1Item, 1, 0));
             par3List.add(new ItemStack(par1Item, 1, 1));

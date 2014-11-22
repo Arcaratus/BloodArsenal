@@ -1,7 +1,7 @@
 package com.arc.bloodarsenal.blocks;
 
-import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
+import com.arc.bloodarsenal.BloodArsenalConfig;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -10,11 +10,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -26,10 +22,6 @@ public class BlockBloodCake extends Block
     private IIcon cakeTop;
     @SideOnly(Side.CLIENT)
     private IIcon cakeBottom;
-    @SideOnly(Side.CLIENT)
-    private IIcon cakeInner;
-
-    private String owner;
 
     public BlockBloodCake()
     {
@@ -85,7 +77,7 @@ public class BlockBloodCake extends Block
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int par1, int x)
     {
-        return par1 == 1 ? cakeTop : (par1 == 0 ? cakeBottom : (x > 0 && par1 == 4 ? cakeInner : blockIcon));
+        return par1 == 1 ? cakeTop : (par1 == 0 ? cakeBottom : (x > 0 && par1 == 4 ? null : blockIcon));
     }
 
     @Override
@@ -93,7 +85,6 @@ public class BlockBloodCake extends Block
     public void registerBlockIcons(IIconRegister iconRegister)
     {
         blockIcon = iconRegister.registerIcon("BloodArsenal:blood_cake_side");
-        cakeInner = iconRegister.registerIcon("BloodArsenal:cake_inner");
         cakeTop = iconRegister.registerIcon("BloodArsenal:blood_cake_top");
         cakeBottom = iconRegister.registerIcon("BloodArsenal:blood_cake_bottom");
     }
@@ -107,49 +98,37 @@ public class BlockBloodCake extends Block
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
     {
-        eatCake(world, x, y, z, player);
+        eatCake(player);
         return true;
     }
 
     @Override
     public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player)
     {
-        eatCake(world, x, y, z, player);
+        eatCake(player);
     }
 
-    public void eatCake(World world, int x, int y, int z, EntityPlayer player)
+    public void eatCake(EntityPlayer player)
     {
-        World worldSave = MinecraftServer.getServer().worldServers[0];
-        LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
+        String playerEating = player.getCommandSenderName();
 
-        if (data == null)
+        if (player.canEat(false))
         {
-            data = new LifeEssenceNetwork(owner);
-            worldSave.setItemData(owner, data);
-        }
+            player.getFoodStats().addStats(2, 1.5F);
+            SoulNetworkHandler.syphonFromNetwork(playerEating, 200);
 
-        int currentEssence = data.currentEssence;
-
-        if (currentEssence >= 200)
-        {
-            if (player.canEat(false))
+            if (BloodArsenalConfig.cakeIsLie)
             {
-                player.getFoodStats().addStats(2, 1.5F);
-                SoulNetworkHandler.syphonFromNetwork(owner, 200);
-	            if (!world.isRemote)
-                    player.addChatMessage(new ChatComponentText("Omm nom nom"));
-            }
-            else if (player.canEat(true))
-            {
-	            if (!world.isRemote)
-                    player.addChatMessage(new ChatComponentText("You are too full to eat any cake"));
-            }
-        }
-        else
-        {
-            player.setHealth(player.getHealth() - 2);
-	        if (!world.isRemote)
                 player.addChatMessage(new ChatComponentText("The cake is a lie!"));
+            }
+            else
+            {
+                player.addChatMessage(new ChatComponentText("Omm nom nom"));
+            }
+        }
+        else if (player.canEat(true))
+        {
+            player.addChatMessage(new ChatComponentText("You are too full to eat any cake"));
         }
     }
 

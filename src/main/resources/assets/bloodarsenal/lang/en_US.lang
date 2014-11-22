@@ -15,6 +15,11 @@ tile.blood_infused_planks.name=Blood Infused Wooden Plank
 tile.blood_infused_iron_block.name=Blood Infused Iron Block
 tile.blood_door_wood.name=Blood Infused Wooden Door
 tile.blood_door_iron.name=Blood Infused Iron Door
+tile.blood_torch.name=Blood Torch
+tile.blood_infused_glowstone.name=Blood Infused Glowstone
+tile.blood_infused_redstone_lamp.name=Blood Infused Redstone Lamp
+tile.blood_lamp.name=Blood Lamp
+tile.blood_infused_diamond_block.name=Blood Infused Diamond Block
 
 #Items
 item.bound_bow.name=Bound Bow
@@ -54,6 +59,37 @@ item.vampire_cape.name=Vampire Cape
 item.vampire_greaves.name=Vampire Greaves
 item.vampire_boots.name=Vampire Boots
 item.vampire_ring.name=Vampire Ring
+item.energy_gatling.name=Energy Gatling
+item.sigil_of_swimming.name=Sigil of Swimming
+item.sigil_of_ender.name=Ender Sigil
+
+#TConstruct Stuffs
+material.bloodinfusediron=Blood Infused Iron
+
+part.arrowhead=@material@ Arrowhead
+part.axe.head=@material@ Axe Head
+part.battle.sign=@material@ Battle Sign
+part.binding=@material@ Binding
+part.chisel.head=@material@ Chisel Head
+part.chunk=@material@ Chunk
+part.crossbar=@material@ Crossbar
+part.excavator.head=@material@ Excavator Head
+part.frypan.head=@material@ Pan Head
+part.full.guard=@material@ Full Guard
+part.hammer.head=@material@ Hammer Head
+part.knife.blade=@material@ Knife Blade
+part.large.guard=@material@ Large Guard
+part.large.sword.blade=@material@ Large Sword Blade
+part.largeplate=@material@ Large Plate
+part.lumberaxe.head=@material@ Broad Axe Head
+part.medium.guard=@material@ Medium Guard
+part.pickaxe.head=@material@ Pickaxe Head
+part.scythe.head=@material@ Scythe Head
+part.shovel.head=@material@ Shovel Head
+part.sword.blade=@material@ Sword Blade
+part.toolrod=@material@ Tool Rod
+part.toughbind=@material@ Tough Binding
+part.toughrod=@material@ Tough Rod
 
 #Death Texts
 death.attack.deathFromBlood=%1$s lost too much blood

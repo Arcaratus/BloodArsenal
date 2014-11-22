@@ -13,6 +13,7 @@ public class BlockInfusedIron extends Block
         setBlockTextureName("BloodArsenal:blood_infused_iron_block");
         setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(7.5F);
-        setResistance(1.0F);
+        setResistance(5.0F);
+        setStepSound(soundTypeMetal);
     }
 }

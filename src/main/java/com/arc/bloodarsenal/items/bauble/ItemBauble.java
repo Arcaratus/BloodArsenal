@@ -4,12 +4,14 @@ import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import com.arc.bloodarsenal.BloodArsenal;
+import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+@Optional.Interface(iface = "baubles.api.IBauble", modid = "Baubles")
 public abstract class ItemBauble extends Item implements IBauble
 {
     public ItemBauble()

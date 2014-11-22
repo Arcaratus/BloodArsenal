@@ -1,7 +1,13 @@
 package com.arc.bloodarsenal;
 
 import com.arc.bloodarsenal.entity.ModLivingDropsEvent;
+import com.arc.bloodarsenal.gui.GuiHandler;
 import com.arc.bloodarsenal.items.ModItems;
+import com.arc.bloodarsenal.items.bauble.VampireRing;
+import com.arc.bloodarsenal.items.tinkers.BloodArsenalTinkers;
+import com.arc.bloodarsenal.items.tinkers.RecipeHelper;
+import com.arc.bloodarsenal.potion.PotionBleeding;
+import com.arc.bloodarsenal.potion.PotionSwimming;
 import com.arc.bloodarsenal.potion.PotionVampiricAura;
 import com.arc.bloodarsenal.rituals.RitualRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -11,6 +17,8 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import com.arc.bloodarsenal.blocks.ModBlocks;
@@ -26,7 +34,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-@Mod(modid="BloodArsenal", version="1.0.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
+@Mod(modid="BloodArsenal", version="1.0.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
 public class BloodArsenal
 {
     public static String MODID = "BloodArsenal";
@@ -43,13 +51,14 @@ public class BloodArsenal
     public static Potion swimming;
 
     public static Item.ToolMaterial infusedWood = EnumHelper.addToolMaterial("InfusedWood", 1, 0, 4.0F, 1.0F, 0);
-    public static Item.ToolMaterial infusedIron = EnumHelper.addToolMaterial("InfusedIron", 3, 0, 10.0F, 4.0F, 0);
-    public static Item.ToolMaterial infusedDiamond = EnumHelper.addToolMaterial("InfusedDiamond", 4, 0, 16.0F, 9.0F, 0);
-    public static Item.ToolMaterial infusedNetherium = EnumHelper.addToolMaterial("InfusedNetherium", 5, 0, 21.0F, 11.0F, 0);
+    public static Item.ToolMaterial infusedIron = EnumHelper.addToolMaterial("InfusedIron", 4, 0, 10.0F, 4.0F, 0);
+    public static Item.ToolMaterial infusedDiamond = EnumHelper.addToolMaterial("InfusedDiamond", 6, 0, 16.0F, 9.0F, 0);
+    public static Item.ToolMaterial infusedNetherium = EnumHelper.addToolMaterial("InfusedNetherium", 9, 0, 31.0F, 18.0F, 0);
 
     public static ItemArmor.ArmorMaterial vampireArmor = EnumHelper.addArmorMaterial("VampireArmor", 0, new int[]{3, 8, 6, 3}, 0);
 
     public static boolean isBaublesLoaded;
+    public static boolean isTinkersConstructLoaded;
 
 	public static Logger logger = LogManager.getLogger(MODID);
     public static CreativeTabs BA_TAB = new CreativeTabs("BA_TAB")
@@ -100,13 +109,14 @@ public class BloodArsenal
             }
         }
 
-
         Object dropsEvent = new ModLivingDropsEvent();
         MinecraftForge.EVENT_BUS.register(dropsEvent);
 
         Object eventHook = new BloodArsenalEventHooks();
         FMLCommonHandler.instance().bus().register(eventHook);
         MinecraftForge.EVENT_BUS.register(eventHook);
+
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
     }
 
     @Mod.EventHandler
@@ -114,7 +124,6 @@ public class BloodArsenal
     {
         BloodArsenalRecipes.registerBindingRecipes();
         BloodArsenalRecipes.registerAltarRecipes();
-        BloodArsenalRecipes.registerOrbRecipes();
         BloodArsenalRecipes.registerRecipes();
         RitualRegistry.initRituals();
 
@@ -122,8 +131,8 @@ public class BloodArsenal
         proxy.registerEvents();
 
         vampiricAura = (new PotionVampiricAura(BloodArsenalConfig.vampiricAuraID, false, 0).setIconIndex(0, 0).setPotionName("Vampiric Aura"));
-        bleeding = (new PotionVampiricAura(BloodArsenalConfig.bleedingID, true, 0).setIconIndex(0, 0).setPotionName("Bleeding"));
-        swimming = (new PotionVampiricAura(BloodArsenalConfig.swimmingID, false, 0).setIconIndex(0, 0).setPotionName("Swimming"));
+        bleeding = (new PotionBleeding(BloodArsenalConfig.bleedingID, true, 0).setIconIndex(0, 0).setPotionName("Bleeding"));
+        swimming = (new PotionSwimming(BloodArsenalConfig.swimmingID, false, 0).setIconIndex(0, 0).setPotionName("Swimming"));
     }
 
     @Mod.EventHandler
@@ -133,10 +142,27 @@ public class BloodArsenal
         {
             isBaublesLoaded = true;
             logger.info("Loaded Baubles integration");
+
+            ModItems.vampire_ring = new VampireRing();
+            GameRegistry.registerItem(ModItems.vampire_ring, "vampire_ring");
         }
         else
         {
             isBaublesLoaded = false;
+        }
+
+        if (Loader.isModLoaded("TConstruct"))
+        {
+            isTinkersConstructLoaded = true;
+            logger.info("Loaded Tinker's Construct integration");
+
+            BloodArsenalTinkers.addMaterials();
+            BloodArsenalTinkers.addParts();
+            RecipeHelper.addRecipes();
+        }
+        else
+        {
+            isTinkersConstructLoaded = false;
         }
     }
 }

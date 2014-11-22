@@ -23,8 +23,6 @@ import java.util.List;
 
 public class InfusedDiamondAxe extends ItemAxe implements IBindable
 {
-    private int energyUsed;
-
     public static ArrayList<List> oreDictLogs = new ArrayList();
 
     public InfusedDiamondAxe()
@@ -83,11 +81,13 @@ public class InfusedDiamondAxe extends ItemAxe implements IBindable
     {
         World world = player.worldObj;
         Material mat = world.getBlock(x, y, z).getMaterial();
+
         if (!ToolCapabilities.isRightMaterial(mat, ToolCapabilities.materialsAxe))
         {
             return false;
         }
         MovingObjectPosition block = ToolCapabilities.raytraceFromEntity(world, player, true, 4.5);
+
         if (block == null)
         {
             return false;
@@ -131,7 +131,7 @@ public class InfusedDiamondAxe extends ItemAxe implements IBindable
 
                         if (!player.capabilities.isCreativeMode)
                         {
-                            EnergyItems.syphonBatteries(stack, player, 3000);
+                            EnergyItems.syphonBatteries(stack, player, 5000);
                         }
                     }
 

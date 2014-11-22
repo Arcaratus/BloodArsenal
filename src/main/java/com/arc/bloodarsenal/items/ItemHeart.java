@@ -8,8 +8,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -46,7 +44,7 @@ public class ItemHeart extends Item
         }
         else
         {
-            itemIcon = iconRegister.registerIcon("BloodAresnal:heart");
+            itemIcon = iconRegister.registerIcon("BloodArsenal:heart");
         }
     }
 }

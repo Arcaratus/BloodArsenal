@@ -1,14 +1,15 @@
 package com.arc.bloodarsenal.items;
 
-import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.arc.bloodarsenal.BloodArsenal;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
@@ -29,7 +30,7 @@ public class ItemSoulNullifier extends Item implements IBindable
     @Override
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
-/*        EnergyItems.checkAndSetItemOwner(par1ItemStack, par3EntityPlayer);
+        EnergyItems.checkAndSetItemOwner(par1ItemStack, par3EntityPlayer);
 
         setActivated(par1ItemStack, !getActivated(par1ItemStack));
 
@@ -43,7 +44,6 @@ public class ItemSoulNullifier extends Item implements IBindable
         {
             return par1ItemStack;
         }
-*/
 
         return par1ItemStack;
     }
@@ -71,28 +71,36 @@ public class ItemSoulNullifier extends Item implements IBindable
             }
         }
 
-        Collection<PotionEffect> potions = par3EntityPlayer.getActivePotionEffects();
-
-        if (par1ItemStack.stackTagCompound.getBoolean("isActive"))
+        if (par1ItemStack.stackTagCompound.getBoolean("isActive") && !par2World.isRemote)
         {
-            par3EntityPlayer.addPotionEffect(new PotionEffect(AlchemicalWizardry.customPotionInhibit.id, 2, 0));
-
-            if (par3EntityPlayer.isBurning())
+            if (par3EntityPlayer.ticksExisted % 20 == 0)
             {
-                par3EntityPlayer.extinguish();
-            }
-            else for (PotionEffect potion : potions)
-            {
-                int id = potion.getPotionID();
+                boolean removed = false;
+                Collection<PotionEffect> potions = par3EntityPlayer.getActivePotionEffects();
 
-                if (!par3EntityPlayer.isPotionActive(AlchemicalWizardry.customPotionSoulFray.id))
+                if (par3EntityPlayer.isBurning())
                 {
-                    par3EntityPlayer.removePotionEffect(id);
-                    EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, 100);
+                    par3EntityPlayer.extinguish();
+                    removed = true;
                 }
-                else
+                else for (PotionEffect potion : potions)
                 {
-                    EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, 0);
+                    int id = potion.getPotionID();
+                    boolean badEffect;
+
+                    badEffect = ReflectionHelper.getPrivateValue(Potion.class, Potion.potionTypes[id], new String[]{"isBadEffect", "field_76418_K"});
+
+                    if (badEffect)
+                    {
+                        par3EntityPlayer.removePotionEffect(id);
+                        removed = true;
+                        break;
+                    }
+                }
+
+                if (removed)
+                {
+                    EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, 500);
                 }
             }
         }

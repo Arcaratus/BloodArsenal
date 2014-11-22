@@ -140,9 +140,21 @@ public class BlockInfusedWoodenDoor extends BlockContainer
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int par5, EntityPlayer player)
     {
+        String playerHarvest = player.getCommandSenderName();
+        TileOwned tileEntity = (TileOwned) world.getTileEntity(x, y, z);
+
         if (player.capabilities.isCreativeMode && (par5 & 8) != 0 && world.getBlock(x, y - 1, z) == this)
         {
             world.setBlockToAir(x, y - 1, z);
+        }
+
+        if (!player.capabilities.isCreativeMode)
+        {
+            if (!(tileEntity.getOwner().equals(playerHarvest)))
+            {
+                player.setHealth(player.getHealth() - 8);
+                player.addChatMessage(new ChatComponentText("You have severed a connection to the Soul Network!"));
+            }
         }
     }
 
@@ -283,22 +295,19 @@ public class BlockInfusedWoodenDoor extends BlockContainer
         String playerName = player.getCommandSenderName();
         TileOwned tileEntity = (TileOwned) world.getTileEntity(x, y, z);
 
-        if (tileEntity.owner.equals(null))
+        if (tileEntity.getOwner() == null)
         {
             tileEntity.setOwner(playerName);
-	        if (!world.isRemote)
-	            player.addChatMessage(new ChatComponentText("Door successfully bounded to you!"));
+            player.addChatMessage(new ChatComponentText("Door successfully bounded to you!"));
         }
-        else if (tileEntity.owner.equals(playerName))
+        else if (tileEntity.getOwner().equals(playerName))
         {
-	        if (!world.isRemote)
-                player.addChatMessage(new ChatComponentText("Door is already bound to you!"));
+            player.addChatMessage(new ChatComponentText("Door is already bound to you!"));
         }
-        else if (!tileEntity.owner.equals(playerName))
+        else if (!(tileEntity.getOwner().equals(playerName)))
         {
-            player.hurtTime = 2;
-	        if (!world.isRemote)
-                player.addChatMessage(new ChatComponentText("You feel an odd draining sensation as the door actively resists you."));
+            player.setHealth(player.getHealth() - 2);
+            player.addChatMessage(new ChatComponentText("You feel an odd draining sensation as the door actively resists you."));
         }
     }
 
@@ -308,7 +317,7 @@ public class BlockInfusedWoodenDoor extends BlockContainer
         TileOwned tileEntity = (TileOwned) world.getTileEntity(x, y, z);
         tileEntity.setOwner(tileEntity.owner);
 
-        if (player.getCommandSenderName().equals(tileEntity.owner))
+        if (player.getCommandSenderName().equals(tileEntity.getOwner()))
         {
             int i1 = getFullMetadata(world, x, y, z);
             int j1 = i1 & 7;
@@ -327,8 +336,7 @@ public class BlockInfusedWoodenDoor extends BlockContainer
 
             if (currentEssence < 10)
             {
-	            if (!world.isRemote)
-                    player.addChatMessage(new ChatComponentText("You are too weak to open the door."));
+                player.addChatMessage(new ChatComponentText("You are too weak to open the door."));
             }
             else
             {
@@ -349,8 +357,8 @@ public class BlockInfusedWoodenDoor extends BlockContainer
         }
         else
         {
-	        if (!world.isRemote)
-                player.addChatComponentMessage(new ChatComponentTranslation("The door is locked."));
+            player.setHealth(player.getHealth() - 2);
+            player.addChatMessage(new ChatComponentText("You feel an odd draining sensation as the door actively resists you."));
         }
         return true;
     }

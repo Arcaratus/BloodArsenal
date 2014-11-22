@@ -1,13 +1,10 @@
 package com.arc.bloodarsenal.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-
-import java.util.ArrayList;
 
 public class TileOwned extends TileEntity
 {
@@ -35,27 +32,27 @@ public class TileOwned extends TileEntity
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbttagcompound)
+    public void readFromNBT(NBTTagCompound tag)
     {
-        super.readFromNBT(nbttagcompound);
-        owner = nbttagcompound.getString("owner");
+        super.readFromNBT(tag);
+        this.owner = tag.getString("owner");
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound)
+    public void writeToNBT(NBTTagCompound tag)
     {
-        super.writeToNBT(nbttagcompound);
-        nbttagcompound.setString("owner", owner);
+        super.writeToNBT(tag);
+        tag.setString("owner", owner);
     }
 
-    public void readCustomNBT(NBTTagCompound nbttagcompound)
+    public void readCustomNBT(NBTTagCompound tag)
     {
-        this.owner = nbttagcompound.getString("owner");
+
     }
 
-    public void writeCustomNBT(NBTTagCompound nbttagcompound)
+    public void writeCustomNBT(NBTTagCompound tag)
     {
-        nbttagcompound.setString("owner", this.owner);
+
     }
 
     @Override

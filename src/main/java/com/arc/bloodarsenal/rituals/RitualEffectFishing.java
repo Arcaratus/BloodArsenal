@@ -13,7 +13,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.FishingHooks;
 
+import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +25,7 @@ public class RitualEffectFishing extends RitualEffect
     private static final int terraeDrain = 20;
     private static final int orbisTerraeDrain = 20;
 
-    protected Random random = null;
+    protected static double rand;
     protected float next = Float.NaN;
 
     @Override
@@ -104,11 +106,11 @@ public class RitualEffectFishing extends RitualEffect
                 for (int j = -1; j <= 1; j++)
                 {
                     Block block = world.getBlock(x + i, y - 1, z + j);
-
+                    rand = Math.random();
                     {
                         if (block.isAssociatedBlock(Blocks.water) || block.isAssociatedBlock(Blocks.flowing_water))
                         {
-
+//                            doDrop(FishingHooks.getRandomFishable(rand, next, ))
                         }
                     }
                 }
