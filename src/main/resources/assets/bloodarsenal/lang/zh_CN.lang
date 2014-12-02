@@ -14,6 +14,12 @@ tile.blood_infused_wood.name=注血原木
 tile.blood_infused_planks.name=注血木板
 tile.blood_infused_iron_block.name=注血铁块
 tile.blood_door_wood.name=注血木门
+tile.blood_door_iron.name=注血铁门
+tile.blood_torch.name=血之火把
+tile.blood_infused_glowstone.name=注血萤石
+tile.blood_infused_redstone_lamp.name=注血红石灯
+tile.blood_lamp.name=注血灯
+tile.blood_infused_diamond_block.name=注血钻石块
 
 #Items
 item.bound_bow.name=约束之弓
@@ -39,8 +45,9 @@ item.blood_infused_pickaxe_diamond.name=注血钻石镐
 item.blood_infused_axe_diamond.name=注血钻石斧 [WIP]
 item.blood_infused_shovel_diamond.name=注血钻石铲
 item.blood_infused_sword_diamond.name=注血钻石剑 [WIP]
-item.heart.name=生命之心
+item.heart.name=心脏
 item.item_blood_door_wood.name=注血木门
+item.item_blood_door_iron.name=注血铁门
 item.bound_flint_and_steel.name=约束打火石
 item.soul_fragment.name=灵魂碎片
 item.soul_booster.name=增益灵魂之石
@@ -48,3 +55,41 @@ item.soul_nullifier.name=减益灵魂之石 [WIP]
 item.blood_cookie.name=染血曲奇
 item.orange_juice.name=橙汁
 item.juice_and_cookies.name=橙汁和曲奇
+item.vampire_cape.name=吸血鬼斗篷
+item.vampire_greaves.name=吸血鬼护胫
+item.vampire_boots.name=吸血鬼长靴
+item.vampire_ring.name=吸血鬼指环
+item.energy_gatling.name=能量加特林
+item.sigil_of_swimming.name=水泳印记
+item.sigil_of_ender.name=末影印记
+
+#TConstruct Stuffs
+material.bloodinfusediron=注血铁
+
+part.arrowhead=@material@箭头
+part.axe.head=@material@斧刃
+part.battle.sign=@material@战斗牌子
+part.binding=@material@绑定结
+part.chisel.head=@material@凿刃
+part.chunk=@material@碎块
+part.crossbar=@material@十字柄
+part.excavator.head=@material@开掘铲头
+part.frypan.head=@material@盘
+part.full.guard=@material@大型护手
+part.hammer.head=@material@锤头
+part.knife.blade=@material@刀刃
+part.large.guard=@material@宽护手
+part.large.sword.blade=@material@宽剑刃
+part.largeplate=@material@大板
+part.lumberaxe.head=@material@宽斧刃
+part.medium.guard=@material@护手
+part.pickaxe.head=@material@镐头
+part.scythe.head=@material@镰刀刀刃
+part.shovel.head=@material@铲头
+part.sword.blade=@material@剑刃
+part.toolrod=@material@手柄
+part.toughbind=@material@坚韧绑定结
+part.toughrod=@material@坚韧手柄
+
+#Death Texts
+death.attack.deathFromBlood=%1$s失血过多而死
