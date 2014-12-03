@@ -1,17 +1,20 @@
 package com.arc.bloodarsenal;
 
+import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class BloodArsenalEventHooks
 {
-    public final float speed = 0.025F;
+    public static double rand = Math.random();
 
     @SubscribeEvent
     public void onEntityDamaged(LivingAttackEvent event)
@@ -30,13 +33,16 @@ public class BloodArsenalEventHooks
             }
         }
 
-        if (entityAttacked.isPotionActive(BloodArsenal.swimming))
+        if (entityAttacked instanceof EntityPlayer)
         {
-            if (entityAttacked.isInsideOfMaterial(Material.lava))
+            if (entityAttacked.isPotionActive(BloodArsenal.swimming))
             {
-                if (event.source.isFireDamage())
+                if (entityAttacked.isInsideOfMaterial(Material.lava))
                 {
-                    event.setCanceled(true);
+                    if (event.source.isFireDamage())
+                    {
+                        event.setCanceled(true);
+                    }
                 }
             }
         }
@@ -49,68 +55,56 @@ public class BloodArsenalEventHooks
 
         if (entityLiving.isPotionActive(BloodArsenal.bleeding))
         {
-            int i = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getAmplifier();
-            int j = i + 1;
+            int amplifier = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getAmplifier();
+            int duration = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getDuration();
+            int damage = ((int)(rand * rand) * (amplifier + 1) + 3);
 
-//            if (entityLiving.worldObj.getWorldTime() % (20 / (i + 1)) == 0)
-//            {
-//                entityLiving.attackEntityFrom(BloodArsenal.deathFromBlood, 2);
-//                entityLiving.hurtResistantTime = Math.min(entityLiving.hurtResistantTime, 20 / (i + 1));
-//            }
+            if (entityLiving.worldObj.getWorldTime() % (20 / (amplifier + 1)) == 0)
+            {
+                entityLiving.attackEntityFrom(BloodArsenal.deathFromBlood, damage);
+                entityLiving.addPotionEffect(new PotionEffect(Potion.blindness.id, duration, 1));
+                entityLiving.hurtResistantTime = Math.min(entityLiving.hurtResistantTime, 20 / (amplifier + 1));
+            }
         }
 
-        if (entityLiving.isPotionActive(BloodArsenal.swimming))
+        if (entityLiving instanceof EntityPlayer)
         {
-            if (entityLiving instanceof EntityPlayer)
+            if (entityLiving.isPotionActive(BloodArsenal.swimming))
             {
-                EntityLivingBase player = (EntityPlayer) entityLiving;
-                if (player.isInWater())
+                if (entityLiving.isInWater() || entityLiving.isInsideOfMaterial(Material.lava))
                 {
-                    player.motionX *= 1.2D;
-                    if (player.motionY > 0.0D)
+                    entityLiving.setAir(300);
+
+                    entityLiving.motionX *= 1.2D;
+                    if (entityLiving.motionY > 0.0D)
                     {
-                        player.motionY *= 1.2D;
+                        entityLiving.motionY *= 1.2D;
                     }
-                    player.motionZ *= 1.2D;
+                    entityLiving.motionZ *= 1.2D;
                     double maxSpeed = 0.2D;
-                    if (player.motionX > maxSpeed)
+                    if (entityLiving.motionX > maxSpeed)
                     {
-                        player.motionX = maxSpeed;
+                        entityLiving.motionX = maxSpeed;
                     }
-                    else if (player.motionX < -maxSpeed)
+                    else if (entityLiving.motionX < -maxSpeed)
                     {
-                        player.motionX = -maxSpeed;
+                        entityLiving.motionX = -maxSpeed;
                     }
-                    if (player.motionY > maxSpeed)
+                    if (entityLiving.motionY > maxSpeed)
                     {
-                        player.motionY = maxSpeed;
+                        entityLiving.motionY = maxSpeed;
                     }
-                    if (player.motionZ > maxSpeed)
+                    if (entityLiving.motionZ > maxSpeed)
                     {
-                        player.motionZ = maxSpeed;
+                        entityLiving.motionZ = maxSpeed;
                     }
-                    else if (player.motionZ < -maxSpeed)
+                    else if (entityLiving.motionZ < -maxSpeed)
                     {
-                        player.motionZ = -maxSpeed;
-                    }
-                }
-            }
-
-/*            if (entityLiving.isInsideOfMaterial(Material.lava))
-            {
-                if (entityLiving instanceof EntityPlayer)
-                {
-                    EntityPlayer player = (EntityPlayer) entityLiving;
-
-                    entityLiving.extinguish();
-
-                    if ((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F)
-                    {
-                        player.moveFlying(0F, 1F, player.capabilities.isFlying ? speed : speed);
+                        entityLiving.motionZ = -maxSpeed;
                     }
                 }
             }
-*/        }
+        }
     }
 
     @SubscribeEvent
@@ -118,12 +112,25 @@ public class BloodArsenalEventHooks
     {
         EntityLivingBase entityLiving = event.entityLiving;
 
-        if (entityLiving.isPotionActive(BloodArsenal.swimming))
+        if (entityLiving instanceof EntityPlayer)
         {
-            if (entityLiving.isInsideOfMaterial(Material.water) || entityLiving.isInsideOfMaterial(Material.lava))
+            if (entityLiving.isPotionActive(BloodArsenal.swimming))
             {
-                event.newSpeed = 1.75F;
+                if (entityLiving.isInWater() || entityLiving.isInsideOfMaterial(Material.lava))
+                {
+                    event.newSpeed = 1.75F;
+                }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
+    {
+        if (event.modID.equals("BloodArsenal"))
+        {
+            BloodArsenalConfig.syncConfig();
+            BloodArsenal.logger.info("Refreshing configuration file");
         }
     }
 }

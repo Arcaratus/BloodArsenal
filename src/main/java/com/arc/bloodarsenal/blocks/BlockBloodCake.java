@@ -128,7 +128,14 @@ public class BlockBloodCake extends Block
         }
         else if (player.canEat(true))
         {
-            player.addChatMessage(new ChatComponentText("You are too full to eat any cake"));
+            if (BloodArsenalConfig.cakeIsLie)
+            {
+                player.addChatMessage(new ChatComponentText("The cake is a lie!"));
+            }
+            else
+            {
+                player.addChatMessage(new ChatComponentText("You are too full to eat any cake"));
+            }
         }
     }
 

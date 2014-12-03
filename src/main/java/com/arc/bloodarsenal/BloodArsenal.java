@@ -6,8 +6,6 @@ import com.arc.bloodarsenal.items.ModItems;
 import com.arc.bloodarsenal.items.bauble.VampireRing;
 import com.arc.bloodarsenal.items.tinkers.BloodArsenalTinkers;
 import com.arc.bloodarsenal.items.tinkers.RecipeHelper;
-import com.arc.bloodarsenal.potion.PotionBleeding;
-import com.arc.bloodarsenal.potion.PotionSwimming;
 import com.arc.bloodarsenal.potion.PotionVampiricAura;
 import com.arc.bloodarsenal.rituals.RitualRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -34,11 +32,11 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-@Mod(modid="BloodArsenal", version="1.0.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
+@Mod(modid="BloodArsenal", version="1.1.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
 public class BloodArsenal
 {
     public static String MODID = "BloodArsenal";
-    public static String VERSION = "1.0.0";
+    public static String VERSION = "1.1.0";
     public static String NAME = "Blood Arsenal";
 
     @SidedProxy(clientSide = "com.arc.bloodarsenal.ClientProxy", serverSide = "com.arc.bloodarsenal.CommonProxy")
@@ -104,7 +102,7 @@ public class BloodArsenal
             }
             catch (Exception e)
             {
-	            logger.error("Severe error, please report this to the mod author:");
+	            logger.error("ポケモン！");
 	            logger.error(e);
             }
         }
@@ -130,9 +128,9 @@ public class BloodArsenal
         proxy.registerRenders();
         proxy.registerEvents();
 
-        vampiricAura = (new PotionVampiricAura(BloodArsenalConfig.vampiricAuraID, false, 0).setIconIndex(0, 0).setPotionName("Vampiric Aura"));
-        bleeding = (new PotionBleeding(BloodArsenalConfig.bleedingID, true, 0).setIconIndex(0, 0).setPotionName("Bleeding"));
-        swimming = (new PotionSwimming(BloodArsenalConfig.swimmingID, false, 0).setIconIndex(0, 0).setPotionName("Swimming"));
+        vampiricAura = new PotionVampiricAura(BloodArsenalConfig.vampiricAuraID, false, 0).setIconIndex(0, 0).setPotionName("Vampiric Aura");
+        bleeding = new PotionVampiricAura(BloodArsenalConfig.bleedingID, false, 0).setIconIndex(0, 0).setPotionName("Bleeding");
+        swimming = new PotionVampiricAura(BloodArsenalConfig.swimmingID, false, 0).setIconIndex(0, 0).setPotionName("Swimming");
     }
 
     @Mod.EventHandler
@@ -154,7 +152,7 @@ public class BloodArsenal
         if (Loader.isModLoaded("TConstruct"))
         {
             isTinkersConstructLoaded = true;
-            logger.info("Loaded Tinker's Construct integration");
+            logger.info("Loaded Tinker's Construct integration　ほし！");
 
             BloodArsenalTinkers.addMaterials();
             BloodArsenalTinkers.addParts();

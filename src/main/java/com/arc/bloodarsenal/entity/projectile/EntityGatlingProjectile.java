@@ -28,7 +28,7 @@ public class EntityGatlingProjectile extends Entity implements IProjectile, IThr
     protected int maxTicksInAir = 600;
     private int ricochetCounter = 0;
     private boolean scheduledForDeath = false;
-    protected int projectileDamage = 4;
+    protected int projectileDamage = 8;
 
     public EntityGatlingProjectile(World par1World)
     {

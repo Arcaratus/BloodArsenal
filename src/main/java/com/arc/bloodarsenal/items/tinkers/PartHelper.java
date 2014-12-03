@@ -85,7 +85,7 @@ public class PartHelper extends Item implements IToolPart
         {
             for (Map.Entry<Integer, String> subItem : this.unlocalizedMaterialNames.entrySet())
             {
-                int materialId = ((Integer)subItem.getKey()).intValue();
+                int materialId = (Integer)subItem.getKey().intValue();
                 itemStackList.add(new ItemStack(item, 1, materialId));
             }
         }

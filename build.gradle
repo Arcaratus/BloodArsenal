@@ -60,9 +60,9 @@ dependencies {
 	compile "codechicken:CodeChickenLib:1.7.10-1.1.1.99:dev"
     compile "codechicken:CodeChickenCore:" + config.mc_version + "-" + config.ccc_version + ":dev"
     compile "codechicken:NotEnoughItems:" + config.mc_version + "-" + config.nei_version + ":dev"
-	compile "codechicken:ForgeMultipart:" + config.mc_version + "-" + config.nei_version + ":dev"
-    compile "mantle:Mantle:1.7.10-0.3.1.jenkins167:deobf"
-    compile ("tconstruct:TConstruct:1.7.10-1.7.1.build789:deobf") {
+	compile "codechicken:ForgeMultipart:" + config.mc_version + "-" + config.forgeMultipart_version + ":dev"
+    compile "mantle:Mantle:1.7.10-0.3.2.jenkins186:deobf"
+    compile ("tconstruct:TConstruct:1.7.10-1.7.1.build790:deobf") {
     }
 }
 
@@ -89,12 +89,13 @@ task sourceJar(type: Jar) {
     classifier = 'sources'
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-	from javadoc.destinationDir
-	classifier = 'javadoc'
-}
-    
 task deobfJar(type: Jar) {
     from(sourceSets.main.output)
-    classifier = 'deobf'         
+    classifier = 'deobf'     
+
+tasks.build.dependsOn sourceJar, deobfJar
+
+tasks.withType(JavaCompile) { task ->
+    task.options.encoding = 'UTF-8'
+}    
 }

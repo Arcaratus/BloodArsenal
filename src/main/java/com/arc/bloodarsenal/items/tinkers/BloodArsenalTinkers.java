@@ -1,6 +1,7 @@
 package com.arc.bloodarsenal.items.tinkers;
 
 import com.arc.bloodarsenal.BloodArsenal;
+import com.arc.bloodarsenal.BloodArsenalConfig;
 import cpw.mods.fml.common.registry.GameRegistry;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
@@ -36,23 +37,29 @@ public class BloodArsenalTinkers
     {
         if (BloodArsenal.isTinkersConstructLoaded)
         {
-            TConstructRegistry.addToolMaterial(250, "Blood Infused Iron", 3, 250, 2000, 2, 0.75F, 0, 0.0F   , "", "");
+            if (BloodArsenalConfig.tinkersIntegration)
+            {
+                TConstructRegistry.addToolMaterial(250, "Blood Infused Iron", 3, 550, 1800, 3, 1.5F, 0, 0.0F, "", "");
 
-            TConstructClientRegistry.addMaterialRenderMapping(250, "BloodArsenal", "blood_infused_iron", true);
+                TConstructClientRegistry.addMaterialRenderMapping(250, "BloodArsenal", "blood_infused_iron", true);
 
-            TConstructRegistry.addBowMaterial(250, 500, 40, 1.2F);
+                TConstructRegistry.addBowMaterial(250, 500, 40, 1.2F);
 
-            TConstructRegistry.addArrowMaterial(250, 4.7F, 0.2F, 100.0F);
+                TConstructRegistry.addArrowMaterial(250, 4.7F, 0.2F, 100.0F);
+            }
         }
     }
 
     public static void addParts()
     {
-        initParts();
+        if (BloodArsenalConfig.tinkersIntegration)
+        {
+            initParts();
 
-        addMaterialToParts(250, "blood.infused.iron", "blood_infused_iron");
+            addMaterialToParts(250, "blood.infused.iron", "blood_infused_iron");
 
-        registerParts();
+            registerParts();
+        }
     }
 
     private static void initParts()

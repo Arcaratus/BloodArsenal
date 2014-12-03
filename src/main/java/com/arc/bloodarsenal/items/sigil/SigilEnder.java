@@ -16,6 +16,7 @@ public class SigilEnder extends EnergyItems implements IBindable
     public SigilEnder()
     {
         super();
+        setMaxStackSize(1);
         setUnlocalizedName("sigil_of_ender");
         setTextureName("BloodArsenal:sigil_of_ender");
         setCreativeTab(BloodArsenal.BA_TAB);

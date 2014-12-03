@@ -1,6 +1,7 @@
 package com.arc.bloodarsenal.items.tinkers;
 
 import com.arc.bloodarsenal.BloodArsenal;
+import com.arc.bloodarsenal.items.ModItems;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -88,7 +89,8 @@ public class RecipeHelper
 
                 addPartBuilding(250);
                 unregisterMaterial(_bloodIron);
-                registerWithStation(new ItemStack(bloodIron, 1, 0), "Blood Infused Iron", 250, new ItemStack(_CHUNK, 1, 250));
+//                registerWithStation(new ItemStack(ModItems.blood_infused_iron, 1), "Blood Infused Iron", 250, new ItemStack(_CHUNK, 1, 250));
+                registerWithStation("Blood Infused Iron", "Blood Infused Iron", 250);
             }
         }
     }

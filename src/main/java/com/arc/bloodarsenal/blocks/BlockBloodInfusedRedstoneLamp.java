@@ -20,6 +20,7 @@ public class BlockBloodInfusedRedstoneLamp extends Block
         setHardness(0.5F);
         setResistance(0.75F);
         setStepSound(soundTypeGlass);
+
         setCreativeTab(BloodArsenal.BA_TAB);
 
         if (isOn)
@@ -64,6 +65,16 @@ public class BlockBloodInfusedRedstoneLamp extends Block
         if (!world.isRemote && isOn && !world.isBlockIndirectlyGettingPowered(x, y, z))
         {
             isOn = true;
+            setLightLevel(1.0F);
+            setBlockTextureName("BloodArsenal:blood_infused_redstone_lamp_on");
+            world.scheduleBlockUpdate(x, y, z, this, 4);
+        }
+        else
+        {
+            isOn = false;
+            setLightLevel(0.0F);
+            setBlockTextureName("BloodArsenal:blood_infused_redstone_lamp_off");
+            world.scheduleBlockUpdate(x, y, z, this, 4);
         }
     }
 }
