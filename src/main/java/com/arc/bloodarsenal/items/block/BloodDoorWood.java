@@ -1,8 +1,7 @@
 package com.arc.bloodarsenal.items.block;
 
 import com.arc.bloodarsenal.BloodArsenal;
-import com.arc.bloodarsenal.blocks.ModBlocks;
-import com.arc.bloodarsenal.tileentity.TileOwned;
+import com.arc.bloodarsenal.block.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;

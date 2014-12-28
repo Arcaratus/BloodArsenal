@@ -74,7 +74,7 @@ public abstract class ItemBauble extends Item implements IBauble
     @Override
     public void onWornTick(ItemStack stack, EntityLivingBase player)
     {
-        if(player.ticksExisted == 1)
+        if (player.ticksExisted == 1)
         {
             onEquippedOrLoadedIntoWorld(stack, player);
         }

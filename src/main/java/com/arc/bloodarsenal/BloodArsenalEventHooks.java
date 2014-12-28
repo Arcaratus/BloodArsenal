@@ -1,14 +1,25 @@
 package com.arc.bloodarsenal;
 
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSyncBauble;
+import com.arc.bloodarsenal.items.ModItems;
+import com.arc.bloodarsenal.items.bauble.SacrificeAmulet;
+import com.arc.bloodarsenal.items.bauble.SelfSacrificeAmulet;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
@@ -21,13 +32,13 @@ public class BloodArsenalEventHooks
     {
         EntityLivingBase entityAttacked = event.entityLiving;
         Entity entityAttacking = event.source.getSourceOfDamage();
+        float damageDone = event.ammount;
 
         if (entityAttacking != null && entityAttacking instanceof EntityLivingBase)
         {
             if (((EntityLivingBase) entityAttacking).isPotionActive(BloodArsenal.vampiricAura))
             {
-                float damage = entityAttacked.getMaxHealth() - entityAttacked.getHealth();
-                float drainedHealth = damage / 4;
+                float drainedHealth = damageDone / 4;
 
                 ((EntityLivingBase) entityAttacking).setHealth(((EntityLivingBase) entityAttacking).getHealth() + drainedHealth);
             }
@@ -42,6 +53,85 @@ public class BloodArsenalEventHooks
                     if (event.source.isFireDamage())
                     {
                         event.setCanceled(true);
+                    }
+                }
+            }
+        }
+
+        if (entityAttacked instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) entityAttacked;
+            InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+
+            for (int i = 0; i < inv.getSizeInventory(); i++)
+            {
+                ItemStack stack = inv.getStackInSlot(i);
+
+                if (stack != null && stack.getItem() == ModItems.self_sacrifice_amulet)
+                {
+                    SelfSacrificeAmulet selfSacrificeAmulet = (SelfSacrificeAmulet) ModItems.self_sacrifice_amulet;
+                    int lpReceived = (int) damageDone;
+                    boolean shouldExecute = selfSacrificeAmulet.getStoredLP(stack) < 10000;
+
+                    if (shouldExecute)
+                    {
+                        PotionEffect regenEffect = player.getActivePotionEffect(Potion.regeneration);
+
+                        if (regenEffect != null && regenEffect.getAmplifier() >= 2)
+                        {
+                            selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + lpReceived / 2, 10000));
+                        }
+                        else
+                        {
+                            selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + lpReceived, 10000));
+                        }
+                    }
+
+                    if (player instanceof EntityPlayerMP)
+                    {
+                        PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
+                    }
+                }
+            }
+        }
+    }
+
+    public void こんちは(EntityPlayer player)
+    {
+        player.addChatMessage(new ChatComponentText("こんにちは！"));
+    }
+
+    @SubscribeEvent
+    public void onLivingDeath(LivingDeathEvent event)
+    {
+        Entity killer = event.source.getEntity();
+        EntityLivingBase victim = event.entityLiving;
+
+        if (killer instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) killer;
+            InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+
+            for (int i = 0; i < inv.getSizeInventory(); i++)
+            {
+                ItemStack stack = inv.getStackInSlot(i);
+
+                if (stack != null && stack.getItem() == ModItems.sacrifice_amulet)
+                {
+                    SacrificeAmulet sacrificeAmulet = (SacrificeAmulet) ModItems.sacrifice_amulet;
+                    float victimHealth = victim.getMaxHealth();
+                    boolean healthGood = victimHealth > 4.0F;
+                    int lpReceived = healthGood ? 200 : 50;
+                    boolean shouldExecute = sacrificeAmulet.getStoredLP(stack) < 10000;
+
+                    if (shouldExecute)
+                    {
+                        sacrificeAmulet.setStoredLP(stack, Math.min(sacrificeAmulet.getStoredLP(stack) + lpReceived, 10000));
+                    }
+
+                    if (player instanceof EntityPlayerMP)
+                    {
+                        PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
                     }
                 }
             }

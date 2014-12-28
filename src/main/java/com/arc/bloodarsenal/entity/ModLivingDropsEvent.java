@@ -4,6 +4,7 @@ import com.arc.bloodarsenal.items.ModItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -16,10 +17,11 @@ public class ModLivingDropsEvent
     @SubscribeEvent
     public void onEntityDrop(LivingDropsEvent event)
     {
+        rand = Math.random();
+
         if (event.source.getDamageType().equals("player"))
         {
             PotionEffect effect = event.entityLiving.getActivePotionEffect(Potion.weakness);
-            rand = Math.random();
 
             if (event.entityLiving instanceof EntityZombie)
             {
@@ -49,6 +51,14 @@ public class ModLivingDropsEvent
                 {
                     event.entityLiving.dropItem(ModItems.heart, 1);
                 }
+            }
+        }
+
+        if (event.entityLiving instanceof EntityWolf)
+        {
+            if (rand < 0.4F)
+            {
+                event.entityLiving.dropItem(ModItems.wolf_hide, 1);
             }
         }
     }

@@ -41,16 +41,21 @@ public class RecipeHelper
     private static final ItemStack largeBladePattern = TConstructRegistry.getItemStack("largeBladePattern");
     private static final ItemStack hammerHeadPattern = TConstructRegistry.getItemStack("hammerHeadPattern");
     private static final ItemStack fullGuardPattern = TConstructRegistry.getItemStack("fullGuardPattern");
+    private static final ItemStack crossbowBodyPattern = TConstructRegistry.getItemStack("crossbowBodyPattern");
     private static final ItemStack arrowHeadPattern = new ItemStack(pattern, 1, 25);
 
     private static PartHelper _ARROWHEAD = BloodArsenalTinkers.ARROWHEAD;
     private static PartHelper _AXE_HEAD = BloodArsenalTinkers.AXE_HEAD;
     private static PartHelper _BATTLE_SIGN_HEAD = BloodArsenalTinkers.BATTLE_SIGN_HEAD;
     private static PartHelper _BINDING = BloodArsenalTinkers.BINDING;
+    private static PartHelper _BOW_LIMB = BloodArsenalTinkers.BOW_LIMB;
     private static PartHelper _CHISEL_HEAD = BloodArsenalTinkers.CHISEL_HEAD;
     private static PartHelper _CHUNK = BloodArsenalTinkers.CHUNK;
     private static PartHelper _CROSSBAR = BloodArsenalTinkers.CROSSBAR;
+    private static PartHelper _CROSSBOW_BODY = BloodArsenalTinkers.CROSSBOW_BODY;
+    private static PartHelper _CROSSBOW_LIMB = BloodArsenalTinkers.CROSSBOW_LIMB;
     private static PartHelper _EXCAVATOR_HEAD = BloodArsenalTinkers.EXCAVATOR_HEAD;
+    private static PartHelper _FISHING_ROD = BloodArsenalTinkers.FISHING_ROD;
     private static PartHelper _FRYPAN_HEAD = BloodArsenalTinkers.FRYPAN_HEAD;
     private static PartHelper _FULL_GUARD = BloodArsenalTinkers.FULL_GUARD;
     private static PartHelper _HAMMER_HEAD = BloodArsenalTinkers.HAMMER_HEAD;
@@ -63,6 +68,7 @@ public class RecipeHelper
     private static PartHelper _PICKAXE_HEAD = BloodArsenalTinkers.PICKAXE_HEAD;
     private static PartHelper _SCYTHE_HEAD = BloodArsenalTinkers.SCYTHE_HEAD;
     private static PartHelper _SHOVEL_HEAD = BloodArsenalTinkers.SHOVEL_HEAD;
+    private static PartHelper _SHURIKEN = BloodArsenalTinkers.SHURIKEN;
     private static PartHelper _SWORD_BLADE = BloodArsenalTinkers.SWORD_BLADE;
     private static PartHelper _TOOLROD = BloodArsenalTinkers.TOOLROD;
     private static PartHelper _TOUGHBIND = BloodArsenalTinkers.TOUGHBIND;
@@ -117,7 +123,7 @@ public class RecipeHelper
         List<PatternBuilder.ItemKey> materials = PatternBuilder.instance.materials;
         for (int i = 0; i < materials.size(); i++)
         {
-            PatternBuilder.ItemKey itemKey = (PatternBuilder.ItemKey)materials.get(i);
+            PatternBuilder.ItemKey itemKey = materials.get(i);
             if ((itemKey.item == material.getItem()) && (material.getItemDamage() == itemKey.damage))
             {
                 materials.remove(i);

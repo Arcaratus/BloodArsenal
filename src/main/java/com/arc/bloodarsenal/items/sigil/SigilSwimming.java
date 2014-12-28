@@ -184,6 +184,6 @@ public class SigilSwimming extends EnergyItems implements ArmourUpgrade, IBindab
     @Override
     public int getEnergyForTenSeconds()
     {
-        return 150;
+        return BloodArsenalConfig.sigilSwimmingCost;
     }
 }

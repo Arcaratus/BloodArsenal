@@ -45,8 +45,8 @@ public class PartHelper extends Item implements IToolPart
         this.itemIcon = icon.registerIcon(this.defaultTexture);
         for (Map.Entry<Integer, String> texture : this.textures.entrySet())
         {
-            int materialID = (Integer)texture.getKey().intValue();
-            String textureName = (String)texture.getValue();
+            int materialID = texture.getKey().intValue();
+            String textureName = texture.getValue();
 
             IIcon _icon = icon.registerIcon(texturePath + textureName);
 
@@ -74,7 +74,7 @@ public class PartHelper extends Item implements IToolPart
     {
         if (this.icons.containsKey(Integer.valueOf(damageValue)))
         {
-            return (IIcon)this.icons.get(Integer.valueOf(damageValue));
+            return this.icons.get(Integer.valueOf(damageValue));
         }
         return this.itemIcon;
     }
@@ -85,7 +85,7 @@ public class PartHelper extends Item implements IToolPart
         {
             for (Map.Entry<Integer, String> subItem : this.unlocalizedMaterialNames.entrySet())
             {
-                int materialId = (Integer)subItem.getKey().intValue();
+                int materialId = subItem.getKey().intValue();
                 itemStackList.add(new ItemStack(item, 1, materialId));
             }
         }
@@ -101,7 +101,7 @@ public class PartHelper extends Item implements IToolPart
 
         if (this.unlocalizedMaterialNames.containsKey(Integer.valueOf(damageValue)))
         {
-            return "item." + (String)this.unlocalizedMaterialNames.get(Integer.valueOf(damageValue)) + "." + this.unlocalizedPartName;
+            return "item." + this.unlocalizedMaterialNames.get(Integer.valueOf(damageValue)) + "." + this.unlocalizedPartName;
         }
         return getUnlocalizedName();
     }
@@ -113,8 +113,8 @@ public class PartHelper extends Item implements IToolPart
 
         if (this.unlocalizedMaterialNames.containsKey(Integer.valueOf(damageValue)))
         {
-            String unlocalizedMaterialName = (String)this.unlocalizedMaterialNames.get(Integer.valueOf(damageValue));
-            if ((StatCollector.canTranslate("part." + this.unlocalizedPartName)) && (StatCollector.canTranslate("material." + unlocalizedMaterialName)))
+            String unlocalizedMaterialName = this.unlocalizedMaterialNames.get(Integer.valueOf(damageValue));
+            if (StatCollector.canTranslate("part." + this.unlocalizedPartName) && StatCollector.canTranslate("material." + unlocalizedMaterialName))
             {
                 String localizedPartName = StatCollector.translateToLocal("part." + this.unlocalizedPartName);
                 String localizedMaterialName = StatCollector.translateToLocal("material." + unlocalizedMaterialName);

@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class PotionVampiricAura extends Potion
 {
-    private static final ResourceLocation resourceLocation = new ResourceLocation("BloodArsenal", "textures/misc/potions.png");
+    private static final ResourceLocation resourceLocation = new ResourceLocation("bloodarsenal", "textures/misc/potions.png");
 
     public PotionVampiricAura(int par1, boolean par2, int par3)
     {
@@ -22,11 +22,10 @@ public class PotionVampiricAura extends Potion
         return this;
     }
 
-/*    @SideOnly(Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public int getStatusIconIndex()
     {
         Minecraft.getMinecraft().renderEngine.bindTexture(resourceLocation);
         return super.getStatusIconIndex();
     }
-    */
 }

@@ -14,7 +14,7 @@ public class BloodStoneBlock extends ItemBlock
 
     public String getUnlocalizedName(ItemStack itemStack)
     {
-        String name = "";
+        String name;
 
         switch (itemStack.getItemDamage())
         {
@@ -32,6 +32,10 @@ public class BloodStoneBlock extends ItemBlock
 
             case 3:
                 name = "blood_stone_4";
+                break;
+
+            case 4:
+                name = "blood_stone_5";
                 break;
 
             default:

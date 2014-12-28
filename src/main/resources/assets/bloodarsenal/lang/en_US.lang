@@ -6,6 +6,7 @@ tile.blood_stone.blood_stone_1.name=Blank Blood Stone
 tile.blood_stone.blood_stone_2.name=Reinforced Blood Stone
 tile.blood_stone.blood_stone_3.name=Imbued Blood Stone
 tile.blood_stone.blood_stone_4.name=Demonic Blood Stone
+tile.blood_stone.blood_stone_5.name=Ethereal Blood Stone
 tile.blood_tnt.name=Blood TNT
 tile.blood_stained_glass.name=Blood Stained Glass
 tile.blood_stained_ice.name=Blood Stained Ice
@@ -17,9 +18,9 @@ tile.blood_door_wood.name=Blood Infused Wooden Door
 tile.blood_door_iron.name=Blood Infused Iron Door
 tile.blood_torch.name=Blood Torch
 tile.blood_infused_glowstone.name=Blood Infused Glowstone
-tile.blood_infused_redstone_lamp.name=Blood Infused Redstone Lamp
 tile.blood_lamp.name=Blood Lamp
 tile.blood_infused_diamond_block.name=Blood Infused Diamond Block
+tile.portable_altar.name=Portable Altar [WIP]
 
 #Items
 item.bound_bow.name=Bound Bow
@@ -51,7 +52,7 @@ item.item_blood_door_iron.name=Blood Infused Iron Door [WIP]
 item.bound_flint_and_steel.name=Bound Flint and Steel
 item.soul_fragment.name=Soul Fragment
 item.soul_booster.name=Soul Booster
-item.soul_nullifier.name=Soul Nullifier [WIP]
+item.soul_nullifier.name=Soul Nullifier
 item.blood_cookie.name=Blood Cookie
 item.orange_juice.name=Orange Juice
 item.juice_and_cookies.name=Juice and Cookies
@@ -61,11 +62,17 @@ item.vampire_boots.name=Vampire Boots
 item.vampire_ring.name=Vampire Ring
 item.energy_gatling.name=Energy Gatling [WIP]
 item.sigil_of_swimming.name=Sigil of Swimming
-item.sigil_of_ender.name=Ender Sigil [WIP]
+item.sigil_of_ender.name=Ender Sigil
 item.blood_infused_glowstone_dust.name=Blood Infused Glowstone Dust
+item.sacrifice_amulet.name=Amulet of Sacrifice
+item.self_sacrifice_amulet.name=Amulet of Self Sacrifice
+item.sigil_of_divinity.name=Sigil of Divinity
+item.blood_ball.name=Blood Ball
+item.item_blood_cake.name=Blood Cake
+item.wolf_hide.name=Wolf Hide
 
 #TConstruct Stuffs
-material.bloodinfusediron=Blood Infused Iron
+material.blood_infused_iron.name=Blood Infused Iron
 
 part.arrowhead=@material@ Arrowhead
 part.axe.head=@material@ Axe Head

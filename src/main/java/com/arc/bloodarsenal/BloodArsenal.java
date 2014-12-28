@@ -3,6 +3,8 @@ package com.arc.bloodarsenal;
 import com.arc.bloodarsenal.entity.ModLivingDropsEvent;
 import com.arc.bloodarsenal.gui.GuiHandler;
 import com.arc.bloodarsenal.items.ModItems;
+import com.arc.bloodarsenal.items.bauble.SacrificeAmulet;
+import com.arc.bloodarsenal.items.bauble.SelfSacrificeAmulet;
 import com.arc.bloodarsenal.items.bauble.VampireRing;
 import com.arc.bloodarsenal.items.tinkers.BloodArsenalTinkers;
 import com.arc.bloodarsenal.items.tinkers.RecipeHelper;
@@ -19,7 +21,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import com.arc.bloodarsenal.blocks.ModBlocks;
+import com.arc.bloodarsenal.block.ModBlocks;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
@@ -32,12 +34,10 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-@Mod(modid="BloodArsenal", version="1.1.0", name="Blood Arsenal", dependencies="required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
+@Mod(modid="BloodArsenal", version="1.1.3", name="Blood Arsenal", dependencies="required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
 public class BloodArsenal
 {
     public static String MODID = "BloodArsenal";
-    public static String VERSION = "1.1.0";
-    public static String NAME = "Blood Arsenal";
 
     @SidedProxy(clientSide = "com.arc.bloodarsenal.ClientProxy", serverSide = "com.arc.bloodarsenal.CommonProxy")
     public static CommonProxy proxy;
@@ -129,8 +129,8 @@ public class BloodArsenal
         proxy.registerEvents();
 
         vampiricAura = new PotionVampiricAura(BloodArsenalConfig.vampiricAuraID, false, 0).setIconIndex(0, 0).setPotionName("Vampiric Aura");
-        bleeding = new PotionVampiricAura(BloodArsenalConfig.bleedingID, false, 0).setIconIndex(0, 0).setPotionName("Bleeding");
-        swimming = new PotionVampiricAura(BloodArsenalConfig.swimmingID, false, 0).setIconIndex(0, 0).setPotionName("Swimming");
+        bleeding = new PotionVampiricAura(BloodArsenalConfig.bleedingID, false, 0).setIconIndex(1, 0).setPotionName("Bleeding");
+        swimming = new PotionVampiricAura(BloodArsenalConfig.swimmingID, false, 0).setIconIndex(2, 0).setPotionName("Swimming");
     }
 
     @Mod.EventHandler
@@ -142,7 +142,12 @@ public class BloodArsenal
             logger.info("Loaded Baubles integration");
 
             ModItems.vampire_ring = new VampireRing();
+            ModItems.self_sacrifice_amulet = new SelfSacrificeAmulet();
+            ModItems.sacrifice_amulet = new SacrificeAmulet();
+
             GameRegistry.registerItem(ModItems.vampire_ring, "vampire_ring");
+            GameRegistry.registerItem(ModItems.self_sacrifice_amulet, "self_sacrifice_amulet");
+            GameRegistry.registerItem(ModItems.sacrifice_amulet, "sacrifice_amulet");
         }
         else
         {

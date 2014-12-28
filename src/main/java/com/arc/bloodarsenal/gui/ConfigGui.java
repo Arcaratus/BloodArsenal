@@ -23,10 +23,11 @@ public class ConfigGui extends GuiConfig {
 		List<IConfigElement> list = new ArrayList<IConfigElement>();
 
 		// Adds sections declared in BloodArsenalConfig. toLowerCase() is used because the configuration class automatically does this, so must we.
-		list.add(new ConfigElement<ConfigCategory>(config.getCategory(misc.toLowerCase())));
 		list.add(new ConfigElement<ConfigCategory>(config.getCategory(potionId.toLowerCase())));
 		list.add(new ConfigElement<ConfigCategory>(config.getCategory(ritualBlacklist.toLowerCase())));
 		list.add(new ConfigElement<ConfigCategory>(config.getCategory(toolSetting.toLowerCase())));
+		list.add(new ConfigElement<ConfigCategory>(config.getCategory(lpSettings.toLowerCase())));
+		list.add(new ConfigElement<ConfigCategory>(config.getCategory(misc.toLowerCase())));
 
 		return list;
 	}

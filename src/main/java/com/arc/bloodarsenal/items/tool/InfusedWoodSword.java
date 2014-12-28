@@ -64,7 +64,6 @@ public class InfusedWoodSword extends ItemSword implements IBindable
 
             }
         }
-        par2EntityLivingBase.addPotionEffect(new PotionEffect(Potion.weakness.id, 60, 2));
         return true;
     }
 

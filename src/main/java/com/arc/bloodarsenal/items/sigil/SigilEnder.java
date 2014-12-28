@@ -3,6 +3,8 @@ package com.arc.bloodarsenal.items.sigil;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.arc.bloodarsenal.BloodArsenal;
+import com.arc.bloodarsenal.entity.projectile.EntityEnderSigilPearl;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,7 +22,6 @@ public class SigilEnder extends EnergyItems implements IBindable
         setUnlocalizedName("sigil_of_ender");
         setTextureName("BloodArsenal:sigil_of_ender");
         setCreativeTab(BloodArsenal.BA_TAB);
-        setEnergyUsed(1000);
     }
 
     @Override
@@ -39,11 +40,6 @@ public class SigilEnder extends EnergyItems implements IBindable
     {
         EnergyItems.checkAndSetItemOwner(par1ItemStack, par3EntityPlayer);
 
-        par3EntityPlayer.displayGUIChest(par3EntityPlayer.getInventoryEnderChest());
-        par2World.playSoundAtEntity(par3EntityPlayer, "mob.endermen.portal", 1F, 1F);
-
-        EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, 500);
-
         if (par1ItemStack.stackTagCompound == null)
         {
             par1ItemStack.setTagCompound(new NBTTagCompound());
@@ -51,20 +47,20 @@ public class SigilEnder extends EnergyItems implements IBindable
 
         if (par3EntityPlayer.isSneaking() && !par3EntityPlayer.isSwingInProgress)
         {
-            if (!par3EntityPlayer.capabilities.isCreativeMode)
-            {
-                return par1ItemStack;
-            }
-            else
-            {
-                par2World.playSoundAtEntity(par3EntityPlayer, "mob.endermen.portal", 1F, 1F);
+            par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-                if (!par2World.isRemote)
-                {
-                    par2World.spawnEntityInWorld(new EntityEnderPearl(par2World, par3EntityPlayer));
-                    EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, getEnergyUsed());
-                }
+            if (!par2World.isRemote)
+            {
+                par2World.spawnEntityInWorld(new EntityEnderSigilPearl(par2World, par3EntityPlayer));
+                EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, 300);
             }
+
+        }
+        else if (!par3EntityPlayer.isSneaking())
+        {
+            par3EntityPlayer.displayGUIChest(par3EntityPlayer.getInventoryEnderChest());
+            par2World.playSoundAtEntity(par3EntityPlayer, "mob.endermen.portal", 1F, 1F);
+            EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, 200);
         }
 
         return par1ItemStack;

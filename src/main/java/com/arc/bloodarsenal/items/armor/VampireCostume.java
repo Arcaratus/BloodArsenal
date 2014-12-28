@@ -2,7 +2,7 @@ package com.arc.bloodarsenal.items.armor;
 
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.items.ModItems;
-import com.arc.bloodarsenal.renderer.ModelVampireCostume;
+import com.arc.bloodarsenal.renderer.model.ModelVampireCostume;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBiped;
