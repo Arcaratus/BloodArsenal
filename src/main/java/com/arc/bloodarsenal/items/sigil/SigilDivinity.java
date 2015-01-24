@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class SigilDivinity extends EnergyItems implements ArmourUpgrade, IBindab
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        par3List.add("May the Divines protect you!");
+        par3List.add(StatCollector.translateToLocal("tooltip.sigil.divinity"));
 
         if (!(par1ItemStack.stackTagCompound == null))
         {

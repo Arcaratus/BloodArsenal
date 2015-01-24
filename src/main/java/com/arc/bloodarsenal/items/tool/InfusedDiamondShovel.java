@@ -11,6 +11,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -34,7 +35,7 @@ public class InfusedDiamondShovel extends ItemSpade implements IBindable
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer , List par3List, boolean par4)
     {
-        par3List.add("Diggy diggy hole!");
+        par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_infused_diamond_shovel"));
 
         if (par1ItemStack.getItemDamage() == 0)
         {

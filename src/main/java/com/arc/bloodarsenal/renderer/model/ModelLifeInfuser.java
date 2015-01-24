@@ -1,8 +1,13 @@
 package com.arc.bloodarsenal.renderer.model;
 
+import com.arc.bloodarsenal.tileentity.TileLifeInfuser;
+import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IModelCustom;
+import org.lwjgl.opengl.GL11;
 
 /**
  * LifeInfuser - Arcaratus
@@ -10,6 +15,10 @@ import net.minecraft.entity.Entity;
  */
 public class ModelLifeInfuser extends ModelBase
 {
+    private static final ResourceLocation texture = new ResourceLocation("bloodarsenal:textures/models/LifeInfuser.png");
+
+    private IModelCustom modelLifeInfuser;
+
     public ModelRenderer Base;
     public ModelRenderer Pillar1;
     public ModelRenderer Pillar2;
@@ -57,6 +66,28 @@ public class ModelLifeInfuser extends ModelBase
         this.Plate2.render(f5);
         this.Plate1.render(f5);
         this.Pillar1.render(f5);
+    }
+
+    public void renderLifeInfuser()
+    {
+        modelLifeInfuser.renderAll();
+    }
+
+    public void renderLifeInfuser(TileLifeInfuser lifeInfuser, double x, double y, double z)
+    {
+        float scale = 0.1f;
+        // Push a blank matrix onto the stack
+        GL11.glPushMatrix();
+        // Move the object into the correct position on the block (because the OBJ's origin is the center of the object)
+        GL11.glTranslatef((float) x + 0.5f, (float) y, (float) z + 0.5f);
+        // Scale our object to about half-size in all directions (the OBJ file is a little large)
+        GL11.glScalef(scale, scale, scale);
+        // Bind the texture, so that OpenGL properly textures our block.
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
+        // Render the object, using modelTutBox.renderAll();
+        this.renderLifeInfuser();
+        // Pop this matrix from the stack.
+        GL11.glPopMatrix();
     }
 
     /**

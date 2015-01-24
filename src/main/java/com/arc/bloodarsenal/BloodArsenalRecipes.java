@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class BloodArsenalRecipes
@@ -20,7 +21,6 @@ public class BloodArsenalRecipes
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_tnt), new ItemStack(Blocks.tnt), 3, 5000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_infused_wood), new ItemStack(Blocks.log), 2, 3000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_infused_iron_block), new ItemStack(Blocks.iron_block), 3, 72000, 5, 5, false);
-        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_torch), new ItemStack(Blocks.torch), 2, 1000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.item_blood_cake), new ItemStack(Items.cake), 3, 10000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_iron), new ItemStack(Items.iron_ingot), 3, 8000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_orange), new ItemStack(Items.dye, 1, 14), 1, 200, 5, 5, false);
@@ -37,7 +37,7 @@ public class BloodArsenalRecipes
         BindingRegistry.registerRecipe(new ItemStack(ModItems.bound_sickle), new ItemStack(Items.diamond_hoe));
         BindingRegistry.registerRecipe(new ItemStack(ModItems.bound_shears), new ItemStack(Items.shears));
         BindingRegistry.registerRecipe(new ItemStack(ModItems.blood_infused_diamond_bound), new ItemStack(ModItems.blood_infused_diamond_active));
-        BindingRegistry.registerRecipe(new ItemStack(ModItems.bound_flint_and_steel), new ItemStack(Items.flint_and_steel));
+        BindingRegistry.registerRecipe(new ItemStack(ModItems.bound_igniter), new ItemStack(Items.flint_and_steel));
         //Temporary
         BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_cape), new ItemStack(Items.leather_chestplate));
         BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_greaves), new ItemStack(Items.leather_leggings));
@@ -114,13 +114,12 @@ public class BloodArsenalRecipes
         {
 //            GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.vampire_ring),"ab ", "bcb", " b ", 'a', ModItems.blood_infused_diamond_bound, 'b', Blocks.stone, 'c', masterOrb));
 //            GameRegistry.addRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "a", 'a', new ItemStack(Items.slime_ball));
-
         }
 
         {
-            ItemStack flintSteel = new ItemStack(ModItems.bound_flint_and_steel, 1, craftingConstant);
+            ItemStack igniter = new ItemStack(ModItems.bound_igniter);
 
-//            GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_torch, 2), "a", "b", 'a', flintSteel, 'b', ModItems.blood_infused_stick);
+            GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_torch), "a", "b", 'a', igniter, 'b', ModItems.blood_infused_stick);
         }
     }
 }

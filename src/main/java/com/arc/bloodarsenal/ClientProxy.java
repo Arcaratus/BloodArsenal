@@ -7,11 +7,14 @@ import com.arc.bloodarsenal.entity.projectile.EntityBloodBall;
 import com.arc.bloodarsenal.entity.projectile.EntityEnderSigilPearl;
 import com.arc.bloodarsenal.entity.projectile.EntityGatlingProjectile;
 import com.arc.bloodarsenal.items.ModItems;
+import com.arc.bloodarsenal.renderer.block.TileLifeInfuserRenderer;
+import com.arc.bloodarsenal.renderer.block.item.TileLifeInfuserItemRenderer;
 import com.arc.bloodarsenal.renderer.item.ItemRenderGatling;
 import com.arc.bloodarsenal.renderer.projectile.RenderEntityBloodBall;
 import com.arc.bloodarsenal.renderer.projectile.RenderEntityGatlingProjectile;
 import com.arc.bloodarsenal.renderer.block.TilePortableAltarRenderer;
 import com.arc.bloodarsenal.renderer.block.item.TilePortableAltarItemRenderer;
+import com.arc.bloodarsenal.tileentity.TileLifeInfuser;
 import com.arc.bloodarsenal.tileentity.TilePortableAltar;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -26,9 +29,6 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 public class ClientProxy extends CommonProxy
 {
-    public static int renderPass;
-    public static int altarRenderType;
-
     @Override
     public void registerRenders()
     {
@@ -40,11 +40,7 @@ public class ClientProxy extends CommonProxy
         RenderingRegistry.registerEntityRenderingHandler(EntityEnderSigilPearl.class, new RenderSnowball(Items.ender_pearl));
 
         ClientRegistry.bindTileEntitySpecialRenderer(TilePortableAltar.class, new TilePortableAltarRenderer());
-    }
-
-    @Override
-    public void registerEntities()
-    {
+        ClientRegistry.bindTileEntitySpecialRenderer(TileLifeInfuser.class, new TileLifeInfuserRenderer());
     }
 
     @Override
@@ -63,5 +59,6 @@ public class ClientProxy extends CommonProxy
     public void initRendering()
     {
         MinecraftForgeClient.registerItemRenderer(ItemBlock.getItemFromBlock(ModBlocks.portable_altar), new TilePortableAltarItemRenderer());
+        MinecraftForgeClient.registerItemRenderer(ItemBlock.getItemFromBlock(ModBlocks.life_infuser), new TileLifeInfuserItemRenderer());
     }
 }

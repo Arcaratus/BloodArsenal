@@ -17,6 +17,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
@@ -245,7 +246,7 @@ public class BoundBow extends ItemBow implements IBindable
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        par3List.add("Let Demon arrows fly!");
+        par3List.add(StatCollector.translateToLocal("tooltip.tool.bound_bow"));
 
         if (!(par1ItemStack.stackTagCompound == null))
         {

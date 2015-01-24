@@ -43,7 +43,7 @@ public class ModItems
     public static Item soul_fragment;
     public static Item item_blood_door_wood;
     public static Item item_blood_door_iron;
-    public static Item bound_flint_and_steel;
+    public static Item bound_igniter;
     public static Item soul_booster;
     public static Item soul_nullifier;
     public static Item blood_cookie;
@@ -93,7 +93,7 @@ public class ModItems
         soul_fragment = new ItemBloodArsenal().setUnlocalizedName("soul_fragment");
         item_blood_door_wood = new BloodDoor(Material.wood).setUnlocalizedName("item_blood_door_wood").setTextureName("BloodArsenal:item_blood_door_wood");
         item_blood_door_iron = new BloodDoor(Material.iron).setUnlocalizedName("item_blood_door_iron").setTextureName("BloodArsenal:item_blood_door_iron");
-        bound_flint_and_steel = new BoundFlintAndSteel();
+        bound_igniter = new BoundIgniter();
         soul_booster = new ItemSoulBooster();
         soul_nullifier = new ItemSoulNullifier();
         blood_cookie = new ItemBloodCookie();
@@ -142,7 +142,7 @@ public class ModItems
         GameRegistry.registerItem(item_blood_door_wood, "item_blood_door_wood");
         GameRegistry.registerItem(item_blood_door_iron, "item_blood_door_iron");
         GameRegistry.registerItem(item_blood_cake, "item_blood_cake");
-        GameRegistry.registerItem(bound_flint_and_steel, "bound_flint_and_steel");
+        GameRegistry.registerItem(bound_igniter, "bound_flint_and_steel");
         GameRegistry.registerItem(soul_booster, "soul_booster");
         GameRegistry.registerItem(soul_nullifier, "soul_nullfier");
         GameRegistry.registerItem(blood_cookie, "blood_cookie");

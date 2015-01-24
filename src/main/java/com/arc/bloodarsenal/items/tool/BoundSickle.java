@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
@@ -131,8 +132,8 @@ public class BoundSickle extends ItemTool implements IBindable
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        par3List.add("Hacking plants down");
-        par3List.add("like a demon!");
+        par3List.add(StatCollector.translateToLocal("tooltip.tool.bound_sickle1"));
+        par3List.add(StatCollector.translateToLocal("tooltip.tool.bound_sickle2"));
 
         if (!(par1ItemStack.stackTagCompound == null))
         {

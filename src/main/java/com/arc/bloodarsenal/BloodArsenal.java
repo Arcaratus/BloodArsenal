@@ -17,6 +17,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
@@ -77,6 +78,7 @@ public class BloodArsenal
 
 	    ModBlocks.init();
 	    ModBlocks.registerBlocksInPre();
+        ModBlocks.registerTileEntities();
 
 	    ModItems.init();
 	    ModItems.registerItems();
@@ -129,7 +131,7 @@ public class BloodArsenal
         proxy.registerEvents();
 
         vampiricAura = new PotionVampiricAura(BloodArsenalConfig.vampiricAuraID, false, 0).setIconIndex(0, 0).setPotionName("Vampiric Aura");
-        bleeding = new PotionVampiricAura(BloodArsenalConfig.bleedingID, false, 0).setIconIndex(1, 0).setPotionName("Bleeding");
+        bleeding = new PotionVampiricAura(BloodArsenalConfig.bleedingID, true, 0).setIconIndex(1, 0).setPotionName("Bleeding");
         swimming = new PotionVampiricAura(BloodArsenalConfig.swimmingID, false, 0).setIconIndex(2, 0).setPotionName("Swimming");
     }
 

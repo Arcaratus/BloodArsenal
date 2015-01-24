@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -70,31 +71,31 @@ public class ItemBloodArsenal extends Item
     {
         if (this.equals(ModItems.amorphic_catalyst))
         {
-            par3List.add("A coagulated mess");
+            par3List.add(StatCollector.translateToLocal("tooltip.itemba.amorphic_catalyst"));
         }
         if (this.equals(ModItems.blood_infused_stick))
         {
-            par3List.add("A stick infused with life!");
+            par3List.add(StatCollector.translateToLocal("tooltip.itemba.blood_infused_stick"));
         }
         if (this.equals(ModItems.blood_infused_iron))
         {
-            par3List.add("Mundane iron infused");
-            par3List.add("with life essence");
+            par3List.add(StatCollector.translateToLocal("tooltip.itemba.blood_infused_iron1"));
+            par3List.add(StatCollector.translateToLocal("tooltip.itemba.blood_infused_iron2"));
         }
         if (this.equals(ModItems.heart))
         {
             if (AlchemicalWizardry.wimpySettings)
             {
-                par3List.add("Bright red in color");
+                par3List.add(StatCollector.translateToLocal("tooltip.itemba.heart1"));
             }
             else
             {
-                par3List.add("Fresh from a body");
+                par3List.add(StatCollector.translateToLocal("tooltip.itemba.heart2"));
             }
         }
         if (this.equals(ModItems.soul_fragment))
         {
-            par3List.add("The raw essence of a soul");
+            par3List.add(StatCollector.translateToLocal("tooltip.itemba.soul_fragment"));
         }
     }
 }

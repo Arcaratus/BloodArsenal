@@ -14,6 +14,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class InfusedDiamondSword extends ItemSword implements IBindable
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer , List par3List, boolean par4)
     {
-        par3List.add("Cuts easily through flesh");
+        par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_infused_diamond_sword"));
 
         if (par1ItemStack.getItemDamage() == 0)
         {

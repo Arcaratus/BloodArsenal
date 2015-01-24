@@ -49,7 +49,7 @@ item.blood_infused_sword_diamond.name=Blood Infused Diamond Sword [WIP]
 item.heart.name=Heart
 item.item_blood_door_wood.name=Blood Infused Wooden Door [WIP]
 item.item_blood_door_iron.name=Blood Infused Iron Door [WIP]
-item.bound_flint_and_steel.name=Bound Flint and Steel
+item.bound_igniter.name=Bound Igniter
 item.soul_fragment.name=Soul Fragment
 item.soul_booster.name=Soul Booster
 item.soul_nullifier.name=Soul Nullifier
@@ -101,3 +101,40 @@ part.toughrod=@material@ Tough Rod
 
 #Death Texts
 death.attack.deathFromBlood=%1$s lost too much blood
+
+#Tooltips
+tooltip.itemba.amorphic_catalyst=A coagulated mess
+tooltip.itemba.blood_infused_stick=A stick infused with life!
+tooltip.itemba.blood_infused_iron1=Mundane iron infused
+tooltip.itemba.blood_infused_iron2=with life essence
+tooltip.itemba.heart1=Bright red in color
+tooltip.itemba.heart2=Fresh from a body
+tooltip.itemba.soul_fragment=The raw essence of a soul
+tooltip.itemba.blood_cookie=A sugary treat
+tooltip.itemba.blood_orange=Completely organic
+tooltip.itemba.soul_booster1=Used to increase
+tooltip.itemba.soul_booster2=the soul's abilities
+tooltip.itemba.soul_nullifier1=Used to nullify
+tooltip.itemba.soul_nullifier2=the soul's unnatural abilities
+tooltip.tool.bound_bow=Let Demon arrows fly!
+tooltip.tool.bound_igniter=Burning souls...
+tooltip.tool.bound_shears1=A demonic solution
+tooltip.tool.bound_shears2=to an overgrown lawn
+tooltip.tool.bound_sickle1=Hacking down plants
+tooltip.tool.bound_sickle2=like a demon!
+tooltip.tool.energy_gatling=Point and click.
+tooltip.tool.blood_diamond_unactive1=Diamond needs to
+tooltip.tool.blood_diamond_unactive2=be activated
+tooltip.tool.blood_diamond_active1=Diamond infused
+tooltip.tool.blood_diamond_active2=with life essence
+tooltip.tool.blood_diamond_bound=The Diamond of Life
+tooltip.tool.blood_infused_diamond_axe=Demonic deforestation!
+tooltip.tool.blood_infused_diamond_pickaxe=A handheld quarry
+tooltip.tool.blood_infused_diamond_shovel=Making a hole
+tooltip.tool.blood_infused_diamond_sword=Slices right through!
+tooltip.sigil.swimming=Just keep swimming!
+tooltip.sigil.ender1=Sticking your hand
+tooltip.sigil.ender2=into the End!
+tooltip.sigil.divinity=May the Divines protect you!
+
+

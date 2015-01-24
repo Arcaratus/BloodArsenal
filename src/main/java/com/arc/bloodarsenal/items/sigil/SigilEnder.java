@@ -9,6 +9,7 @@ import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -27,7 +28,8 @@ public class SigilEnder extends EnergyItems implements IBindable
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        par3List.add("Sticking your hand into the End");
+        par3List.add(StatCollector.translateToLocal("tooltip.sigil.ender1"));
+        par3List.add(StatCollector.translateToLocal("tooltip.sigil.ender2"));
 
         if (!(par1ItemStack.stackTagCompound == null))
         {

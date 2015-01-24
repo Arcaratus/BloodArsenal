@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
@@ -163,9 +164,8 @@ public class BoundShears extends ItemShears implements IBindable
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        par3List.add("Demonic solution");
-        par3List.add("to an overgrown lawn");
-
+        par3List.add(StatCollector.translateToLocal("tooltip.tool.bound_shears1"));
+        par3List.add(StatCollector.translateToLocal("tooltip.tool.bound_shears2"));
         if (!(par1ItemStack.stackTagCompound == null))
         {
             if (par1ItemStack.stackTagCompound.getBoolean("isActive"))

@@ -6,6 +6,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class ItemBloodCookie extends ItemFood
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        par3List.add("A sugary treat");
+        par3List.add(StatCollector.translateToLocal("tooltip.itemba.blood_cookie"));
     }
 
     @Override

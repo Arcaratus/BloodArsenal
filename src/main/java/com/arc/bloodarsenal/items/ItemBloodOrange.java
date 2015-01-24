@@ -4,6 +4,7 @@ import com.arc.bloodarsenal.BloodArsenal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -20,6 +21,6 @@ public class ItemBloodOrange extends ItemFood
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        par3List.add("Completely organic");
+        par3List.add(StatCollector.translateToLocal("tooltip.itemba.blood_orange"));
     }
 }

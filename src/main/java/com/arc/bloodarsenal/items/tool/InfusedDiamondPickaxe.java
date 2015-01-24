@@ -13,6 +13,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -47,7 +48,7 @@ public class InfusedDiamondPickaxe extends ItemPickaxe implements IBindable
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer , List par3List, boolean par4)
     {
-        par3List.add("A handheld quarry");
+        par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_infused_diamond_pickaxe"));
 
         if (par1ItemStack.getItemDamage() == 0)
         {

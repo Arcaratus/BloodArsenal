@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -108,8 +109,8 @@ public class ItemSoulBooster extends Item implements IBindable
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        par3List.add("Used to increase the");
-        par3List.add("soul's abilities");
+        par3List.add(StatCollector.translateToLocal("tooltip.itemba.soul_booster1"));
+        par3List.add(StatCollector.translateToLocal("tooltip.itemba.soul_booster2"));
 
         if (!(par1ItemStack.stackTagCompound == null))
         {

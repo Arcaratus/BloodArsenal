@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -59,17 +60,17 @@ public class InfusedDiamond extends Item
     {
         if (equals(ModItems.blood_infused_diamond_unactive))
         {
-            par3List.add("Diamond needs to");
-            par3List.add("be activated");
+            par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_diamond_inactive1"));
+            par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_diamond_inactive2"));
         }
         if (equals(ModItems.blood_infused_diamond_active))
         {
-            par3List.add("Diamond infused");
-            par3List.add("with life energy");
+            par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_diamond_active1"));
+            par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_diamond_active2"));
         }
         if (equals(ModItems.blood_infused_diamond_bound))
         {
-            par3List.add("Diamond of Life");
+            par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_diamond_bound"));
         }
     }
 
