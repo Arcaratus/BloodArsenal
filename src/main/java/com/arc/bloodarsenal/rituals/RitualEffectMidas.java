@@ -8,7 +8,9 @@ import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
@@ -20,7 +22,7 @@ import java.util.List;
 
 public class RitualEffectMidas extends RitualEffect
 {
-    public static double rand;
+    private static double rand;
 
     @Override
     public void performEffect(IMasterRitualStone ritualStone)

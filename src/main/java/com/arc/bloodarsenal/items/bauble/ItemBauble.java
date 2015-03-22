@@ -18,6 +18,7 @@ public abstract class ItemBauble extends Item implements IBauble
     {
         super();
         setMaxStackSize(1);
+        setMaxDamage(0);
         setCreativeTab(BloodArsenal.BA_TAB);
     }
 
@@ -93,5 +94,23 @@ public abstract class ItemBauble extends Item implements IBauble
     @Override
     public void onUnequipped(ItemStack stack, EntityLivingBase player)
     {
+    }
+
+    @Override
+    public boolean hasContainerItem(ItemStack stack)
+    {
+        return getContainerItem(stack) != null;
+    }
+
+    @Override
+    public ItemStack getContainerItem(ItemStack itemStack)
+    {
+        return itemStack;
+    }
+
+    @Override
+    public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_)
+    {
+        return false;
     }
 }

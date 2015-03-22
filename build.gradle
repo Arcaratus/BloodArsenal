@@ -38,14 +38,22 @@ if (new File(projectDir, '.git').exists()) {
 }
 
 repositories {
-	maven {
+	maven { //Tinker's and Mantle
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
-		}
+	}
 	maven { // the repo from which to get NEI and stuff
 		name 'CB Repo'
 		url "http://chickenbones.net/maven/"
 	}
+	maven { //WAILA
+        name "ProfMobius Maven FS"
+        url "http://mobiusstrip.eu/maven"
+    }
+	maven {
+        name "ForgeFS"
+        url 'http://files.minecraftforge.net/maven'
+    }
 }
 
 minecraft {
@@ -54,16 +62,12 @@ minecraft {
 }
 
 dependencies {
-	compile files{
-	'Baubles-deobf.jar'
-	}
-	compile "codechicken:CodeChickenLib:1.7.10-1.1.1.99:dev"
+	compile "codechicken:CodeChickenLib:" + config.mc_version + "-" + config.ccLib_version + ":dev"
     compile "codechicken:CodeChickenCore:" + config.mc_version + "-" + config.ccc_version + ":dev"
     compile "codechicken:NotEnoughItems:" + config.mc_version + "-" + config.nei_version + ":dev"
 	compile "codechicken:ForgeMultipart:" + config.mc_version + "-" + config.forgeMultipart_version + ":dev"
-    compile "mantle:Mantle:1.7.10-0.3.2.jenkins186:deobf"
-    compile ("tconstruct:TConstruct:1.7.10-1.7.1.build790:deobf") {
-    }
+    compile "mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf"
+    compile "tconstruct:TConstruct:" + config.mc_version + "-" + config.tconstruct_version + ":deobf"
 }
 
 processResources

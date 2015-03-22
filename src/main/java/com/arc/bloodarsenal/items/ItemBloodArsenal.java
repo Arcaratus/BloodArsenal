@@ -64,6 +64,8 @@ public class ItemBloodArsenal extends Item
             itemIcon = iconRegister.registerIcon("BloodArsenal:blood_infused_glowstone_dust");
         else if (this.equals(ModItems.wolf_hide))
             itemIcon = iconRegister.registerIcon("BloodArsenal:wolf_hide");
+        else if (this.equals(ModItems.blood_burned_string))
+            itemIcon = iconRegister.registerIcon("BloodArsenal:blood_burned_string");
     }
 
     @Override

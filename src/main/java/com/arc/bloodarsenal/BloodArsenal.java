@@ -35,10 +35,10 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-@Mod(modid="BloodArsenal", version="1.1.3", name="Blood Arsenal", dependencies="required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
+@Mod(modid = BloodArsenal.MODID, version = "1.1.4", name = "Blood Arsenal", dependencies = "required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
 public class BloodArsenal
 {
-    public static String MODID = "BloodArsenal";
+    public final static String MODID = "BloodArsenal";
 
     @SidedProxy(clientSide = "com.arc.bloodarsenal.ClientProxy", serverSide = "com.arc.bloodarsenal.CommonProxy")
     public static CommonProxy proxy;
@@ -83,7 +83,7 @@ public class BloodArsenal
 	    ModItems.init();
 	    ModItems.registerItems();
 
-	    Potion[] potionTypes = null;
+	    Potion[] potionTypes;
 
 	    for (Field f : Potion.class.getDeclaredFields())
         {
@@ -159,7 +159,7 @@ public class BloodArsenal
         if (Loader.isModLoaded("TConstruct"))
         {
             isTinkersConstructLoaded = true;
-            logger.info("Loaded Tinker's Construct integration　ほし！");
+            logger.info("Loaded Tinker's Construct integration");
 
             BloodArsenalTinkers.addMaterials();
             BloodArsenalTinkers.addParts();

@@ -1,6 +1,7 @@
 package com.arc.bloodarsenal.items.tinkers;
 
 import com.arc.bloodarsenal.BloodArsenal;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,7 +25,7 @@ public class PartHelper extends Item implements IToolPart
     protected HashMap<Integer, String> unlocalizedMaterialNames = new HashMap();
     protected HashMap<Integer, String> textures = new HashMap();
     protected HashMap<Integer, IIcon> icons = new HashMap();
-    protected static final String texturePath = "BloodArsenal".toLowerCase(Locale.ENGLISH) + ":" + "tinkers/parts/";
+    protected static final String texturePath = "BloodArsenal".toLowerCase() + ":" + "tinkers/parts/";
 
     public PartHelper(String defaultUnlocalizedPartName, int defaultMaterialID, String defaultTexture)
     {
@@ -39,10 +40,12 @@ public class PartHelper extends Item implements IToolPart
         this.defaultTexture = (texturePath + defaultTexture);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister icon)
     {
         this.itemIcon = icon.registerIcon(this.defaultTexture);
+
         for (Map.Entry<Integer, String> texture : this.textures.entrySet())
         {
             int materialID = texture.getKey().intValue();
@@ -50,35 +53,41 @@ public class PartHelper extends Item implements IToolPart
 
             IIcon _icon = icon.registerIcon(texturePath + textureName);
 
-            this.icons.put(Integer.valueOf(materialID), _icon);
+            this.icons.put(materialID, _icon);
         }
     }
 
+    @Override
     public int getMaterialID(ItemStack itemStack)
     {
         int damageValue = itemStack.getItemDamage();
+
         if (damageValue >= 100)
         {
             return itemStack.getItemDamage();
         }
+
         return this.defaultMaterialID;
     }
 
     public void addMaterial(int materialId, String unlocalizedName, String texture)
     {
-        this.unlocalizedMaterialNames.put(Integer.valueOf(materialId), unlocalizedName);
-        this.textures.put(Integer.valueOf(materialId), texture);
+        this.unlocalizedMaterialNames.put(materialId, unlocalizedName);
+        this.textures.put(materialId, texture);
     }
 
+    @Override
     public IIcon getIconFromDamage(int damageValue)
     {
-        if (this.icons.containsKey(Integer.valueOf(damageValue)))
+        if (this.icons.containsKey(damageValue))
         {
-            return this.icons.get(Integer.valueOf(damageValue));
+            return this.icons.get(damageValue);
         }
+
         return this.itemIcon;
     }
 
+    @Override
     public void getSubItems(Item item, CreativeTabs tab, List itemStackList)
     {
         if (!this.unlocalizedMaterialNames.isEmpty())
@@ -95,25 +104,27 @@ public class PartHelper extends Item implements IToolPart
         }
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack itemStack)
     {
         int damageValue = itemStack.getItemDamage();
 
-        if (this.unlocalizedMaterialNames.containsKey(Integer.valueOf(damageValue)))
+        if (this.unlocalizedMaterialNames.containsKey(damageValue))
         {
-            return "item." + this.unlocalizedMaterialNames.get(Integer.valueOf(damageValue)) + "." + this.unlocalizedPartName;
+            return "item." + this.unlocalizedMaterialNames.get(damageValue) + "." + this.unlocalizedPartName;
         }
+
         return getUnlocalizedName();
     }
 
+    @Override
     public String getItemStackDisplayName(ItemStack itemStack)
     {
         int damageValue = itemStack.getItemDamage();
         String displayName;
-
-        if (this.unlocalizedMaterialNames.containsKey(Integer.valueOf(damageValue)))
+/*        if (this.unlocalizedMaterialNames.containsKey(damageValue))
         {
-            String unlocalizedMaterialName = this.unlocalizedMaterialNames.get(Integer.valueOf(damageValue));
+            String unlocalizedMaterialName = this.unlocalizedMaterialNames.get(damageValue);
             if (StatCollector.canTranslate("part." + this.unlocalizedPartName) && StatCollector.canTranslate("material." + unlocalizedMaterialName))
             {
                 String localizedPartName = StatCollector.translateToLocal("part." + this.unlocalizedPartName);
@@ -129,6 +140,12 @@ public class PartHelper extends Item implements IToolPart
         {
             displayName = getUnlocalizedName() + ".name";
         }
+*/
+        String unlocalizedMaterialName = this.unlocalizedMaterialNames.get(damageValue);
+        String localizedMaterialName = StatCollector.translateToLocal("material." + unlocalizedMaterialName);
+        String partName = StatCollector.translateToLocal("part." + this.unlocalizedPartName);
+        displayName = partName.replaceAll("@material@", localizedMaterialName);
+
         return displayName;
     }
 }

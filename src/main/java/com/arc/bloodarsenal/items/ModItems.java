@@ -63,6 +63,8 @@ public class ModItems
     public static Item sigil_of_divinity;
     public static Item blood_ball;
     public static Item wolf_hide;
+    public static Item blood_money;
+    public static Item blood_burned_string;
 
     public static void init()
     {
@@ -110,6 +112,8 @@ public class ModItems
         sigil_of_divinity = new SigilDivinity();
         blood_ball = new ItemBloodBall();
         wolf_hide = new ItemBloodArsenal().setUnlocalizedName("wolf_hide");
+        blood_money = new ItemBloodMoney();
+        blood_burned_string = new ItemBloodArsenal().setUnlocalizedName("blood_burned_string");
     }
 
     public static void registerItems()
@@ -158,5 +162,7 @@ public class ModItems
         GameRegistry.registerItem(sigil_of_divinity, "sigil_of_divinity");
         GameRegistry.registerItem(blood_ball, "blood_ball");
         GameRegistry.registerItem(wolf_hide, "wolf_hide");
+        GameRegistry.registerItem(blood_money, "blood_money");
+        GameRegistry.registerItem(blood_burned_string, "blood_burned_string");
     }
 }

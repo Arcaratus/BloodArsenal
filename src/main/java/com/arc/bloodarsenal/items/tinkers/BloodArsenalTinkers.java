@@ -11,6 +11,7 @@ public class BloodArsenalTinkers
     public static PartHelper AXE_HEAD;
     public static PartHelper BATTLE_SIGN_HEAD;
     public static PartHelper BINDING;
+    public static PartHelper BOLT;
     public static PartHelper BOW_LIMB;
     public static PartHelper CHISEL_HEAD;
     public static PartHelper CHUNK;
@@ -39,17 +40,13 @@ public class BloodArsenalTinkers
 
     public static void addMaterials()
     {
-        if (BloodArsenal.isTinkersConstructLoaded)
-        {
-//            TConstructRegistry.addToolMaterial(250, "Blood Infused Iron", 3, 550, 1800, 3, 1.5F, 0, 0.0F, "", "");
-            TConstructRegistry.addToolMaterial(250, "Blood Infused Iron", "blood_infused_iron", 3, 550, 1800, 3, 1.5F, 0, 0.0F, "Blood Infused Iron", 0xff0000);
+        TConstructRegistry.addToolMaterial(250, "Blood Infused Iron", "blood_infused_iron", 3, 550, 1800, 3, 1.5F, 0, 0.0F, "Blood Infused Iron", 0xab0000);
 
-            TConstructClientRegistry.addMaterialRenderMapping(250, "BloodArsenal", "blood_infused_iron", true);
+        TConstructClientRegistry.addMaterialRenderMapping(250, "BloodArsenal", "Blood Infused Iron", true);
 
-            TConstructRegistry.addBowMaterial(250, 40, 1.2F);
+        TConstructRegistry.addBowMaterial(250, 40, 1.2F);
 
-            TConstructRegistry.addArrowMaterial(250, 4.7F, 0.2F);
-        }
+        TConstructRegistry.addArrowMaterial(250, 4.7F, 0.2F);
     }
 
     public static void addParts()
@@ -67,6 +64,7 @@ public class BloodArsenalTinkers
         AXE_HEAD = new PartHelper("axe.head", 0, "");
         BATTLE_SIGN_HEAD = new PartHelper("battle.sign", 0, "");
         BINDING = new PartHelper("binding", 0, "");
+        BOLT = new PartHelper("bolt", 0, "");
         BOW_LIMB = new PartHelper("bow.limb", 0, "");
         CHISEL_HEAD = new PartHelper("chisel.head", 0, "");
         CHUNK = new PartHelper("chunk", 0, "");
@@ -100,6 +98,7 @@ public class BloodArsenalTinkers
         AXE_HEAD.addMaterial(materialID, unlocalizedName, texture + "_axe_head");
         BATTLE_SIGN_HEAD.addMaterial(materialID, unlocalizedName, texture + "_battlesign_head");
         BINDING.addMaterial(materialID, unlocalizedName, texture + "_binding");
+        BOLT.addMaterial(materialID, unlocalizedName, texture + "_bolt");
         BOW_LIMB.addMaterial(materialID, unlocalizedName, texture + "_bow_limb");
         CHISEL_HEAD.addMaterial(materialID, unlocalizedName, texture + "_chisel_head");
         CHUNK.addMaterial(materialID, unlocalizedName, texture + "_chunk");
@@ -133,6 +132,7 @@ public class BloodArsenalTinkers
         GameRegistry.registerItem(AXE_HEAD, "axeHead");
         GameRegistry.registerItem(BATTLE_SIGN_HEAD, "battleSign");
         GameRegistry.registerItem(BINDING, "binding");
+        GameRegistry.registerItem(BOLT, "bolt");
         GameRegistry.registerItem(BOW_LIMB, "bowLimb");
         GameRegistry.registerItem(CHISEL_HEAD, "chiselHead");
         GameRegistry.registerItem(CHUNK, "chunk");
@@ -140,7 +140,7 @@ public class BloodArsenalTinkers
         GameRegistry.registerItem(CROSSBOW_BODY, "crossbowBody");
         GameRegistry.registerItem(CROSSBOW_LIMB, "crossbowLimb");
         GameRegistry.registerItem(EXCAVATOR_HEAD, "excavatorHead");
-        GameRegistry.registerItem(FISHING_ROD, "fishingRod");
+//        GameRegistry.registerItem(FISHING_ROD, "fishingRod");
         GameRegistry.registerItem(FRYPAN_HEAD, "frypanHead");
         GameRegistry.registerItem(FULL_GUARD, "fullGuard");
         GameRegistry.registerItem(HAMMER_HEAD, "hammerHead");

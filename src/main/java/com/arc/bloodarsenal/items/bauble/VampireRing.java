@@ -1,20 +1,25 @@
 package com.arc.bloodarsenal.items.bauble;
 
 import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.BloodArsenalConfig;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.IIcon;
 
-public class VampireRing extends ItemBauble
+public class VampireRing extends ItemBauble implements IBauble
 {
     public VampireRing()
     {
         super();
+        setMaxStackSize(1);
         setUnlocalizedName("vampire_ring");
-        setTextureName("BloodArsenal:vampire_ring");
     }
 
     @Override
@@ -41,6 +46,13 @@ public class VampireRing extends ItemBauble
         {
             player.removePotionEffect(BloodArsenalConfig.vampiricAuraID);
         }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister iconRegister)
+    {
+        this.itemIcon = iconRegister.registerIcon("BloodArsenal:vampire_ring");
     }
 
     @Override

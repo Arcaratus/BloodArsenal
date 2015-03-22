@@ -56,6 +56,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
     protected FluidStack fluidInput;
     private int progress;
     private int hasChanged = 0;
+    private int cooldownAfterCrafting = 500;
 
     private int lockdownDuration;
     private int demonBloodDuration;
@@ -124,7 +125,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
 
         for (int i = 0; i < tagList.tagCount(); i++)
         {
-            NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
+            NBTTagCompound tag = tagList.getCompoundTagAt(i);
             int slot = tag.getByte("Slot");
 
             if (slot >= 0 && slot < inv.length)
@@ -181,6 +182,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         lockdownDuration = par1NBTTagCompound.getInteger("lockdownDuration");
         accelerationUpgrades = par1NBTTagCompound.getInteger("accelerationUpgrades");
         demonBloodDuration = par1NBTTagCompound.getInteger("demonBloodDuration");
+        cooldownAfterCrafting = par1NBTTagCompound.getInteger("cooldownAfterCrafting");
     }
 
     public void setMainFluid(FluidStack fluid)
@@ -261,6 +263,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         par1NBTTagCompound.setInteger("lockdownDuration", lockdownDuration);
         par1NBTTagCompound.setInteger("accelerationUpgrades", this.accelerationUpgrades);
         par1NBTTagCompound.setInteger("demonBloodDuration", demonBloodDuration);
+        par1NBTTagCompound.setInteger("cooldownAfterCrafting", cooldownAfterCrafting);
     }
 
     @Override
@@ -619,7 +622,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
             }
         }
 
-        if(worldObj.getWorldTime() % Math.max(20 - this.accelerationUpgrades, 1) == 0)
+        if (worldObj.getWorldTime() % Math.max(20 - this.accelerationUpgrades, 1) == 0)
         {
             int syphonMax = (int) (20 * this.dislocationMultiplier);
             int fluidInputted = 0;
@@ -634,13 +637,17 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
             this.fluid.amount -= fluidOutputted;
         }
 
-        if (worldObj.getWorldTime() % 100 == 0)
+        if (worldObj.getWorldTime() % 100 == 0 && (this.isActive || this.cooldownAfterCrafting <= 0))
         {
             startCycle();
         }
 
         if (!isActive)
         {
+            if (cooldownAfterCrafting > 0)
+            {
+                cooldownAfterCrafting--;
+            }
             return;
         }
 
@@ -1069,7 +1076,16 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
             player.addChatMessage(new ChatComponentText("Consumption rate: " + (int) (consumptionRate * (1 + consumptionMultiplier)) + "LP/t"));
         }
         player.addChatMessage(new ChatComponentText("Altar's Current Essence: " + this.fluid.amount + "LP"));
-        player.addChatMessage(new ChatComponentText(" Input tank: " + this.fluidInput.amount + "LP"));
-        player.addChatMessage(new ChatComponentText(" Output tank: " + this.fluidOutput.amount + "LP"));
+        player.addChatMessage(new ChatComponentText("Input tank: " + this.fluidInput.amount + "LP"));
+        player.addChatMessage(new ChatComponentText("Output tank: " + this.fluidOutput.amount + "LP"));
+    }
+
+    @Override
+    public void requestPauseAfterCrafting(int amount)
+    {
+        if (this.isActive)
+        {
+            this.cooldownAfterCrafting = amount;
+        }
     }
 }

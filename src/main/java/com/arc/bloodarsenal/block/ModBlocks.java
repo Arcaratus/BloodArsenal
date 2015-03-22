@@ -1,10 +1,7 @@
 package com.arc.bloodarsenal.block;
 
 import com.arc.bloodarsenal.items.block.BloodStoneBlock;
-import com.arc.bloodarsenal.tileentity.TileCompacter;
-import com.arc.bloodarsenal.tileentity.TileLifeInfuser;
-import com.arc.bloodarsenal.tileentity.TileOwned;
-import com.arc.bloodarsenal.tileentity.TilePortableAltar;
+import com.arc.bloodarsenal.tileentity.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 
@@ -28,6 +25,7 @@ public class ModBlocks
     public static BlockPortableAltar portable_altar;
     public static Block life_infuser;
     public static Block compacter;
+    public static Block lp_materializer;
 
     public static void init()
     {
@@ -49,6 +47,7 @@ public class ModBlocks
         portable_altar = new BlockPortableAltar();
         life_infuser = new BlockLifeInfuser();
         compacter = new BlockCompacter();
+        lp_materializer = new BlockLPMaterializer();
     }
 
     public static void registerBlocksInPre()
@@ -71,13 +70,15 @@ public class ModBlocks
         GameRegistry.registerBlock(portable_altar, "portable_altar");
         GameRegistry.registerBlock(life_infuser, "life_infuser");
         GameRegistry.registerBlock(compacter, "compacter");
+        GameRegistry.registerBlock(lp_materializer, "lp_materializer");
     }
 
     public static void registerTileEntities()
     {
         GameRegistry.registerTileEntity(TileOwned.class, "blood_infused_door");
-        GameRegistry.registerTileEntity(TilePortableAltar.class, "container_portable_altar");
-        GameRegistry.registerTileEntity(TileLifeInfuser.class, "container_life_infuser");
-        GameRegistry.registerTileEntity(TileCompacter.class, "compacter_tile");
+        GameRegistry.registerTileEntity(TilePortableAltar.class, "portable_altar");
+        GameRegistry.registerTileEntity(TileLifeInfuser.class, "life_infuser");
+        GameRegistry.registerTileEntity(TileCompacter.class, "compacter");
+        GameRegistry.registerTileEntity(TileLPMaterializer.class, "lp_materializer");
     }
 }

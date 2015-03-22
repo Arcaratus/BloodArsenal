@@ -2,6 +2,7 @@ package com.arc.bloodarsenal.items.tinkers;
 
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.items.ModItems;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.tools.TinkerTools;
+import tconstruct.weaponry.TinkerWeaponry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 public class RecipeHelper
 {
     private static Item pattern = TConstructRegistry.getItem("woodPattern");
+    private static Item weaponPattern = TinkerWeaponry.woodPattern;
     
     private static final ItemStack toolRodPattern = TConstructRegistry.getItemStack("toolRodPattern");
     private static final ItemStack pickaxeHeadPattern = TConstructRegistry.getItemStack("pickaxeHeadPattern");
@@ -41,13 +44,16 @@ public class RecipeHelper
     private static final ItemStack largeBladePattern = TConstructRegistry.getItemStack("largeBladePattern");
     private static final ItemStack hammerHeadPattern = TConstructRegistry.getItemStack("hammerHeadPattern");
     private static final ItemStack fullGuardPattern = TConstructRegistry.getItemStack("fullGuardPattern");
-    private static final ItemStack crossbowBodyPattern = TConstructRegistry.getItemStack("crossbowBodyPattern");
     private static final ItemStack arrowHeadPattern = new ItemStack(pattern, 1, 25);
+    private static final ItemStack crossbowBodyPattern = new ItemStack(weaponPattern, 1, 2);
+    private static final ItemStack crossbowLimbPattern = new ItemStack(weaponPattern, 1, 1);
+    private static final ItemStack shurikenPattern = new ItemStack(weaponPattern);
 
     private static PartHelper _ARROWHEAD = BloodArsenalTinkers.ARROWHEAD;
     private static PartHelper _AXE_HEAD = BloodArsenalTinkers.AXE_HEAD;
     private static PartHelper _BATTLE_SIGN_HEAD = BloodArsenalTinkers.BATTLE_SIGN_HEAD;
     private static PartHelper _BINDING = BloodArsenalTinkers.BINDING;
+    private static PartHelper _BOLT = BloodArsenalTinkers.BOLT;
     private static PartHelper _BOW_LIMB = BloodArsenalTinkers.BOW_LIMB;
     private static PartHelper _CHISEL_HEAD = BloodArsenalTinkers.CHISEL_HEAD;
     private static PartHelper _CHUNK = BloodArsenalTinkers.CHUNK;
@@ -85,25 +91,23 @@ public class RecipeHelper
 
     public static void addPartRecipes()
     {
-        if (BloodArsenal.isTinkersConstructLoaded)
+        Item bloodIron = GameRegistry.findItem("BloodArsenal", "blood_infused_iron");
+
+        if (bloodIron != null)
         {
-            Item bloodIron = GameRegistry.findItem("BloodArsenal", "blood_infused_iron");
+            ItemStack _bloodIron = new ItemStack(bloodIron);
 
-            if (bloodIron != null)
-            {
-                ItemStack _bloodIron = new ItemStack(bloodIron);
-
-                addPartBuilding(250);
-                unregisterMaterial(_bloodIron);
-//                registerWithStation(new ItemStack(ModItems.blood_infused_iron, 1), "Blood Infused Iron", 250, new ItemStack(_CHUNK, 1, 250));
-                registerWithStation("Blood Infused Iron", "Blood Infused Iron", 250);
-            }
+            addPartBuilding(250);
+            unregisterMaterial(_bloodIron);
+            registerWithStation(new ItemStack(ModItems.blood_infused_iron, 1), "Blood Infused Iron", 250, new ItemStack(_CHUNK, 1, 250));
+//            registerWithStation("Blood Infused Iron", "Blood Infused Iron", 250);
         }
     }
 
     private static void registerWithStation(String ingotName, String materialName, int materialID)
     {
         ArrayList<ItemStack> ingots = OreDictionary.getOres(ingotName);
+
         if (!ingots.isEmpty())
         {
             for (ItemStack ingot : ingots)
@@ -121,6 +125,7 @@ public class RecipeHelper
     private static void unregisterMaterial(ItemStack material)
     {
         List<PatternBuilder.ItemKey> materials = PatternBuilder.instance.materials;
+
         for (int i = 0; i < materials.size(); i++)
         {
             PatternBuilder.ItemKey itemKey = materials.get(i);
@@ -136,6 +141,7 @@ public class RecipeHelper
         List list = CraftingManager.getInstance().getRecipeList();
 
         ItemStack itemStack = null;
+
         for (int i = 0; i < list.size(); i++)
         {
             IRecipe recipe = (IRecipe)list.get(i);
@@ -187,31 +193,40 @@ public class RecipeHelper
         addItemStackPartBuilding(hammerHeadPattern, materialID, new ItemStack(_HAMMER_HEAD, 1, materialID));
         addItemStackPartBuilding(fullGuardPattern, materialID, new ItemStack(_FULL_GUARD, 1, materialID));
         addItemStackPartBuilding(arrowHeadPattern, materialID, new ItemStack(_ARROWHEAD, 1, materialID));
+        addItemStackPartBuilding(crossbowBodyPattern, materialID, new ItemStack(_CROSSBOW_BODY, 1, materialID));
+        addItemStackPartBuilding(crossbowLimbPattern, materialID, new ItemStack(_CROSSBOW_LIMB, 1, materialID));
+        addItemStackPartBuilding(shurikenPattern, materialID, new ItemStack(_SHURIKEN, 1, materialID));
     }
 
     public static void addToolRecipes()
     {
-        TConstructRegistry.addToolRecipe(TinkerTools.arrow, new Item[] { _ARROWHEAD, _TOOLROD, TinkerTools.fletching });
-        TConstructRegistry.addToolRecipe(TinkerTools.battleaxe, new Item[] { _LUMBERAXE_HEAD, _TOUGHROD, _LUMBERAXE_HEAD, _TOUGHBIND });
-        TConstructRegistry.addToolRecipe(TinkerTools.battlesign, new Item[] { _BATTLE_SIGN_HEAD, _TOOLROD });
-        TConstructRegistry.addToolRecipe(TinkerTools.broadsword, new Item[] { _SWORD_BLADE, _TOOLROD, _LARGE_GUARD });
-        TConstructRegistry.addToolRecipe(TinkerTools.chisel, new Item[] { _CHISEL_HEAD, _TOOLROD });
-        TConstructRegistry.addToolRecipe(TinkerTools.cleaver, new Item[] { _LARGE_SWORD_BLADE, _TOUGHROD, _LARGEPLATE, _TOUGHROD });
-        TConstructRegistry.addToolRecipe(TinkerTools.cutlass, new Item[] { _SWORD_BLADE, _TOOLROD, _FULL_GUARD });
-        TConstructRegistry.addToolRecipe(TinkerTools.dagger, new Item[] { _KNIFE_BLADE, _TOOLROD, _CROSSBAR });
-        TConstructRegistry.addToolRecipe(TinkerTools.excavator, new Item[] { _EXCAVATOR_HEAD, _TOUGHROD, _LARGEPLATE, _TOUGHBIND });
-        TConstructRegistry.addToolRecipe(TinkerTools.frypan, new Item[] { _FRYPAN_HEAD, _TOOLROD });
-        TConstructRegistry.addToolRecipe(TinkerTools.hammer, new Item[] { _HAMMER_HEAD, _TOUGHROD, _LARGEPLATE, _LARGEPLATE });
-        TConstructRegistry.addToolRecipe(TinkerTools.hatchet, new Item[] { _AXE_HEAD, _TOOLROD });
-        TConstructRegistry.addToolRecipe(TinkerTools.longsword, new Item[] { _SWORD_BLADE, _TOOLROD, _MEDIUM_GUARD });
-        TConstructRegistry.addToolRecipe(TinkerTools.lumberaxe, new Item[] { _LUMBERAXE_HEAD, _TOUGHROD, _LARGEPLATE, _TOUGHBIND });
-        TConstructRegistry.addToolRecipe(TinkerTools.mattock, new Item[] { _AXE_HEAD, _TOOLROD, _SHOVEL_HEAD });
-        TConstructRegistry.addToolRecipe(TinkerTools.pickaxe, new Item[] { _PICKAXE_HEAD, _TOOLROD, _BINDING });
-        TConstructRegistry.addToolRecipe(TinkerTools.rapier, new Item[] { _SWORD_BLADE, _TOOLROD, _CROSSBAR });
-        TConstructRegistry.addToolRecipe(TinkerTools.scythe, new Item[] { _SCYTHE_HEAD, _TOUGHROD, _TOUGHBIND, _TOUGHROD });
-        TConstructRegistry.addToolRecipe(TinkerTools.shortbow, new Item[] { _TOOLROD, TinkerTools.bowstring, _TOOLROD });
-        TConstructRegistry.addToolRecipe(TinkerTools.shortbow, new Item[] { TinkerTools.toolRod, TinkerTools.bowstring, _TOOLROD });
-        TConstructRegistry.addToolRecipe(TinkerTools.shortbow, new Item[] { _TOOLROD, TinkerTools.bowstring, TinkerTools.toolRod });
-        TConstructRegistry.addToolRecipe(TinkerTools.shovel, new Item[] { _SHOVEL_HEAD, _TOOLROD });
+        TConstructRegistry.addToolRecipe(TinkerTools.battleaxe, _LUMBERAXE_HEAD, _TOUGHROD, _LUMBERAXE_HEAD, _TOUGHBIND);
+        TConstructRegistry.addToolRecipe(TinkerTools.battlesign, _BATTLE_SIGN_HEAD, _TOOLROD);
+        TConstructRegistry.addToolRecipe(TinkerTools.broadsword, _SWORD_BLADE, _TOOLROD, _LARGE_GUARD);
+        TConstructRegistry.addToolRecipe(TinkerTools.chisel, _CHISEL_HEAD, _TOOLROD);
+        TConstructRegistry.addToolRecipe(TinkerTools.cleaver, _LARGE_SWORD_BLADE, _TOUGHROD, _LARGEPLATE, _TOUGHROD);
+        TConstructRegistry.addToolRecipe(TinkerTools.cutlass, _SWORD_BLADE, _TOOLROD, _FULL_GUARD);
+        TConstructRegistry.addToolRecipe(TinkerTools.dagger,  _KNIFE_BLADE, _TOOLROD, _CROSSBAR);
+        TConstructRegistry.addToolRecipe(TinkerTools.excavator, _EXCAVATOR_HEAD, _TOUGHROD, _LARGEPLATE, _TOUGHBIND);
+        TConstructRegistry.addToolRecipe(TinkerTools.frypan, _FRYPAN_HEAD, _TOOLROD);
+        TConstructRegistry.addToolRecipe(TinkerTools.hammer, _HAMMER_HEAD, _TOUGHROD, _LARGEPLATE, _LARGEPLATE);
+        TConstructRegistry.addToolRecipe(TinkerTools.hatchet, _AXE_HEAD, _TOOLROD);
+        TConstructRegistry.addToolRecipe(TinkerTools.longsword, _SWORD_BLADE, _TOOLROD, _MEDIUM_GUARD);
+        TConstructRegistry.addToolRecipe(TinkerTools.lumberaxe, _LUMBERAXE_HEAD, _TOUGHROD, _LARGEPLATE, _TOUGHBIND);
+        TConstructRegistry.addToolRecipe(TinkerTools.mattock, _AXE_HEAD, _TOOLROD, _SHOVEL_HEAD);
+        TConstructRegistry.addToolRecipe(TinkerTools.pickaxe, _PICKAXE_HEAD, _TOOLROD, _BINDING);
+        TConstructRegistry.addToolRecipe(TinkerTools.rapier, _SWORD_BLADE, _TOOLROD, _CROSSBAR);
+        TConstructRegistry.addToolRecipe(TinkerTools.scythe, _SCYTHE_HEAD, _TOUGHROD, _TOUGHBIND, _TOUGHROD);
+        TConstructRegistry.addToolRecipe(TinkerTools.shovel, _SHOVEL_HEAD, _TOOLROD);
+        TConstructRegistry.addToolRecipe(TinkerWeaponry.arrowAmmo, _ARROWHEAD, _TOOLROD, TinkerWeaponry.fletching);
+        TConstructRegistry.addToolRecipe(TinkerWeaponry.boltAmmo, _BOLT, TinkerWeaponry.fletching);
+        TConstructRegistry.addToolRecipe(TinkerWeaponry.crossbow, _TOUGHBIND, _CROSSBOW_LIMB, _CROSSBOW_BODY, TinkerWeaponry.bowstring);
+        TConstructRegistry.addToolRecipe(TinkerWeaponry.javelin, _ARROWHEAD, _TOUGHROD, _TOUGHROD);
+        TConstructRegistry.addToolRecipe(TinkerWeaponry.longbow, _BOW_LIMB, _LARGEPLATE, _BOW_LIMB, TinkerWeaponry.bowstring);
+        TConstructRegistry.addToolRecipe(TinkerWeaponry.shortbow, _TOOLROD, TinkerWeaponry.bowstring, _TOOLROD);
+        TConstructRegistry.addToolRecipe(TinkerWeaponry.shortbow, TinkerTools.toolRod, TinkerWeaponry.bowstring, _TOOLROD);
+        TConstructRegistry.addToolRecipe(TinkerWeaponry.shortbow, _TOOLROD, TinkerWeaponry.bowstring, TinkerTools.toolRod);
+        TConstructRegistry.addToolRecipe(TinkerWeaponry.shuriken, _SHURIKEN, _SHURIKEN, _SHURIKEN, _SHURIKEN);
+        TConstructRegistry.addToolRecipe(TinkerWeaponry.throwingknife, _KNIFE_BLADE, _TOOLROD);
     }
 }

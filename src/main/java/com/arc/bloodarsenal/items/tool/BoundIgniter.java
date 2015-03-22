@@ -248,8 +248,8 @@ public class BoundIgniter extends Item implements IBindable
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister)
     {
-        itemIcon = iconRegister.registerIcon("BloodArsenal:bound_flint_and_steel");
-        active = iconRegister.registerIcon("BloodArsenal:bound_flint_and_steel");
+        itemIcon = iconRegister.registerIcon("BloodArsenal:bound_igniter");
+        active = iconRegister.registerIcon("BloodArsenal:bound_igniter");
         passive = iconRegister.registerIcon("AlchemicalWizardry:SheathedItem");
     }
 }

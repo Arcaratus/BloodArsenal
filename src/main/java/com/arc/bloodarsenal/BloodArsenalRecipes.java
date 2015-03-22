@@ -3,6 +3,8 @@ package com.arc.bloodarsenal;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;
 import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
+import baubles.api.BaublesApi;
+import baubles.common.Baubles;
 import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.items.ModItems;
 import cpw.mods.fml.common.Loader;
@@ -11,8 +13,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class BloodArsenalRecipes
 {
@@ -29,6 +34,7 @@ public class BloodArsenalRecipes
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_cookie), new ItemStack(Items.cookie), 1, 2000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_glowstone_dust), new ItemStack(Items.glowstone_dust), 3, 2500, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_ball), new ItemStack(Items.snowball), 2, 500, 5, 5, false);
+        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_money), new ItemStack(Items.paper), 4, 10000, 5, 5, false);
     }
 
     public static void registerBindingRecipes()
@@ -60,66 +66,88 @@ public class BloodArsenalRecipes
         ItemStack archmageOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.archmageBloodOrb, 1, craftingConstant);
         ItemStack transcendentOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.transcendentBloodOrb, 1, craftingConstant);
 
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModBlocks.blood_stained_ice, 8), "aaa", "aba", "aaa", 'a', Blocks.ice, 'b', apprenticeOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModBlocks.blood_stained_glass, 8), "aaa", "aba", "aaa", 'a', Blocks.glass, 'b', apprenticeOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_axe_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_axe_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_pickaxe_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_pickaxe_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_shovel_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_shovel_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_sword_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_sword_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_diamond), "aba", "bcb", "aba", 'a', Blocks.glass, 'b', Items.diamond, 'c', masterOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_diamond_unactive), "aba", "bcb", "ada", 'a', ModItems.amorphic_catalyst, 'b', ModBlocks.blood_infused_iron_block, 'c', ModItems.blood_diamond, 'd', masterOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_axe_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_axe_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_pickaxe_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_pickaxe_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_shovel_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_shovel_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.blood_infused_sword_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_sword_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.soul_booster), "aaa", "aba", "aca", 'a', ModItems.soul_fragment, 'b', Blocks.beacon, 'c', magicianOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.soul_nullifier), "aaa", "aba", "aca", 'a', ModItems.soul_fragment, 'b', WayofTime.alchemicalWizardry.ModItems.armourInhibitor, 'c', magicianOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.sigil_of_swimming), "aba", "cdc", "aea", 'a', Items.water_bucket, 'b', Items.bucket, 'c', Items.lava_bucket, 'd', WayofTime.alchemicalWizardry.ModItems.voidSigil, 'e', apprenticeOrb));
-//        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "aaa", "aba", "caa", 'a', Items.string, 'b', weakOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.runeOfSelfSacrifice));
-//        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.sacrifice_amulet), "aaa", "aba", "caa", 'a', Items.string, 'b', weakOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.runeOfSacrifice));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.sigil_of_ender), "aba", "cdc", "efe", 'a', Blocks.obsidian, 'b', Items.ender_eye, 'c', Items.ender_pearl, 'd', imbuedSlate, 'e', Blocks.ender_chest, 'f', magicianOrb));
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.sigil_of_divinity), "aba", "cde", "fgf", 'a', ModBlocks.blood_infused_glowstone, 'b', new ItemStack(Items.golden_apple, 1, 1), 'c', Items.nether_star, 'd', WayofTime.alchemicalWizardry.ModItems.sigilOfElementalAffinity, 'e', ModItems.blood_infused_diamond_bound, 'f', ModItems.amorphic_catalyst, 'g', transcendentOrb));
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.blood_stained_ice, 8), "aaa", "aba", "aaa", 'a', Blocks.ice, 'b', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.blood_stained_glass, 8), "aaa", "aba", "aaa", 'a', Blocks.glass, 'b', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.life_infuser), "aba", "aca", "aea", 'a', ModItems.blood_infused_iron, 'b', masterOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.blockAltar, 'd', new ItemStack(ModItems.blood_infused_diamond_bound));
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.lp_materializer), "aba", "bcb", "aba", 'a', ModItems.blood_infused_iron, 'b', imbuedSlate, 'c', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_axe_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_axe_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_pickaxe_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_pickaxe_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_shovel_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_shovel_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_sword_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_sword_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_diamond), "aba", "bcb", "aba", 'a', Blocks.glass, 'b', Items.diamond, 'c', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_diamond_unactive), "aba", "bcb", "ada", 'a', ModItems.amorphic_catalyst, 'b', ModBlocks.blood_infused_iron_block, 'c', ModItems.blood_diamond, 'd', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_axe_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_axe_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_pickaxe_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_pickaxe_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_shovel_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_shovel_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_sword_diamond), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_diamond_bound, 'b', ModItems.blood_infused_sword_iron, 'c', ModItems.amorphic_catalyst, 'd', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.soul_booster), "aaa", "aba", "aca", 'a', ModItems.soul_fragment, 'b', Blocks.beacon, 'c', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.soul_nullifier), "aaa", "aba", "aca", 'a', ModItems.soul_fragment, 'b', WayofTime.alchemicalWizardry.ModItems.armourInhibitor, 'c', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_swimming), "aba", "cdc", "aea", 'a', Items.water_bucket, 'b', Items.bucket, 'c', Items.lava_bucket, 'd', WayofTime.alchemicalWizardry.ModItems.voidSigil, 'e', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_ender), "aba", "cdc", "efe", 'a', Blocks.obsidian, 'b', Items.ender_eye, 'c', Items.ender_pearl, 'd', imbuedSlate, 'e', Blocks.ender_chest, 'f', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_divinity), "aba", "cde", "fgf", 'a', ModBlocks.blood_infused_glowstone, 'b', new ItemStack(Items.golden_apple, 1, 1), 'c', Items.nether_star, 'd', WayofTime.alchemicalWizardry.ModItems.sigilOfElementalAffinity, 'e', ModItems.blood_infused_diamond_bound, 'f', ModItems.amorphic_catalyst, 'g', transcendentOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_burned_string, 4), "aaa", "aba", "aaa", 'a', Items.string, 'b', weakOrb);
 
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_stone), "aaa", "aaa", "aaa", 'a', blankSlate);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_stone, 1, 1), "aaa", "aaa", "aaa", 'a', reinforcedSlate);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_stone, 1, 2), "aaa", "aaa", "aaa", 'a', imbuedSlate);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_stone, 1, 3), "aaa", "aaa", "aaa", 'a', demonicSlate);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_stone, 1, 4), "aaa", "aaa", "aaa", 'a', etherealSlate);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_infused_iron_block), "aaa", "aaa", "aaa", 'a', ModItems.blood_infused_iron);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_door_wood), "aa", "aa", "aa", 'a', ModBlocks.blood_infused_planks);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_stained_ice_packed), "aa", "aa", 'a', ModBlocks.blood_stained_ice);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_door_wood), "aa", "aa", "aa", 'a', ModBlocks.blood_infused_planks);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_door_iron), "aa", "aa", "aa", 'a', ModItems.blood_infused_iron);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_infused_glowstone), "aa", "aa", 'a', ModItems.blood_infused_glowstone_dust);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_lamp), "aba", "bcb", "aba", 'a', ModItems.blood_infused_iron, 'b', ModBlocks.blood_stained_glass, 'c', ModBlocks.blood_infused_glowstone);
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_infused_diamond_block), "aaa", "aaa", "aaa", 'a', ModItems.blood_infused_diamond_bound);
-        GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_stick), "a", "a", 'a', ModBlocks.blood_infused_planks);
-        GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_pickaxe_wood), "aaa", " b ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
-        GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_axe_wood), "aa ", "ab ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
-        GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_shovel_wood), " a ", " b ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
-        GameRegistry.addRecipe(new ItemStack(ModItems.blood_infused_sword_wood), " a ", " a ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_stone), "aaa", "aaa", "aaa", 'a', blankSlate);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 1), "aaa", "aaa", "aaa", 'a', reinforcedSlate);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 2), "aaa", "aaa", "aaa", 'a', imbuedSlate);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 3), "aaa", "aaa", "aaa", 'a', demonicSlate);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 4), "aaa", "aaa", "aaa", 'a', etherealSlate);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_infused_iron_block), "aaa", "aaa", "aaa", 'a', ModItems.blood_infused_iron);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_door_wood), "aa", "aa", "aa", 'a', ModBlocks.blood_infused_planks);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_stained_ice_packed), "aa", "aa", 'a', ModBlocks.blood_stained_ice);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_door_wood), "aa", "aa", "aa", 'a', ModBlocks.blood_infused_planks);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_door_iron), "aa", "aa", "aa", 'a', ModItems.blood_infused_iron);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_infused_glowstone), "aa", "aa", 'a', ModItems.blood_infused_glowstone_dust);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_lamp), "aba", "bcb", "aba", 'a', ModItems.blood_infused_iron, 'b', ModBlocks.blood_stained_glass, 'c', ModBlocks.blood_infused_glowstone);
+        addOreDictRecipe(new ItemStack(ModBlocks.blood_infused_diamond_block), "aaa", "aaa", "aaa", 'a', ModItems.blood_infused_diamond_bound);
+        addOreDictRecipe(new ItemStack(ModItems.blood_infused_stick), "a", "a", 'a', ModBlocks.blood_infused_planks);
+        addOreDictRecipe(new ItemStack(ModItems.blood_infused_pickaxe_wood), "aaa", " b ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
+        addOreDictRecipe(new ItemStack(ModItems.blood_infused_axe_wood), "aa ", "ab ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
+        addOreDictRecipe(new ItemStack(ModItems.blood_infused_shovel_wood), " a ", " b ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
+        addOreDictRecipe(new ItemStack(ModItems.blood_infused_sword_wood), " a ", " a ", " b ", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_stick);
+        addOreDictRecipe(new ItemStack(ModItems.blood_money, 1, 1), "aa", "aa", 'a', new ItemStack(ModItems.blood_money));
+        addOreDictRecipe(new ItemStack(ModItems.blood_money, 1, 2), "aa", "aa", 'a', new ItemStack(ModItems.blood_money, 1, 1));
+        addOreDictRecipe(new ItemStack(ModItems.blood_money, 1, 3), "aa", "aa", 'a', new ItemStack(ModItems.blood_money, 1, 2));
 
-        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blood_infused_planks, 4), ModBlocks.blood_infused_wood);
-        GameRegistry.addShapelessRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.blankSlate, 9), ModBlocks.blood_stone);
-        GameRegistry.addShapelessRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.reinforcedSlate, 9), new ItemStack(ModBlocks.blood_stone, 1, 1));
-        GameRegistry.addShapelessRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.imbuedSlate, 9), new ItemStack(ModBlocks.blood_stone, 1, 2));
-        GameRegistry.addShapelessRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.demonicSlate, 9), new ItemStack(ModBlocks.blood_stone, 1, 3));
+        addShapelessOreDictRecipe(new ItemStack(ModBlocks.blood_infused_planks, 4), ModBlocks.blood_infused_wood);
+        addShapelessOreDictRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.blankSlate, 9), ModBlocks.blood_stone);
+        addShapelessOreDictRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.reinforcedSlate, 9), new ItemStack(ModBlocks.blood_stone, 1, 1));
+        addShapelessOreDictRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.imbuedSlate, 9), new ItemStack(ModBlocks.blood_stone, 1, 2));
+        addShapelessOreDictRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.demonicSlate, 9), new ItemStack(ModBlocks.blood_stone, 1, 3));
         //This is a long one
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.amorphic_catalyst), WayofTime.alchemicalWizardry.ModItems.blankSlate, WayofTime.alchemicalWizardry.ModItems.aether, WayofTime.alchemicalWizardry.ModItems.terrae, WayofTime.alchemicalWizardry.ModItems.crystallos, WayofTime.alchemicalWizardry.ModItems.sanctus, WayofTime.alchemicalWizardry.ModItems.magicales, WayofTime.alchemicalWizardry.ModItems.crepitous, WayofTime.alchemicalWizardry.ModItems.incendium, WayofTime.alchemicalWizardry.ModItems.aquasalus);
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.blood_infused_iron, 9), ModBlocks.blood_infused_iron_block);
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.orange_juice), ModItems.blood_orange, Items.glass_bottle);
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.juice_and_cookies), Items.cookie, ModItems.orange_juice);
+        addShapelessOreDictRecipe(new ItemStack(ModItems.amorphic_catalyst), WayofTime.alchemicalWizardry.ModItems.blankSlate, WayofTime.alchemicalWizardry.ModItems.aether, WayofTime.alchemicalWizardry.ModItems.terrae, WayofTime.alchemicalWizardry.ModItems.crystallos, WayofTime.alchemicalWizardry.ModItems.sanctus, WayofTime.alchemicalWizardry.ModItems.magicales, WayofTime.alchemicalWizardry.ModItems.crepitous, WayofTime.alchemicalWizardry.ModItems.incendium, WayofTime.alchemicalWizardry.ModItems.aquasalus);
+        addShapelessOreDictRecipe(new ItemStack(ModItems.blood_infused_iron, 9), ModBlocks.blood_infused_iron_block);
+        addShapelessOreDictRecipe(new ItemStack(ModItems.orange_juice), ModItems.blood_orange, Items.glass_bottle);
+        addShapelessOreDictRecipe(new ItemStack(ModItems.juice_and_cookies), Items.cookie, ModItems.orange_juice);
 
-        if (Loader.isModLoaded("Baubles"))
+        if (BloodArsenal.isBaublesLoaded)
         {
-//            GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.vampire_ring),"ab ", "bcb", " b ", 'a', ModItems.blood_infused_diamond_bound, 'b', Blocks.stone, 'c', masterOrb));
+//            addOreDictBloodOrbRecipe(new ItemStack(ModItems.vampire_ring), "ab ", "bcb", " b ", 'a', ModItems.blood_infused_diamond_bound, 'b', Blocks.stone, 'c', masterOrb);
+            GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.runeOfSelfSacrifice));
+//            GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.runeOfSacrifice));
 //            GameRegistry.addRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "a", 'a', new ItemStack(Items.slime_ball));
         }
 
         {
-            ItemStack igniter = new ItemStack(ModItems.bound_igniter);
+//            ItemStack igniter = new ItemStack(ModItems.bound_igniter);
 
-            GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_torch), "a", "b", 'a', igniter, 'b', ModItems.blood_infused_stick);
+//            GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_torch), "a", "b", 'a', igniter, 'b', ModItems.blood_infused_stick);
+//            GameRegistry.addRecipe(new ItemStack(ModItems.blood_burned_string, 4), "aaa", "aba", "aaa", 'a', Items.string, 'b', igniter);
         }
+    }
+
+    private static void addOreDictRecipe(ItemStack output, Object... recipe) 
+    {
+        CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(output, recipe));
+    }
+
+    private static void addOreDictBloodOrbRecipe(ItemStack output, Object... recipe)
+    {
+        CraftingManager.getInstance().getRecipeList().add(new ShapedBloodOrbRecipe(output, recipe));
+    }
+
+    private static void addShapelessOreDictRecipe(ItemStack output, Object... recipe)
+    {
+        CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(output, recipe));
     }
 }

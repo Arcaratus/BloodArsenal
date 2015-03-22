@@ -46,9 +46,9 @@ public class BlockLifeInfuser extends BlockContainer
         ItemStack playerItem = player.getCurrentEquippedItem();
         ItemStack bucket = new ItemStack(Items.bucket);
 
-        if (tileEntity.getStackInSlot(0) == null && playerItem != null && !(playerItem.getItem() instanceof IBloodOrb))
+        if (playerItem != null)// <--
         {
-            if (playerItem.getItem().equals(ModItems.divinationSigil))
+            if (playerItem.getItem().equals(ModItems.divinationSigil) || playerItem.getItem().equals(ModItems.itemSeerSigil))
             {
                 if (player.worldObj.isRemote)
                 {
@@ -80,12 +80,15 @@ public class BlockLifeInfuser extends BlockContainer
             }
             else if (playerItem.getItem().equals(ModItems.bucketLife))
             {
-                --playerItem.stackSize;
-                player.inventory.addItemStackToInventory(bucket);
+                if (!player.capabilities.isCreativeMode)
+                {
+                    --playerItem.stackSize;
+                    player.inventory.addItemStackToInventory(bucket);
+                }
 
                 tileEntity.fillMainTank(FluidContainerRegistry.BUCKET_VOLUME);
             }
-            else
+            else if (tileEntity.getStackInSlot(0) == null)
             {
                 ItemStack newItem = playerItem.copy();
                 newItem.stackSize = 1;
@@ -97,17 +100,6 @@ public class BlockLifeInfuser extends BlockContainer
         {
             player.inventory.addItemStackToInventory(tileEntity.getStackInSlot(0));
             tileEntity.setInventorySlotContents(0, null);
-        }
-
-        if (tileEntity.getStackInSlot(1) != null && playerItem != null)
-        {
-            if (playerItem.getItem() instanceof IBloodOrb)
-            {
-                ItemStack newItem = playerItem.copy();
-                newItem.stackSize = 1;
-                --playerItem.stackSize;
-                tileEntity.setInventorySlotContents(1, newItem);
-            }
         }
         world.markBlockForUpdate(x, y, z);
         return true;
@@ -155,6 +147,22 @@ public class BlockLifeInfuser extends BlockContainer
                 world.spawnEntityInWorld(entityItem);
                 item.stackSize = 0;
             }
+        }
+    }
+
+    @Override
+    public void randomDisplayTick(World world, int x, int y, int z, Random rand)
+    {
+        TileLifeInfuser tileEntity = (TileLifeInfuser) world.getTileEntity(x, y, z);
+
+        if (!tileEntity.isActive())
+        {
+            return;
+        }
+
+        if (rand.nextInt(3) != 0)
+        {
+            return;
         }
     }
 

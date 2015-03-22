@@ -3,12 +3,10 @@ package com.arc.bloodarsenal.items.sigil;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.arc.bloodarsenal.BloodArsenal;
-import com.arc.bloodarsenal.entity.projectile.EntityEnderSigilPearl;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -38,33 +36,70 @@ public class SigilEnder extends EnergyItems implements IBindable
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
     {
-        EnergyItems.checkAndSetItemOwner(par1ItemStack, par3EntityPlayer);
+        EnergyItems.checkAndSetItemOwner(itemStack, player);
 
-        if (par1ItemStack.stackTagCompound == null)
+        if (itemStack.stackTagCompound == null)
         {
-            par1ItemStack.setTagCompound(new NBTTagCompound());
+            itemStack.setTagCompound(new NBTTagCompound());
         }
 
-        if (par3EntityPlayer.isSneaking() && !par3EntityPlayer.isSwingInProgress)
+        if (player.isSneaking() && !player.isSwingInProgress)
         {
-            par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            MovingObjectPosition mop = EnderSigilUtils.getTargetBlock(world, (player.prevPosX + (player.posX - player.prevPosX)),
+                    (player.prevPosY + (player.posY - player.prevPosY) + 1.62 - player.yOffset),
+                    (player.prevPosZ + (player.posZ - player.prevPosZ)),
+                    (player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw)),
+                    (player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch)), false, 128.0);
 
-            if (!par2World.isRemote)
+            if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mop.sideHit != -1)
             {
-                par2World.spawnEntityInWorld(new EntityEnderSigilPearl(par2World, par3EntityPlayer));
-                EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, 300);
+                double ex = mop.hitVec.xCoord;
+                double wy = mop.hitVec.yCoord;
+                double zee = mop.hitVec.zCoord;
+
+                switch (mop.sideHit)
+                {
+                    case 0:
+                        wy -= 2.0;
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        zee -= 0.5;
+                        break;
+                    case 3:
+                        zee += 0.5;
+                        break;
+                    case 4:
+                        ex -= 0.5;
+                        break;
+                    case 5:
+                        ex += 0.5;
+                        break;
+                }
+
+                world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 1F);
+
+                for (int k = 0; k < 8; ++k)
+                {
+                    world.spawnParticle("portal", player.posX + (world.rand.nextDouble() - 0.5D) * (double)player.width, player.posY + world.rand.nextDouble() * (double)player.height - 0.25D, player.posZ + (world.rand.nextDouble() - 0.5D) * (double)player.width, 0, 0, 0);
+                }
+
+                player.setPositionAndUpdate(ex, wy, zee);
+                EnergyItems.syphonBatteries(itemStack, player, 2000);
+
+                player.swingItem();
             }
-
         }
-        else if (!par3EntityPlayer.isSneaking())
+        else if (!player.isSneaking())
         {
-            par3EntityPlayer.displayGUIChest(par3EntityPlayer.getInventoryEnderChest());
-            par2World.playSoundAtEntity(par3EntityPlayer, "mob.endermen.portal", 1F, 1F);
-            EnergyItems.syphonBatteries(par1ItemStack, par3EntityPlayer, 200);
+            player.displayGUIChest(player.getInventoryEnderChest());
+            world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 1F);
+            EnergyItems.syphonBatteries(itemStack, player, 200);
         }
 
-        return par1ItemStack;
+        return itemStack;
     }
 }

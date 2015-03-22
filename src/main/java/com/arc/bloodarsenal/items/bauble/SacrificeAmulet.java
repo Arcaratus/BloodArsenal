@@ -3,6 +3,7 @@ package com.arc.bloodarsenal.items.bauble;
 import WayofTime.alchemicalWizardry.api.items.IAltarManipulator;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,7 +18,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class SacrificeAmulet extends ItemBauble implements IAltarManipulator
+public class SacrificeAmulet extends ItemBauble implements IAltarManipulator, IBauble
 {
     public SacrificeAmulet()
     {

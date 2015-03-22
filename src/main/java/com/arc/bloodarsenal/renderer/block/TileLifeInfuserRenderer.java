@@ -3,6 +3,7 @@ package com.arc.bloodarsenal.renderer.block;
 import com.arc.bloodarsenal.renderer.model.ModelLifeInfuser;
 import com.arc.bloodarsenal.tileentity.TileLifeInfuser;
 import cpw.mods.fml.client.FMLClientHandler;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -67,6 +68,7 @@ public class TileLifeInfuserRenderer extends TileEntitySpecialRenderer
                 {
                     GL11.glTranslatef((float) d0 + 0.5F, (float) d1 + displacement + 0.25F, (float) d2 + 0.5F);
                 }
+
                 GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
                 GL11.glRotatef(rotationAngle, 0.0F, 1.0F, 0.0F);
                 customRenderItem.doRender(ghostEntityItem, 0, 0, 0, 0, 0);
@@ -82,12 +84,28 @@ public class TileLifeInfuserRenderer extends TileEntitySpecialRenderer
             GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
             GL11.glPopMatrix();
             GL11.glPopMatrix();
+
+            GL11.glPushMatrix();
+            GL11.glTranslated(d0, d1, d2);
+
+            GL11.glRotated(90F, 1F, 0F, 0F);
+            GL11.glTranslatef(-2F, -2F, -0.001F);
+
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            GL11.glColor4f(1F, 1F, 1F, 1F);
+            GL11.glDisable(GL11.GL_ALPHA_TEST);
+
+            GL11.glEnable(GL11.GL_ALPHA_TEST);
+            GL11.glDisable(GL11.GL_BLEND);
+            GL11.glColor4f(1F, 1F, 1F, 1F);
+            GL11.glPopMatrix();
         }
     }
 
     private float getGhostItemScaleFactor(ItemStack itemStack)
     {
-        float scaleFactor = 1.0F;
+        float scaleFactor = 5F;
 
         if (itemStack != null)
         {
@@ -193,7 +211,7 @@ public class TileLifeInfuserRenderer extends TileEntitySpecialRenderer
                         return;
                     }
                 }
-            } 
+            }
             else
             {
                 switch (forgeDirection)

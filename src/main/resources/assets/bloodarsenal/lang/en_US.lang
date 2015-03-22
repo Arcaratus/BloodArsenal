@@ -21,6 +21,9 @@ tile.blood_infused_glowstone.name=Blood Infused Glowstone
 tile.blood_lamp.name=Blood Lamp
 tile.blood_infused_diamond_block.name=Blood Infused Diamond Block
 tile.portable_altar.name=Portable Altar [WIP]
+tile.life_infuser.name=Life Infuser
+tile.lp_materializer.name=Life Essence Materializer
+tile.compacter.name=Soul Compacter [WIP]
 
 #Items
 item.bound_bow.name=Bound Bow
@@ -33,7 +36,7 @@ item.blood_infused_sword_wood.name=Blood Infused Wooden Sword
 item.amorphic_catalyst.name=Amorphic Catalyst
 item.bound_sickle.name=Bound Sickle
 item.bound_shears.name=Bound Shears
-item.blood_infused_iron.name=Blood Infused Iron
+item.blood_infused_iron.name=Blood Infused Iron Ingot
 item.blood_infused_pickaxe_iron.name=Blood Infused Iron Pickaxe
 item.blood_infused_axe_iron.name=Blood Infused Iron Axe
 item.blood_infused_shovel_iron.name=Blood Infused Iron Shovel
@@ -70,17 +73,26 @@ item.sigil_of_divinity.name=Sigil of Divinity
 item.blood_ball.name=Blood Ball
 item.item_blood_cake.name=Blood Cake
 item.wolf_hide.name=Wolf Hide
+item.blood_money1.name=Blood Money x1
+item.blood_money4.name=Blood Money x4
+item.blood_money16.name=Blood Money x16
+item.blood_money64.name=Blood Money x64
+item.blood_burned_string.name=Blood Burned String
 
 #TConstruct Stuffs
-material.blood_infused_iron.name=Blood Infused Iron
+material.blood.infused.iron=Blood Infused Iron
 
 part.arrowhead=@material@ Arrowhead
 part.axe.head=@material@ Axe Head
 part.battle.sign=@material@ Battle Sign
 part.binding=@material@ Binding
+part.bolt=@material@ Bolt
+part.bow.limb=@material@ Bow Limb
 part.chisel.head=@material@ Chisel Head
 part.chunk=@material@ Chunk
 part.crossbar=@material@ Crossbar
+part.crossbow.body=@material@ Crossbow Body
+part.crossbow.limb=@material@ Crossbow Limb
 part.excavator.head=@material@ Excavator Head
 part.frypan.head=@material@ Pan Head
 part.full.guard=@material@ Full Guard
@@ -94,6 +106,7 @@ part.medium.guard=@material@ Medium Guard
 part.pickaxe.head=@material@ Pickaxe Head
 part.scythe.head=@material@ Scythe Head
 part.shovel.head=@material@ Shovel Head
+part.shuriken=@material@ Shuriken
 part.sword.blade=@material@ Sword Blade
 part.toolrod=@material@ Tool Rod
 part.toughbind=@material@ Tough Binding

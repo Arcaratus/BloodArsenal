@@ -60,8 +60,8 @@ public class InfusedDiamond extends Item
     {
         if (equals(ModItems.blood_infused_diamond_unactive))
         {
-            par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_diamond_inactive1"));
-            par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_diamond_inactive2"));
+            par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_diamond_unactive1"));
+            par3List.add(StatCollector.translateToLocal("tooltip.tool.blood_diamond_unactive2"));
         }
         if (equals(ModItems.blood_infused_diamond_active))
         {
