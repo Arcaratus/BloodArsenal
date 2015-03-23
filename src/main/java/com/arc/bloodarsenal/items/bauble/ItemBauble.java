@@ -5,11 +5,17 @@ import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import com.arc.bloodarsenal.BloodArsenal;
 import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 @Optional.Interface(iface = "baubles.api.IBauble", modid = "Baubles")
 public abstract class ItemBauble extends Item implements IBauble
@@ -19,6 +25,7 @@ public abstract class ItemBauble extends Item implements IBauble
         super();
         setMaxStackSize(1);
         setMaxDamage(0);
+        setHasSubtypes(true);
         setCreativeTab(BloodArsenal.BA_TAB);
     }
 

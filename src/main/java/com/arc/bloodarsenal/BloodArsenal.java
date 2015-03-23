@@ -143,10 +143,6 @@ public class BloodArsenal
             isBaublesLoaded = true;
             logger.info("Loaded Baubles integration");
 
-            ModItems.vampire_ring = new VampireRing();
-            ModItems.self_sacrifice_amulet = new SelfSacrificeAmulet();
-            ModItems.sacrifice_amulet = new SacrificeAmulet();
-
             GameRegistry.registerItem(ModItems.vampire_ring, "vampire_ring");
             GameRegistry.registerItem(ModItems.self_sacrifice_amulet, "self_sacrifice_amulet");
             GameRegistry.registerItem(ModItems.sacrifice_amulet, "sacrifice_amulet");

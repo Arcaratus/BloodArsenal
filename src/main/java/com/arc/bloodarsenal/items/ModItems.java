@@ -4,6 +4,9 @@ import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.items.armor.VampireCostume;
+import com.arc.bloodarsenal.items.bauble.SacrificeAmulet;
+import com.arc.bloodarsenal.items.bauble.SelfSacrificeAmulet;
+import com.arc.bloodarsenal.items.bauble.VampireRing;
 import com.arc.bloodarsenal.items.block.*;
 import com.arc.bloodarsenal.items.sigil.SigilDivinity;
 import com.arc.bloodarsenal.items.sigil.SigilEnder;
@@ -114,6 +117,9 @@ public class ModItems
         wolf_hide = new ItemBloodArsenal().setUnlocalizedName("wolf_hide");
         blood_money = new ItemBloodMoney();
         blood_burned_string = new ItemBloodArsenal().setUnlocalizedName("blood_burned_string");
+        vampire_ring = new VampireRing();
+        self_sacrifice_amulet = new SelfSacrificeAmulet();
+        sacrifice_amulet = new SacrificeAmulet();
     }
 
     public static void registerItems()

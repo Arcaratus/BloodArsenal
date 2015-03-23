@@ -5,6 +5,7 @@ import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
 import baubles.api.BaublesApi;
 import baubles.common.Baubles;
+import baubles.common.Config;
 import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.items.ModItems;
 import cpw.mods.fml.common.Loader;
@@ -87,6 +88,13 @@ public class BloodArsenalRecipes
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_divinity), "aba", "cde", "fgf", 'a', ModBlocks.blood_infused_glowstone, 'b', new ItemStack(Items.golden_apple, 1, 1), 'c', Items.nether_star, 'd', WayofTime.alchemicalWizardry.ModItems.sigilOfElementalAffinity, 'e', ModItems.blood_infused_diamond_bound, 'f', ModItems.amorphic_catalyst, 'g', transcendentOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_burned_string, 4), "aaa", "aba", "aaa", 'a', Items.string, 'b', weakOrb);
 
+        if (BloodArsenal.isBaublesLoaded)
+        {
+            addOreDictBloodOrbRecipe(new ItemStack(ModItems.vampire_ring), "ab ", "bcb", " b ", 'a', ModItems.blood_infused_diamond_bound, 'b', Blocks.stone, 'c', masterOrb);
+            addOreDictBloodOrbRecipe(new ItemStack(ModItems.sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', Items.gold_ingot);
+            addOreDictBloodOrbRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', Items.glowstone_dust);
+        }
+
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone), "aaa", "aaa", "aaa", 'a', blankSlate);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 1), "aaa", "aaa", "aaa", 'a', reinforcedSlate);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 2), "aaa", "aaa", "aaa", 'a', imbuedSlate);
@@ -119,21 +127,6 @@ public class BloodArsenalRecipes
         addShapelessOreDictRecipe(new ItemStack(ModItems.blood_infused_iron, 9), ModBlocks.blood_infused_iron_block);
         addShapelessOreDictRecipe(new ItemStack(ModItems.orange_juice), ModItems.blood_orange, Items.glass_bottle);
         addShapelessOreDictRecipe(new ItemStack(ModItems.juice_and_cookies), Items.cookie, ModItems.orange_juice);
-
-        if (BloodArsenal.isBaublesLoaded)
-        {
-//            addOreDictBloodOrbRecipe(new ItemStack(ModItems.vampire_ring), "ab ", "bcb", " b ", 'a', ModItems.blood_infused_diamond_bound, 'b', Blocks.stone, 'c', masterOrb);
-            GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.runeOfSelfSacrifice));
-//            GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModItems.sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.runeOfSacrifice));
-//            GameRegistry.addRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "a", 'a', new ItemStack(Items.slime_ball));
-        }
-
-        {
-//            ItemStack igniter = new ItemStack(ModItems.bound_igniter);
-
-//            GameRegistry.addRecipe(new ItemStack(ModBlocks.blood_torch), "a", "b", 'a', igniter, 'b', ModItems.blood_infused_stick);
-//            GameRegistry.addRecipe(new ItemStack(ModItems.blood_burned_string, 4), "aaa", "aba", "aaa", 'a', Items.string, 'b', igniter);
-        }
     }
 
     private static void addOreDictRecipe(ItemStack output, Object... recipe) 

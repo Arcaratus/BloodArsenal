@@ -19,6 +19,7 @@ public class VampireRing extends ItemBauble implements IBauble
     {
         super();
         setMaxStackSize(1);
+        setHasSubtypes(true);
         setUnlocalizedName("vampire_ring");
     }
 
