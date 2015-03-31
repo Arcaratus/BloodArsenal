@@ -440,7 +440,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
             return 0;
         }
 
-        if (resource.fluidID != (new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 1)).fluidID)
+        if (resource.fluidID != (fluidInput).fluidID)
         {
             return 0;
         }

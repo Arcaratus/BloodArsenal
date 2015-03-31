@@ -8,6 +8,11 @@ import net.minecraft.world.World;
 
 public class CommonProxy
 {
+    public void init()
+    {
+        registerEntityTrackers();
+    }
+
     public void registerRenders()
     {
         //Absolutely nothing

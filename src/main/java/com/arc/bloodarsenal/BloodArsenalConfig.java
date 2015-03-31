@@ -42,12 +42,14 @@ public class BloodArsenalConfig
     public static int sigilDivinityCost;
 
 	// Miscellaneous
+    public static boolean versionCheckingAllowed;
 	public static boolean isRedGood;
     public static boolean cakeIsLie;
 	
 	public static void init(File file)
 	{
 		config = new Configuration(file);
+
         try
         {
             syncConfig();
@@ -86,6 +88,7 @@ public class BloodArsenalConfig
         sigilSwimmingCost = config.get(lpSettings, "Sigil of Swimming cost; Default: 150", 150).getInt(sigilSwimmingCost);
         sigilDivinityCost = config.get(lpSettings, "Sigil of Divinity cost; Default: 1000000", 1000000).getInt(sigilDivinityCost);
 
+        versionCheckingAllowed = config.get(misc, "Is automagic version checking allowed?", true, "Allows for your version to be checked against the latest version").getBoolean();
         isRedGood = config.get(misc, "Is RED > PURPLE?", false, "Purple is always better than Red. But I won't tell you how to live your life. Even if it is incorrectly.").getBoolean(isRedGood);
         cakeIsLie = config.get(misc, "The cake is a lie", false, "The cake is a lie").getBoolean(cakeIsLie);
 

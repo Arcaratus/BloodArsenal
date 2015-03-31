@@ -3,11 +3,9 @@ package com.arc.bloodarsenal;
 import com.arc.bloodarsenal.entity.ModLivingDropsEvent;
 import com.arc.bloodarsenal.gui.GuiHandler;
 import com.arc.bloodarsenal.items.ModItems;
-import com.arc.bloodarsenal.items.bauble.SacrificeAmulet;
-import com.arc.bloodarsenal.items.bauble.SelfSacrificeAmulet;
-import com.arc.bloodarsenal.items.bauble.VampireRing;
 import com.arc.bloodarsenal.items.tinkers.BloodArsenalTinkers;
 import com.arc.bloodarsenal.items.tinkers.RecipeHelper;
+import com.arc.bloodarsenal.misc.CommandDownloadMod;
 import com.arc.bloodarsenal.potion.PotionVampiricAura;
 import com.arc.bloodarsenal.rituals.RitualRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -35,10 +33,11 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-@Mod(modid = BloodArsenal.MODID, version = "1.1.4", name = "Blood Arsenal", dependencies = "required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
+@Mod(modid = BloodArsenal.MODID, version = BloodArsenal.VERSION, name = "Blood Arsenal", dependencies = "required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
 public class BloodArsenal
 {
     public final static String MODID = "BloodArsenal";
+    public final static String VERSION = "1.1";
 
     @SidedProxy(clientSide = "com.arc.bloodarsenal.ClientProxy", serverSide = "com.arc.bloodarsenal.CommonProxy")
     public static CommonProxy proxy;
@@ -127,8 +126,7 @@ public class BloodArsenal
         BloodArsenalRecipes.registerRecipes();
         RitualRegistry.initRituals();
 
-        proxy.registerRenders();
-        proxy.registerEvents();
+        proxy.init();
 
         vampiricAura = new PotionVampiricAura(BloodArsenalConfig.vampiricAuraID, false, 0).setIconIndex(0, 0).setPotionName("Vampiric Aura");
         bleeding = new PotionVampiricAura(BloodArsenalConfig.bleedingID, true, 0).setIconIndex(1, 0).setPotionName("Bleeding");
@@ -165,5 +163,11 @@ public class BloodArsenal
         {
             isTinkersConstructLoaded = false;
         }
+    }
+
+    @Mod.EventHandler
+    public void serverStarting(FMLServerStartingEvent event)
+    {
+        event.registerServerCommand(new CommandDownloadMod());
     }
 }

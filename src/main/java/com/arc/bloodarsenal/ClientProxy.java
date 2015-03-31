@@ -1,11 +1,12 @@
 package com.arc.bloodarsenal;
 
-import WayofTime.alchemicalWizardry.client.ClientEventHandler;
 import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.entity.EntityBloodTNT;
 import com.arc.bloodarsenal.entity.projectile.EntityBloodBall;
 import com.arc.bloodarsenal.entity.projectile.EntityGatlingProjectile;
 import com.arc.bloodarsenal.items.ModItems;
+import com.arc.bloodarsenal.misc.VersionChecker;
+import com.arc.bloodarsenal.renderer.block.ShaderHelper;
 import com.arc.bloodarsenal.renderer.block.TileLifeInfuserRenderer;
 import com.arc.bloodarsenal.renderer.block.item.TileLifeInfuserItemRenderer;
 import com.arc.bloodarsenal.renderer.item.ItemRenderGatling;
@@ -17,7 +18,6 @@ import com.arc.bloodarsenal.tileentity.TilePortableAltar;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.entity.RenderTNTPrimed;
 import net.minecraft.item.ItemBlock;
@@ -26,6 +26,15 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 public class ClientProxy extends CommonProxy
 {
+    @Override
+    public void init()
+    {
+        registerRenders();
+        registerEvents();
+        getClientWorld();
+        initRendering();
+    }
+
     @Override
     public void registerRenders()
     {
@@ -37,12 +46,16 @@ public class ClientProxy extends CommonProxy
 
         ClientRegistry.bindTileEntitySpecialRenderer(TilePortableAltar.class, new TilePortableAltarRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileLifeInfuser.class, new TileLifeInfuserRenderer());
+        ShaderHelper.initShaders();
     }
 
     @Override
     public void registerEvents()
     {
-        FMLCommonHandler.instance().bus().register(new ClientEventHandler());
+        if (BloodArsenalConfig.versionCheckingAllowed)
+        {
+            new VersionChecker().init();
+        }
     }
 
     @Override

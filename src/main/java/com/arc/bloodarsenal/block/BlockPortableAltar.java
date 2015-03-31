@@ -89,7 +89,7 @@ public class BlockPortableAltar extends BlockContainer
                 int maxEssence = bloodOrb.getMaxEssence();
                 int currentEssence = bloodOrb.getCurrentEssence(stack);
                 int level = currentEssence * 15 / maxEssence;
-                return ((int) (Math.min(15, level))) % 16;
+                return Math.min(15, level) % 16;
             }
         }
 
@@ -121,7 +121,8 @@ public class BlockPortableAltar extends BlockContainer
                 }
 
                 return true;
-            } else if (playerItem.getItem().equals(ModItems.itemSeerSigil))
+            }
+            else if (playerItem.getItem().equals(ModItems.itemSeerSigil))
             {
                 if (player.worldObj.isRemote)
                 {
@@ -132,7 +133,8 @@ public class BlockPortableAltar extends BlockContainer
                 }
 
                 return true;
-            }else if(playerItem.getItem() instanceof IAltarManipulator)
+            }
+            else if(playerItem.getItem() instanceof IAltarManipulator)
             {
                 return false;
             }
@@ -151,7 +153,8 @@ public class BlockPortableAltar extends BlockContainer
                     }
 
                     return true;
-                } else if (item != null && item.getItem().equals(ModItems.itemSeerSigil))
+                }
+                else if (item != null && item.getItem().equals(ModItems.itemSeerSigil))
                 {
                     if (player.worldObj.isRemote)
                     {
@@ -173,7 +176,8 @@ public class BlockPortableAltar extends BlockContainer
             --playerItem.stackSize;
             tileEntity.setInventorySlotContents(0, newItem);
             tileEntity.startCycle();
-        } else if (tileEntity.getStackInSlot(0) != null && playerItem == null)
+        }
+        else if (tileEntity.getStackInSlot(0) != null && playerItem == null)
         {
             player.inventory.addItemStackToInventory(tileEntity.getStackInSlot(0));
             tileEntity.setInventorySlotContents(0, null);

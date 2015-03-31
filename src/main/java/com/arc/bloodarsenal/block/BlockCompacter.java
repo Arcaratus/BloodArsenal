@@ -4,10 +4,7 @@ import WayofTime.alchemicalWizardry.*;
 import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.api.event.RitualActivatedEvent;
 import WayofTime.alchemicalWizardry.api.event.RitualRunEvent;
-import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
-import WayofTime.alchemicalWizardry.api.rituals.IRitualStone;
-import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
-import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
+import WayofTime.alchemicalWizardry.api.rituals.*;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEMasterStone;
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.tileentity.TileCompacter;
@@ -37,23 +34,23 @@ public class BlockCompacter extends BlockContainer
 
         if (tile instanceof TEMasterStone)
         {
-            TEMasterStone ritualStone = new TEMasterStone();
+            TEMasterStone ritualStone = (TEMasterStone) tile;
+            String test = Rituals.checkValidRitual(world, x, y + 1, z);
 
-            if (!ritualStone.getCurrentRitual().isEmpty())
+            if (!test.equals(""))
             {
                 player.addChatMessage(new ChatComponentText("It worked"));
-                String ritualName = ritualStone.getCurrentRitual();
 
-                if (ritualStone.getCurrentRitual().equals(ritualName))
+                if (ritualStone.getCurrentRitual().equals(test))
                 {
-
-                    //ritualStone.
+                    player.addChatMessage( new ChatComponentText(test));
                 }
             }
             else
             {
                 player.addChatMessage(new ChatComponentText("It failed"));
             }
+
             return true;
         }
         else

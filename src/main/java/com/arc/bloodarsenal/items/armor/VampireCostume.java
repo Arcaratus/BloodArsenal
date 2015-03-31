@@ -215,7 +215,7 @@ public class VampireCostume extends ItemArmor
         {
             player.removePotionEffect(Potion.damageBoost.id);
         }
-        player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 2, 2));
+        player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 2, 1));
 
         setIsInvisible(armor, player.isPotionActive(Potion.invisibility.id));
     }
