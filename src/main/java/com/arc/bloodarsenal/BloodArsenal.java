@@ -19,13 +19,17 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import com.arc.bloodarsenal.block.ModBlocks;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,7 +41,7 @@ import java.lang.reflect.Modifier;
 public class BloodArsenal
 {
     public final static String MODID = "BloodArsenal";
-    public final static String VERSION = "1.1";
+    public final static String VERSION = "1.1-4";
 
     @SidedProxy(clientSide = "com.arc.bloodarsenal.ClientProxy", serverSide = "com.arc.bloodarsenal.CommonProxy")
     public static CommonProxy proxy;
@@ -136,6 +140,15 @@ public class BloodArsenal
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
+        int craftingConstant = OreDictionary.WILDCARD_VALUE;
+
+        ItemStack weakOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.weakBloodOrb, 1, craftingConstant);
+        ItemStack apprenticeOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.apprenticeBloodOrb, 1, craftingConstant);
+        ItemStack magicianOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.magicianBloodOrb, 1, craftingConstant);
+        ItemStack masterOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.masterBloodOrb, 1, craftingConstant);
+        ItemStack archmageOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.archmageBloodOrb, 1, craftingConstant);
+        ItemStack transcendentOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.transcendentBloodOrb, 1, craftingConstant);
+
         if (Loader.isModLoaded("Baubles"))
         {
             isBaublesLoaded = true;
@@ -144,6 +157,10 @@ public class BloodArsenal
             GameRegistry.registerItem(ModItems.vampire_ring, "vampire_ring");
             GameRegistry.registerItem(ModItems.self_sacrifice_amulet, "self_sacrifice_amulet");
             GameRegistry.registerItem(ModItems.sacrifice_amulet, "sacrifice_amulet");
+
+            BloodArsenalRecipes.addOreDictBloodOrbRecipe(new ItemStack(ModItems.vampire_ring), "ab ", "bcb", " b ", 'a', ModItems.blood_infused_diamond_bound, 'b', Blocks.stone, 'c', masterOrb);
+            BloodArsenalRecipes.addOreDictBloodOrbRecipe(new ItemStack(ModItems.sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', Items.gold_ingot);
+            BloodArsenalRecipes.addOreDictBloodOrbRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', Items.glowstone_dust);
         }
         else
         {

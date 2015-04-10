@@ -42,6 +42,7 @@ public class BlockBloodStone extends Block
         blood_stone_5 = iconRegister.registerIcon("BloodArsenal:blood_stone_5");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item par1Item, CreativeTabs par2CreativeTabs, List par3List)
     {

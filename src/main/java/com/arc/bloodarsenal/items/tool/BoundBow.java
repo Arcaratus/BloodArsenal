@@ -174,7 +174,7 @@ public class BoundBow extends ItemBow implements IBindable
 
     public int getItemEnchantability()
     {
-        return 0;
+        return 1;
     }
 
     public EnumAction getItemUseAction(ItemStack par1ItemStack)

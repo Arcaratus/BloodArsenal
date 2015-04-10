@@ -5,6 +5,7 @@ import WayofTime.alchemicalWizardry.api.items.IAltarManipulator;
 import WayofTime.alchemicalWizardry.common.items.EnergyBattery;
 import WayofTime.alchemicalWizardry.common.items.sigil.SigilOfHolding;
 import com.arc.bloodarsenal.BloodArsenal;
+import com.arc.bloodarsenal.tileentity.TileCompactedMRS;
 import com.arc.bloodarsenal.tileentity.TilePortableAltar;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -12,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -21,18 +23,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BlockPortableAltar extends BlockContainer
 {
     @SideOnly(Side.CLIENT)
-    private static IIcon topIcon;
+    private IIcon topIcon;
     @SideOnly(Side.CLIENT)
-    private static IIcon sideIcon1;
+    private IIcon sideIcon1;
     @SideOnly(Side.CLIENT)
-    private static IIcon sideIcon2;
+    private IIcon sideIcon2;
     @SideOnly(Side.CLIENT)
-    private static IIcon bottomIcon;
+    private IIcon bottomIcon;
 
     public BlockPortableAltar()
     {
@@ -115,7 +118,8 @@ public class BlockPortableAltar extends BlockContainer
                 if (player.worldObj.isRemote)
                 {
                     world.markBlockForUpdate(x, y, z);
-                } else
+                }
+                else
                 {
                     tileEntity.sendChatInfoToPlayer(player);
                 }
@@ -127,14 +131,15 @@ public class BlockPortableAltar extends BlockContainer
                 if (player.worldObj.isRemote)
                 {
                     world.markBlockForUpdate(x, y, z);
-                } else
+                }
+                else
                 {
                     tileEntity.sendMoreChatInfoToPlayer(player);
                 }
 
                 return true;
             }
-            else if(playerItem.getItem() instanceof IAltarManipulator)
+            else if (playerItem.getItem() instanceof IAltarManipulator)
             {
                 return false;
             }
@@ -147,7 +152,8 @@ public class BlockPortableAltar extends BlockContainer
                     if (player.worldObj.isRemote)
                     {
                         world.markBlockForUpdate(x, y, z);
-                    } else
+                    }
+                    else
                     {
                         tileEntity.sendChatInfoToPlayer(player);
                     }
@@ -159,7 +165,8 @@ public class BlockPortableAltar extends BlockContainer
                     if (player.worldObj.isRemote)
                     {
                         world.markBlockForUpdate(x, y, z);
-                    } else
+                    }
+                    else
                     {
                         tileEntity.sendMoreChatInfoToPlayer(player);
                     }
@@ -181,7 +188,7 @@ public class BlockPortableAltar extends BlockContainer
         {
             player.inventory.addItemStackToInventory(tileEntity.getStackInSlot(0));
             tileEntity.setInventorySlotContents(0, null);
-            tileEntity.setActive();
+            tileEntity.setActive(false);
         }
         world.markBlockForUpdate(x, y, z);
         return true;
@@ -232,6 +239,53 @@ public class BlockPortableAltar extends BlockContainer
                 item.stackSize = 0;
             }
         }
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack stack)
+    {
+        TileEntity tile = world.getTileEntity(x, y, z);
+
+        if (tile instanceof TilePortableAltar)
+        {
+            NBTTagCompound tag = stack.getTagCompound();
+
+            if (tag != null)
+            {
+                ((TilePortableAltar) tile).readNBTOnPlace(tag);
+            }
+        }
+    }
+
+    @Override
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
+    {
+        ArrayList<ItemStack> list = new ArrayList();
+
+        TileEntity tile = world.getTileEntity(x, y, z);
+
+        if (tile instanceof TilePortableAltar)
+        {
+            ItemStack drop = new ItemStack(this);
+            NBTTagCompound tag = new NBTTagCompound();
+            ((TilePortableAltar) tile).writeNBTOnHarvest(tag);
+            drop.setTagCompound(tag);
+
+            list.add(drop);
+        }
+
+        return list;
+    }
+
+    @Override
+    public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player)
+    {
+        if (!player.capabilities.isCreativeMode)
+        {
+            dropBlockAsItem(world, x, y, z, meta, 0);
+        }
+
+        super.onBlockHarvested(world, x, y, z, meta, player);
     }
 
     @Override

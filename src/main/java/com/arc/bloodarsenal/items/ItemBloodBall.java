@@ -17,6 +17,7 @@ public class ItemBloodBall extends Item
         setCreativeTab(BloodArsenal.BA_TAB);
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
     {
         if (!player.capabilities.isCreativeMode)

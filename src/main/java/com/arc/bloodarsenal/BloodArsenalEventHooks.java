@@ -9,11 +9,14 @@ import com.arc.bloodarsenal.items.bauble.SacrificeAmulet;
 import com.arc.bloodarsenal.items.bauble.SelfSacrificeAmulet;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockGlass;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -22,6 +25,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 
 public class BloodArsenalEventHooks
 {
@@ -96,7 +100,7 @@ public class BloodArsenalEventHooks
         }
     }
 
-    public void こんちは(EntityPlayer player)
+    public void こんにちは(EntityPlayer player)
     {
         player.addChatMessage(new ChatComponentText("こんにちは！"));
     }
@@ -209,6 +213,25 @@ public class BloodArsenalEventHooks
                 if (entityLiving.isInWater() || entityLiving.isInsideOfMaterial(Material.lava))
                 {
                     event.newSpeed = 1.75F;
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void harvestEvent(BlockEvent.HarvestDropsEvent event)
+    {
+        Block block = event.block;
+        EntityPlayer player = event.harvester;
+
+        if (block instanceof BlockGlass)
+        {
+            if (!event.isSilkTouching)
+            {
+                if (player.getCurrentEquippedItem().getItem() == Items.flint)
+                {
+                    event.drops.add(new ItemStack(ModItems.glass_shard));
+                    event.dropChance = 0.75F;
                 }
             }
         }

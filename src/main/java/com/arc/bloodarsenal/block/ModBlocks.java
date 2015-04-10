@@ -1,6 +1,9 @@
 package com.arc.bloodarsenal.block;
 
+import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import com.arc.bloodarsenal.items.block.BloodStoneBlock;
+import com.arc.bloodarsenal.items.block.CompactedMRSBlock;
+import com.arc.bloodarsenal.items.block.PortableAltarBlock;
 import com.arc.bloodarsenal.tileentity.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -26,6 +29,7 @@ public class ModBlocks
     public static Block life_infuser;
     public static Block compacter;
     public static Block lp_materializer;
+    public static Block compacted_mrs;
 
     public static void init()
     {
@@ -48,11 +52,12 @@ public class ModBlocks
         life_infuser = new BlockLifeInfuser();
         compacter = new BlockCompacter();
         lp_materializer = new BlockLPMaterializer();
+        compacted_mrs = new BlockCompactedMRS();
     }
 
     public static void registerBlocksInPre()
     {
-        GameRegistry.registerBlock(blood_stone, BloodStoneBlock.class, "BloodArsenal" + (ModBlocks.blood_stone.getUnlocalizedName().substring(5)));
+        GameRegistry.registerBlock(blood_stone, BloodStoneBlock.class, "BloodArsenal" + ModBlocks.blood_stone.getUnlocalizedName().substring(5));
         GameRegistry.registerBlock(blood_tnt, "blood_tnt");
         GameRegistry.registerBlock(blood_stained_glass, "blood_stained_glass");
         GameRegistry.registerBlock(blood_infused_wood, "blood_infused_wood");
@@ -67,10 +72,11 @@ public class ModBlocks
         GameRegistry.registerBlock(blood_infused_glowstone, "blood_infused_glowstone");
         GameRegistry.registerBlock(blood_lamp, "blood_lamp");
         GameRegistry.registerBlock(blood_infused_diamond_block, "blood_infused_diamond_block");
-        GameRegistry.registerBlock(portable_altar, "portable_altar");
+        GameRegistry.registerBlock(portable_altar, PortableAltarBlock.class, "BloodArsenal" + ModBlocks.portable_altar.getUnlocalizedName());
         GameRegistry.registerBlock(life_infuser, "life_infuser");
         GameRegistry.registerBlock(compacter, "compacter");
         GameRegistry.registerBlock(lp_materializer, "lp_materializer");
+        GameRegistry.registerBlock(compacted_mrs, CompactedMRSBlock.class, "BloodArsenal" + ModBlocks.compacted_mrs.getUnlocalizedName());
     }
 
     public static void registerTileEntities()
@@ -80,5 +86,6 @@ public class ModBlocks
         GameRegistry.registerTileEntity(TileLifeInfuser.class, "life_infuser");
         GameRegistry.registerTileEntity(TileCompacter.class, "compacter");
         GameRegistry.registerTileEntity(TileLPMaterializer.class, "lp_materializer");
+        GameRegistry.registerTileEntity(TileCompactedMRS.class, "compacted_mrs");
     }
 }

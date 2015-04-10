@@ -6,11 +6,14 @@ import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
+import WayofTime.alchemicalWizardry.api.tile.IBloodAltar;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEPedestal;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -19,7 +22,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +50,11 @@ public class RitualEffectEnchant extends RitualEffect
         World worldSave = MinecraftServer.getServer().worldServers[0];
         LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
 
+        if (stage == 0)
+        {
+            advanceStage();
+        }
+
         if (data == null)
         {
             data = new LifeEssenceNetwork(owner);
@@ -68,12 +78,14 @@ public class RitualEffectEnchant extends RitualEffect
 
             if (!(topEntity instanceof TEAltar))
             {
+                ritualStone.setActive(false);
                 sendPlayerInformation(player, 1);
                 return;
             }
 
             if (!canActivate(world, x, y, z))
             {
+                ritualStone.setActive(false);
                 sendPlayerInformation(player, 2);
                 return;
             }
@@ -83,17 +95,13 @@ public class RitualEffectEnchant extends RitualEffect
 
             if (targetStack == null)
             {
-//                sendPlayerInformation(player, 3);
+                ritualStone.setActive(false);
+                sendPlayerInformation(player, 3);
                 return;
             }
             else
             {
                 enchantItem = targetStack;
-            }
-
-            if (stage == 0)
-            {
-                advanceStage();
             }
 
             switch (stage)
@@ -104,63 +112,53 @@ public class RitualEffectEnchant extends RitualEffect
                     {
                         ItemStack[] pedestalStack = getItemsInPedestals(world, x, y, z, true);
 
-//                        if (pedestalStack.length > 0)
+                        int count = pedestalStack.length;
+                        boolean addedEnchantment = false;
+
+                        if (count > 0 && !world.isRemote)
                         {
-                            int count = pedestalStack.length;
-                            boolean addedEnchantment = false;
-
-                            if (count > 0 && !world.isRemote)
+                            for (ItemStack itemStack : pedestalStack)
                             {
-                                for (ItemStack itemStack : pedestalStack)
+                                if (itemStack != null && itemStack.getItem() == Items.enchanted_book)
                                 {
-                                    if (itemStack.getItem() == Items.enchanted_book)
+                                    NBTTagList enchants = Items.enchanted_book.func_92110_g(itemStack);
+
+                                    if (enchants != null && enchants.tagCount() > 0)
                                     {
-                                        NBTTagList enchants = Items.enchanted_book.func_92110_g(itemStack);
+                                        NBTTagCompound enchant = enchants.getCompoundTagAt(0);
+                                        short id = enchant.getShort("id");
+                                        short lvl = enchant.getShort("lvl");
 
-                                        if (enchants != null && enchants.tagCount() > 0)
+                                        if (!hasEnchantAlready(id) && isEnchantmentValid(id))
                                         {
-                                            NBTTagCompound enchant = enchants.getCompoundTagAt(0);
-                                            short id = enchant.getShort("id");
-                                            short lvl = enchant.getShort("lvl");
-
-                                            if (!hasEnchantAlready(id) && isEnchantmentValid(id))
-                                            {
-                                                this.enchants.add(new EnchantmentData(id, lvl));
-                                                addedEnchantment = true;
-                                                break;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            stage = 0;
+                                            this.enchants.add(new EnchantmentData(id, lvl));
+                                            addedEnchantment = true;
                                             break;
                                         }
                                     }
-//                                    else
-                                    {
-                                        stage = 0;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (!addedEnchantment)
-                            {
-                                if (enchants.isEmpty())
-                                {
-                                    stage = 0;
-                                }
-                                else
-                                {
-                                    advanceStage();
-                                    world.markBlockForUpdate(x, y, z);
                                 }
                             }
                         }
- //                       else
+                        else
                         {
-//                            sendPlayerInformation(player, 4);
+                            sendPlayerInformation(player, 4);
                         }
+
+                        if (!addedEnchantment)
+                        {
+                            if (enchants.isEmpty())
+                            {
+                                stage = 0;
+                                ritualStone.setActive(false);
+                            }
+                            else
+                            {
+                                advanceStage();
+                                world.markBlockForUpdate(x, y, z);
+                            }
+                        }
+
+
                     }
 
                     break;
@@ -175,7 +173,8 @@ public class RitualEffectEnchant extends RitualEffect
                         for (EnchantmentData d : enchants)
                         {
                             Enchantment ench = Enchantment.enchantmentsList[d.enchant];
-                            lpRequired += (int) (5000F * ((15 - Math.min(15, ench.getWeight())) * 1.05F) * ((3F + d.level * d.level) * 0.25F) * (0.9F + enchants.size() * 0.05F));
+                            lpRequired += (int) (500F * ((15 - Math.min(15, ench.getWeight())) * 1.05F) * ((3F + d.level * d.level) * 0.25F) * (0.9F + enchants.size() * 0.05F));
+                            player.addChatComponentMessage(new ChatComponentText("Lp required: " + lpRequired));
                             SoulNetworkHandler.syphonFromNetwork(owner, lpRequired);
                         }
                     }
@@ -184,6 +183,11 @@ public class RitualEffectEnchant extends RitualEffect
                         lpRequired = 0;
                         advanceStage();
                         world.markBlockForUpdate(x, y, z);
+                    }
+                    else
+                    {
+                        sendPlayerInformation(player, 5);
+                        ritualStone.setActive(false);
                     }
 
                     break;
@@ -205,6 +209,12 @@ public class RitualEffectEnchant extends RitualEffect
                         lpRequired = -1;
                         advanceStage();
                         world.markBlockForUpdate(x, y, z);
+
+                        world.addWeatherEffect(new EntityLightningBolt(world, x, y + 2, z));
+                        world.addWeatherEffect(new EntityLightningBolt(world, x + 1, y + 7, z + 1));
+                        world.addWeatherEffect(new EntityLightningBolt(world, x - 1, y + 7, z + 1));
+                        world.addWeatherEffect(new EntityLightningBolt(world, x + 1, y + 7, z - 1));
+                        world.addWeatherEffect(new EntityLightningBolt(world, x - 1, y + 7, z - 1));
                     }
 
                     break;
@@ -332,7 +342,6 @@ public class RitualEffectEnchant extends RitualEffect
     public ItemStack[] getItemsInPedestals(World world, int x, int y, int z, boolean yes)
     {
         ItemStack[] items = new ItemStack[4];
-//        itemList.clear();
 
         if (yes)
         {
@@ -347,7 +356,6 @@ public class RitualEffectEnchant extends RitualEffect
                     if (tileEntity instanceof TEPedestal)
                     {
                         items[i] = ((TEPedestal) tileEntity).getStackInSlot(0);
-//                        itemList.add(items[i]);
                         i++;
                     }
                 }
@@ -366,7 +374,6 @@ public class RitualEffectEnchant extends RitualEffect
                     if (tileEntity instanceof TEPedestal)
                     {
                         items[i] = ((TEPedestal) tileEntity).getStackInSlot(0);
-//                        itemList.add(items[i]);
                         i++;
                     }
                 }
@@ -429,16 +436,22 @@ public class RitualEffectEnchant extends RitualEffect
         switch (number)
         {
             case 1:
-                player.addChatComponentMessage(new ChatComponentText("There is no altar!"));
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.enchant.noAltar")));
                 break;
             case 2:
-                player.addChatComponentMessage(new ChatComponentText("There are no pedestals!"));
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.enchant.noPedestals")));
                 break;
             case 3:
-                player.addChatComponentMessage(new ChatComponentText("There is no item to enchant!"));
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.enchant.noEnchantItem")));
                 break;
             case 4:
-                player.addChatComponentMessage(new ChatComponentText("There are no enchantments to apply!"));
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.enchant.noEnchantments")));
+                break;
+            case 5:
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.enchant.notEnoughLP")));
+                break;
+            case 6:
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.enchant.enchantIsNotValid")));
                 break;
         }
     }
@@ -451,20 +464,6 @@ public class RitualEffectEnchant extends RitualEffect
         {
             this.enchant = enchant;
             this.level = level;
-        }
-    }
-
-    private static class PedestalLocations
-    {
-        public int xOffset;
-        public int yOffset;
-        public int zOffset;
-
-        public PedestalLocations(int xOffset, int yOffset, int zOffset)
-        {
-            this.xOffset = xOffset;
-            this.yOffset = yOffset;
-            this.zOffset = zOffset;
         }
     }
 }

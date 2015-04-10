@@ -44,7 +44,6 @@ public class ThreadDownloadMod extends Thread
             VersionChecker.startedDownload = true;
 
             String base = "http://minecraft.curseforge.com/mc-mods/228823-blood-magic-addon-blood-arsenal";
-            String file = fileName.replaceAll(" ", "%20");
             URL url = new URL(base + "/files/latest");
 
             try
@@ -53,7 +52,6 @@ public class ThreadDownloadMod extends Thread
             }
             catch(IOException e) {}
 
-            url = new URL(base + "files/" + file);
             webReader = url.openStream();
 
             File dir = new File(".", "mods");

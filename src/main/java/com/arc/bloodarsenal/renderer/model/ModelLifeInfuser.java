@@ -16,7 +16,6 @@ import org.lwjgl.opengl.GL11;
 public class ModelLifeInfuser extends ModelBase
 {
     private static final ResourceLocation texture = new ResourceLocation("bloodarsenal:textures/models/LifeInfuser.png");
-
     private IModelCustom modelLifeInfuser;
 
     public ModelRenderer Base;
@@ -56,16 +55,16 @@ public class ModelLifeInfuser extends ModelBase
         this.Pillar1.addBox(0.0F, 0.0F, 0.0F, 2, 12, 2);
     }
 
-    @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+    public void render()
     {
-        this.Pillar2.render(f5);
-        this.Pillar3.render(f5);
-        this.Pillar4.render(f5);
-        this.Base.render(f5);
-        this.Plate2.render(f5);
-        this.Plate1.render(f5);
-        this.Pillar1.render(f5);
+        float f = 1F / 16F;
+        this.Pillar2.render(f);
+        this.Pillar3.render(f);
+        this.Pillar4.render(f);
+        this.Base.render(f);
+        this.Plate2.render(f);
+        this.Plate1.render(f);
+        this.Pillar1.render(f);
     }
 
     public void renderLifeInfuser()
@@ -90,13 +89,4 @@ public class ModelLifeInfuser extends ModelBase
         GL11.glPopMatrix();
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
-    }
 }

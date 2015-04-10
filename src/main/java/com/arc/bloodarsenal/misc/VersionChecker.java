@@ -1,5 +1,6 @@
 package com.arc.bloodarsenal.misc;
 
+import com.arc.bloodarsenal.BloodArsenal;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -29,19 +30,16 @@ public class VersionChecker
     {
         if (doneChecking && event.phase == TickEvent.Phase.END && Minecraft.getMinecraft().thePlayer != null && !triedToWarnPlayer)
         {
-            Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("Passed stage 1"));
             if (!onlineVersion.isEmpty())
             {
                 EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-                player.addChatComponentMessage(new ChatComponentText("Passed stage 2"));
-                int onlineBuild = Integer.parseInt(onlineVersion.split("-1.7.10-1.1.4-")[1]);
-                int clientBuild = BUILD.contains("GRADLE") ? Integer.MAX_VALUE : Integer.parseInt(BUILD);
+                int onlineBuild = Integer.parseInt(onlineVersion.split("1.1-")[1]);
+                int clientBuild = Integer.parseInt(BloodArsenal.VERSION.split("1.1-")[1]);
 
                 if (onlineBuild > clientBuild)
                 {
-                    player.addChatComponentMessage(new ChatComponentText("Passed stage 3"));
                     player.addChatComponentMessage(new ChatComponentTranslation("ba.versioning.update").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
-                    player.addChatComponentMessage(new ChatComponentTranslation("ba.versioning.outdated", clientBuild, onlineBuild));
+                    player.addChatComponentMessage(new ChatComponentTranslation("ba.versioning.outdated", BloodArsenal.VERSION, onlineVersion));
 
                     IChatComponent component = IChatComponent.Serializer.func_150699_a(StatCollector.translateToLocal("ba.versioning.updateMessage").replaceAll("%version%", onlineVersion));
                     player.addChatComponentMessage(component);

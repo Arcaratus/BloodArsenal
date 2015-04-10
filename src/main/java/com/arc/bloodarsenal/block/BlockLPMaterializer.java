@@ -78,15 +78,16 @@ public class BlockLPMaterializer extends BlockContainer
                     return true;
                 }
             }
-//            else if (playerItem.getItem().equals(bucket))
+            else if (playerItem.getItem() == Items.bucket)
             {
-//                if (!player.capabilities.isCreativeMode)
+                if (tileEntity.getFluidAmount() >= FluidContainerRegistry.BUCKET_VOLUME)
                 {
-//                    --playerItem.stackSize;
-//                    player.inventory.addItemStackToInventory(ModItems.bucketLife);
-//                    tileEntity.drain(FluidContainerRegistry.BUCKET_VOLUME, true);
+                    --playerItem.stackSize;
+                    player.inventory.addItemStackToInventory(new ItemStack(ModItems.bucketLife));
+                    tileEntity.drain(FluidContainerRegistry.BUCKET_VOLUME, true);
                 }
             }
+
             if (tileEntity.getStackInSlot(0) == null && playerItem.getItem() instanceof IBloodOrb)
             {
                 ItemStack newItem = playerItem.copy();

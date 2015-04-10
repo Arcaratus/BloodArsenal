@@ -56,7 +56,6 @@ public class RitualEffectWithering extends RitualEffect
 
         List<EntityLivingBase> list = SpellHelper.getLivingEntitiesInRange(world, x + 0.5, y + 0.5, z + 0.5, range, vertRange);
         int entityCount = 0;
-        boolean flag = false;
 
         for(EntityLivingBase livingEntity : list)
         {

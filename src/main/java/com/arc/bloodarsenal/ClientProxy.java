@@ -6,10 +6,9 @@ import com.arc.bloodarsenal.entity.projectile.EntityBloodBall;
 import com.arc.bloodarsenal.entity.projectile.EntityGatlingProjectile;
 import com.arc.bloodarsenal.items.ModItems;
 import com.arc.bloodarsenal.misc.VersionChecker;
-import com.arc.bloodarsenal.renderer.block.ShaderHelper;
-import com.arc.bloodarsenal.renderer.block.TileLifeInfuserRenderer;
-import com.arc.bloodarsenal.renderer.block.item.TileLifeInfuserItemRenderer;
+import com.arc.bloodarsenal.renderer.block.*;
 import com.arc.bloodarsenal.renderer.item.ItemRenderGatling;
+import com.arc.bloodarsenal.renderer.item.RenderBow;
 import com.arc.bloodarsenal.renderer.projectile.RenderEntityGatlingProjectile;
 import com.arc.bloodarsenal.renderer.block.TilePortableAltarRenderer;
 import com.arc.bloodarsenal.renderer.block.item.TilePortableAltarItemRenderer;
@@ -39,10 +38,13 @@ public class ClientProxy extends CommonProxy
     public void registerRenders()
     {
         MinecraftForgeClient.registerItemRenderer(ModItems.energy_gatling, new ItemRenderGatling());
+        MinecraftForgeClient.registerItemRenderer(ModItems.bound_bow, new RenderBow());
 
         RenderingRegistry.registerEntityRenderingHandler(EntityGatlingProjectile.class, new RenderEntityGatlingProjectile());
         RenderingRegistry.registerEntityRenderingHandler(EntityBloodTNT.class, new RenderTNTPrimed());
         RenderingRegistry.registerEntityRenderingHandler(EntityBloodBall.class, new RenderSnowball(ModItems.blood_ball));
+
+        RenderingRegistry.registerBlockHandler(new RenderTileLifeInfuser());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TilePortableAltar.class, new TilePortableAltarRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileLifeInfuser.class, new TileLifeInfuserRenderer());
@@ -68,6 +70,5 @@ public class ClientProxy extends CommonProxy
     public void initRendering()
     {
         MinecraftForgeClient.registerItemRenderer(ItemBlock.getItemFromBlock(ModBlocks.portable_altar), new TilePortableAltarItemRenderer());
-        MinecraftForgeClient.registerItemRenderer(ItemBlock.getItemFromBlock(ModBlocks.life_infuser), new TileLifeInfuserItemRenderer());
     }
 }

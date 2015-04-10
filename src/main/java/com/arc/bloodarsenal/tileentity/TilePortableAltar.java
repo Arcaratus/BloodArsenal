@@ -117,6 +117,60 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         this.demonBloodDuration = Math.max(0, this.demonBloodDuration - 1);
     }
 
+    public void readNBTOnPlace(NBTTagCompound tag)
+    {
+        fluid.amount = tag.getInteger("currentEssence");
+        upgradeLevel = tag.getInteger("upgradeLevel");
+        isActive = tag.getBoolean("isActive");
+        liquidRequired = tag.getInteger("liquidRequired");
+        canBeFilled = tag.getBoolean("canBeFilled");
+        isUpgraded = tag.getBoolean("isUpgraded");
+        consumptionRate = tag.getInteger("consumptionRate");
+        drainRate = tag.getInteger("drainRate");
+        consumptionMultiplier = tag.getFloat("consumptionMultiplier");
+        efficiencyMultiplier = tag.getFloat("efficiencyMultiplier");
+        selfSacrificeEfficiencyMultiplier = tag.getFloat("selfSacrificeEfficiencyMultiplier");
+        sacrificeEfficiencyMultiplier = tag.getFloat("sacrificeEfficiencyMultiplier");
+        capacityMultiplier = tag.getFloat("capacityMultiplier");
+        orbCapacityMultiplier = tag.getFloat("orbCapacityMultiplier");
+        dislocationMultiplier = tag.getFloat("dislocationMultiplier");
+        capacity = tag.getInteger("capacity");
+        bufferCapacity = tag.getInteger("bufferCapacity");
+        progress = tag.getInteger("progress");
+        isResultBlock = tag.getBoolean("isResultBlock");
+        lockdownDuration = tag.getInteger("lockdownDuration");
+        accelerationUpgrades = tag.getInteger("accelerationUpgrades");
+        demonBloodDuration = tag.getInteger("demonBloodDuration");
+        cooldownAfterCrafting = tag.getInteger("cooldownAfterCrafting");
+    }
+
+    public void writeNBTOnHarvest(NBTTagCompound tag)
+    {
+        tag.setInteger("currentEssence", fluid.amount);
+        tag.setInteger("upgradeLevel", upgradeLevel);
+        tag.setBoolean("isActive", isActive);
+        tag.setInteger("liquidRequired", liquidRequired);
+        tag.setBoolean("canBeFilled", canBeFilled);
+        tag.setBoolean("isUpgraded", isUpgraded);
+        tag.setInteger("consumptionRate", consumptionRate);
+        tag.setInteger("drainRate", drainRate);
+        tag.setFloat("consumptionMultiplier", consumptionMultiplier);
+        tag.setFloat("efficiencyMultiplier", efficiencyMultiplier);
+        tag.setFloat("sacrificeEfficiencyMultiplier", sacrificeEfficiencyMultiplier);
+        tag.setFloat("selfSacrificeEfficiencyMultiplier", selfSacrificeEfficiencyMultiplier);
+        tag.setBoolean("isResultBlock", isResultBlock);
+        tag.setFloat("capacityMultiplier", capacityMultiplier);
+        tag.setFloat("orbCapacityMultiplier", orbCapacityMultiplier);
+        tag.setFloat("dislocationMultiplier", dislocationMultiplier);
+        tag.setInteger("capacity", capacity);
+        tag.setInteger("progress", progress);
+        tag.setInteger("bufferCapacity", bufferCapacity);
+        tag.setInteger("lockdownDuration", lockdownDuration);
+        tag.setInteger("accelerationUpgrades", this.accelerationUpgrades);
+        tag.setInteger("demonBloodDuration", demonBloodDuration);
+        tag.setInteger("cooldownAfterCrafting", cooldownAfterCrafting);
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound par1NBTTagCompound)
     {
@@ -161,6 +215,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
             }
         }
 
+        fluid.amount = par1NBTTagCompound.getInteger("currentEssence");
         upgradeLevel = par1NBTTagCompound.getInteger("upgradeLevel");
         isActive = par1NBTTagCompound.getBoolean("isActive");
         liquidRequired = par1NBTTagCompound.getInteger("liquidRequired");
@@ -242,6 +297,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
             par1NBTTagCompound.setInteger("inputAmount", fluidInput.amount);
         }
 
+        par1NBTTagCompound.setInteger("currentEssence", fluid.amount);
         par1NBTTagCompound.setInteger("upgradeLevel", upgradeLevel);
         par1NBTTagCompound.setBoolean("isActive", isActive);
         par1NBTTagCompound.setInteger("liquidRequired", liquidRequired);
@@ -396,16 +452,31 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         return capacity;
     }
 
+    public void setCapacity(int capacity)
+    {
+        this.capacity = capacity;
+    }
+
     @Override
     public int getCurrentBlood()
     {
         return getFluidAmount();
     }
 
+    public void setCurrentBlood(int amount)
+    {
+        this.fluid.amount = amount;
+    }
+
     @Override
     public int getTier()
     {
         return upgradeLevel;
+    }
+
+    public void setTier(int tier)
+    {
+        this.upgradeLevel = tier;
     }
 
     @Override
@@ -420,10 +491,20 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         return sacrificeEfficiencyMultiplier;
     }
 
+    public void setSacrificeMultiplier(float sacrificeMultiplier)
+    {
+        this.sacrificeEfficiencyMultiplier = sacrificeMultiplier;
+    }
+
     @Override
     public float getSelfSacrificeMultiplier()
     {
         return selfSacrificeEfficiencyMultiplier;
+    }
+
+    public void setSelfSacrificeMultiplier(float selfSacrificeMultiplier)
+    {
+        this.selfSacrificeEfficiencyMultiplier = selfSacrificeMultiplier;
     }
 
     @Override
@@ -432,16 +513,51 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         return orbCapacityMultiplier;
     }
 
+    public void setOrbMultiplier(float orbMultiplier)
+    {
+        this.orbCapacityMultiplier = orbMultiplier;
+    }
+
     @Override
     public float getDislocationMultiplier()
     {
         return dislocationMultiplier;
     }
 
+    public void setDislocationMultiplier(float dislocationMultiplier)
+    {
+        this.dislocationMultiplier = dislocationMultiplier;
+    }
+
     @Override
     public int getBufferCapacity()
     {
         return bufferCapacity;
+    }
+
+    public void setBufferCapacity(int bufferCapacity)
+    {
+        this.bufferCapacity = bufferCapacity;
+    }
+
+    public void setConsumptionMultiplier(float consumptionMultiplier)
+    {
+        this.consumptionMultiplier = consumptionMultiplier;
+    }
+
+    public void setEfficiencyMultiplier(float efficiencyMultiplier)
+    {
+        this.efficiencyMultiplier = efficiencyMultiplier;
+    }
+
+    public void setCapacityMultiplier(float capacityMultiplier)
+    {
+        this.capacityMultiplier = capacityMultiplier;
+    }
+
+    public void setAccelerationUpgrades(int accelerationUpgrades)
+    {
+        this.accelerationUpgrades = accelerationUpgrades;
     }
 
     @Override
@@ -597,7 +713,6 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
             if (AlchemicalWizardry.lockdownAltar)
             {
                 List<EntityPlayer> list = SpellHelper.getPlayersInRange(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 15, 15);
-                boolean hasHighRegen = false;
                 for (EntityPlayer player : list)
                 {
                     PotionEffect regenEffect = player.getActivePotionEffect(Potion.regeneration);
@@ -625,8 +740,8 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         if (worldObj.getWorldTime() % Math.max(20 - this.accelerationUpgrades, 1) == 0)
         {
             int syphonMax = (int) (20 * this.dislocationMultiplier);
-            int fluidInputted = 0;
-            int fluidOutputted = 0;
+            int fluidInputted;
+            int fluidOutputted;
             fluidInputted = Math.min(syphonMax, -this.fluid.amount + capacity);
             fluidInputted = Math.min(this.fluidInput.amount, fluidInputted);
             this.fluid.amount += fluidInputted;
@@ -687,7 +802,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
 
                     if (progress >= liquidRequired * stackSize)
                     {
-                        ItemStack result = null;
+                        ItemStack result;
                         result = AltarRecipeRegistry.getItemForItemAndTier(this.getStackInSlot(0), this.upgradeLevel);
                         if (result != null)
                         {
@@ -759,9 +874,9 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         }
     }
 
-    public void setActive()
+    public void setActive(boolean active)
     {
-        isActive = false;
+        isActive = active;
     }
 
     public boolean isActive()
@@ -886,55 +1001,6 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
 
     public void checkAndSetAltar()
     {
-        boolean checkUpgrade = true;
-        int upgradeState = UpgradedAltars.isAltarValid(worldObj, xCoord, yCoord, zCoord);
-
-        if (upgradeState <= 1)
-        {
-            upgradeLevel = 1;
-            isUpgraded = false;
-            this.consumptionMultiplier = 0;
-            this.efficiencyMultiplier = 1;
-            this.sacrificeEfficiencyMultiplier = 0;
-            this.selfSacrificeEfficiencyMultiplier = 0;
-            this.capacityMultiplier = 1;
-            this.orbCapacityMultiplier = 1;
-            this.dislocationMultiplier = 1;
-            this.accelerationUpgrades = 0;
-            return;
-        }
-
-        AltarUpgradeComponent upgrades = UpgradedAltars.getUpgrades(worldObj, xCoord, yCoord, zCoord, upgradeState);
-
-        if (upgrades == null)
-        {
-            upgradeLevel = 1;
-            isUpgraded = false;
-            this.consumptionMultiplier = 0;
-            this.efficiencyMultiplier = 1;
-            this.sacrificeEfficiencyMultiplier = 0;
-            this.selfSacrificeEfficiencyMultiplier = 0;
-            this.capacityMultiplier = 1;
-            this.orbCapacityMultiplier = 1;
-            this.dislocationMultiplier = 1;
-            this.upgradeLevel = upgradeState;
-            this.accelerationUpgrades = 0;
-            return;
-        }
-
-        this.isUpgraded = checkUpgrade;
-        this.upgradeLevel = upgradeState;
-        this.consumptionMultiplier = (float) (0.20 * upgrades.getSpeedUpgrades());
-        this.efficiencyMultiplier = (float) Math.pow(0.85, upgrades.getSpeedUpgrades());
-        this.sacrificeEfficiencyMultiplier = (float) (0.10 * upgrades.getSacrificeUpgrades());
-        this.selfSacrificeEfficiencyMultiplier = (float) (0.10 * upgrades.getSelfSacrificeUpgrades());
-        this.capacityMultiplier = (float) ((1 * Math.pow(1.10, upgrades.getBetterCapacitiveUpgrades()) + 0.20 * upgrades.getAltarCapacitiveUpgrades()));
-        this.dislocationMultiplier = (float) (Math.pow(1.2, upgrades.getDisplacementUpgrades()));
-        this.orbCapacityMultiplier = (float) (1 + 0.02 * upgrades.getOrbCapacitiveUpgrades());
-        this.capacity = (int) (FluidContainerRegistry.BUCKET_VOLUME * 10 * capacityMultiplier);
-        this.bufferCapacity = (int) (FluidContainerRegistry.BUCKET_VOLUME * 1 * capacityMultiplier);
-        this.accelerationUpgrades = upgrades.getAccelerationUpgrades();
-
         if (this.fluid.amount > this.capacity)
         {
             this.fluid.amount = this.capacity;
@@ -1063,7 +1129,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
     public void sendChatInfoToPlayer(EntityPlayer player)
     {
         player.addChatMessage(new ChatComponentText("Altar's Current Essence: " + this.fluid.amount + "LP"));
-        player.addChatMessage(new ChatComponentText("Altar's Current Tier: " + UpgradedAltars.isAltarValid(worldObj, xCoord, yCoord, zCoord)));
+        player.addChatMessage(new ChatComponentText("Altar's Current Tier: " + this.upgradeLevel));
         player.addChatMessage(new ChatComponentText("Capacity: " + this.getCapacity() + "LP"));
     }
 

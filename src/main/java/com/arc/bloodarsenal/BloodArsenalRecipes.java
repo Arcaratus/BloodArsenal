@@ -69,8 +69,9 @@ public class BloodArsenalRecipes
 
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.blood_stained_ice, 8), "aaa", "aba", "aaa", 'a', Blocks.ice, 'b', apprenticeOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.blood_stained_glass, 8), "aaa", "aba", "aaa", 'a', Blocks.glass, 'b', apprenticeOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.life_infuser), "aba", "aca", "aea", 'a', ModItems.blood_infused_iron, 'b', masterOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.blockAltar, 'd', new ItemStack(ModItems.blood_infused_diamond_bound));
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.life_infuser), "aba", "aca", "ada", 'a', ModItems.blood_infused_iron, 'b', masterOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.blockAltar, 'd', new ItemStack(ModItems.blood_infused_diamond_bound));
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.lp_materializer), "aba", "bcb", "aba", 'a', ModItems.blood_infused_iron, 'b', imbuedSlate, 'c', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.compacter), "aaa", "bcb", "ded", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_diamond_bound, 'c', Blocks.piston, 'd', ModBlocks.blood_infused_iron_block, 'e', archmageOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_axe_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_axe_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_pickaxe_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_pickaxe_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_shovel_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_shovel_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb);
@@ -87,13 +88,6 @@ public class BloodArsenalRecipes
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_ender), "aba", "cdc", "efe", 'a', Blocks.obsidian, 'b', Items.ender_eye, 'c', Items.ender_pearl, 'd', imbuedSlate, 'e', Blocks.ender_chest, 'f', magicianOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_divinity), "aba", "cde", "fgf", 'a', ModBlocks.blood_infused_glowstone, 'b', new ItemStack(Items.golden_apple, 1, 1), 'c', Items.nether_star, 'd', WayofTime.alchemicalWizardry.ModItems.sigilOfElementalAffinity, 'e', ModItems.blood_infused_diamond_bound, 'f', ModItems.amorphic_catalyst, 'g', transcendentOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_burned_string, 4), "aaa", "aba", "aaa", 'a', Items.string, 'b', weakOrb);
-
-        if (BloodArsenal.isBaublesLoaded)
-        {
-            addOreDictBloodOrbRecipe(new ItemStack(ModItems.vampire_ring), "ab ", "bcb", " b ", 'a', ModItems.blood_infused_diamond_bound, 'b', Blocks.stone, 'c', masterOrb);
-            addOreDictBloodOrbRecipe(new ItemStack(ModItems.sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', Items.gold_ingot);
-            addOreDictBloodOrbRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', Items.glowstone_dust);
-        }
 
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone), "aaa", "aaa", "aaa", 'a', blankSlate);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 1), "aaa", "aaa", "aaa", 'a', reinforcedSlate);
@@ -129,17 +123,17 @@ public class BloodArsenalRecipes
         addShapelessOreDictRecipe(new ItemStack(ModItems.juice_and_cookies), Items.cookie, ModItems.orange_juice);
     }
 
-    private static void addOreDictRecipe(ItemStack output, Object... recipe) 
+    public static void addOreDictRecipe(ItemStack output, Object... recipe)
     {
         CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(output, recipe));
     }
 
-    private static void addOreDictBloodOrbRecipe(ItemStack output, Object... recipe)
+    public static void addOreDictBloodOrbRecipe(ItemStack output, Object... recipe)
     {
         CraftingManager.getInstance().getRecipeList().add(new ShapedBloodOrbRecipe(output, recipe));
     }
 
-    private static void addShapelessOreDictRecipe(ItemStack output, Object... recipe)
+    public static void addShapelessOreDictRecipe(ItemStack output, Object... recipe)
     {
         CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(output, recipe));
     }

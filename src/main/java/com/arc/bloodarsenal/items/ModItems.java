@@ -68,6 +68,7 @@ public class ModItems
     public static Item wolf_hide;
     public static Item blood_money;
     public static Item blood_burned_string;
+    public static Item glass_shard;
 
     public static void init()
     {
@@ -120,6 +121,7 @@ public class ModItems
         vampire_ring = new VampireRing();
         self_sacrifice_amulet = new SelfSacrificeAmulet();
         sacrifice_amulet = new SacrificeAmulet();
+        glass_shard = new ItemBloodArsenal().setUnlocalizedName("glass_shard");
     }
 
     public static void registerItems()
@@ -170,5 +172,6 @@ public class ModItems
         GameRegistry.registerItem(wolf_hide, "wolf_hide");
         GameRegistry.registerItem(blood_money, "blood_money");
         GameRegistry.registerItem(blood_burned_string, "blood_burned_string");
+        GameRegistry.registerItem(glass_shard, "glass_shard");
     }
 }

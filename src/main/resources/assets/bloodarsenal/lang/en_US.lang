@@ -23,7 +23,8 @@ tile.blood_infused_diamond_block.name=Blood Infused Diamond Block
 tile.portable_altar.name=Portable Altar [WIP]
 tile.life_infuser.name=Life Infuser
 tile.lp_materializer.name=Life Essence Materializer
-tile.compacter.name=Soul Compacter [WIP]
+tile.compacter.name=Soul Compacter
+tile.compacted_mrs.name=Compacted Master Ritual Stone
 
 #Items
 item.bound_bow.name=Bound Bow
@@ -78,6 +79,7 @@ item.blood_money4.name=Blood Money x4
 item.blood_money16.name=Blood Money x16
 item.blood_money64.name=Blood Money x64
 item.blood_burned_string.name=Blood Burned String
+item.glass_shard.name=Glass Shard
 
 #TConstruct Stuffs
 material.blood.infused.iron=Blood Infused Iron
@@ -129,6 +131,7 @@ tooltip.itemba.soul_booster1=Used to increase
 tooltip.itemba.soul_booster2=the soul's abilities
 tooltip.itemba.soul_nullifier1=Used to nullify
 tooltip.itemba.soul_nullifier2=the soul's unnatural abilities
+tooltip.itemba.glass_shard=Remember this?
 tooltip.tool.bound_bow=Let Demon arrows fly!
 tooltip.tool.bound_igniter=Burning souls...
 tooltip.tool.bound_shears1=A demonic solution
@@ -150,4 +153,34 @@ tooltip.sigil.ender1=Sticking your hand
 tooltip.sigil.ender2=into the End!
 tooltip.sigil.divinity=May the Divines protect you!
 
+tooltip.shiftinfo=Press &cSHIFT&7 for more info
 
+tooltip.ritualName=Ritual:
+
+tooltip.currentEssence=Current Essence:
+tooltip.altarTier=Altar Tier:
+tooltip.capacity=Capacity:
+
+#Messages
+message.compacter.notEnoughLP=There is not enough LP in your Soul Network!
+message.compacter.itemInAltar=There is an item in the altar!
+message.compacter.wrongOrbTier=You need a better orb to do this!
+
+message.enchant.noAltar=There is no altar!
+message.enchant.noPedestals=There are no pedestals!
+message.enchant.noEnchantItem=There is no item to enchant!
+message.enchant.noEnchantments=There are no enchantments to apply!
+message.enchant.notEnoughLP=You do not have enough LP!
+message.enchant.The enchantment is not valid for the item
+
+
+#Miscs
+ba.versioning.update=Get the latest Blood Arsenal, NOW!
+ba.versioning.outdated=You are running Blood Arsenal %s, the latest is %s.
+ba.versioning.updateMessage=["Click for... [",{"text":"Download","color":"red","hoverEvent":{"action":"show_text","value":{"text":"Click this to automagically download the latest version","color":"red"}},"clickEvent":{"action":"run_command","value":"/bloodarsenal-download-latest %version%"}},"] [",{"text":"Website","color":"red","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"red"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/mc-mods/228823-blood-magic-addon-blood-arsenal/files"}},"] [",{"text":"Changelog","color":"red","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's changelog","color":"red"}},"clickEvent":{"action":"open_url","value":"http://www.curse.com/mc-mods/minecraft/228823-blood-magic-addon-blood-arsenal#t1:changes"}},"]"]
+ba.versioning.startingDownload=[{"text":"Starting download of %s Please do not remove your hard disk. Enjoying ","color":"orange"},{"text":"Blood Arsenal","color":"red"},{"text":"? Consider supporting ","color":"orange"},{"text":"Arcaratus","color":"dark_gray"},{"text":" on [","color":"orange"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to Arcaratus' Patreon","color":"dark_gray"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Arcaratus"}},{"text":"]!","color":"orange"}]
+ba.versioning.doneDownloading=Finished downloading %s Delete your old Blood Arsenal .jar and reload your game to update.
+ba.versioning.error=An error has occurred while downloading the mod!
+ba.versioning.downloadedAlready=You have the latest version already, delete the old BloodArsenal .jar and reload your game to update!
+ba.versioning.downloadingAlready=It's downloading! Be patient!
+ba.versioning.disabled=This feature is disabled.

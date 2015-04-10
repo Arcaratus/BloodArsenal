@@ -66,6 +66,8 @@ public class ItemBloodArsenal extends Item
             itemIcon = iconRegister.registerIcon("BloodArsenal:wolf_hide");
         else if (this.equals(ModItems.blood_burned_string))
             itemIcon = iconRegister.registerIcon("BloodArsenal:blood_burned_string");
+        else if (this.equals(ModItems.glass_shard))
+            itemIcon = iconRegister.registerIcon("BloodArsenal:glass_shard");
     }
 
     @Override
@@ -98,6 +100,10 @@ public class ItemBloodArsenal extends Item
         if (this.equals(ModItems.soul_fragment))
         {
             par3List.add(StatCollector.translateToLocal("tooltip.itemba.soul_fragment"));
+        }
+        if (this.equals(ModItems.glass_shard))
+        {
+            par3List.add(StatCollector.translateToLocal("tooltip.itemba.glass_shard"));
         }
     }
 }
