@@ -46,14 +46,17 @@ public class ItemBloodArsenal extends Item
         }
         */
 
-        if (this.equals(ModItems.amorphic_catalyst))
+        String unlocalizedName = this.getUnlocalizedName().replaceAll("item.", "");
+        itemIcon = iconRegister.registerIcon(BloodArsenal.MODID + ":" + unlocalizedName);
+
+/*        if (this.equals(ModItems.amorphic_catalyst))
             itemIcon = iconRegister.registerIcon("BloodArsenal:amorphic_catalyst");
         else if (this.equals(ModItems.blood_infused_iron))
             itemIcon = iconRegister.registerIcon("BloodArsenal:blood_infused_iron");
         else if (this.equals(ModItems.soul_fragment))
             itemIcon = iconRegister.registerIcon("BloodArsenal:soul_fragment");
         else if (this.equals(ModItems.heart))
-            itemIcon = iconRegister.registerIcon("BloodArsenal:heart2");
+            itemIcon = iconRegister.registerIcon("BloodArsenal:heart");
         else if (this.equals(ModItems.blood_infused_stick))
             itemIcon = iconRegister.registerIcon("BloodArsenal:blood_infused_stick");
         else if (this.equals(ModItems.blood_cookie))
@@ -68,6 +71,7 @@ public class ItemBloodArsenal extends Item
             itemIcon = iconRegister.registerIcon("BloodArsenal:blood_burned_string");
         else if (this.equals(ModItems.glass_shard))
             itemIcon = iconRegister.registerIcon("BloodArsenal:glass_shard");
+            */
     }
 
     @Override
@@ -88,14 +92,7 @@ public class ItemBloodArsenal extends Item
         }
         if (this.equals(ModItems.heart))
         {
-            if (AlchemicalWizardry.wimpySettings)
-            {
-                par3List.add(StatCollector.translateToLocal("tooltip.itemba.heart1"));
-            }
-            else
-            {
-                par3List.add(StatCollector.translateToLocal("tooltip.itemba.heart2"));
-            }
+            par3List.add(StatCollector.translateToLocal("tooltip.itemba.heart"));
         }
         if (this.equals(ModItems.soul_fragment))
         {

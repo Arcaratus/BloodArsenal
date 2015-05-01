@@ -29,6 +29,7 @@ public class BlockLifeInfuser extends BlockContainer
         setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(6.0F);
         setResistance(12.0F);
+        setStepSound(soundTypePiston);
 
         setBlockBounds(0F, 0F, 0F, 1F, 0.875F, 1F);
     }

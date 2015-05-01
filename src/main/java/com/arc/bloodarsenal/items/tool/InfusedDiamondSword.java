@@ -21,8 +21,6 @@ import java.util.List;
 
 public class InfusedDiamondSword extends ItemSword implements IBindable
 {
-    private int energyUsed;
-
     public InfusedDiamondSword()
     {
         super(BloodArsenal.infusedDiamond);

@@ -11,9 +11,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -51,6 +52,9 @@ public class ItemBloodMoney extends Item
         String player = par3EntityPlayer.getCommandSenderName();
         World world = par3EntityPlayer.worldObj;
         LifeEssenceNetwork data = (LifeEssenceNetwork) world.loadItemData(LifeEssenceNetwork.class, player);
+        int maxLP = SoulNetworkHandler.getMaximumForOrbTier(SoulNetworkHandler.getCurrentMaxOrb(player));
+        int currentEssence = SoulNetworkHandler.getCurrentEssence(player);
+        int CONSTANT = 10000;
 
         if (data == null)
         {
@@ -72,21 +76,55 @@ public class ItemBloodMoney extends Item
 
         if (meta == 0)
         {
-            SoulNetworkHandler.addCurrentEssenceToMaximum(player, 10000, Integer.MAX_VALUE);
+            if ((maxLP - currentEssence) >= (MONEY_MULTIPLIER[meta] * CONSTANT) && maxLP >= (MONEY_MULTIPLIER[meta] * CONSTANT))
+            {
+                SoulNetworkHandler.addCurrentEssenceToMaximum(player, MONEY_MULTIPLIER[meta] * CONSTANT, maxLP);
+            }
+            else
+            {
+                par3EntityPlayer.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.bloodMoney.tooMuch")));
+                return par1ItemStack;
+            }
         }
         else if (meta == 1)
         {
-            SoulNetworkHandler.addCurrentEssenceToMaximum(player, 40000, Integer.MAX_VALUE);
+            if ((maxLP - currentEssence) >= (MONEY_MULTIPLIER[meta] * CONSTANT) && maxLP >= (MONEY_MULTIPLIER[meta] * CONSTANT))
+            {
+                SoulNetworkHandler.addCurrentEssenceToMaximum(player, MONEY_MULTIPLIER[meta] * CONSTANT, maxLP);
+            }
+            else
+            {
+                par3EntityPlayer.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.bloodMoney.tooMuch")));
+                return par1ItemStack;
+            }
         }
         else if (meta == 2)
         {
-            SoulNetworkHandler.addCurrentEssenceToMaximum(player, 160000, Integer.MAX_VALUE);
+            if ((maxLP - currentEssence) >= (MONEY_MULTIPLIER[meta] * CONSTANT) && maxLP >= (MONEY_MULTIPLIER[meta] * CONSTANT))
+            {
+                SoulNetworkHandler.addCurrentEssenceToMaximum(player, MONEY_MULTIPLIER[meta] * CONSTANT, maxLP);
+            }
+            else
+            {
+                par3EntityPlayer.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.bloodMoney.tooMuch")));
+                return par1ItemStack;
+            }
         }
         else if (meta == 3)
         {
-            SoulNetworkHandler.addCurrentEssenceToMaximum(player, 640000, Integer.MAX_VALUE);
+            if ((maxLP - currentEssence) >= (MONEY_MULTIPLIER[meta] * CONSTANT) && maxLP >= (MONEY_MULTIPLIER[meta] * CONSTANT))
+            {
+                SoulNetworkHandler.addCurrentEssenceToMaximum(player, MONEY_MULTIPLIER[meta] * CONSTANT, maxLP);
+            }
+            else
+            {
+                par3EntityPlayer.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.bloodMoney.tooMuch")));
+                return par1ItemStack;
+            }
         }
 
+        ItemStack currentStack = par3EntityPlayer.inventory.getCurrentItem();
+        --currentStack.stackSize;
         return par1ItemStack;
     }
 
@@ -114,5 +152,11 @@ public class ItemBloodMoney extends Item
         {
             list.add(new ItemStack(id, 1, meta));
         }
+    }
+
+    @Override
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4)
+    {
+        list.add(StatCollector.translateToLocal("tooltip.bloodMoney.money"));
     }
 }

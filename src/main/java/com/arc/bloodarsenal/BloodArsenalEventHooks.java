@@ -5,9 +5,12 @@ import baubles.common.lib.PlayerHandler;
 import baubles.common.network.PacketHandler;
 import baubles.common.network.PacketSyncBauble;
 import com.arc.bloodarsenal.items.ModItems;
+import com.arc.bloodarsenal.items.bauble.EmpoweredSacrificeAmulet;
+import com.arc.bloodarsenal.items.bauble.EmpoweredSelfSacrificeAmulet;
 import com.arc.bloodarsenal.items.bauble.SacrificeAmulet;
 import com.arc.bloodarsenal.items.bauble.SelfSacrificeAmulet;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
@@ -24,6 +27,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -64,39 +68,7 @@ public class BloodArsenalEventHooks
 
         if (entityAttacked instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entityAttacked;
-            InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
-
-            for (int i = 0; i < inv.getSizeInventory(); i++)
-            {
-                ItemStack stack = inv.getStackInSlot(i);
-
-                if (stack != null && stack.getItem() == ModItems.self_sacrifice_amulet)
-                {
-                    SelfSacrificeAmulet selfSacrificeAmulet = (SelfSacrificeAmulet) ModItems.self_sacrifice_amulet;
-                    int lpReceived = (int) damageDone;
-                    boolean shouldExecute = selfSacrificeAmulet.getStoredLP(stack) < 10000;
-
-                    if (shouldExecute)
-                    {
-                        PotionEffect regenEffect = player.getActivePotionEffect(Potion.regeneration);
-
-                        if (regenEffect != null && regenEffect.getAmplifier() >= 2)
-                        {
-                            selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + lpReceived / 2, 10000));
-                        }
-                        else
-                        {
-                            selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + lpReceived, 10000));
-                        }
-                    }
-
-                    if (player instanceof EntityPlayerMP)
-                    {
-                        PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
-                    }
-                }
-            }
+            selfSacrificeHandler(event);
         }
     }
 
@@ -109,36 +81,10 @@ public class BloodArsenalEventHooks
     public void onLivingDeath(LivingDeathEvent event)
     {
         Entity killer = event.source.getEntity();
-        EntityLivingBase victim = event.entityLiving;
 
         if (killer instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) killer;
-            InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
-
-            for (int i = 0; i < inv.getSizeInventory(); i++)
-            {
-                ItemStack stack = inv.getStackInSlot(i);
-
-                if (stack != null && stack.getItem() == ModItems.sacrifice_amulet)
-                {
-                    SacrificeAmulet sacrificeAmulet = (SacrificeAmulet) ModItems.sacrifice_amulet;
-                    float victimHealth = victim.getMaxHealth();
-                    boolean healthGood = victimHealth > 4.0F;
-                    int lpReceived = healthGood ? 200 : 50;
-                    boolean shouldExecute = sacrificeAmulet.getStoredLP(stack) < 10000;
-
-                    if (shouldExecute)
-                    {
-                        sacrificeAmulet.setStoredLP(stack, Math.min(sacrificeAmulet.getStoredLP(stack) + lpReceived, 10000));
-                    }
-
-                    if (player instanceof EntityPlayerMP)
-                    {
-                        PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
-                    }
-                }
-            }
+            sacrificeHandler(event);
         }
     }
 
@@ -224,14 +170,17 @@ public class BloodArsenalEventHooks
         Block block = event.block;
         EntityPlayer player = event.harvester;
 
-        if (block instanceof BlockGlass)
+        if (player != null)
         {
-            if (!event.isSilkTouching)
+            if (block != null && block instanceof BlockGlass)
             {
-                if (player.getCurrentEquippedItem().getItem() == Items.flint)
+                if (!event.isSilkTouching)
                 {
-                    event.drops.add(new ItemStack(ModItems.glass_shard));
-                    event.dropChance = 0.75F;
+                    if (player.getCurrentEquippedItem().getItem() == Items.flint)
+                    {
+                        event.drops.add(new ItemStack(ModItems.glass_shard));
+                        event.dropChance = 0.75F;
+                    }
                 }
             }
         }
@@ -244,6 +193,122 @@ public class BloodArsenalEventHooks
         {
             BloodArsenalConfig.syncConfig();
             BloodArsenal.logger.info("Refreshing configuration file");
+        }
+    }
+
+    @Optional.Method(modid = "Baubles")
+    private void sacrificeHandler(LivingDeathEvent event)
+    {
+        Entity killer = event.source.getEntity();
+        EntityLivingBase victim = event.entityLiving;
+
+        EntityPlayer player = (EntityPlayer) killer;
+        InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+
+        for (int i = 0; i < inv.getSizeInventory(); i++)
+        {
+            ItemStack stack = inv.getStackInSlot(i);
+
+            if (stack != null)
+            {
+                if (stack.getItem() == ModItems.sacrifice_amulet)
+                {
+                    SacrificeAmulet sacrificeAmulet = (SacrificeAmulet) ModItems.sacrifice_amulet;
+                    float victimHealth = victim.getMaxHealth();
+                    boolean healthGood = victimHealth > 4.0F;
+                    int lpReceived = healthGood ? 200 : 50;
+                    boolean shouldExecute = sacrificeAmulet.getStoredLP(stack) < 10000;
+
+                    if (shouldExecute)
+                    {
+                        sacrificeAmulet.setStoredLP(stack, Math.min(sacrificeAmulet.getStoredLP(stack) + (lpReceived * 2), 10000));
+                    }
+                }
+
+                if (stack.getItem() == ModItems.empowered_sacrifice_amulet)
+                {
+                    EmpoweredSacrificeAmulet sacrificeAmulet = (EmpoweredSacrificeAmulet) ModItems.empowered_sacrifice_amulet;
+                    float victimHealth = victim.getMaxHealth();
+                    boolean healthGood = victimHealth > 4.0F;
+                    int lpReceived = healthGood ? 200 : 50;
+                    boolean shouldExecute = sacrificeAmulet.getStoredLP(stack) < 50000;
+
+                    if (shouldExecute)
+                    {
+                        sacrificeAmulet.setStoredLP(stack, Math.min(sacrificeAmulet.getStoredLP(stack) + (lpReceived * 5), 50000));
+                    }
+                }
+
+                if (player instanceof EntityPlayerMP)
+                {
+                    PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
+                }
+            }
+        }
+    }
+
+    @Optional.Method(modid = "Baubles")
+    private void selfSacrificeHandler(LivingAttackEvent event)
+    {
+        EntityLivingBase entityAttacked = event.entityLiving;
+        float damageDone = event.ammount;
+
+        EntityPlayer player = (EntityPlayer) entityAttacked;
+        InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+
+        for (int i = 0; i < inv.getSizeInventory(); i++)
+        {
+            ItemStack stack = inv.getStackInSlot(i);
+
+            if (stack != null)
+            {
+                if (stack.getItem() == ModItems.self_sacrifice_amulet)
+                {
+                    SelfSacrificeAmulet selfSacrificeAmulet = (SelfSacrificeAmulet) ModItems.self_sacrifice_amulet;
+                    int lpReceived = (int) damageDone;
+                    boolean shouldExecute = selfSacrificeAmulet.getStoredLP(stack) < 10000;
+
+                    if (shouldExecute)
+                    {
+                        PotionEffect regenEffect = player.getActivePotionEffect(Potion.regeneration);
+
+                        if (regenEffect != null && regenEffect.getAmplifier() >= 2)
+                        {
+                            selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 2) / (regenEffect.getAmplifier() + 1), 10000));
+                        }
+                        else
+                        {
+                            selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 2), 10000));
+                        }
+                    }
+                }
+
+                if (stack.getItem() == ModItems.empowered_self_sacrifice_amulet)
+                {
+                    EmpoweredSelfSacrificeAmulet selfSacrificeAmulet = (EmpoweredSelfSacrificeAmulet) ModItems.empowered_self_sacrifice_amulet;
+                    int lpReceived = (int) damageDone;
+                    boolean shouldExecute = selfSacrificeAmulet.getStoredLP(stack) < 50000;
+
+                    if (shouldExecute)
+                    {
+                        PotionEffect regenEffect = player.getActivePotionEffect(Potion.regeneration);
+
+                        if (regenEffect != null && regenEffect.getAmplifier() >= 2)
+                        {
+                            selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 5) / (regenEffect.getAmplifier() + 1), 50000));
+                        }
+                        else
+                        {
+                            selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 5), 50000));
+                        }
+                    }
+                }
+
+                if (player instanceof EntityPlayerMP)
+                {
+                    PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
+                }
+            }
         }
     }
 }

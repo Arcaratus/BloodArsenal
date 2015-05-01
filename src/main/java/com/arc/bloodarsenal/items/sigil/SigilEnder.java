@@ -6,8 +6,10 @@ import com.arc.bloodarsenal.BloodArsenal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -39,6 +41,10 @@ public class SigilEnder extends EnergyItems implements IBindable
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
     {
         EnergyItems.checkAndSetItemOwner(itemStack, player);
+
+        double playerPrevX = player.prevPosX;
+        double playerPrevY = player.prevPosY;
+        double playerPrevZ = player.prevPosZ;
 
         if (itemStack.stackTagCompound == null)
         {
@@ -80,6 +86,8 @@ public class SigilEnder extends EnergyItems implements IBindable
                         break;
                 }
 
+                player.setVelocity(0.0D, 0.0D, 0.0D);
+
                 world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 1F);
 
                 for (int k = 0; k < 8; ++k)
@@ -87,9 +95,16 @@ public class SigilEnder extends EnergyItems implements IBindable
                     world.spawnParticle("portal", player.posX + (world.rand.nextDouble() - 0.5D) * (double)player.width, player.posY + world.rand.nextDouble() * (double)player.height - 0.25D, player.posZ + (world.rand.nextDouble() - 0.5D) * (double)player.width, 0, 0, 0);
                 }
 
-                player.setPositionAndUpdate(ex, wy, zee);
-                EnergyItems.syphonBatteries(itemStack, player, 2000);
+                double xDifference = (Math.abs(player.posX) < Math.abs(playerPrevX) ? Math.abs(playerPrevX) - Math.abs(player.posX) : Math.abs(player.posX) - Math.abs(playerPrevX));
+                double yDifference = (Math.abs(player.posY) < Math.abs(playerPrevY) ? Math.abs(playerPrevY) - Math.abs(player.posY) : Math.abs(player.posY) - Math.abs(playerPrevY));
+                double zDifference = (Math.abs(player.posZ) < Math.abs(playerPrevZ) ? Math.abs(playerPrevZ) - Math.abs(player.posZ) : Math.abs(player.posZ) - Math.abs(playerPrevZ));
+                Vec3 vec3 = Vec3.createVectorHelper(playerPrevX, playerPrevY, playerPrevZ);
+                Vec3 newVec3 = Vec3.createVectorHelper(player.posX, player.posY, player.posZ);
+                int distance = (int) vec3.distanceTo(newVec3);
+                EnergyItems.syphonBatteries(itemStack, player, 2000); //This will not be for long!
 
+                player.addChatComponentMessage(new ChatComponentText("this: " + newVec3 + " " + vec3));
+                player.setPositionAndUpdate(ex, wy, zee);
                 player.swingItem();
             }
         }

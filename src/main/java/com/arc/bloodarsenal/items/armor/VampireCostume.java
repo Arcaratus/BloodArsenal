@@ -19,6 +19,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import java.util.Calendar;
+
 public class VampireCostume extends ItemArmor
 {
     private static IIcon chestIcon;

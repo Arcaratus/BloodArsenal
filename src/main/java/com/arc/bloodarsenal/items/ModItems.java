@@ -4,9 +4,7 @@ import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.items.armor.VampireCostume;
-import com.arc.bloodarsenal.items.bauble.SacrificeAmulet;
-import com.arc.bloodarsenal.items.bauble.SelfSacrificeAmulet;
-import com.arc.bloodarsenal.items.bauble.VampireRing;
+import com.arc.bloodarsenal.items.bauble.*;
 import com.arc.bloodarsenal.items.block.*;
 import com.arc.bloodarsenal.items.sigil.SigilDivinity;
 import com.arc.bloodarsenal.items.sigil.SigilEnder;
@@ -44,8 +42,6 @@ public class ModItems
     public static Item blood_infused_sword_diamond;
     public static Item heart;
     public static Item soul_fragment;
-    public static Item item_blood_door_wood;
-    public static Item item_blood_door_iron;
     public static Item bound_igniter;
     public static Item soul_booster;
     public static Item soul_nullifier;
@@ -69,6 +65,8 @@ public class ModItems
     public static Item blood_money;
     public static Item blood_burned_string;
     public static Item glass_shard;
+    public static Item empowered_sacrifice_amulet;
+    public static Item empowered_self_sacrifice_amulet;
 
     public static void init()
     {
@@ -97,8 +95,6 @@ public class ModItems
         blood_infused_sword_diamond = new InfusedDiamondSword();
         heart = new ItemBloodArsenal().setUnlocalizedName("heart");
         soul_fragment = new ItemBloodArsenal().setUnlocalizedName("soul_fragment");
-        item_blood_door_wood = new BloodDoor(Material.wood).setUnlocalizedName("item_blood_door_wood").setTextureName("BloodArsenal:item_blood_door_wood");
-        item_blood_door_iron = new BloodDoor(Material.iron).setUnlocalizedName("item_blood_door_iron").setTextureName("BloodArsenal:item_blood_door_iron");
         bound_igniter = new BoundIgniter();
         soul_booster = new ItemSoulBooster();
         soul_nullifier = new ItemSoulNullifier();
@@ -117,11 +113,13 @@ public class ModItems
         blood_ball = new ItemBloodBall();
         wolf_hide = new ItemBloodArsenal().setUnlocalizedName("wolf_hide");
         blood_money = new ItemBloodMoney();
-        blood_burned_string = new ItemBloodArsenal().setUnlocalizedName("blood_burned_string");
+        blood_burned_string = new ItemReed(ModBlocks.block_burned_string).setUnlocalizedName("blood_burned_string").setTextureName("BloodArsenal:blood_burned_string").setCreativeTab(BloodArsenal.BA_TAB);
         vampire_ring = new VampireRing();
         self_sacrifice_amulet = new SelfSacrificeAmulet();
         sacrifice_amulet = new SacrificeAmulet();
         glass_shard = new ItemBloodArsenal().setUnlocalizedName("glass_shard");
+        empowered_sacrifice_amulet = new EmpoweredSacrificeAmulet();
+        empowered_self_sacrifice_amulet = new EmpoweredSelfSacrificeAmulet();
     }
 
     public static void registerItems()
@@ -151,8 +149,6 @@ public class ModItems
         GameRegistry.registerItem(blood_infused_sword_diamond, "blood_infused_sword_diamond");
         GameRegistry.registerItem(heart, "heart");
         GameRegistry.registerItem(soul_fragment, "soul_fragment");
-        GameRegistry.registerItem(item_blood_door_wood, "item_blood_door_wood");
-        GameRegistry.registerItem(item_blood_door_iron, "item_blood_door_iron");
         GameRegistry.registerItem(item_blood_cake, "item_blood_cake");
         GameRegistry.registerItem(bound_igniter, "bound_flint_and_steel");
         GameRegistry.registerItem(soul_booster, "soul_booster");
@@ -173,5 +169,14 @@ public class ModItems
         GameRegistry.registerItem(blood_money, "blood_money");
         GameRegistry.registerItem(blood_burned_string, "blood_burned_string");
         GameRegistry.registerItem(glass_shard, "glass_shard");
+    }
+
+    public static void registerBaubles()
+    {
+        GameRegistry.registerItem(vampire_ring, "vampire_ring");
+        GameRegistry.registerItem(self_sacrifice_amulet, "self_sacrifice_amulet");
+        GameRegistry.registerItem(sacrifice_amulet, "sacrifice_amulet");
+        GameRegistry.registerItem(empowered_self_sacrifice_amulet, "empowered_self_sacrifice_amulet");
+        GameRegistry.registerItem(empowered_sacrifice_amulet, "empowered_sacrifice_amulet");
     }
 }

@@ -80,6 +80,8 @@ item.blood_money16.name=Blood Money x16
 item.blood_money64.name=Blood Money x64
 item.blood_burned_string.name=Blood Burned String
 item.glass_shard.name=Glass Shard
+item.empowered_sacrifice_amulet.name=Empowered Sacrifice Amulet
+item.empowered_self_sacrifice_amulet.name=Empowered Self Sacrifice Amulet
 
 #TConstruct Stuffs
 material.blood.infused.iron=Blood Infused Iron
@@ -122,8 +124,7 @@ tooltip.itemba.amorphic_catalyst=A coagulated mess
 tooltip.itemba.blood_infused_stick=A stick infused with life!
 tooltip.itemba.blood_infused_iron1=Mundane iron infused
 tooltip.itemba.blood_infused_iron2=with life essence
-tooltip.itemba.heart1=Bright red in color
-tooltip.itemba.heart2=Fresh from a body
+tooltip.itemba.heart=Bright red in color
 tooltip.itemba.soul_fragment=The raw essence of a soul
 tooltip.itemba.blood_cookie=A sugary treat
 tooltip.itemba.blood_orange=Completely organic
@@ -152,6 +153,7 @@ tooltip.sigil.swimming=Just keep swimming!
 tooltip.sigil.ender1=Sticking your hand
 tooltip.sigil.ender2=into the End!
 tooltip.sigil.divinity=May the Divines protect you!
+tooltip.bloodMoney.money=Pay your debts in blood!
 
 tooltip.shiftinfo=Press &cSHIFT&7 for more info
 
@@ -161,7 +163,22 @@ tooltip.currentEssence=Current Essence:
 tooltip.altarTier=Altar Tier:
 tooltip.capacity=Capacity:
 
+tooltip.bauble.sacrifice=Collecting some life!
+tooltip.bauble.empowered_sacrifice=Collecting more life!
+tooltip.bauble.self_sacrifice=Collecting your life!
+tooltip.bauble.empowered_self_sacrifice=Collecting more of your life!
+
 #Messages
+message.bloodMoney.tooMuch=Your Soul Network cannot hold that much LP.
+
+message.cake.lie=The cake is a lie!
+message.cake.eating=Omm nom nom!
+message.cake.tooFull=You are too full to eat any cake
+
+message.door.severedConnection=You have severed a connection to the Soul Network!
+message.door.tooWeak=You are too weak to open the door.
+message.door.draining=You feel an odd draining sensation as the door actively resists you.
+
 message.compacter.notEnoughLP=There is not enough LP in your Soul Network!
 message.compacter.itemInAltar=There is an item in the altar!
 message.compacter.wrongOrbTier=You need a better orb to do this!

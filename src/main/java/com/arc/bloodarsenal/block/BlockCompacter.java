@@ -4,10 +4,8 @@ import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import WayofTime.alchemicalWizardry.api.tile.IBloodAltar;
 import WayofTime.alchemicalWizardry.common.block.BlockAltar;
 import WayofTime.alchemicalWizardry.common.block.BlockMasterStone;
-import WayofTime.alchemicalWizardry.common.block.BloodRune;
 import WayofTime.alchemicalWizardry.common.bloodAltarUpgrade.AltarComponent;
 import WayofTime.alchemicalWizardry.common.bloodAltarUpgrade.AltarUpgradeComponent;
 import WayofTime.alchemicalWizardry.common.bloodAltarUpgrade.UpgradedAltars;
@@ -23,11 +21,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
@@ -66,6 +63,9 @@ public class BlockCompacter extends BlockContainer
         setBlockName("compacter");
         setBlockTextureName("BloodArsenal:compacter");
         setCreativeTab(BloodArsenal.BA_TAB);
+        setHardness(8.0F);
+        setResistance(5.0F);
+        setStepSound(soundTypeMetal);
     }
 
     @Override
@@ -158,6 +158,7 @@ public class BlockCompacter extends BlockContainer
                                 {
                                     compactRitual(tile);
                                     SoulNetworkHandler.syphonFromNetwork(owner, cost);
+                                    --player.inventory.getCurrentItem().stackSize;
                                 }
                                 else
                                 {
@@ -219,6 +220,7 @@ public class BlockCompacter extends BlockContainer
                                     {
                                         compactAltar(tile);
                                         SoulNetworkHandler.syphonFromNetwork(owner, cost);
+                                        --player.inventory.getCurrentItem().stackSize;
                                     }
                                     else
                                     {
@@ -328,6 +330,7 @@ public class BlockCompacter extends BlockContainer
 
                 tile.setRitualName(ritualName);
                 world.markBlockForUpdate(x, y, z);
+                world.addWeatherEffect(new EntityLightningBolt(world, x, y, z));
             }
         }
     }
@@ -340,6 +343,11 @@ public class BlockCompacter extends BlockContainer
         int z = altar.zCoord;
 
         tier = altar.getTier();
+        if (tier == 0)
+        {
+            return;
+        }
+
         AltarUpgradeComponent upgrades = UpgradedAltars.getUpgrades(world, x, y, z, tier);
 
         if (upgrades == null)
@@ -420,6 +428,8 @@ public class BlockCompacter extends BlockContainer
                 altar.setAccelerationUpgrades(accelerationUpgrades);
 
                 world.markBlockForUpdate(x, y, z);
+
+                world.addWeatherEffect(new EntityLightningBolt(world, x, y, z));
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.arc.bloodarsenal.block;
 
-import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import com.arc.bloodarsenal.items.block.BloodStoneBlock;
 import com.arc.bloodarsenal.items.block.CompactedMRSBlock;
 import com.arc.bloodarsenal.items.block.PortableAltarBlock;
@@ -18,8 +17,6 @@ public class ModBlocks
     public static Block blood_stained_ice;
     public static Block blood_stained_ice_packed;
     public static Block blood_infused_iron_block;
-    public static Block blood_door_wood;
-    public static Block blood_door_iron;
     public static Block blood_cake;
     public static Block blood_torch;
     public static Block blood_infused_glowstone;
@@ -30,6 +27,7 @@ public class ModBlocks
     public static Block compacter;
     public static Block lp_materializer;
     public static Block compacted_mrs;
+    public static Block block_burned_string;
 
     public static void init()
     {
@@ -41,8 +39,6 @@ public class ModBlocks
         blood_stained_ice = new BlockBloodStainedIce();
         blood_stained_ice_packed = new BlockBloodStainedPackedIce();
         blood_infused_iron_block = new BlockInfusedIron();
-        blood_door_wood = new BlockInfusedWoodenDoor();
-        blood_door_iron = new BlockInfusedIronDoor();
         blood_cake = new BlockBloodCake();
         blood_torch = new BlockBloodTorch();
         blood_infused_glowstone = new BlockBloodInfusedGlowstone();
@@ -53,6 +49,7 @@ public class ModBlocks
         compacter = new BlockCompacter();
         lp_materializer = new BlockLPMaterializer();
         compacted_mrs = new BlockCompactedMRS();
+        block_burned_string = new BlockBurnedString();
     }
 
     public static void registerBlocksInPre()
@@ -65,8 +62,6 @@ public class ModBlocks
         GameRegistry.registerBlock(blood_stained_ice, "blood_stained_ice");
         GameRegistry.registerBlock(blood_stained_ice_packed, "blood_stained_ice_packed");
         GameRegistry.registerBlock(blood_infused_iron_block, "blood_infused_iron_block");
-        GameRegistry.registerBlock(blood_door_wood, "blood_door_wood");
-        GameRegistry.registerBlock(blood_door_iron, "blood_door_iron");
         GameRegistry.registerBlock(blood_cake, "blood_cake");
         GameRegistry.registerBlock(blood_torch, "blood_torch");
         GameRegistry.registerBlock(blood_infused_glowstone, "blood_infused_glowstone");
@@ -77,11 +72,11 @@ public class ModBlocks
         GameRegistry.registerBlock(compacter, "compacter");
         GameRegistry.registerBlock(lp_materializer, "lp_materializer");
         GameRegistry.registerBlock(compacted_mrs, CompactedMRSBlock.class, "BloodArsenal" + ModBlocks.compacted_mrs.getUnlocalizedName());
+        GameRegistry.registerBlock(block_burned_string, "block_burned_string");
     }
 
     public static void registerTileEntities()
     {
-        GameRegistry.registerTileEntity(TileOwned.class, "blood_infused_door");
         GameRegistry.registerTileEntity(TilePortableAltar.class, "portable_altar");
         GameRegistry.registerTileEntity(TileLifeInfuser.class, "life_infuser");
         GameRegistry.registerTileEntity(TileCompacter.class, "compacter");

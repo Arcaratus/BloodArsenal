@@ -34,7 +34,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
     private boolean canBeFilled;
     protected FluidStack fluidInput;
 
-    public FluidTank[] tanks = {new FluidTankRestricted(4000, new String[] {"Life Essence"})};
+    public FluidTank[] tanks = {new FluidTankRestricted(FluidContainerRegistry.BUCKET_VOLUME * 20, "Life Essence")};
 
     public TileLifeInfuser()
     {
@@ -42,7 +42,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         isActive = false;
         fluid = new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 0);
         fluidInput = new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 0);
-        this.capacity = FluidContainerRegistry.BUCKET_VOLUME * 10;
+        this.capacity = FluidContainerRegistry.BUCKET_VOLUME * 20;
     }
 
     @Override
@@ -82,7 +82,6 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         isActive = par1NBTTagCompound.getBoolean("isActive");
         canBeFilled = par1NBTTagCompound.getBoolean("canBeFilled");
         capacity = par1NBTTagCompound.getInteger("capacity");
-//        readCustomNBT(par1NBTTagCompound);
     }
 
     @Override
@@ -122,35 +121,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         par1NBTTagCompound.setBoolean("isActive", isActive);
         par1NBTTagCompound.setBoolean("canBeFilled", canBeFilled);
         par1NBTTagCompound.setInteger("capacity", capacity);
-//        writeCustomNBT(par1NBTTagCompound);
     }
-/*
-    public void readCustomNBT(NBTTagCompound par1NBTTagCompound)
-    {
-        NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
-
-        if (nbttaglist.tagCount() > 0)
-        {
-            NBTTagCompound tagList = nbttaglist.getCompoundTagAt(0);
-            inv[0] = ItemStack.loadItemStackFromNBT(tagList);
-        }
-    }
-
-    public void writeCustomNBT(NBTTagCompound par1NBTTagCompound)
-    {
-        NBTTagList nbttaglist = new NBTTagList();
-        NBTTagCompound tagList = new NBTTagCompound();
-
-        if (inv[0] != null)
-        {
-            tagList.setByte("Slot", (byte) 0);
-            inv[0].writeToNBT(tagList);
-            nbttaglist.appendTag(tagList);
-        }
-
-        par1NBTTagCompound.setTag("Inventory", nbttaglist);
-    }
-*/
 
     @Override
     public int getSizeInventory()
@@ -253,7 +224,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         {
             int fluidInputted;
 
-            fluidInputted = Math.min(500, -this.fluid.amount + capacity);
+            fluidInputted = Math.min(300, -this.fluid.amount + capacity);
             fluidInputted = Math.min(this.fluidInput.amount, fluidInputted);
             this.fluid.amount += fluidInputted;
             this.fluidInput.amount -= fluidInputted;
@@ -263,7 +234,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         {
             if (inv[0] != null && inv[0].getItemDamage() > 0)
             {
-                int lpCost = 500;
+                int lpCost = 300;
                 int damage = inv[0].getItemDamage();
 
                 if (getFluidAmount() >= lpCost)
@@ -411,23 +382,23 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         {
             int c = getFuelBurn(getTanks()[i].getFluid());
 
-            if ((c > 0) && (getTanks()[i].getFluidAmount() >= fluidAmmount()))
+            if ((c > 0) && (getTanks()[i].getFluidAmount() >= fluidAmount()))
             {
-                getTanks()[i].drain(fluidAmmount(), true);
+                getTanks()[i].drain(fluidAmount(), true);
                 return true;
             }
         }
         return false;
     }
 
-    public int fluidAmmount()
+    public int fluidAmount()
     {
         return 100;
     }
 
     public int getFuelBurn(FluidStack fluid)
     {
-        return fluidAmmount();
+        return fluidAmount();
     }
 
     @Override

@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class SacrificeAmulet extends ItemBauble implements IAltarManipulator, IB
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-        par3List.add("Collecting some blood!");
+        par3List.add(StatCollector.translateToLocal("tooltip.bauble.sacrifice"));
 
         if (!(par1ItemStack.stackTagCompound == null))
         {

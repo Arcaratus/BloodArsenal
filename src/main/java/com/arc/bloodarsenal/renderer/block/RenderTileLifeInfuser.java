@@ -14,7 +14,7 @@ public class RenderTileLifeInfuser implements ISimpleBlockRenderingHandler
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
         GL11.glPushMatrix();
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-        GL11.glScalef(1.1F, 1.1F, 1.1F);
+        GL11.glScalef(1.0F, 1.0F, 1.0F);
         TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileLifeInfuser(), 0.0D, 0.0D, 0.0D, 0.0F);
         GL11.glPopMatrix();
     }

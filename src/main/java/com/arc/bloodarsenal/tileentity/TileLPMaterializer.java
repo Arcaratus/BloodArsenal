@@ -3,6 +3,7 @@ package com.arc.bloodarsenal.tileentity;
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -37,7 +38,7 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
         this.inv = new ItemStack[1];
         fluid = new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 0);
         fluidOutput = new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 0);
-        capacity = FluidContainerRegistry.BUCKET_VOLUME * 10;
+        capacity = FluidContainerRegistry.BUCKET_VOLUME * 20;
 
         bufferCapacity = FluidContainerRegistry.BUCKET_VOLUME;
         drainRate = 0;
@@ -335,7 +336,7 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
 
         if (worldObj.getWorldTime() % 50 == 0)
         {
-            int syphonMax = 250;
+            int syphonMax = 500;
             int fluidOutputted;
             fluidOutputted = Math.min(syphonMax, this.bufferCapacity - this.fluidOutput.amount);
             fluidOutputted = Math.min(this.fluid.amount, fluidOutputted);
@@ -378,6 +379,28 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
 
             fluid.amount += 100;
         }
+    }
+
+    private IFluidHandler[] checkForTanks(TileLPMaterializer tile)
+    {
+        ForgeDirection[] directions = ForgeDirection.VALID_DIRECTIONS;
+
+        for (ForgeDirection forgeDirection : directions)
+        {
+            IFluidHandler[] fluidHandlers;
+            int x = tile.xCoord;
+            int y = tile.yCoord;
+            int z = tile.zCoord;
+
+            switch (forgeDirection)
+            {
+                case NORTH:
+                    worldObj.getTileEntity(x, y, z);
+                    break;
+            }
+        }
+
+        return null;
     }
 
     //Fluid Stuffs

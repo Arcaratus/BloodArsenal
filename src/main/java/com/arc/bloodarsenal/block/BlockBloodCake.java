@@ -119,22 +119,22 @@ public class BlockBloodCake extends Block
 
             if (BloodArsenalConfig.cakeIsLie)
             {
-                player.addChatMessage(new ChatComponentText("The cake is a lie!"));
+                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.cake.lie")));
             }
             else
             {
-                player.addChatMessage(new ChatComponentText("Omm nom nom"));
+                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.cake.eating")));
             }
         }
         else if (player.canEat(true))
         {
             if (BloodArsenalConfig.cakeIsLie)
             {
-                player.addChatMessage(new ChatComponentText("The cake is a lie!"));
+                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.cake.lie")));
             }
             else
             {
-                player.addChatMessage(new ChatComponentText("You are too full to eat any cake"));
+                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.cake.tooFull")));
             }
         }
     }

@@ -56,7 +56,7 @@ public class BloodArsenalConfig
         }
         catch (Exception e)
         {
-            BloodArsenal.logger.error("There has been an error loading the configurations, go ask on the forums.");
+            BloodArsenal.logger.error("There has been an error loading the configurations, go report this on the forum.");
         }
         finally
         {
@@ -69,7 +69,7 @@ public class BloodArsenalConfig
 	    config.addCustomCategoryComment(potionId, "Change potion ID's here if you have conflicts");
         config.addCustomCategoryComment(ritualBlacklist, "Blacklist rituals that you don't want/like");
 	    config.addCustomCategoryComment(toolSetting, "Settings for various tools");
-        config.addCustomCategoryComment(modSettings, "Disable mod integration");
+        config.addCustomCategoryComment(modSettings, "Toggle mod integration");
         config.addCustomCategoryComment(lpSettings, "Change the LP costs for things");
 	    config.addCustomCategoryComment(misc, "Random stuffs");
 
@@ -82,8 +82,8 @@ public class BloodArsenalConfig
 
         diamondToolsAllowed = config.get(toolSetting, "Are Infused Diamond tools allowed", true).getBoolean(diamondToolsAllowed);
 
-        baublesIntegration = config.get(modSettings, "Disable Baubles integration?", false).getBoolean(baublesIntegration);
-        tinkersIntegration = config.get(modSettings, "Disable TConstruct integration?", false).getBoolean(tinkersIntegration);
+        baublesIntegration = config.get(modSettings, "Enable Baubles integration?", true).getBoolean(baublesIntegration);
+        tinkersIntegration = config.get(modSettings, "Enable TConstruct integration?", true).getBoolean(tinkersIntegration);
 
         sigilSwimmingCost = config.get(lpSettings, "Sigil of Swimming cost; Default: 150", 150).getInt(sigilSwimmingCost);
         sigilDivinityCost = config.get(lpSettings, "Sigil of Divinity cost; Default: 1000000", 1000000).getInt(sigilDivinityCost);
@@ -93,12 +93,5 @@ public class BloodArsenalConfig
         cakeIsLie = config.get(misc, "The cake is a lie", false, "The cake is a lie").getBoolean(cakeIsLie);
 
         config.save();
-    }
-
-    public static void lpDouble(AltarRecipe altarRecipe)
-    {
-        List<AltarRecipe> recipeList = AltarRecipeRegistry.altarRecipes;
-        int recipeCost = altarRecipe.getLiquidRequired();
-        int newCost = recipeCost * 2;
     }
 }

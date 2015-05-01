@@ -46,9 +46,12 @@ public class BloodArsenalRecipes
         BindingRegistry.registerRecipe(new ItemStack(ModItems.blood_infused_diamond_bound), new ItemStack(ModItems.blood_infused_diamond_active));
         BindingRegistry.registerRecipe(new ItemStack(ModItems.bound_igniter), new ItemStack(Items.flint_and_steel));
         //Temporary
-        BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_cape), new ItemStack(Items.leather_chestplate));
-        BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_greaves), new ItemStack(Items.leather_leggings));
-        BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_boots), new ItemStack(Items.leather_boots));
+        if (BloodArsenal.isHalloween())
+        {
+            BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_cape), new ItemStack(Items.leather_chestplate));
+            BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_greaves), new ItemStack(Items.leather_leggings));
+            BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_boots), new ItemStack(Items.leather_boots));
+        }
     }
 
     public static void registerRecipes()
@@ -95,10 +98,7 @@ public class BloodArsenalRecipes
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 3), "aaa", "aaa", "aaa", 'a', demonicSlate);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 4), "aaa", "aaa", "aaa", 'a', etherealSlate);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_infused_iron_block), "aaa", "aaa", "aaa", 'a', ModItems.blood_infused_iron);
-        addOreDictRecipe(new ItemStack(ModBlocks.blood_door_wood), "aa", "aa", "aa", 'a', ModBlocks.blood_infused_planks);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stained_ice_packed), "aa", "aa", 'a', ModBlocks.blood_stained_ice);
-        addOreDictRecipe(new ItemStack(ModBlocks.blood_door_wood), "aa", "aa", "aa", 'a', ModBlocks.blood_infused_planks);
-        addOreDictRecipe(new ItemStack(ModBlocks.blood_door_iron), "aa", "aa", "aa", 'a', ModItems.blood_infused_iron);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_infused_glowstone), "aa", "aa", 'a', ModItems.blood_infused_glowstone_dust);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_lamp), "aba", "bcb", "aba", 'a', ModItems.blood_infused_iron, 'b', ModBlocks.blood_stained_glass, 'c', ModBlocks.blood_infused_glowstone);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_infused_diamond_block), "aaa", "aaa", "aaa", 'a', ModItems.blood_infused_diamond_bound);
@@ -121,6 +121,24 @@ public class BloodArsenalRecipes
         addShapelessOreDictRecipe(new ItemStack(ModItems.blood_infused_iron, 9), ModBlocks.blood_infused_iron_block);
         addShapelessOreDictRecipe(new ItemStack(ModItems.orange_juice), ModItems.blood_orange, Items.glass_bottle);
         addShapelessOreDictRecipe(new ItemStack(ModItems.juice_and_cookies), Items.cookie, ModItems.orange_juice);
+    }
+
+    public static void addBaublesRecipe()
+    {
+        int craftingConstant = OreDictionary.WILDCARD_VALUE;
+
+        ItemStack weakOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.weakBloodOrb, 1, craftingConstant);
+//        ItemStack apprenticeOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.apprenticeBloodOrb, 1, craftingConstant);
+//        ItemStack magicianOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.magicianBloodOrb, 1, craftingConstant);
+        ItemStack masterOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.masterBloodOrb, 1, craftingConstant);
+//        ItemStack archmageOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.archmageBloodOrb, 1, craftingConstant);
+//        ItemStack transcendentOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.transcendentBloodOrb, 1, craftingConstant);
+
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.vampire_ring), "ab ", "bcb", " b ", 'a', ModItems.blood_infused_diamond_bound, 'b', Blocks.stone, 'c', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', Items.gold_ingot);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', Items.glowstone_dust);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.empowered_self_sacrifice_amulet), "aba", "cdc", "ecf", 'a', ModItems.blood_infused_glowstone_dust, 'b', Items.blaze_rod, 'c', WayofTime.alchemicalWizardry.ModBlocks.runeOfSelfSacrifice, 'd', ModItems.self_sacrifice_amulet, 'e', Blocks.gold_block, 'f', ModItems.amorphic_catalyst);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.empowered_sacrifice_amulet), "aba", "cdc", "ecf", 'a', ModItems.blood_infused_glowstone_dust, 'b', Items.blaze_rod, 'c', WayofTime.alchemicalWizardry.ModBlocks.runeOfSacrifice, 'd', ModItems.sacrifice_amulet, 'e', Blocks.glowstone, 'f', ModItems.amorphic_catalyst);
     }
 
     public static void addOreDictRecipe(ItemStack output, Object... recipe)

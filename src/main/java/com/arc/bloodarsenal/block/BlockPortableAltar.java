@@ -5,7 +5,6 @@ import WayofTime.alchemicalWizardry.api.items.IAltarManipulator;
 import WayofTime.alchemicalWizardry.common.items.EnergyBattery;
 import WayofTime.alchemicalWizardry.common.items.sigil.SigilOfHolding;
 import com.arc.bloodarsenal.BloodArsenal;
-import com.arc.bloodarsenal.tileentity.TileCompactedMRS;
 import com.arc.bloodarsenal.tileentity.TilePortableAltar;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,10 +39,11 @@ public class BlockPortableAltar extends BlockContainer
     public BlockPortableAltar()
     {
         super(Material.rock);
-        setHardness(2.0F);
-        setResistance(5.0F);
+        setHardness(7.0F);
+        setResistance(10.0F);
         setCreativeTab(BloodArsenal.BA_TAB);
         setBlockName("portable_altar");
+        setStepSound(soundTypePiston);
     }
 
     @Override

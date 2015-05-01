@@ -105,7 +105,7 @@ public class EntityGatlingProjectile extends Entity implements IProjectile, IThr
     @Override
     protected void entityInit()
     {
-        dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+        dataWatcher.addObject(16, 0);
     }
 
     @Override
@@ -382,7 +382,7 @@ public class EntityGatlingProjectile extends Entity implements IProjectile, IThr
 
     private int d6()
     {
-        return rand.nextInt(6) + 2;
+        return rand.nextInt() + 5;
     }
 
     protected void spawnHitParticles(String string, int i)

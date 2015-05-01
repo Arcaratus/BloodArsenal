@@ -6,7 +6,7 @@ import com.arc.bloodarsenal.items.ModItems;
 import com.arc.bloodarsenal.items.tinkers.BloodArsenalTinkers;
 import com.arc.bloodarsenal.items.tinkers.RecipeHelper;
 import com.arc.bloodarsenal.misc.CommandDownloadMod;
-import com.arc.bloodarsenal.potion.PotionVampiricAura;
+import com.arc.bloodarsenal.potion.PotionBloodArsenal;
 import com.arc.bloodarsenal.rituals.RitualRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -36,12 +36,13 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Calendar;
 
 @Mod(modid = BloodArsenal.MODID, version = BloodArsenal.VERSION, name = "Blood Arsenal", dependencies = "required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct", guiFactory = "com.arc.bloodarsenal.gui.ConfigGuiFactory")
 public class BloodArsenal
 {
     public final static String MODID = "BloodArsenal";
-    public final static String VERSION = "1.1-4";
+    public final static String VERSION = "1.1-5";
 
     @SidedProxy(clientSide = "com.arc.bloodarsenal.ClientProxy", serverSide = "com.arc.bloodarsenal.CommonProxy")
     public static CommonProxy proxy;
@@ -57,10 +58,8 @@ public class BloodArsenal
     public static Item.ToolMaterial infusedDiamond = EnumHelper.addToolMaterial("InfusedDiamond", 6, 0, 16.0F, 9.0F, 0);
     public static Item.ToolMaterial infusedNetherium = EnumHelper.addToolMaterial("InfusedNetherium", 9, 0, 31.0F, 18.0F, 0);
 
-    public static ItemArmor.ArmorMaterial vampireArmor = EnumHelper.addArmorMaterial("VampireArmor", 0, new int[]{3, 8, 6, 3}, 0);
-
-    public static boolean isBaublesLoaded;
-    public static boolean isTinkersConstructLoaded;
+    public static ItemArmor.ArmorMaterial vampireArmor = EnumHelper.addArmorMaterial("VampireArmor", 0, new int[]{2, 7, 4, 2}, 0);
+    public static ItemArmor.ArmorMaterial lifeImbuedArmor = EnumHelper.addArmorMaterial("ImbuedArmor", 0, new int[]{4, 10, 8, 4}, 7);
 
 	public static Logger logger = LogManager.getLogger(MODID);
     public static CreativeTabs BA_TAB = new CreativeTabs("BA_TAB")
@@ -73,6 +72,12 @@ public class BloodArsenal
     };
 
     public static DamageSource deathFromBlood = (new DamageSource("deathFromBlood")).setDamageBypassesArmor();
+
+    public static boolean isHalloween()
+    {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.MONTH) == Calendar.OCTOBER;
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -132,53 +137,34 @@ public class BloodArsenal
 
         proxy.init();
 
-        vampiricAura = new PotionVampiricAura(BloodArsenalConfig.vampiricAuraID, false, 0).setIconIndex(0, 0).setPotionName("Vampiric Aura");
-        bleeding = new PotionVampiricAura(BloodArsenalConfig.bleedingID, true, 0).setIconIndex(1, 0).setPotionName("Bleeding");
-        swimming = new PotionVampiricAura(BloodArsenalConfig.swimmingID, false, 0).setIconIndex(2, 0).setPotionName("Swimming");
+        vampiricAura = new PotionBloodArsenal(BloodArsenalConfig.vampiricAuraID, false, 0).setIconIndex(0, 0).setPotionName("Vampiric Aura");
+        bleeding = new PotionBloodArsenal(BloodArsenalConfig.bleedingID, true, 0).setIconIndex(1, 0).setPotionName("Bleeding");
+        swimming = new PotionBloodArsenal(BloodArsenalConfig.swimmingID, false, 0).setIconIndex(2, 0).setPotionName("Swimming");
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-        int craftingConstant = OreDictionary.WILDCARD_VALUE;
-
-        ItemStack weakOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.weakBloodOrb, 1, craftingConstant);
-        ItemStack apprenticeOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.apprenticeBloodOrb, 1, craftingConstant);
-        ItemStack magicianOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.magicianBloodOrb, 1, craftingConstant);
-        ItemStack masterOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.masterBloodOrb, 1, craftingConstant);
-        ItemStack archmageOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.archmageBloodOrb, 1, craftingConstant);
-        ItemStack transcendentOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.transcendentBloodOrb, 1, craftingConstant);
-
         if (Loader.isModLoaded("Baubles"))
         {
-            isBaublesLoaded = true;
-            logger.info("Loaded Baubles integration");
-
-            GameRegistry.registerItem(ModItems.vampire_ring, "vampire_ring");
-            GameRegistry.registerItem(ModItems.self_sacrifice_amulet, "self_sacrifice_amulet");
-            GameRegistry.registerItem(ModItems.sacrifice_amulet, "sacrifice_amulet");
-
-            BloodArsenalRecipes.addOreDictBloodOrbRecipe(new ItemStack(ModItems.vampire_ring), "ab ", "bcb", " b ", 'a', ModItems.blood_infused_diamond_bound, 'b', Blocks.stone, 'c', masterOrb);
-            BloodArsenalRecipes.addOreDictBloodOrbRecipe(new ItemStack(ModItems.sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', Items.gold_ingot);
-            BloodArsenalRecipes.addOreDictBloodOrbRecipe(new ItemStack(ModItems.self_sacrifice_amulet), "aaa", "aba", "caa", 'a', ModItems.blood_burned_string, 'b', weakOrb, 'c', Items.glowstone_dust);
-        }
-        else
-        {
-            isBaublesLoaded = false;
+            if (BloodArsenalConfig.baublesIntegration)
+            {
+                logger.info("Loaded Baubles integration");
+                ModItems.registerBaubles();
+                BloodArsenalRecipes.addBaublesRecipe();
+            }
         }
 
         if (Loader.isModLoaded("TConstruct"))
         {
-            isTinkersConstructLoaded = true;
-            logger.info("Loaded Tinker's Construct integration");
+            if (BloodArsenalConfig.tinkersIntegration)
+            {
+                logger.info("Loaded Tinker's Construct integration");
 
-            BloodArsenalTinkers.addMaterials();
-            BloodArsenalTinkers.addParts();
-            RecipeHelper.addRecipes();
-        }
-        else
-        {
-            isTinkersConstructLoaded = false;
+                BloodArsenalTinkers.addMaterials();
+                BloodArsenalTinkers.addParts();
+                RecipeHelper.addRecipes();
+            }
         }
     }
 
