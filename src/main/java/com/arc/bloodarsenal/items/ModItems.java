@@ -5,13 +5,11 @@ import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.items.armor.VampireCostume;
 import com.arc.bloodarsenal.items.bauble.*;
-import com.arc.bloodarsenal.items.block.*;
 import com.arc.bloodarsenal.items.sigil.SigilDivinity;
 import com.arc.bloodarsenal.items.sigil.SigilEnder;
 import com.arc.bloodarsenal.items.sigil.SigilSwimming;
 import com.arc.bloodarsenal.items.tool.*;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemReed;
 

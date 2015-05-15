@@ -8,5 +8,6 @@ public class LifeImbuedArmor extends ItemArmor
     public LifeImbuedArmor(int armorType)
     {
         super(BloodArsenal.lifeImbuedArmor, 0, armorType);
+        setCreativeTab(BloodArsenal.BA_TAB);
     }
 }

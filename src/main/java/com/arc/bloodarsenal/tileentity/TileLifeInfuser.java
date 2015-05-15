@@ -411,7 +411,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
             return 0;
         }
 
-        if (resource.fluidID != (fluidInput).fluidID)
+        if (resource.getFluid().getID() != (fluidInput).getFluid().getID())
         {
             return 0;
         }
@@ -567,7 +567,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         }
         else
         {
-            sortList[0] = this.fluid.fluidID;
+            sortList[0] = this.fluid.getFluid().getID();
             sortList[1] = this.fluid.amount;
         }
 
@@ -578,7 +578,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         }
         else
         {
-            sortList[2] = this.fluidInput.fluidID;
+            sortList[2] = this.fluidInput.getFluid().getID();
             sortList[3] = this.fluidInput.amount;
         }
 

@@ -576,7 +576,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
             return 0;
         }
 
-        if (resource.fluidID != (new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 1)).fluidID)
+        if (resource.getFluid().getID() != (new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 1)).getFluid().getID())
         {
             return 0;
         }
@@ -1097,7 +1097,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         }
         else
         {
-            sortList[0] = this.fluid.fluidID;
+            sortList[0] = this.fluid.getFluid().getID();
             sortList[1] = this.fluid.amount;
         }
 
@@ -1108,7 +1108,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         }
         else
         {
-            sortList[2] = this.fluidInput.fluidID;
+            sortList[2] = this.fluidInput.getFluid().getID();
             sortList[3] = this.fluidInput.amount;
         }
 
@@ -1119,7 +1119,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         }
         else
         {
-            sortList[4] = this.fluidOutput.fluidID;
+            sortList[4] = this.fluidOutput.getFluid().getID();
             sortList[5] = this.fluidOutput.amount;
         }
 

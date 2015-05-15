@@ -24,16 +24,16 @@ public class BloodArsenalRecipes
 {
     public static void registerAltarRecipes()
     {
-        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_tnt), new ItemStack(Blocks.tnt), 3, 5000, 5, 5, false);
+        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_tnt), new ItemStack(Blocks.tnt), 3, 10000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_infused_wood), new ItemStack(Blocks.log), 2, 3000, 5, 5, false);
-        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_infused_iron_block), new ItemStack(Blocks.iron_block), 3, 72000, 5, 5, false);
+        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_infused_iron_block), new ItemStack(Blocks.iron_block), 3, 54000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.item_blood_cake), new ItemStack(Items.cake), 3, 10000, 5, 5, false);
-        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_iron), new ItemStack(Items.iron_ingot), 3, 8000, 5, 5, false);
+        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_iron), new ItemStack(Items.iron_ingot), 3, 6000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_orange), new ItemStack(Items.dye, 1, 14), 1, 200, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_diamond_active), new ItemStack(ModItems.blood_infused_diamond_unactive), 4, 80000, 5, 5, false);
-        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.soul_fragment), new ItemStack(ModItems.heart), 4, 10000, 5, 5, false);
+        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.soul_fragment), new ItemStack(ModItems.heart), 4, 75000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_cookie), new ItemStack(Items.cookie), 1, 2000, 5, 5, false);
-        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_glowstone_dust), new ItemStack(Items.glowstone_dust), 3, 2500, 5, 5, false);
+        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_glowstone_dust), new ItemStack(Items.glowstone_dust), 3, 5000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_ball), new ItemStack(Items.snowball), 2, 500, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_money), new ItemStack(Items.paper), 4, 10000, 5, 5, false);
     }
@@ -116,6 +116,7 @@ public class BloodArsenalRecipes
         addShapelessOreDictRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.reinforcedSlate, 9), new ItemStack(ModBlocks.blood_stone, 1, 1));
         addShapelessOreDictRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.imbuedSlate, 9), new ItemStack(ModBlocks.blood_stone, 1, 2));
         addShapelessOreDictRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.demonicSlate, 9), new ItemStack(ModBlocks.blood_stone, 1, 3));
+        addShapelessOreDictRecipe(new ItemStack(WayofTime.alchemicalWizardry.ModItems.baseAlchemyItems, 9, 27), new ItemStack(ModBlocks.blood_stone, 1, 4));
         //This is a long one
         addShapelessOreDictRecipe(new ItemStack(ModItems.amorphic_catalyst), WayofTime.alchemicalWizardry.ModItems.blankSlate, WayofTime.alchemicalWizardry.ModItems.aether, WayofTime.alchemicalWizardry.ModItems.terrae, WayofTime.alchemicalWizardry.ModItems.crystallos, WayofTime.alchemicalWizardry.ModItems.sanctus, WayofTime.alchemicalWizardry.ModItems.magicales, WayofTime.alchemicalWizardry.ModItems.crepitous, WayofTime.alchemicalWizardry.ModItems.incendium, WayofTime.alchemicalWizardry.ModItems.aquasalus);
         addShapelessOreDictRecipe(new ItemStack(ModItems.blood_infused_iron, 9), ModBlocks.blood_infused_iron_block);

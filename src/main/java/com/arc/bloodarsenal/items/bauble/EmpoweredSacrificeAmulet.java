@@ -55,24 +55,27 @@ public class EmpoweredSacrificeAmulet extends SacrificeAmulet implements IBauble
             String owner = par1ItemStack.stackTagCompound.getString("ownerName");
             World world = Minecraft.getMinecraft().theWorld;
 
-            if (!owner.equals(""))
+            if (!world.isRemote)
             {
-                if (player instanceof EntityPlayer)
+                if (!owner.equals(""))
                 {
-                    if (owner.equals(SpellHelper.getUsername((EntityPlayer) player)))
+                    if (player instanceof EntityPlayer)
                     {
-
-                        if (!world.isRemote)
+                        if (owner.equals(SpellHelper.getUsername((EntityPlayer) player)))
                         {
-                            if (this.getStoredLP(par1ItemStack) >= 50)
+
+                            if (!world.isRemote)
                             {
-                                SoulNetworkHandler.addCurrentEssenceToMaximum(owner, 50, SoulNetworkHandler.getMaximumForOrbTier(SoulNetworkHandler.getCurrentMaxOrb(owner)));
-                                setStoredLP(par1ItemStack, getStoredLP(par1ItemStack) - 50);
-                            }
-                            else if (this.getStoredLP(par1ItemStack) > 0)
-                            {
-                                SoulNetworkHandler.addCurrentEssenceToMaximum(owner, this.getStoredLP(par1ItemStack), SoulNetworkHandler.getMaximumForOrbTier(SoulNetworkHandler.getCurrentMaxOrb(owner)));
-                                setStoredLP(par1ItemStack, 0);
+                                if (this.getStoredLP(par1ItemStack) >= 50)
+                                {
+                                    SoulNetworkHandler.addCurrentEssenceToMaximum(owner, 50, SoulNetworkHandler.getMaximumForOrbTier(SoulNetworkHandler.getCurrentMaxOrb(owner)));
+                                    setStoredLP(par1ItemStack, getStoredLP(par1ItemStack) - 50);
+                                }
+                                else if (this.getStoredLP(par1ItemStack) > 0)
+                                {
+                                    SoulNetworkHandler.addCurrentEssenceToMaximum(owner, this.getStoredLP(par1ItemStack), SoulNetworkHandler.getMaximumForOrbTier(SoulNetworkHandler.getCurrentMaxOrb(owner)));
+                                    setStoredLP(par1ItemStack, 0);
+                                }
                             }
                         }
                     }
@@ -99,19 +102,21 @@ public class EmpoweredSacrificeAmulet extends SacrificeAmulet implements IBauble
 
         MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, false);
 
+        if (player.isSneaking())
+        {
+            if (getDamage(itemStack) == 1)
+            {
+                this.setDamage(itemStack, 0);
+            }
+            else
+            {
+                setDamage(itemStack, 1);
+            }
+        }
+
         if (movingobjectposition == null || movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.MISS)
         {
-            if (player.isSneaking())
-            {
-                if (getDamage(itemStack) == 1)
-                {
-                    this.setDamage(itemStack, 0);
-                }
-                else
-                {
-                    setDamage(itemStack, 1);
-                }
-            }
+            return itemStack;
         }
         else
         {

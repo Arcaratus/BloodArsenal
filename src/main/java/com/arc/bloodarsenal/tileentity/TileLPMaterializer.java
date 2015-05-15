@@ -542,11 +542,6 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
         return new FluidTankInfo[]{compositeTank.getInfo()};
     }
 
-    public int getBufferCapacity()
-    {
-        return bufferCapacity;
-    }
-
     public int[] buildFluidList()
     {
         int[] sortList = new int[4];
@@ -558,7 +553,7 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
         }
         else
         {
-            sortList[0] = this.fluid.fluidID;
+            sortList[0] = this.fluid.getFluid().getID();
             sortList[1] = this.fluid.amount;
         }
 
@@ -569,7 +564,7 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
         }
         else
         {
-            sortList[2] = this.fluidOutput.fluidID;
+            sortList[2] = this.fluidOutput.getFluid().getID();
             sortList[3] = this.fluidOutput.amount;
         }
 

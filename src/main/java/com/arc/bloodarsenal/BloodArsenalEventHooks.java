@@ -31,6 +31,8 @@ import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
+import java.util.Random;
+
 public class BloodArsenalEventHooks
 {
     public static double rand = Math.random();
@@ -66,7 +68,7 @@ public class BloodArsenalEventHooks
             }
         }
 
-        if (entityAttacked instanceof EntityPlayer)
+        if (entityAttacked instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration)
         {
             selfSacrificeHandler(event);
         }
@@ -82,7 +84,7 @@ public class BloodArsenalEventHooks
     {
         Entity killer = event.source.getEntity();
 
-        if (killer instanceof EntityPlayer)
+        if (killer instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration)
         {
             sacrificeHandler(event);
         }
@@ -169,17 +171,22 @@ public class BloodArsenalEventHooks
     {
         Block block = event.block;
         EntityPlayer player = event.harvester;
+        Random random = new Random();
 
-        if (player != null)
+        if (!event.world.isRemote && !event.isSilkTouching)
         {
-            if (block != null && block instanceof BlockGlass)
+            if (player != null)
             {
-                if (!event.isSilkTouching)
+                if (block != null && block instanceof BlockGlass)
                 {
-                    if (player.getCurrentEquippedItem().getItem() == Items.flint)
+                    if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.flint)
                     {
                         event.drops.add(new ItemStack(ModItems.glass_shard));
-                        event.dropChance = 0.75F;
+                        if (random.nextInt() + 5 < 8)
+                        {
+                            event.drops.add(new ItemStack(ModItems.glass_shard));
+                        }
+                        event.dropChance = 0.5F;
                     }
                 }
             }
@@ -189,14 +196,13 @@ public class BloodArsenalEventHooks
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
     {
-        if (event.modID.equals("BloodArsenal"))
+        if (event.modID.equals(BloodArsenal.MODID))
         {
             BloodArsenalConfig.syncConfig();
             BloodArsenal.logger.info("Refreshing configuration file");
         }
     }
 
-    @Optional.Method(modid = "Baubles")
     private void sacrificeHandler(LivingDeathEvent event)
     {
         Entity killer = event.source.getEntity();
@@ -247,7 +253,6 @@ public class BloodArsenalEventHooks
         }
     }
 
-    @Optional.Method(modid = "Baubles")
     private void selfSacrificeHandler(LivingAttackEvent event)
     {
         EntityLivingBase entityAttacked = event.entityLiving;
