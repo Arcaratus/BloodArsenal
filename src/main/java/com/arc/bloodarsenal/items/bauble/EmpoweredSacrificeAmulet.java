@@ -53,7 +53,7 @@ public class EmpoweredSacrificeAmulet extends SacrificeAmulet implements IBauble
         if (par1ItemStack.getItemDamage() == 1)
         {
             String owner = par1ItemStack.stackTagCompound.getString("ownerName");
-            World world = Minecraft.getMinecraft().theWorld;
+            World world = player.worldObj;
 
             if (!world.isRemote)
             {
@@ -63,7 +63,6 @@ public class EmpoweredSacrificeAmulet extends SacrificeAmulet implements IBauble
                     {
                         if (owner.equals(SpellHelper.getUsername((EntityPlayer) player)))
                         {
-
                             if (!world.isRemote)
                             {
                                 if (this.getStoredLP(par1ItemStack) >= 50)
