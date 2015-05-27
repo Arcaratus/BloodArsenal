@@ -1,6 +1,5 @@
 package com.arc.bloodarsenal.block;
 
-import com.arc.bloodarsenal.BloodArsenal;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockBreakable;
@@ -14,8 +13,6 @@ public class BlockBloodStainedGlass extends BlockBreakable
     public BlockBloodStainedGlass()
     {
         super("blood_stained_glass", Material.glass, false);
-        setBlockName("blood_stained_glass");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(1.0F);
         setResistance(4.0F);
         setStepSound(soundTypeGlass);

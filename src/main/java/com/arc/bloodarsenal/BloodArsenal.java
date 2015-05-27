@@ -1,5 +1,6 @@
 package com.arc.bloodarsenal;
 
+import com.arc.bloodarsenal.entity.ModEntities;
 import com.arc.bloodarsenal.entity.ModLivingDropsEvent;
 import com.arc.bloodarsenal.gui.GuiHandler;
 import com.arc.bloodarsenal.items.ModItems;
@@ -80,11 +81,11 @@ public class BloodArsenal
 	    BloodArsenalConfig.init(new File(event.getModConfigurationDirectory(), "BloodArsenal.cfg"));
 
 	    ModBlocks.init();
-	    ModBlocks.registerBlocksInPre();
         ModBlocks.registerTileEntities();
 
 	    ModItems.init();
-	    ModItems.registerItems();
+
+        ModEntities.init();
 
 	    Potion[] potionTypes;
 

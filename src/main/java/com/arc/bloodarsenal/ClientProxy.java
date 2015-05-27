@@ -2,11 +2,13 @@ package com.arc.bloodarsenal;
 
 import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.entity.EntityBloodTNT;
+import com.arc.bloodarsenal.entity.mob.EntityBloodHound;
 import com.arc.bloodarsenal.entity.projectile.EntityBloodBall;
 import com.arc.bloodarsenal.entity.projectile.EntityGatlingProjectile;
 import com.arc.bloodarsenal.items.ModItems;
 import com.arc.bloodarsenal.misc.VersionChecker;
 import com.arc.bloodarsenal.renderer.block.*;
+import com.arc.bloodarsenal.renderer.entity.RenderEntityBloodHound;
 import com.arc.bloodarsenal.renderer.item.ItemRenderGatling;
 import com.arc.bloodarsenal.renderer.item.RenderBow;
 import com.arc.bloodarsenal.renderer.projectile.RenderEntityGatlingProjectile;
@@ -17,6 +19,7 @@ import com.arc.bloodarsenal.tileentity.TilePortableAltar;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import net.minecraft.client.model.ModelWolf;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.entity.RenderTNTPrimed;
 import net.minecraft.item.ItemBlock;
@@ -43,11 +46,13 @@ public class ClientProxy extends CommonProxy
         RenderingRegistry.registerEntityRenderingHandler(EntityGatlingProjectile.class, new RenderEntityGatlingProjectile());
         RenderingRegistry.registerEntityRenderingHandler(EntityBloodTNT.class, new RenderTNTPrimed());
         RenderingRegistry.registerEntityRenderingHandler(EntityBloodBall.class, new RenderSnowball(ModItems.blood_ball));
+        RenderingRegistry.registerEntityRenderingHandler(EntityBloodHound.class, new RenderEntityBloodHound(new ModelWolf(), new ModelWolf(), 0.5F));
 
-        RenderingRegistry.registerBlockHandler(new RenderTileLifeInfuser());
+        RenderingRegistry.registerBlockHandler(RenderingRegistry.getNextAvailableRenderId(), new RenderTileLifeInfuser());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TilePortableAltar.class, new TilePortableAltarRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileLifeInfuser.class, new TileLifeInfuserRenderer());
+
         ShaderHelper.initShaders();
     }
 

@@ -3,11 +3,9 @@ package com.arc.bloodarsenal.block;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import WayofTime.alchemicalWizardry.common.block.BlockMasterStone;
 import WayofTime.alchemicalWizardry.common.items.ActivationCrystal;
-import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.tileentity.TileCompactedMRS;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -30,7 +27,6 @@ public class BlockCompactedMRS extends BlockMasterStone
         super();
         setBlockName("compacted_mrs");
         setBlockTextureName("BloodArsenal:compacted_mrs");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(4.0F);
         setResistance(7.5F);
     }

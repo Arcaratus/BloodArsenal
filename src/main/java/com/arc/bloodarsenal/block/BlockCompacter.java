@@ -11,7 +11,6 @@ import WayofTime.alchemicalWizardry.common.bloodAltarUpgrade.AltarUpgradeCompone
 import WayofTime.alchemicalWizardry.common.bloodAltarUpgrade.UpgradedAltars;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEMasterStone;
-import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.tileentity.TileCompactedMRS;
 import com.arc.bloodarsenal.tileentity.TileCompacter;
 import com.arc.bloodarsenal.tileentity.TilePortableAltar;
@@ -60,9 +59,6 @@ public class BlockCompacter extends BlockContainer
     public BlockCompacter()
     {
         super(Material.iron);
-        setBlockName("compacter");
-        setBlockTextureName("BloodArsenal:compacter");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(8.0F);
         setResistance(5.0F);
         setStepSound(soundTypeMetal);

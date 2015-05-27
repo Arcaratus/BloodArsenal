@@ -1,6 +1,5 @@
 package com.arc.bloodarsenal.block;
 
-import com.arc.bloodarsenal.BloodArsenal;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -26,9 +25,7 @@ public class BlockBloodStainedIce extends BlockBreakable
     {
         super("blood_stained_ice", Material.ice, false);
         slipperiness = 0.99F;
-        setBlockName("blood_stained_ice");
         setTickRandomly(true);
-        setCreativeTab(BloodArsenal.BA_TAB);
         setLightOpacity(3);
         setHardness(1.0F);
         setResistance(2.0F);

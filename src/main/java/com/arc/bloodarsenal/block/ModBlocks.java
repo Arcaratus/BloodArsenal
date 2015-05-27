@@ -1,11 +1,13 @@
 package com.arc.bloodarsenal.block;
 
+import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.items.block.BloodStoneBlock;
 import com.arc.bloodarsenal.items.block.CompactedMRSBlock;
 import com.arc.bloodarsenal.items.block.PortableAltarBlock;
 import com.arc.bloodarsenal.tileentity.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
 
 public class ModBlocks
 {
@@ -31,48 +33,25 @@ public class ModBlocks
 
     public static void init()
     {
-        blood_stone = new BlockBloodStone();
-        blood_tnt = new BlockBloodTNT();
-        blood_stained_glass = new BlockBloodStainedGlass();
-        blood_infused_wood = new BlockBloodInfusedWood();
-        blood_infused_planks = new BlockBloodInfusedPlanks();
-        blood_stained_ice = new BlockBloodStainedIce();
-        blood_stained_ice_packed = new BlockBloodStainedPackedIce();
-        blood_infused_iron_block = new BlockInfusedIron();
-        blood_cake = new BlockBloodCake();
-        blood_torch = new BlockBloodTorch();
-        blood_infused_glowstone = new BlockBloodInfusedGlowstone();
-        blood_lamp = new BlockBloodLamp();
-        blood_infused_diamond_block = new BlockBloodInfusedDiamond();
-        portable_altar = new BlockPortableAltar();
-        life_infuser = new BlockLifeInfuser();
-        compacter = new BlockCompacter();
-        lp_materializer = new BlockLPMaterializer();
-        compacted_mrs = new BlockCompactedMRS();
-        block_burned_string = new BlockBurnedString();
-    }
-
-    public static void registerBlocksInPre()
-    {
-        GameRegistry.registerBlock(blood_stone, BloodStoneBlock.class, "BloodArsenal" + ModBlocks.blood_stone.getUnlocalizedName().substring(5));
-        GameRegistry.registerBlock(blood_tnt, "blood_tnt");
-        GameRegistry.registerBlock(blood_stained_glass, "blood_stained_glass");
-        GameRegistry.registerBlock(blood_infused_wood, "blood_infused_wood");
-        GameRegistry.registerBlock(blood_infused_planks, "blood_infused_planks");
-        GameRegistry.registerBlock(blood_stained_ice, "blood_stained_ice");
-        GameRegistry.registerBlock(blood_stained_ice_packed, "blood_stained_ice_packed");
-        GameRegistry.registerBlock(blood_infused_iron_block, "blood_infused_iron_block");
-        GameRegistry.registerBlock(blood_cake, "blood_cake");
-        GameRegistry.registerBlock(blood_torch, "blood_torch");
-        GameRegistry.registerBlock(blood_infused_glowstone, "blood_infused_glowstone");
-        GameRegistry.registerBlock(blood_lamp, "blood_lamp");
-        GameRegistry.registerBlock(blood_infused_diamond_block, "blood_infused_diamond_block");
-        GameRegistry.registerBlock(portable_altar, PortableAltarBlock.class, "BloodArsenal" + ModBlocks.portable_altar.getUnlocalizedName());
-        GameRegistry.registerBlock(life_infuser, "life_infuser");
-        GameRegistry.registerBlock(compacter, "compacter");
-        GameRegistry.registerBlock(lp_materializer, "lp_materializer");
-        GameRegistry.registerBlock(compacted_mrs, CompactedMRSBlock.class, "BloodArsenal" + ModBlocks.compacted_mrs.getUnlocalizedName());
-        GameRegistry.registerBlock(block_burned_string, "block_burned_string");
+        blood_stone = registerBlock(new BlockBloodStone(), BloodStoneBlock.class, "blood_stone");
+        blood_tnt = registerBlock(new BlockBloodTNT(), "blood_tnt");
+        blood_stained_glass = registerBlock(new BlockBloodStainedGlass(), "blood_stained_glass");
+        blood_infused_wood = registerBlock(new BlockBloodInfusedWood(), "blood_infused_wood");
+        blood_infused_planks = registerBlock(new BlockBloodInfusedPlanks(), "blood_infused_planks");
+        blood_stained_ice = registerBlock(new BlockBloodStainedIce(), "blood_stained_ice");
+        blood_stained_ice_packed = registerBlock(new BlockBloodStainedPackedIce(), "blood_stained_ice_packed");
+        blood_infused_iron_block = registerBlock(new BlockInfusedIron(), "blood_infused_iron_block");
+        blood_cake = registerBlock(new BlockBloodCake(), "blood_cake");
+        blood_torch = registerBlock(new BlockBloodTorch(), "blood_torch");
+        blood_infused_glowstone = registerBlock(new BlockBloodInfusedGlowstone(), "blood_infused_glowstone");
+        blood_lamp = registerBlock(new BlockBloodLamp(), "blood_lamp");
+        blood_infused_diamond_block = registerBlock(new BlockBloodInfusedDiamond(), "blood_infused_diamond_block");
+        portable_altar = (BlockPortableAltar) registerBlock(new BlockPortableAltar(), PortableAltarBlock.class, "portable_altar");
+        life_infuser = registerBlock(new BlockLifeInfuser(), "life_infuser");
+        compacter = registerBlock(new BlockCompacter(), "compacter");
+        lp_materializer = registerBlock(new BlockLPMaterializer(), "lp_materializer");
+        compacted_mrs = registerBlock(new BlockCompactedMRS(), CompactedMRSBlock.class, "compacted_mrs");
+        block_burned_string = registerBlock(new BlockBurnedString(), "block_burned_string");
     }
 
     public static void registerTileEntities()
@@ -82,5 +61,25 @@ public class ModBlocks
         GameRegistry.registerTileEntity(TileCompacter.class, "compacter");
         GameRegistry.registerTileEntity(TileLPMaterializer.class, "lp_materializer");
         GameRegistry.registerTileEntity(TileCompactedMRS.class, "compacted_mrs");
+    }
+
+    public static Block registerBlock(Block block, String unlocalizedName)
+    {
+        block.setBlockName(unlocalizedName);
+        block.setBlockTextureName(BloodArsenal.MODID + ":" + unlocalizedName);
+        if (!(block instanceof BlockBloodCake || block instanceof BlockBurnedString))
+        {
+            block.setCreativeTab(BloodArsenal.BA_TAB);
+        }
+
+        GameRegistry.registerBlock(block, unlocalizedName);
+        return block;
+    }
+
+    public static Block registerBlock(Block block, Class<? extends ItemBlock> itemBlockClass, String name)
+    {
+        block.setCreativeTab(BloodArsenal.BA_TAB);
+        GameRegistry.registerBlock(block, itemBlockClass, name);
+        return block;
     }
 }

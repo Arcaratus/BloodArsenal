@@ -2,9 +2,7 @@ package com.arc.bloodarsenal.block;
 
 import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
-import WayofTime.alchemicalWizardry.common.items.EnergyBattery;
 import WayofTime.alchemicalWizardry.common.items.sigil.SigilOfHolding;
-import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.tileentity.TileLPMaterializer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -26,9 +24,6 @@ public class BlockLPMaterializer extends BlockContainer
     public BlockLPMaterializer()
     {
         super(Material.iron);
-        setBlockName("lp_materializer");
-        setBlockTextureName("BloodArsenal:lp_materializer");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(7.0F);
         setResistance(14.0F);
     }

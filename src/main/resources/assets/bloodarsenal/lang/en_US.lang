@@ -2,11 +2,11 @@
 itemGroup.BA_TAB=Blood Arsenal
 
 #Blocks
-tile.blood_stone.blood_stone_1.name=Blank Blood Stone
-tile.blood_stone.blood_stone_2.name=Reinforced Blood Stone
-tile.blood_stone.blood_stone_3.name=Imbued Blood Stone
-tile.blood_stone.blood_stone_4.name=Demonic Blood Stone
-tile.blood_stone.blood_stone_5.name=Ethereal Blood Stone
+tile.blood_stone_1.name=Blank Blood Stone
+tile.blood_stone_2.name=Reinforced Blood Stone
+tile.blood_stone_3.name=Imbued Blood Stone
+tile.blood_stone_4.name=Demonic Blood Stone
+tile.blood_stone_5.name=Ethereal Blood Stone
 tile.blood_tnt.name=Blood TNT
 tile.blood_stained_glass.name=Blood Stained Glass
 tile.blood_stained_ice.name=Blood Stained Ice

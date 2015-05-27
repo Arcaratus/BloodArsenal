@@ -25,8 +25,6 @@ public class BlockBurnedString extends Block
     {
         super(Material.circuits);
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.15625F, 1.0F);
-        setBlockName("block_burned_string");
-        setBlockTextureName("BloodArsenal:block_burned_string");
         setTickRandomly(true);
     }
 

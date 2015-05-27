@@ -68,105 +68,57 @@ public class ModItems
 
     public static void init()
     {
-        bound_bow = new BoundBow();
-        blood_orange = new ItemBloodOrange();
-        blood_infused_pickaxe_wood = new InfusedWoodPickaxe();
-        blood_infused_axe_wood = new InfusedWoodAxe();
-        blood_infused_shovel_wood = new InfusedWoodShovel();
-        blood_infused_sword_wood = new InfusedWoodSword();
-        amorphic_catalyst = new ItemBloodArsenal().setUnlocalizedName("amorphic_catalyst");
-        blood_infused_stick = new ItemBloodArsenal().setUnlocalizedName("blood_infused_stick");
-        bound_sickle = new BoundSickle(AlchemicalWizardry.bloodBoundToolMaterial);
-        blood_infused_pickaxe_iron = new InfusedIronPickaxe();
-        blood_infused_axe_iron = new InfusedIronAxe();
-        blood_infused_shovel_iron = new InfusedIronShovel();
-        blood_infused_sword_iron = new InfusedIronSword();
-        blood_infused_iron = new ItemBloodArsenal().setUnlocalizedName("blood_infused_iron");
-        bound_shears = new BoundShears();
-        blood_diamond = new InfusedDiamond().setUnlocalizedName("blood_diamond");
-        blood_infused_diamond_unactive = new InfusedDiamond().setUnlocalizedName("blood_infused_diamond_unactive");
-        blood_infused_diamond_active = new InfusedDiamond().setUnlocalizedName("blood_infused_diamond_active");
-        blood_infused_diamond_bound = new InfusedDiamond().setUnlocalizedName("blood_infused_diamond_bound");
-        blood_infused_pickaxe_diamond = new InfusedDiamondPickaxe();
-        blood_infused_axe_diamond = new InfusedDiamondAxe();
-        blood_infused_shovel_diamond = new InfusedDiamondShovel();
-        blood_infused_sword_diamond = new InfusedDiamondSword();
-        heart = new ItemBloodArsenal().setUnlocalizedName("heart");
-        soul_fragment = new ItemBloodArsenal().setUnlocalizedName("soul_fragment");
-        bound_igniter = new BoundIgniter();
-        soul_booster = new ItemSoulBooster();
-        soul_nullifier = new ItemSoulNullifier();
-        blood_cookie = new ItemBloodCookie();
-        orange_juice = new ItemBloodArsenal().setUnlocalizedName("orange_juice");
-        juice_and_cookies = new ItemJuiceAndCookies();
-        item_blood_cake = new ItemReed(ModBlocks.blood_cake).setUnlocalizedName("item_blood_cake").setTextureName("BloodArsenal:item_blood_cake").setCreativeTab(BloodArsenal.BA_TAB);
-        vampire_cape = new VampireCostume(1).setUnlocalizedName("vampire_cape");
-        vampire_greaves = new VampireCostume(2).setUnlocalizedName("vampire_greaves");
-        vampire_boots = new VampireCostume(3).setUnlocalizedName("vampire_boots");
-        energy_gatling = new EnergyGatling();
-        sigil_of_swimming = new SigilSwimming();
-        sigil_of_ender = new SigilEnder();
-        blood_infused_glowstone_dust = new ItemBloodArsenal().setUnlocalizedName("blood_infused_glowstone_dust");
-        sigil_of_divinity = new SigilDivinity();
-        blood_ball = new ItemBloodBall();
-        wolf_hide = new ItemBloodArsenal().setUnlocalizedName("wolf_hide");
-        blood_money = new ItemBloodMoney();
-        blood_burned_string = new ItemReed(ModBlocks.block_burned_string).setUnlocalizedName("blood_burned_string").setTextureName("BloodArsenal:blood_burned_string").setCreativeTab(BloodArsenal.BA_TAB);
+        bound_bow = registerItem(new BoundBow(), "bound_bow");
+        blood_orange = registerItem(new ItemBloodOrange(), "blood_orange");
+        blood_infused_pickaxe_wood = registerItem(new InfusedWoodPickaxe(), "blood_infused_pickaxe_wood");
+        blood_infused_axe_wood = registerItem(new InfusedWoodAxe(), "blood_infused_axe_wood");
+        blood_infused_shovel_wood = registerItem(new InfusedWoodShovel(), "blood_infused_shovel_wood");
+        blood_infused_sword_wood = registerItem(new InfusedWoodSword(), "blood_infused_sword_wood");
+        amorphic_catalyst = registerItem(new ItemBloodArsenal(), "amorphic_catalyst");
+        blood_infused_stick = registerItem(new ItemBloodArsenal(), "blood_infused_stick");
+        bound_sickle = registerItem(new BoundSickle(AlchemicalWizardry.bloodBoundToolMaterial), "bound_sickle");
+        blood_infused_pickaxe_iron = registerItem(new InfusedIronPickaxe(), "blood_infused_pickaxe_iron");
+        blood_infused_axe_iron = registerItem(new InfusedIronAxe(), "blood_infused_axe_iron");
+        blood_infused_shovel_iron = registerItem(new InfusedIronShovel(), "blood_infused_shovel_iron");
+        blood_infused_sword_iron = registerItem(new InfusedIronSword(), "blood_infused_sword_iron");
+        blood_infused_iron = registerItem(new ItemBloodArsenal(), "blood_infused_iron");
+        bound_shears = registerItem(new BoundShears(), "bound_shears");
+        blood_diamond = registerItem(new ItemBloodArsenal(), "blood_diamond");
+        blood_infused_diamond_unactive = registerItem(new InfusedDiamond(), "blood_infused_diamond_unactive");
+        blood_infused_diamond_active = registerItem(new InfusedDiamond(), "blood_infused_diamond_active");
+        blood_infused_diamond_bound = registerItem(new InfusedDiamond(), "blood_infused_diamond_bound");
+        blood_infused_pickaxe_diamond = registerItem(new InfusedDiamondPickaxe(), "blood_infused_pickaxe_diamond");
+        blood_infused_axe_diamond = registerItem(new InfusedDiamondAxe(), "blood_infused_axe_diamond");
+        blood_infused_shovel_diamond = registerItem(new InfusedDiamondShovel(), "blood_infused_shovel_diamond");
+        blood_infused_sword_diamond = registerItem(new InfusedDiamondSword(), "blood_infused_sword_diamond");
+        heart = registerItem(new ItemBloodArsenal(), "heart");
+        soul_fragment = registerItem(new ItemBloodArsenal(), "soul_fragment");
+        bound_igniter = registerItem(new BoundIgniter(), "bound_flint_and_steel");
+        soul_booster = registerItem(new ItemSoulBooster(), "soul_booster");
+        soul_nullifier = registerItem(new ItemSoulNullifier(), "soul_nullifier");
+        blood_cookie = registerItem(new ItemBloodCookie(), "blood_cookie");
+        orange_juice = registerItem(new ItemBloodArsenal(), "orange_juice");
+        juice_and_cookies = registerItem(new ItemJuiceAndCookies(), "juice_and_cookies");
+        item_blood_cake = registerItem(new ItemReed(ModBlocks.blood_cake), "item_blood_cake");
+        vampire_cape = registerItem(new VampireCostume(1), "vampire_cape");
+        vampire_greaves = registerItem(new VampireCostume(2), "vampire_greaves");
+        vampire_boots = registerItem(new VampireCostume(3), "vampire_boots");
+        energy_gatling = registerItem(new EnergyGatling(), "energy_gatling");
+        sigil_of_swimming = registerItem(new SigilSwimming(), "sigil_of_swimming");
+        sigil_of_ender = registerItem(new SigilEnder(), "sigil_of_ender");
+        blood_infused_glowstone_dust = registerItem(new ItemBloodArsenal(), "blood_infused_glowstone_dust");
+        sigil_of_divinity = registerItem(new SigilDivinity(), "sigil_of_divinity");
+        blood_ball = registerItem(new ItemBloodBall(), "blood_ball");
+        wolf_hide = registerItem(new ItemBloodArsenal(), "wolf_hide");
+        blood_money = registerItem(new ItemBloodMoney(), "blood_money");
+        blood_burned_string = registerItem(new ItemReed(ModBlocks.block_burned_string), "blood_burned_string");
+        glass_shard = registerItem(new ItemBloodArsenal(), "glass_shard");
+
         vampire_ring = new VampireRing();
         self_sacrifice_amulet = new SelfSacrificeAmulet();
         sacrifice_amulet = new SacrificeAmulet();
-        glass_shard = new ItemBloodArsenal().setUnlocalizedName("glass_shard");
         empowered_sacrifice_amulet = new EmpoweredSacrificeAmulet();
         empowered_self_sacrifice_amulet = new EmpoweredSelfSacrificeAmulet();
-    }
-
-    public static void registerItems()
-    {
-        GameRegistry.registerItem(bound_bow, "bound_bow");
-        GameRegistry.registerItem(blood_orange, "blood_orange");
-        GameRegistry.registerItem(blood_infused_pickaxe_wood, "blood_infused_pickaxe_wood");
-        GameRegistry.registerItem(blood_infused_axe_wood, "blood_infused_axe_wood");
-        GameRegistry.registerItem(blood_infused_shovel_wood, "blood_infused_shovel_wood");
-        GameRegistry.registerItem(blood_infused_sword_wood, "blood_infused_sword_wood");
-        GameRegistry.registerItem(amorphic_catalyst, "amorphic_catalyst");
-        GameRegistry.registerItem(blood_infused_stick, "blood_infused_stick");
-        GameRegistry.registerItem(bound_sickle, "bound_sickle");
-        GameRegistry.registerItem(blood_infused_pickaxe_iron, "blood_infused_pickaxe_iron");
-        GameRegistry.registerItem(blood_infused_axe_iron, "blood_infused_axe_iron");
-        GameRegistry.registerItem(blood_infused_shovel_iron, "blood_infused_shovel_iron");
-        GameRegistry.registerItem(blood_infused_sword_iron, "blood_infused_sword_iron");
-        GameRegistry.registerItem(blood_infused_iron, "blood_infused_iron");
-        GameRegistry.registerItem(bound_shears, "bound_shears");
-        GameRegistry.registerItem(blood_diamond, "blood_diamond");
-        GameRegistry.registerItem(blood_infused_diamond_unactive, "blood_infused_diamond_unactive");
-        GameRegistry.registerItem(blood_infused_diamond_active, "blood_infused_diamond_active");
-        GameRegistry.registerItem(blood_infused_diamond_bound, "blood_infused_diamond_bound");
-        GameRegistry.registerItem(blood_infused_pickaxe_diamond, "blood_infused_pickaxe_diamond");
-        GameRegistry.registerItem(blood_infused_axe_diamond, "blood_infused_axe_diamond");
-        GameRegistry.registerItem(blood_infused_shovel_diamond, "blood_infused_shovel_diamond");
-        GameRegistry.registerItem(blood_infused_sword_diamond, "blood_infused_sword_diamond");
-        GameRegistry.registerItem(heart, "heart");
-        GameRegistry.registerItem(soul_fragment, "soul_fragment");
-        GameRegistry.registerItem(item_blood_cake, "item_blood_cake");
-        GameRegistry.registerItem(bound_igniter, "bound_flint_and_steel");
-        GameRegistry.registerItem(soul_booster, "soul_booster");
-        GameRegistry.registerItem(soul_nullifier, "soul_nullfier");
-        GameRegistry.registerItem(blood_cookie, "blood_cookie");
-        GameRegistry.registerItem(orange_juice, "orange_juice");
-        GameRegistry.registerItem(juice_and_cookies, "juice_and_cookies");
-        GameRegistry.registerItem(vampire_cape, "vampire_cape");
-        GameRegistry.registerItem(vampire_greaves, "vampire_greaves");
-        GameRegistry.registerItem(vampire_boots, "vampire_boots");
-        GameRegistry.registerItem(energy_gatling, "energy_gatling");
-        GameRegistry.registerItem(sigil_of_swimming, "sigil_of_swimming");
-        GameRegistry.registerItem(sigil_of_ender, "sigil_of_ender");
-        GameRegistry.registerItem(blood_infused_glowstone_dust, "blood_infused_glowstone_dust");
-        GameRegistry.registerItem(sigil_of_divinity, "sigil_of_divinity");
-        GameRegistry.registerItem(blood_ball, "blood_ball");
-        GameRegistry.registerItem(wolf_hide, "wolf_hide");
-        GameRegistry.registerItem(blood_money, "blood_money");
-        GameRegistry.registerItem(blood_burned_string, "blood_burned_string");
-        GameRegistry.registerItem(glass_shard, "glass_shard");
     }
 
     public static void registerBaubles()
@@ -176,5 +128,14 @@ public class ModItems
         GameRegistry.registerItem(sacrifice_amulet, "sacrifice_amulet");
         GameRegistry.registerItem(empowered_self_sacrifice_amulet, "empowered_self_sacrifice_amulet");
         GameRegistry.registerItem(empowered_sacrifice_amulet, "empowered_sacrifice_amulet");
+    }
+
+    public static Item registerItem(Item item, String unlocalizedName)
+    {
+        item.setUnlocalizedName(unlocalizedName);
+        item.setTextureName(BloodArsenal.MODID + ":" + unlocalizedName);
+        item.setCreativeTab(BloodArsenal.BA_TAB);
+        GameRegistry.registerItem(item, unlocalizedName);
+        return item;
     }
 }

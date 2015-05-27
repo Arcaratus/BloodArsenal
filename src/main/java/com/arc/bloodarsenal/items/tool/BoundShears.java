@@ -3,6 +3,7 @@ package com.arc.bloodarsenal.items.tool;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.arc.bloodarsenal.BloodArsenal;
+import com.arc.bloodarsenal.entity.mob.EntityBloodHound;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -228,6 +229,11 @@ public class BoundShears extends ItemShears implements IBindable
         if (!getActivated(par1ItemStack))
         {
             return par1ItemStack;
+        }
+
+        if (!par2World.isRemote)
+        {
+            par2World.spawnEntityInWorld(new EntityBloodHound(par2World));
         }
 
         return par1ItemStack;

@@ -23,13 +23,13 @@ public class ItemBloodArsenal extends Item
     public ItemBloodArsenal()
     {
         super();
-        setCreativeTab(BloodArsenal.BA_TAB);
+//        setCreativeTab(BloodArsenal.BA_TAB);
     }
 
-    @Override
+/*    @Override
     public void registerIcons(IIconRegister iconRegister)
     {
-/*        icons = new IIcon[ITEM_NAMES.length];
+        icons = new IIcon[ITEM_NAMES.length];
 
         for (int i = 0; i < ITEM_NAMES.length; ++i)
         {
@@ -46,8 +46,8 @@ public class ItemBloodArsenal extends Item
         }
         */
 
-        String unlocalizedName = this.getUnlocalizedName().replaceAll("item.", "");
-        itemIcon = iconRegister.registerIcon(BloodArsenal.MODID + ":" + unlocalizedName);
+//        String unlocalizedName = this.getUnlocalizedName().replaceAll("item.", "");
+//        itemIcon = iconRegister.registerIcon(BloodArsenal.MODID + ":" + unlocalizedName);
 
 /*        if (this.equals(ModItems.amorphic_catalyst))
             itemIcon = iconRegister.registerIcon("BloodArsenal:amorphic_catalyst");
@@ -71,9 +71,9 @@ public class ItemBloodArsenal extends Item
             itemIcon = iconRegister.registerIcon("BloodArsenal:blood_burned_string");
         else if (this.equals(ModItems.glass_shard))
             itemIcon = iconRegister.registerIcon("BloodArsenal:glass_shard");
-            */
-    }
 
+    }
+*/
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {

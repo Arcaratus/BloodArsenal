@@ -1,6 +1,5 @@
 package com.arc.bloodarsenal.block;
 
-import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.entity.EntityBloodTNT;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -28,8 +27,6 @@ public class BlockBloodTNT extends Block
     public BlockBloodTNT()
     {
         super(Material.tnt);
-        setBlockName("blood_tnt");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(0.0F);
         setStepSound(soundTypeGrass);
     }

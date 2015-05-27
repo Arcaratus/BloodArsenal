@@ -1,6 +1,5 @@
 package com.arc.bloodarsenal.block;
 
-import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.items.ModItems;
 import net.minecraft.block.BlockGlowstone;
 import net.minecraft.block.material.Material;
@@ -13,9 +12,6 @@ public class BlockBloodInfusedGlowstone extends BlockGlowstone
     public BlockBloodInfusedGlowstone()
     {
         super(Material.glass);
-        setBlockName("blood_infused_glowstone");
-        setBlockTextureName("BloodArsenal:blood_infused_glowstone");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(0.5F);
         setResistance(0.75F);
         setStepSound(soundTypeGlass);

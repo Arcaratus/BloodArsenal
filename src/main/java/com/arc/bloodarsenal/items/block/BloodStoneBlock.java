@@ -43,7 +43,7 @@ public class BloodStoneBlock extends ItemBlock
                 name = "blood_stone";
         }
 
-        return getUnlocalizedName() + "." + name;
+        return "tile." + name;
     }
 
     @Override

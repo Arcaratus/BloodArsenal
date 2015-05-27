@@ -26,7 +26,6 @@ public class BlockBloodCake extends Block
     public BlockBloodCake()
     {
         super(Material.cake);
-        setBlockName("blood_cake");
     }
 
     @Override

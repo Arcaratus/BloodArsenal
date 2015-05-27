@@ -1,6 +1,5 @@
 package com.arc.bloodarsenal.block;
 
-import com.arc.bloodarsenal.BloodArsenal;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -24,8 +23,6 @@ public class BlockBloodStone extends Block
     public BlockBloodStone()
     {
         super(Material.iron);
-        setBlockName("blood_stone");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(2.0F);
         setResistance(5.0F);
         setStepSound(soundTypePiston);

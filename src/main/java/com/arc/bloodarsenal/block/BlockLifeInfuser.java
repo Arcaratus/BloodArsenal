@@ -1,13 +1,12 @@
 package com.arc.bloodarsenal.block;
 
 import WayofTime.alchemicalWizardry.ModItems;
-import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
 import WayofTime.alchemicalWizardry.common.items.sigil.SigilOfHolding;
-import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.tileentity.TileLifeInfuser;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -25,8 +24,6 @@ public class BlockLifeInfuser extends BlockContainer
     public BlockLifeInfuser()
     {
         super(Material.iron);
-        setBlockName("life_infuser");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(6.0F);
         setResistance(12.0F);
         setStepSound(soundTypePiston);
@@ -192,8 +189,7 @@ public class BlockLifeInfuser extends BlockContainer
     }
 
     @Override
-    public boolean hasTileEntity()
-    {
-        return true;
+    public void registerBlockIcons(IIconRegister par1IconRegister) {
+        // NO-OP
     }
 }

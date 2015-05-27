@@ -1,6 +1,5 @@
 package com.arc.bloodarsenal.block;
 
-import com.arc.bloodarsenal.BloodArsenal;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockRotatedPillar;
@@ -16,8 +15,6 @@ public class BlockBloodInfusedWood extends BlockRotatedPillar
     public BlockBloodInfusedWood()
     {
         super(Material.wood);
-        setBlockName("blood_infused_wood");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setHardness(3.0F);
         setResistance(6.0F);
         setStepSound(soundTypeWood);
