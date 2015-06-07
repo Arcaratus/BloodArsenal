@@ -41,7 +41,7 @@ import java.util.Calendar;
 public class BloodArsenal
 {
     public final static String MODID = "BloodArsenal";
-    public final static String VERSION = "1.1-7";
+    public final static String VERSION = "1.1-9";
 
     @SidedProxy(clientSide = "com.arc.bloodarsenal.ClientProxy", serverSide = "com.arc.bloodarsenal.CommonProxy")
     public static CommonProxy proxy;
