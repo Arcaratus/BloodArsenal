@@ -91,6 +91,8 @@ public class BloodArsenalRecipes
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_ender), "aba", "cdc", "efe", 'a', Blocks.obsidian, 'b', Items.ender_eye, 'c', Items.ender_pearl, 'd', imbuedSlate, 'e', Blocks.ender_chest, 'f', magicianOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_divinity), "aba", "cde", "fgf", 'a', ModBlocks.blood_infused_glowstone, 'b', new ItemStack(Items.golden_apple, 1, 1), 'c', Items.nether_star, 'd', WayofTime.alchemicalWizardry.ModItems.sigilOfElementalAffinity, 'e', ModItems.blood_infused_diamond_bound, 'f', ModItems.amorphic_catalyst, 'g', transcendentOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_burned_string, 4), "aaa", "aba", "aaa", 'a', Items.string, 'b', weakOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_augmented_holding), "aba", "cde", "fgf", 'a', demonicSlate, 'b', masterOrb, 'c', Items.blaze_rod, 'd', WayofTime.alchemicalWizardry.ModItems.sigilOfHolding, 'e', Items.ghast_tear, 'f', ModItems.blood_infused_iron, 'g', Blocks.chest);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_lightning), "aba", "cdc", "efg", 'a', new ItemStack(ModBlocks.blood_stone, 1, 3), 'b', Blocks.iron_block, 'c', ModBlocks.blood_infused_iron_block, 'd', etherealSlate, 'e', Items.nether_star, 'f', archmageOrb, 'g', ModItems.blood_infused_diamond_bound);
 
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone), "aaa", "aaa", "aaa", 'a', blankSlate);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 1), "aaa", "aaa", "aaa", 'a', reinforcedSlate);

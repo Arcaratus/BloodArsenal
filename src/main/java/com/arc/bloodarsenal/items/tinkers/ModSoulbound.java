@@ -3,6 +3,7 @@ package com.arc.bloodarsenal.items.tinkers;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.tools.ToolCore;
@@ -13,12 +14,11 @@ import java.util.ArrayList;
 
 public class ModSoulbound extends ModBoolean
 {
-    public ArrayList<ItemStack> orbs = new ArrayList<ItemStack>();
     public int modifiersRequired = 1;
 
-    public ModSoulbound()
+    public ModSoulbound(ItemStack[] items)
     {
-        super(new ItemStack[0], 20, "Soulbound", "\u00a74", "Soulbound");
+        super(items, 1, "Soulbound", "\u00a74", "Soulbound");
     }
 
     @Override
@@ -32,15 +32,13 @@ public class ModSoulbound extends ModBoolean
                 return false;
 
         ItemStack foundOrb = null;
+        ItemStack masterOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.masterBloodOrb, 1, OreDictionary.WILDCARD_VALUE);
 
         for (ItemStack stack : input)
-            for (ItemStack battery : orbs)
             {
                 if (stack == null)
                     continue;
-                if (stack.getItem() != battery.getItem())
-                    continue;
-                if (!(stack.getItem() instanceof IBloodOrb))
+                if (stack.getItem() != masterOrb.getItem())
                     continue;
                 if (foundOrb != null)
                     return false;
@@ -77,14 +75,13 @@ public class ModSoulbound extends ModBoolean
 
         // find the battery in the input
         ItemStack inputBattery = null;
+        ItemStack masterOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.masterBloodOrb, 1, OreDictionary.WILDCARD_VALUE);
+
         for (ItemStack stack : input)
-            for (ItemStack battery : orbs)
             {
                 if (stack == null)
                     continue;
-                if (stack.getItem() != battery.getItem())
-                    continue;
-                if (!(stack.getItem() instanceof IBloodOrb))
+                if (stack.getItem() != masterOrb.getItem())
                     continue;
 
                 // we're guaranteed to only find one battery because more are prevented above

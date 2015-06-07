@@ -8,14 +8,12 @@ public class BloodArsenalModifiers
 {
     public static void init()
     {
-
+        initModifiers();
     }
 
     public static void initModifiers()
     {
-        int craftingConstant = OreDictionary.WILDCARD_VALUE;
-
-        ItemStack masterOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.masterBloodOrb, 1, craftingConstant);
-        ModifyBuilder.registerModifier(new ModSoulbound());
+        ItemStack masterOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.masterBloodOrb, 1, OreDictionary.WILDCARD_VALUE);
+        ModifyBuilder.registerModifier(new ModSoulbound(new ItemStack[] {masterOrb}));
     }
 }

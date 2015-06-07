@@ -38,6 +38,13 @@ public class BloodArsenalTinkers
     public static PartHelper TOUGHBIND;
     public static PartHelper TOUGHROD;
 
+    public static void init()
+    {
+        addMaterials();
+
+        addParts();
+    }
+
     public static void addMaterials()
     {
         TConstructRegistry.addToolMaterial(250, "Blood Infused Iron", "blood_infused_iron", 3, 550, 1800, 3, 1.5F, 0, 0.0F, "Blood Infused Iron", 0xab0000);

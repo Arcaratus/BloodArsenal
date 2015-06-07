@@ -1,12 +1,11 @@
 package com.arc.bloodarsenal.items.sigil;
 
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
+import WayofTime.alchemicalWizardry.api.items.interfaces.ISigil;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
-import com.arc.bloodarsenal.BloodArsenal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
@@ -14,15 +13,12 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class SigilEnder extends EnergyItems implements IBindable
+public class SigilEnder extends EnergyItems implements IBindable, ISigil
 {
     public SigilEnder()
     {
         super();
         setMaxStackSize(1);
-        setUnlocalizedName("sigil_of_ender");
-        setTextureName("BloodArsenal:sigil_of_ender");
-        setCreativeTab(BloodArsenal.BA_TAB);
     }
 
     @Override
@@ -51,7 +47,7 @@ public class SigilEnder extends EnergyItems implements IBindable
 
         if (player.isSneaking() && !player.isSwingInProgress)
         {
-            MovingObjectPosition mop = EnderSigilUtils.getTargetBlock(world, (player.prevPosX + (player.posX - player.prevPosX)),
+            MovingObjectPosition mop = SigilUtils.getTargetBlock(world, (player.prevPosX + (player.posX - player.prevPosX)),
                     (player.prevPosY + (player.posY - player.prevPosY) + 1.62 - player.yOffset),
                     (player.prevPosZ + (player.posZ - player.prevPosZ)),
                     (player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw)),

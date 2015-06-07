@@ -5,9 +5,8 @@ import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.items.armor.VampireCostume;
 import com.arc.bloodarsenal.items.bauble.*;
-import com.arc.bloodarsenal.items.sigil.SigilDivinity;
-import com.arc.bloodarsenal.items.sigil.SigilEnder;
-import com.arc.bloodarsenal.items.sigil.SigilSwimming;
+import com.arc.bloodarsenal.items.sigil.*;
+import com.arc.bloodarsenal.items.sigil.holding.SigilAugmentedHolding;
 import com.arc.bloodarsenal.items.tool.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
@@ -65,6 +64,8 @@ public class ModItems
     public static Item glass_shard;
     public static Item empowered_sacrifice_amulet;
     public static Item empowered_self_sacrifice_amulet;
+    public static Item sigil_of_augmented_holding;
+    public static Item sigil_of_lightning;
 
     public static void init()
     {
@@ -113,6 +114,8 @@ public class ModItems
         blood_money = registerItem(new ItemBloodMoney(), "blood_money");
         blood_burned_string = registerItem(new ItemReed(ModBlocks.block_burned_string), "blood_burned_string");
         glass_shard = registerItem(new ItemBloodArsenal(), "glass_shard");
+        sigil_of_augmented_holding = registerItem(new SigilAugmentedHolding(), "sigil_of_augmented_holding");
+        sigil_of_lightning = registerItem(new SigilLightning(), "sigil_of_lightning");
 
         vampire_ring = new VampireRing();
         self_sacrifice_amulet = new SelfSacrificeAmulet();

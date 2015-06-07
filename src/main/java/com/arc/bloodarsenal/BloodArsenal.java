@@ -4,6 +4,9 @@ import com.arc.bloodarsenal.entity.ModEntities;
 import com.arc.bloodarsenal.entity.ModLivingDropsEvent;
 import com.arc.bloodarsenal.gui.GuiHandler;
 import com.arc.bloodarsenal.items.ModItems;
+import com.arc.bloodarsenal.items.sigil.SigilUtils;
+import com.arc.bloodarsenal.items.sigil.holding.AHPacketHandler;
+import com.arc.bloodarsenal.items.tinkers.BloodArsenalModifiers;
 import com.arc.bloodarsenal.items.tinkers.BloodArsenalTinkers;
 import com.arc.bloodarsenal.items.tinkers.RecipeHelper;
 import com.arc.bloodarsenal.misc.CommandDownloadMod;
@@ -67,6 +70,7 @@ public class BloodArsenal
         }
     };
 
+    public static final AHPacketHandler packetPipeline = new AHPacketHandler();
     public static DamageSource deathFromBlood = (new DamageSource("deathFromBlood")).setDamageBypassesArmor();
 
     public static boolean isHalloween()
@@ -121,6 +125,7 @@ public class BloodArsenal
         MinecraftForge.EVENT_BUS.register(eventHook);
 
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+        AHPacketHandler.init();
     }
 
     @Mod.EventHandler
@@ -157,8 +162,8 @@ public class BloodArsenal
             {
                 logger.info("Loaded Tinker's Construct integration");
 
-                BloodArsenalTinkers.addMaterials();
-                BloodArsenalTinkers.addParts();
+                BloodArsenalTinkers.init();
+                BloodArsenalModifiers.init();
                 RecipeHelper.addRecipes();
             }
         }

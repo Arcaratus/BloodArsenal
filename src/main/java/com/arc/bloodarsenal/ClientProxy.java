@@ -6,6 +6,7 @@ import com.arc.bloodarsenal.entity.mob.EntityBloodHound;
 import com.arc.bloodarsenal.entity.projectile.EntityBloodBall;
 import com.arc.bloodarsenal.entity.projectile.EntityGatlingProjectile;
 import com.arc.bloodarsenal.items.ModItems;
+import com.arc.bloodarsenal.items.sigil.SigilUtils;
 import com.arc.bloodarsenal.misc.VersionChecker;
 import com.arc.bloodarsenal.renderer.block.*;
 import com.arc.bloodarsenal.renderer.entity.RenderEntityBloodHound;
@@ -25,6 +26,7 @@ import net.minecraft.client.renderer.entity.RenderTNTPrimed;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy
 {
@@ -63,6 +65,8 @@ public class ClientProxy extends CommonProxy
         {
             new VersionChecker().init();
         }
+
+        MinecraftForge.EVENT_BUS.register(new SigilUtils());
     }
 
     @Override

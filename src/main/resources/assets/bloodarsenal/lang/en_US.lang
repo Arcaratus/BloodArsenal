@@ -82,39 +82,8 @@ item.blood_burned_string.name=Blood Burned String
 item.glass_shard.name=Glass Shard
 item.empowered_sacrifice_amulet.name=Empowered Sacrifice Amulet
 item.empowered_self_sacrifice_amulet.name=Empowered Self Sacrifice Amulet
-
-#TConstruct Stuffs
-material.blood.infused.iron=Blood Infused Iron
-
-part.arrowhead=@material@ Arrowhead
-part.axe.head=@material@ Axe Head
-part.battle.sign=@material@ Battle Sign
-part.binding=@material@ Binding
-part.bolt=@material@ Bolt
-part.bow.limb=@material@ Bow Limb
-part.chisel.head=@material@ Chisel Head
-part.chunk=@material@ Chunk
-part.crossbar=@material@ Crossbar
-part.crossbow.body=@material@ Crossbow Body
-part.crossbow.limb=@material@ Crossbow Limb
-part.excavator.head=@material@ Excavator Head
-part.frypan.head=@material@ Pan Head
-part.full.guard=@material@ Full Guard
-part.hammer.head=@material@ Hammer Head
-part.knife.blade=@material@ Knife Blade
-part.large.guard=@material@ Large Guard
-part.large.sword.blade=@material@ Large Sword Blade
-part.largeplate=@material@ Large Plate
-part.lumberaxe.head=@material@ Broad Axe Head
-part.medium.guard=@material@ Medium Guard
-part.pickaxe.head=@material@ Pickaxe Head
-part.scythe.head=@material@ Scythe Head
-part.shovel.head=@material@ Shovel Head
-part.shuriken=@material@ Shuriken
-part.sword.blade=@material@ Sword Blade
-part.toolrod=@material@ Tool Rod
-part.toughbind=@material@ Tough Binding
-part.toughrod=@material@ Tough Rod
+item.sigil_of_augmented_holding.name=Sigil of Augmented Holding
+item.sigil_of_lightning.name=Lightning Sigil
 
 #Death Texts
 death.attack.deathFromBlood=%1$s lost too much blood
@@ -153,6 +122,9 @@ tooltip.sigil.swimming=Just keep swimming!
 tooltip.sigil.ender1=Sticking your hand
 tooltip.sigil.ender2=into the End!
 tooltip.sigil.divinity=May the Divines protect you!
+tooltip.sigil.augmentedHolding=Hold all the sigils!
+tooltip.sigil.lightning=Let 'er rip!
+tooltip.sigil.lightning2=Mode:
 tooltip.bloodMoney.money=Pay your debts in blood!
 
 tooltip.shiftinfo=Press &cSHIFT&7 for more info
@@ -201,3 +173,38 @@ ba.versioning.error=An error has occurred while downloading the mod!
 ba.versioning.downloadedAlready=You have the latest version already, delete the old BloodArsenal .jar and reload your game to update!
 ba.versioning.downloadingAlready=It's downloading! Be patient!
 ba.versioning.disabled=This feature is disabled.
+
+#TConstruct Stuffs
+material.blood.infused.iron=Blood Infused Iron
+
+part.arrowhead=@material@ Arrowhead
+part.axe.head=@material@ Axe Head
+part.battle.sign=@material@ Battle Sign
+part.binding=@material@ Binding
+part.bolt=@material@ Bolt
+part.bow.limb=@material@ Bow Limb
+part.chisel.head=@material@ Chisel Head
+part.chunk=@material@ Chunk
+part.crossbar=@material@ Crossbar
+part.crossbow.body=@material@ Crossbow Body
+part.crossbow.limb=@material@ Crossbow Limb
+part.excavator.head=@material@ Excavator Head
+part.frypan.head=@material@ Pan Head
+part.full.guard=@material@ Full Guard
+part.hammer.head=@material@ Hammer Head
+part.knife.blade=@material@ Knife Blade
+part.large.guard=@material@ Large Guard
+part.large.sword.blade=@material@ Large Sword Blade
+part.largeplate=@material@ Large Plate
+part.lumberaxe.head=@material@ Broad Axe Head
+part.medium.guard=@material@ Medium Guard
+part.pickaxe.head=@material@ Pickaxe Head
+part.scythe.head=@material@ Scythe Head
+part.shovel.head=@material@ Shovel Head
+part.shuriken=@material@ Shuriken
+part.sword.blade=@material@ Sword Blade
+part.toolrod=@material@ Tool Rod
+part.toughbind=@material@ Tough Binding
+part.toughrod=@material@ Tough Rod
+
+modifier.toolstation.Soulbound=Soulbound

@@ -2,6 +2,7 @@ package com.arc.bloodarsenal.items.sigil;
 
 import WayofTime.alchemicalWizardry.api.items.interfaces.ArmourUpgrade;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
+import WayofTime.alchemicalWizardry.api.items.interfaces.ISigil;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.BloodArsenalConfig;
@@ -20,7 +21,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class SigilDivinity extends EnergyItems implements ArmourUpgrade, IBindable
+public class SigilDivinity extends EnergyItems implements ArmourUpgrade, IBindable, ISigil
 {
     @SideOnly(Side.CLIENT)
     public IIcon activeIcon;
@@ -31,8 +32,6 @@ public class SigilDivinity extends EnergyItems implements ArmourUpgrade, IBindab
     {
         super();
         setMaxStackSize(1);
-        setUnlocalizedName("sigil_of_divinity");
-        setCreativeTab(BloodArsenal.BA_TAB);
         setEnergyUsed(50000);
     }
 
