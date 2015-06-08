@@ -28,7 +28,7 @@ public class BloodArsenalRecipes
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_infused_wood), new ItemStack(Blocks.log), 2, 3000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_infused_iron_block), new ItemStack(Blocks.iron_block), 3, 54000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.item_blood_cake), new ItemStack(Items.cake), 3, 10000, 5, 5, false);
-        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_iron), new ItemStack(Items.iron_ingot), 3, 6000, 5, 5, false);
+        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_iron), new ItemStack(Items.iron_ingot), 2, 6000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_orange), new ItemStack(Items.dye, 1, 14), 1, 200, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_diamond_active), new ItemStack(ModItems.blood_infused_diamond_unactive), 4, 80000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.soul_fragment), new ItemStack(ModItems.heart), 4, 75000, 5, 5, false);
@@ -93,6 +93,12 @@ public class BloodArsenalRecipes
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_burned_string, 4), "aaa", "aba", "aaa", 'a', Items.string, 'b', weakOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_augmented_holding), "aba", "cde", "fgf", 'a', demonicSlate, 'b', masterOrb, 'c', Items.blaze_rod, 'd', WayofTime.alchemicalWizardry.ModItems.sigilOfHolding, 'e', Items.ghast_tear, 'f', ModItems.blood_infused_iron, 'g', Blocks.chest);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.sigil_of_lightning), "aba", "cdc", "efg", 'a', new ItemStack(ModBlocks.blood_stone, 1, 3), 'b', Blocks.iron_block, 'c', ModBlocks.blood_infused_iron_block, 'd', etherealSlate, 'e', Items.nether_star, 'f', archmageOrb, 'g', ModItems.blood_infused_diamond_bound);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_sacrificial_dagger), "aaa", "aba", "cdc", 'a', ModItems.glass_shard, 'b', WayofTime.alchemicalWizardry.ModItems.sacrificialDagger, 'c', ModItems.blood_infused_iron, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_dagger_of_sacrifice), "aaa", "aba", "cdc", 'a', ModItems.glass_shard, 'b', WayofTime.alchemicalWizardry.ModItems.daggerOfSacrifice, 'c', ModItems.blood_infused_iron, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_helmet), "aaa", "aba", 'a', ModItems.glass_shard, 'b', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_chestplate), "aba", "aaa", "aaa", 'a', ModItems.glass_shard, 'b', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_leggings), "aaa", "aba", "a a", 'a', ModItems.glass_shard, 'b', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_boots), "a a", "aba", 'a', ModItems.glass_shard, 'b', apprenticeOrb);
 
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone), "aaa", "aaa", "aaa", 'a', blankSlate);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 1), "aaa", "aaa", "aaa", 'a', reinforcedSlate);

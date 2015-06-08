@@ -5,11 +5,13 @@ import baubles.common.lib.PlayerHandler;
 import baubles.common.network.PacketHandler;
 import baubles.common.network.PacketSyncBauble;
 import com.arc.bloodarsenal.items.ModItems;
+import com.arc.bloodarsenal.items.armor.GlassArmor;
 import com.arc.bloodarsenal.items.bauble.EmpoweredSacrificeAmulet;
 import com.arc.bloodarsenal.items.bauble.EmpoweredSelfSacrificeAmulet;
 import com.arc.bloodarsenal.items.bauble.SacrificeAmulet;
 import com.arc.bloodarsenal.items.bauble.SelfSacrificeAmulet;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
@@ -35,7 +37,7 @@ import java.util.Random;
 
 public class BloodArsenalEventHooks
 {
-    public static double rand = Math.random();
+    public static Random rand = new Random();
 
     @SubscribeEvent
     public void onEntityDamaged(LivingAttackEvent event)
@@ -69,9 +71,23 @@ public class BloodArsenalEventHooks
                     }
                 }
 
-                if (BloodArsenalConfig.baublesIntegration)
+                if (BloodArsenalConfig.baublesIntegration && Loader.isModLoaded("Baubles"))
                 {
                     selfSacrificeHandler(event);
+                }
+
+                EntityPlayer player = (EntityPlayer) entityAttacked;
+                for (int i = 0; i < 4; i++)
+                {
+                    ItemStack armorStack = player.inventory.armorInventory[3 - i];
+
+                    if (armorStack.getItem() instanceof GlassArmor)
+                    {
+                        if (entityAttacking instanceof EntityLivingBase)
+                        {
+                            ((EntityLivingBase) entityAttacking).addPotionEffect(new PotionEffect(BloodArsenalConfig.bleedingID, rand.nextInt(5) * 20, rand.nextInt(1)));
+                        }
+                    }
                 }
             }
         }
@@ -87,7 +103,7 @@ public class BloodArsenalEventHooks
     {
         Entity killer = event.source.getEntity();
 
-        if (killer != null && killer instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration)
+        if (killer != null && killer instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration && Loader.isModLoaded("Baubles"))
         {
             sacrificeHandler(event);
         }
@@ -104,7 +120,7 @@ public class BloodArsenalEventHooks
             {
                 int amplifier = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getAmplifier();
                 int duration = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getDuration();
-                int damage = ((int)(rand * rand) * (amplifier + 1) + 3);
+                int damage = (rand.nextInt(5) * (amplifier + 1) + 3);
 
                 if (entityLiving.worldObj.getWorldTime() % (20 / (amplifier + 1)) == 0)
                 {
@@ -195,7 +211,7 @@ public class BloodArsenalEventHooks
                         {
                             event.drops.add(new ItemStack(ModItems.glass_shard));
                         }
-                        event.dropChance = 0.5F;
+                        event.dropChance = 0.25F;
                     }
                 }
             }
@@ -212,6 +228,7 @@ public class BloodArsenalEventHooks
         }
     }
 
+    @Optional.Method(modid = "Baubles")
     private void sacrificeHandler(LivingDeathEvent event)
     {
         Entity killer = event.source.getEntity();
@@ -262,6 +279,7 @@ public class BloodArsenalEventHooks
         }
     }
 
+    @Optional.Method(modid = "Baubles")
     private void selfSacrificeHandler(LivingAttackEvent event)
     {
         EntityLivingBase entityAttacked = event.entityLiving;

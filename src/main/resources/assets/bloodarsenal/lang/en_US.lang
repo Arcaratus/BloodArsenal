@@ -84,6 +84,12 @@ item.empowered_sacrifice_amulet.name=Empowered Sacrifice Amulet
 item.empowered_self_sacrifice_amulet.name=Empowered Self Sacrifice Amulet
 item.sigil_of_augmented_holding.name=Sigil of Augmented Holding
 item.sigil_of_lightning.name=Lightning Sigil
+item.glass_sacrificial_dagger.name=Glass Sacrificial Dagger
+item.glass_dagger_of_sacrifice.name=Glass Dagger of Sacrifice
+item.glass_helmet.name=Glass Helmet
+item.glass_chestplate.name=Glass Chestplate
+item.glass_leggings.name=Glass Leggings
+item.glass_boots.name=Glass Boots
 
 #Death Texts
 death.attack.deathFromBlood=%1$s lost too much blood
@@ -118,6 +124,8 @@ tooltip.tool.blood_infused_diamond_axe=Demonic deforestation!
 tooltip.tool.blood_infused_diamond_pickaxe=A handheld quarry
 tooltip.tool.blood_infused_diamond_shovel=Making a hole
 tooltip.tool.blood_infused_diamond_sword=Slices right through!
+tooltip.tool.glassSacrificeDagger=Don't play with this!
+tooltip.tool.glassDaggerOfSacrifice=Making it hurt
 tooltip.sigil.swimming=Just keep swimming!
 tooltip.sigil.ender1=Sticking your hand
 tooltip.sigil.ender2=into the End!
@@ -126,6 +134,7 @@ tooltip.sigil.augmentedHolding=Hold all the sigils!
 tooltip.sigil.lightning=Let 'er rip!
 tooltip.sigil.lightning2=Mode:
 tooltip.bloodMoney.money=Pay your debts in blood!
+tooltip.armor.glassArmor=More painful than it looks
 
 tooltip.shiftinfo=Press &cSHIFT&7 for more info
 

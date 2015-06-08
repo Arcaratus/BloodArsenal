@@ -33,7 +33,6 @@ public class VampireCostume extends ItemArmor
     {
         super(BloodArsenal.vampireArmor, 0, armorType);
         setMaxDamage(0);
-        setCreativeTab(BloodArsenal.BA_TAB);
     }
 
     ModelBiped model1 = null;
@@ -118,6 +117,7 @@ public class VampireCostume extends ItemArmor
         bootsIcon = iconRegister.registerIcon("BloodArsenal:vampire_boots");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int par1)
     {
@@ -142,7 +142,7 @@ public class VampireCostume extends ItemArmor
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
     {
-        if (this.tryComplexRendering)
+        if (tryComplexRendering)
         {
             return "BloodArsenal:models/armor/VampireCostume.png";
         }
@@ -188,26 +188,6 @@ public class VampireCostume extends ItemArmor
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         return super.onItemRightClick(par1ItemStack, par2World, par3EntityPlayer);
-    }
-
-    public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot)
-    {
-        if (armor.equals(ModItems.vampire_cape))
-        {
-            return 8;
-        }
-
-        if (armor.equals(ModItems.vampire_greaves))
-        {
-            return 6;
-        }
-
-        if (armor.equals(ModItems.vampire_boots))
-        {
-            return 3;
-        }
-
-        return 5;
     }
 
     @Override

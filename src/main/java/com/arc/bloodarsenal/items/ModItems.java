@@ -3,6 +3,7 @@ package com.arc.bloodarsenal.items;
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import com.arc.bloodarsenal.BloodArsenal;
 import com.arc.bloodarsenal.block.ModBlocks;
+import com.arc.bloodarsenal.items.armor.GlassArmor;
 import com.arc.bloodarsenal.items.armor.VampireCostume;
 import com.arc.bloodarsenal.items.bauble.*;
 import com.arc.bloodarsenal.items.sigil.*;
@@ -66,6 +67,12 @@ public class ModItems
     public static Item empowered_self_sacrifice_amulet;
     public static Item sigil_of_augmented_holding;
     public static Item sigil_of_lightning;
+    public static Item glass_sacrificial_dagger;
+    public static Item glass_dagger_of_sacrifice;
+    public static Item glass_helmet;
+    public static Item glass_chestplate;
+    public static Item glass_leggings;
+    public static Item glass_boots;
 
     public static void init()
     {
@@ -94,7 +101,7 @@ public class ModItems
         blood_infused_sword_diamond = registerItem(new InfusedDiamondSword(), "blood_infused_sword_diamond");
         heart = registerItem(new ItemBloodArsenal(), "heart");
         soul_fragment = registerItem(new ItemBloodArsenal(), "soul_fragment");
-        bound_igniter = registerItem(new BoundIgniter(), "bound_flint_and_steel");
+        bound_igniter = registerItem(new BoundIgniter(), "bound_igniter");
         soul_booster = registerItem(new ItemSoulBooster(), "soul_booster");
         soul_nullifier = registerItem(new ItemSoulNullifier(), "soul_nullifier");
         blood_cookie = registerItem(new ItemBloodCookie(), "blood_cookie");
@@ -116,6 +123,12 @@ public class ModItems
         glass_shard = registerItem(new ItemBloodArsenal(), "glass_shard");
         sigil_of_augmented_holding = registerItem(new SigilAugmentedHolding(), "sigil_of_augmented_holding");
         sigil_of_lightning = registerItem(new SigilLightning(), "sigil_of_lightning");
+        glass_sacrificial_dagger = registerItem(new GlassSacrificialDagger(), "glass_sacrificial_dagger");
+        glass_dagger_of_sacrifice = registerItem(new GlassDaggerOfSacrifice(), "glass_dagger_of_sacrifice");
+        glass_helmet = registerItem(new GlassArmor(0), "glass_helmet");
+        glass_chestplate = registerItem(new GlassArmor(1), "glass_chestplate");
+        glass_leggings = registerItem(new GlassArmor(2), "glass_leggings");
+        glass_boots = registerItem(new GlassArmor(3), "glass_boots");
 
         vampire_ring = new VampireRing();
         self_sacrifice_amulet = new SelfSacrificeAmulet();

@@ -41,7 +41,7 @@ import java.util.Calendar;
 public class BloodArsenal
 {
     public final static String MODID = "BloodArsenal";
-    public final static String VERSION = "1.1-9";
+    public final static String VERSION = "1.1-10";
 
     @SidedProxy(clientSide = "com.arc.bloodarsenal.ClientProxy", serverSide = "com.arc.bloodarsenal.CommonProxy")
     public static CommonProxy proxy;
@@ -59,6 +59,7 @@ public class BloodArsenal
 
     public static ItemArmor.ArmorMaterial vampireArmor = EnumHelper.addArmorMaterial("VampireArmor", 0, new int[]{2, 7, 4, 2}, 0);
     public static ItemArmor.ArmorMaterial lifeImbuedArmor = EnumHelper.addArmorMaterial("ImbuedArmor", 0, new int[]{4, 10, 8, 4}, 7);
+    public static ItemArmor.ArmorMaterial glassArmor = EnumHelper.addArmorMaterial("GlassArmor", 0, new int[]{1, 4, 3, 1}, 4);
 
 	public static Logger logger = LogManager.getLogger(MODID);
     public static CreativeTabs BA_TAB = new CreativeTabs("BA_TAB")
