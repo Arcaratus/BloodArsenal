@@ -22,6 +22,7 @@ public class InfusedDiamond extends Item
         setCreativeTab(BloodArsenal.BA_TAB);
     }
 
+    @Override
     public void registerIcons(IIconRegister iconRegister)
     {
         if (equals(ModItems.blood_diamond))
@@ -76,15 +77,8 @@ public class InfusedDiamond extends Item
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack)
+    public boolean hasEffect(ItemStack par1ItemStack, int pass)
     {
-        if (equals(ModItems.blood_infused_diamond_bound))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return equals(ModItems.blood_infused_diamond_bound);
     }
 }

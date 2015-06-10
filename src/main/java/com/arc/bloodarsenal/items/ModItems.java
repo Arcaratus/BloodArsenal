@@ -6,9 +6,11 @@ import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.items.armor.GlassArmor;
 import com.arc.bloodarsenal.items.armor.VampireCostume;
 import com.arc.bloodarsenal.items.bauble.*;
+import com.arc.bloodarsenal.items.orb.TransparentOrb;
 import com.arc.bloodarsenal.items.sigil.*;
 import com.arc.bloodarsenal.items.sigil.holding.SigilAugmentedHolding;
 import com.arc.bloodarsenal.items.tool.*;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemReed;
@@ -73,6 +75,7 @@ public class ModItems
     public static Item glass_chestplate;
     public static Item glass_leggings;
     public static Item glass_boots;
+    public static Item transparent_orb;
 
     public static void init()
     {
@@ -129,6 +132,7 @@ public class ModItems
         glass_chestplate = registerItem(new GlassArmor(1), "glass_chestplate");
         glass_leggings = registerItem(new GlassArmor(2), "glass_leggings");
         glass_boots = registerItem(new GlassArmor(3), "glass_boots");
+        transparent_orb = registerItem(new TransparentOrb(30000000), "transparent_orb");
 
         vampire_ring = new VampireRing();
         self_sacrifice_amulet = new SelfSacrificeAmulet();
@@ -137,6 +141,7 @@ public class ModItems
         empowered_self_sacrifice_amulet = new EmpoweredSelfSacrificeAmulet();
     }
 
+    @Optional.Method(modid = "Baubles")
     public static void registerBaubles()
     {
         GameRegistry.registerItem(vampire_ring, "vampire_ring");

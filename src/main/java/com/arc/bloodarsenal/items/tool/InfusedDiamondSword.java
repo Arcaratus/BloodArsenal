@@ -136,6 +136,7 @@ public class InfusedDiamondSword extends ItemSword implements IBindable
         return par1ItemStack;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean isFull3D()
     {
@@ -144,11 +145,12 @@ public class InfusedDiamondSword extends ItemSword implements IBindable
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack)
+    public boolean hasEffect(ItemStack par1ItemStack, int pass)
     {
         return true;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public EnumRarity getRarity(ItemStack par1ItemStack)
     {

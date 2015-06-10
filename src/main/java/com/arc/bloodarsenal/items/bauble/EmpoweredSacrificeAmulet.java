@@ -1,5 +1,6 @@
 package com.arc.bloodarsenal.items.bauble;
 
+import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
@@ -153,15 +154,28 @@ public class EmpoweredSacrificeAmulet extends SacrificeAmulet implements IBauble
     }
 
     @Override
+    public String getItemStackDisplayName(ItemStack stack)
+    {
+        if (stack.getItemDamage() == 1)
+        {
+            return super.getItemStackDisplayName(stack) + " " + StatCollector.translateToLocal("item.empowered_amulet_soul_network");
+        }
+        else
+        {
+            return super.getItemStackDisplayName(stack) + " " + StatCollector.translateToLocal("item.empowered_amulet_containing");
+        }
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister)
     {
         this.itemIcon = iconRegister.registerIcon("BloodArsenal:sacrifice_amulet");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    @Deprecated
-    public boolean hasEffect(ItemStack p_77636_1_)
+    public boolean hasEffect(ItemStack p_77636_1_, int pass)
     {
         return true;
     }

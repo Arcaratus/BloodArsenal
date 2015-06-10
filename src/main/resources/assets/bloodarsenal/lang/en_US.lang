@@ -25,6 +25,7 @@ tile.life_infuser.name=Life Infuser
 tile.lp_materializer.name=Life Essence Materializer
 tile.compacter.name=Soul Compacter
 tile.compacted_mrs.name=Compacted Master Ritual Stone
+tile.blood_cake.name=Blood Cake
 
 #Items
 item.bound_bow.name=Bound Bow
@@ -82,14 +83,18 @@ item.blood_burned_string.name=Blood Burned String
 item.glass_shard.name=Glass Shard
 item.empowered_sacrifice_amulet.name=Empowered Sacrifice Amulet
 item.empowered_self_sacrifice_amulet.name=Empowered Self Sacrifice Amulet
+item.empowered_amulet_containing=(Containing Mode)
+item.empowered_amulet_soul_network=(Soul Network Mode)
 item.sigil_of_augmented_holding.name=Sigil of Augmented Holding
 item.sigil_of_lightning.name=Lightning Sigil
 item.glass_sacrificial_dagger.name=Glass Sacrificial Dagger
+item.glass_sacrificial_orb.name=Glass Sacrificial Orb
 item.glass_dagger_of_sacrifice.name=Glass Dagger of Sacrifice
 item.glass_helmet.name=Glass Helmet
 item.glass_chestplate.name=Glass Chestplate
 item.glass_leggings.name=Glass Leggings
 item.glass_boots.name=Glass Boots
+item.transparent_orb.name=Transparent Orb
 
 #Death Texts
 death.attack.deathFromBlood=%1$s lost too much blood
@@ -135,6 +140,7 @@ tooltip.sigil.lightning=Let 'er rip!
 tooltip.sigil.lightning2=Mode:
 tooltip.bloodMoney.money=Pay your debts in blood!
 tooltip.armor.glassArmor=More painful than it looks
+tooltip.energybattery.currentLP=Current LP:
 
 tooltip.shiftinfo=Press &cSHIFT&7 for more info
 

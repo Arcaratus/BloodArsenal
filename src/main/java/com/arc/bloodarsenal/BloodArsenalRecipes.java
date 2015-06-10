@@ -9,6 +9,7 @@ import baubles.common.Config;
 import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.items.ModItems;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -99,6 +100,7 @@ public class BloodArsenalRecipes
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_chestplate), "aba", "aaa", "aaa", 'a', ModItems.glass_shard, 'b', apprenticeOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_leggings), "aaa", "aba", "a a", 'a', ModItems.glass_shard, 'b', apprenticeOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_boots), "a a", "aba", 'a', ModItems.glass_shard, 'b', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.transparent_orb), "aba", "bcb", "ded", 'a', ModBlocks.blood_stained_glass, 'b', Blocks.glass, 'c', transcendentOrb, 'd', ModItems.blood_burned_string, 'e', WayofTime.alchemicalWizardry.ModItems.divinationSigil);
 
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone), "aaa", "aaa", "aaa", 'a', blankSlate);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 1), "aaa", "aaa", "aaa", 'a', reinforcedSlate);
@@ -132,6 +134,7 @@ public class BloodArsenalRecipes
         addShapelessOreDictRecipe(new ItemStack(ModItems.juice_and_cookies), Items.cookie, ModItems.orange_juice);
     }
 
+    @Optional.Method(modid = "Baubles")
     public static void addBaublesRecipe()
     {
         int craftingConstant = OreDictionary.WILDCARD_VALUE;

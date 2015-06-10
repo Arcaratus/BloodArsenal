@@ -158,9 +158,9 @@ public class EmpoweredSelfSacrificeAmulet extends SelfSacrificeAmulet implements
         this.itemIcon = iconRegister.registerIcon("BloodArsenal:self_sacrifice_amulet");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    @Deprecated
-    public boolean hasEffect(ItemStack p_77636_1_)
+    public boolean hasEffect(ItemStack p_77636_1_, int pass)
     {
         return true;
     }
@@ -169,5 +169,18 @@ public class EmpoweredSelfSacrificeAmulet extends SelfSacrificeAmulet implements
     public EnumRarity getRarity(ItemStack p_77613_1_)
     {
         return EnumRarity.rare;
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack)
+    {
+        if (stack.getItemDamage() == 1)
+        {
+            return super.getItemStackDisplayName(stack) + " " + StatCollector.translateToLocal("item.empowered_amulet_soul_network");
+        }
+        else
+        {
+            return super.getItemStackDisplayName(stack) + " " + StatCollector.translateToLocal("item.empowered_amulet_containing");
+        }
     }
 }

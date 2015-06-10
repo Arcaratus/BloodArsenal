@@ -61,6 +61,7 @@ public class BoundBow extends ItemBow implements IBindable
         return true;
     }
 
+    @Override
     public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, int par4)
     {
         int j = getMaxItemUseDuration(par1ItemStack) - par4;
@@ -141,6 +142,7 @@ public class BoundBow extends ItemBow implements IBindable
         }
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         EnergyItems.checkAndSetItemOwner(par1ItemStack, par3EntityPlayer);
@@ -172,21 +174,25 @@ public class BoundBow extends ItemBow implements IBindable
         return par1ItemStack;
     }
 
+    @Override
     public int getItemEnchantability()
     {
         return 1;
     }
 
+    @Override
     public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {
         return EnumAction.bow;
     }
 
+    @Override
     public int getMaxItemUseDuration(ItemStack par1ItemStack)
     {
         return 36000;
     }
 
+    @Override
     public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         return par1ItemStack;
@@ -216,7 +222,6 @@ public class BoundBow extends ItemBow implements IBindable
         }
 
         par1ItemStack.setItemDamage(0);
-        return;
     }
 
     public void setActivated(ItemStack par1ItemStack, boolean newActivated)

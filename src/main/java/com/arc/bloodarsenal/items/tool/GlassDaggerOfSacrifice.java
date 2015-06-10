@@ -42,7 +42,7 @@ public class GlassDaggerOfSacrifice extends EnergyItems
         setEnergyUsed(100);
         setFull3D();
         setMaxDamage(100);
-        weaponDamage = 1.0F;
+        weaponDamage = 3.0F;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class GlassDaggerOfSacrifice extends EnergyItems
             return false;
         }
 
-        if(par2EntityLivingBase instanceof IHoardDemon)
+        if (par2EntityLivingBase instanceof IHoardDemon)
         {
             return false;
         }
@@ -134,7 +134,7 @@ public class GlassDaggerOfSacrifice extends EnergyItems
     public Multimap getItemAttributeModifiers()
     {
         Multimap multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Tool modifier", 1.0d, 0));
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Tool modifier", 2.0d, 0));
         return multimap;
     }
 

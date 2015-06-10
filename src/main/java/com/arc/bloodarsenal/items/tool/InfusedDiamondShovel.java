@@ -19,8 +19,6 @@ import java.util.List;
 
 public class InfusedDiamondShovel extends ItemSpade implements IBindable
 {
-    private int energyUsed;
-
     public InfusedDiamondShovel()
     {
         super(BloodArsenal.infusedIron);
@@ -132,6 +130,7 @@ public class InfusedDiamondShovel extends ItemSpade implements IBindable
         return false;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean isFull3D()
     {
@@ -140,11 +139,12 @@ public class InfusedDiamondShovel extends ItemSpade implements IBindable
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack)
+    public boolean hasEffect(ItemStack par1ItemStack, int pass)
     {
         return true;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public EnumRarity getRarity(ItemStack par1ItemStack)
     {

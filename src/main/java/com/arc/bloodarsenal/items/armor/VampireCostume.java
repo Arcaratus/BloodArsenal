@@ -193,13 +193,36 @@ public class VampireCostume extends ItemArmor
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack armor)
     {
-        if (player.getActivePotionEffect(Potion.damageBoost) != null)
+        if (hasArmorSetItem(player, 1) && hasArmorSetItem(player, 2) && hasArmorSetItem(player, 3))
         {
-            player.removePotionEffect(Potion.damageBoost.id);
+            if (player.getActivePotionEffect(Potion.damageBoost) != null)
+            {
+                player.removePotionEffect(Potion.damageBoost.id);
+            }
+
+            player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 2, 1));
         }
-        player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 2, 1));
 
         setIsInvisible(armor, player.isPotionActive(Potion.invisibility.id));
+    }
+
+    public boolean hasArmorSetItem(EntityPlayer player, int i)
+    {
+        ItemStack stack = player.inventory.armorInventory[3 - i];
+
+        if (stack == null)
+        {
+            return false;
+        }
+
+        switch (i)
+        {
+            case 1: return stack.getItem() == ModItems.vampire_cape;
+            case 2: return stack.getItem() == ModItems.vampire_greaves;
+            case 3: return stack.getItem() == ModItems.vampire_boots;
+        }
+
+        return false;
     }
 
     public boolean getIsInvisible(ItemStack itemStack)

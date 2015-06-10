@@ -29,7 +29,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -37,7 +36,7 @@ import java.util.Random;
 
 public class BloodArsenalEventHooks
 {
-    public static Random rand = new Random();
+    private Random rand = new Random();
 
     @SubscribeEvent
     public void onEntityDamaged(LivingAttackEvent event)
@@ -46,7 +45,7 @@ public class BloodArsenalEventHooks
         Entity entityAttacking = event.source.getSourceOfDamage();
         float damageDone = event.ammount;
 
-        if (entityAttacking != null)
+        if (entityAttacking != null && entityAttacked != null)
         {
             if (entityAttacking instanceof EntityLivingBase)
             {
@@ -76,16 +75,20 @@ public class BloodArsenalEventHooks
                     selfSacrificeHandler(event);
                 }
 
-                EntityPlayer player = (EntityPlayer) entityAttacked;
-                for (int i = 0; i < 4; i++)
-                {
-                    ItemStack armorStack = player.inventory.armorInventory[3 - i];
+                EntityPlayerMP player = (EntityPlayerMP) entityAttacked;
 
-                    if (armorStack.getItem() instanceof GlassArmor)
+                if (player.inventory.armorInventory != null)
+                {
+                    for (int i = 0; i < 4; i++)
                     {
-                        if (entityAttacking instanceof EntityLivingBase)
+                        ItemStack armorStack = player.inventory.armorInventory[3 - i];
+
+                        if (armorStack != null && armorStack.getItem() instanceof GlassArmor)
                         {
-                            ((EntityLivingBase) entityAttacking).addPotionEffect(new PotionEffect(BloodArsenalConfig.bleedingID, rand.nextInt(5) * 20, rand.nextInt(1)));
+                            if (entityAttacking instanceof EntityLivingBase)
+                            {
+                                ((EntityLivingBase) entityAttacking).addPotionEffect(new PotionEffect(BloodArsenalConfig.bleedingID, rand.nextInt(3) * 20, rand.nextInt(1)));
+                            }
                         }
                     }
                 }
@@ -120,7 +123,7 @@ public class BloodArsenalEventHooks
             {
                 int amplifier = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getAmplifier();
                 int duration = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getDuration();
-                int damage = (rand.nextInt(5) * (amplifier + 1) + 3);
+                int damage = (rand.nextInt(2) * (amplifier + 1) + rand.nextInt(3));
 
                 if (entityLiving.worldObj.getWorldTime() % (20 / (amplifier + 1)) == 0)
                 {

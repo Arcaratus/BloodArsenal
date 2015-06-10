@@ -41,7 +41,8 @@ public class GlassSacrificialDagger extends Item
         if (AlchemicalWizardry.wimpySettings)
         {
             this.itemIcon = iconRegister.registerIcon("BloodArsenal:glass_sacrificial_orb");
-        } else
+        }
+        else
         {
             this.itemIcon = iconRegister.registerIcon("BloodArsenal:glass_sacrificial_dagger");
         }
@@ -65,17 +66,17 @@ public class GlassSacrificialDagger extends Item
         if (!player.capabilities.isCreativeMode)
         {
             SacrificeKnifeUsedEvent evt = new SacrificeKnifeUsedEvent(player, true, true, 2);
-            if(MinecraftForge.EVENT_BUS.post(evt))
+            if (MinecraftForge.EVENT_BUS.post(evt))
             {
                 return stack;
             }
 
-            if(evt.shouldDrainHealth)
+            if (evt.shouldDrainHealth)
             {
                 player.setHealth(player.getHealth() - 2);
             }
 
-            if(!evt.shouldFillAltar)
+            if (!evt.shouldFillAltar)
             {
                 return stack;
             }
@@ -107,10 +108,10 @@ public class GlassSacrificialDagger extends Item
 
         if (player.isPotionActive(AlchemicalWizardry.customPotionSoulFray))
         {
-            findAndFillAltar(world, player, 20);
+            findAndFillAltar(world, player, 50);
         } else
         {
-            findAndFillAltar(world, player, 200);
+            findAndFillAltar(world, player, 500);
         }
 
         if (player.getHealth() <= 0.001f)
@@ -119,7 +120,7 @@ public class GlassSacrificialDagger extends Item
         }
 
         Random random = new Random();
-        if (random.nextInt() + 18 <= 22)
+        if (random.nextInt(2) < 2)
         {
             player.addPotionEffect(new PotionEffect(BloodArsenalConfig.bleedingID, random.nextInt(5) * 20, 0));
         }
@@ -191,7 +192,7 @@ public class GlassSacrificialDagger extends Item
     {
         if (AlchemicalWizardry.wimpySettings)
         {
-            return "Glass Sacrificial Orb";
+            return StatCollector.translateToLocal("item.glass_sacrificial_orb.name");
         }
         return super.getItemStackDisplayName(stack);
     }
@@ -211,7 +212,7 @@ public class GlassSacrificialDagger extends Item
     public void setUseForSacrifice(ItemStack stack, boolean sacrifice)
     {
         NBTTagCompound tag = stack.getTagCompound();
-        if(tag == null)
+        if (tag == null)
         {
             tag = new NBTTagCompound();
             stack.setTagCompound(tag);
