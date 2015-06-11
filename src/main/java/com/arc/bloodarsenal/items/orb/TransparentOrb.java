@@ -70,13 +70,19 @@ public class TransparentOrb extends EnergyBattery
     {
         int i = stack.getItemDamage() + 1;
 
-        if (i == stack.getItemDamage() || i == stack.getItemDamage() + 2)
+        if (i != stack.getItemDamage() && i < icons.length)
         {
             i = stack.getItemDamage() + 1;
             return icons[i - 1];
         }
-
-        return icons[stack.getItemDamage()];
+        else if (i <= icons.length)
+        {
+            return icons[icons.length - 1];
+        }
+        else
+        {
+            return itemIcon;
+        }
     }
 
     @Override
@@ -86,7 +92,7 @@ public class TransparentOrb extends EnergyBattery
         itemIcon = iconRegister.registerIcon("BloodArsenal:orb/orb_0");
         icons[0] = iconRegister.registerIcon("BloodArsenal:orb/orb_0");
 
-        for (int i = 0; i < 23; i++)
+        for (int i = 0; i < icons.length; i++)
         {
             icons[i] = iconRegister.registerIcon("BloodArsenal:orb/orb_" + i);
         }
