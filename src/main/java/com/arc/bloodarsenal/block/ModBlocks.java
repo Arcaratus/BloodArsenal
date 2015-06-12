@@ -1,6 +1,7 @@
 package com.arc.bloodarsenal.block;
 
 import com.arc.bloodarsenal.BloodArsenal;
+import com.arc.bloodarsenal.BloodArsenalConfig;
 import com.arc.bloodarsenal.items.block.BloodStoneBlock;
 import com.arc.bloodarsenal.items.block.CompactedMRSBlock;
 import com.arc.bloodarsenal.items.block.PortableAltarBlock;
@@ -8,6 +9,8 @@ import com.arc.bloodarsenal.tileentity.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
+
+import java.util.ArrayList;
 
 public class ModBlocks
 {
@@ -30,6 +33,8 @@ public class ModBlocks
     public static Block lp_materializer;
     public static Block compacted_mrs;
     public static Block block_burned_string;
+
+    private static ArrayList<String> blocksNotToBeRegistered = new ArrayList();
 
     public static void init()
     {
@@ -67,19 +72,45 @@ public class ModBlocks
     {
         block.setBlockName(unlocalizedName);
         block.setBlockTextureName(BloodArsenal.MODID + ":" + unlocalizedName);
+
         if (!(block instanceof BlockBloodCake || block instanceof BlockBurnedString))
         {
             block.setCreativeTab(BloodArsenal.BA_TAB);
         }
 
-        GameRegistry.registerBlock(block, unlocalizedName);
+        blocksNotToBeRegistered.clear();
+        for (String unlocName : BloodArsenalConfig.blocksToBeDisabled)
+        {
+            if (unlocName.equals(unlocalizedName))
+            {
+                blocksNotToBeRegistered.add(unlocName);
+            }
+        }
+        if (!blocksNotToBeRegistered.contains(unlocalizedName))
+        {
+            GameRegistry.registerBlock(block, unlocalizedName);
+        }
+
         return block;
     }
 
-    public static Block registerBlock(Block block, Class<? extends ItemBlock> itemBlockClass, String name)
+    public static Block registerBlock(Block block, Class<? extends ItemBlock> itemBlockClass, String unlocalizedName)
     {
         block.setCreativeTab(BloodArsenal.BA_TAB);
-        GameRegistry.registerBlock(block, itemBlockClass, name);
+
+        for (String unlocName : BloodArsenalConfig.blocksToBeDisabled)
+        {
+            System.out.println(unlocName);
+            if (unlocName.equals(unlocalizedName))
+            {
+                blocksNotToBeRegistered.add(unlocName);
+            }
+        }
+        if (!blocksNotToBeRegistered.contains(unlocalizedName))
+        {
+            GameRegistry.registerBlock(block, itemBlockClass, unlocalizedName);
+        }
+
         return block;
     }
 }

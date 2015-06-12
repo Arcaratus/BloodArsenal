@@ -88,16 +88,11 @@ processResources
     } 
 }
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
 task deobfJar(type: Jar) {
     from(sourceSets.main.output)
     classifier = 'deobf'     
 
-tasks.build.dependsOn sourceJar, deobfJar
+tasks.build.dependsOn deobfJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'

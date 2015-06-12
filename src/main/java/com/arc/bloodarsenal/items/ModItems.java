@@ -2,6 +2,7 @@ package com.arc.bloodarsenal.items;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import com.arc.bloodarsenal.BloodArsenal;
+import com.arc.bloodarsenal.BloodArsenalConfig;
 import com.arc.bloodarsenal.block.ModBlocks;
 import com.arc.bloodarsenal.items.armor.GlassArmor;
 import com.arc.bloodarsenal.items.armor.VampireCostume;
@@ -14,6 +15,8 @@ import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemReed;
+
+import java.util.ArrayList;
 
 public class ModItems
 {
@@ -76,6 +79,8 @@ public class ModItems
     public static Item glass_leggings;
     public static Item glass_boots;
     public static Item transparent_orb;
+
+    private static ArrayList<String> itemsNotToBeRegistered = new ArrayList();
 
     public static void init()
     {
@@ -156,7 +161,21 @@ public class ModItems
         item.setUnlocalizedName(unlocalizedName);
         item.setTextureName(BloodArsenal.MODID + ":" + unlocalizedName);
         item.setCreativeTab(BloodArsenal.BA_TAB);
-        GameRegistry.registerItem(item, unlocalizedName);
+        itemsNotToBeRegistered.clear();
+
+        for (String unlocName : BloodArsenalConfig.itemsToBeDisabled)
+        {
+            if (unlocName.equals(unlocalizedName))
+            {
+                itemsNotToBeRegistered.add(unlocName);
+            }
+        }
+
+        if (!itemsNotToBeRegistered.contains(unlocalizedName))
+        {
+            GameRegistry.registerItem(item, unlocalizedName);
+        }
+
         return item;
     }
 }

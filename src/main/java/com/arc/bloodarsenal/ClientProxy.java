@@ -23,6 +23,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.client.model.ModelWolf;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.entity.RenderTNTPrimed;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -50,7 +51,7 @@ public class ClientProxy extends CommonProxy
         RenderingRegistry.registerEntityRenderingHandler(EntityBloodBall.class, new RenderSnowball(ModItems.blood_ball));
         RenderingRegistry.registerEntityRenderingHandler(EntityBloodHound.class, new RenderEntityBloodHound(new ModelWolf(), new ModelWolf(), 0.5F));
 
-        RenderingRegistry.registerBlockHandler(RenderingRegistry.getNextAvailableRenderId(), new RenderTileLifeInfuser());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.life_infuser), new RenderTileLifeInfuser());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TilePortableAltar.class, new TilePortableAltarRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileLifeInfuser.class, new TileLifeInfuserRenderer());

@@ -3,6 +3,7 @@ package com.arc.bloodarsenal.items.sigil;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import WayofTime.alchemicalWizardry.api.items.interfaces.ISigil;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
+import com.arc.bloodarsenal.BloodArsenalConfig;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -102,20 +103,21 @@ public class SigilLightning extends EnergyItems implements IBindable, ISigil
 
                 switch (mode)
                 {
+                    // 8 per lightning bolt
                     case 0:
-                        cost = 8000;
+                        cost = 8 * BloodArsenalConfig.lightningSigilMultiplier;
                         break;
                     case 1:
-                        cost = 32000;
+                        cost = 32 * BloodArsenalConfig.lightningSigilMultiplier;
                         break;
                     case 2:
-                        cost = 54000;
+                        cost = 54 * BloodArsenalConfig.lightningSigilMultiplier;
                         break;
                     case 3:
-                        cost = 104000;
+                        cost = 104 * BloodArsenalConfig.lightningSigilMultiplier;
                         break;
                     case 4:
-                        cost = 168000;
+                        cost = 168 * BloodArsenalConfig.lightningSigilMultiplier;
                         break;
                 }
 

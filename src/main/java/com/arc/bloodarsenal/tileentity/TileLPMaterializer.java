@@ -3,7 +3,7 @@ package com.arc.bloodarsenal.tileentity;
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
-import net.minecraft.block.Block;
+import com.arc.bloodarsenal.BloodArsenalConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -13,11 +13,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
-import org.lwjgl.Sys;
 
 public class TileLPMaterializer extends TileEntity implements IInventory, IFluidTank, IFluidHandler
 {
@@ -334,9 +332,9 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
         super.updateEntity();
         materialize();
 
-        if (worldObj.getWorldTime() % 50 == 0)
+        if (worldObj.getWorldTime() % 10 == 0)
         {
-            int syphonMax = 500;
+            int syphonMax = 1000;
             int fluidOutputted;
             fluidOutputted = Math.min(syphonMax, this.bufferCapacity - this.fluidOutput.amount);
             fluidOutputted = Math.min(this.fluid.amount, fluidOutputted);
@@ -361,13 +359,13 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
 
         if (fluid.amount <= capacity - 100)
         {
-            if (!SoulNetworkHandler.canSyphonFromOnlyNetwork(orb, 150))
+            if (!SoulNetworkHandler.canSyphonFromOnlyNetwork(orb, BloodArsenalConfig.lpMaterializerCost))
             {
                 SoulNetworkHandler.causeNauseaToPlayer(orb);
                 return;
             }
 
-            if (!SoulNetworkHandler.syphonFromNetworkWhileInContainer(orb, 150))
+            if (!SoulNetworkHandler.syphonFromNetworkWhileInContainer(orb, BloodArsenalConfig.lpMaterializerCost))
             {
                 return;
             }

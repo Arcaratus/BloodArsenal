@@ -26,11 +26,15 @@ public class RitualRegistry
             Rituals.ritualMap.remove("ARC001Wither");
             Rituals.keyList.remove("ARC001Wither");
         }
-
         if (BloodArsenalConfig.ritualDisabledMidas)
         {
             Rituals.ritualMap.remove("ARC002Midas");
             Rituals.keyList.remove("ARC002Midas");
+        }
+        if (BloodArsenalConfig.ritualDisabledEnchantment)
+        {
+            Rituals.ritualMap.remove("ARC003Enchant");
+            Rituals.keyList.remove("ARC003Enchant");
         }
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class TransparentOrb extends EnergyBattery
 {
-    IIcon icons[] = new IIcon[23];
+    IIcon icons[] = new IIcon[45];
 
     public TransparentOrb(int damage)
     {

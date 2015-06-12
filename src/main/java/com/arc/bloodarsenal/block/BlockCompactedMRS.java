@@ -6,6 +6,7 @@ import WayofTime.alchemicalWizardry.common.items.ActivationCrystal;
 import com.arc.bloodarsenal.tileentity.TileCompactedMRS;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,9 +27,15 @@ public class BlockCompactedMRS extends BlockMasterStone
     {
         super();
         setBlockName("compacted_mrs");
-        setBlockTextureName("BloodArsenal:compacted_mrs");
         setHardness(4.0F);
         setResistance(7.5F);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister iconRegister)
+    {
+        blockIcon = iconRegister.registerIcon("BloodArsenal:compacted_mrs");
     }
 
     @Override
