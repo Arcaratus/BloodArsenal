@@ -120,7 +120,7 @@ public class GlassSacrificialDagger extends Item
         }
 
         Random random = new Random();
-        if (random.nextInt(2) < 2)
+        if (random.nextInt(4) < 1)
         {
             player.addPotionEffect(new PotionEffect(BloodArsenalConfig.bleedingID, random.nextInt(5) * 20, 0));
         }
