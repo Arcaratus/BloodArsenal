@@ -2,10 +2,11 @@
 itemGroup.BA_TAB=Blood Arsenal
 
 #Blocks
-tile.blood_stone.blood_stone_1.name=空白血石块
-tile.blood_stone.blood_stone_2.name=加强血石块
-tile.blood_stone.blood_stone_3.name=灌输血石块
-tile.blood_stone.blood_stone_4.name=恶魔血石块
+tile.blood_stone_1.name=空白血石块
+tile.blood_stone_2.name=加强血石块
+tile.blood_stone_3.name=灌输血石块
+tile.blood_stone_4.name=恶魔血石块
+tile.blood_stone_5.name=悬幽血石板
 tile.blood_tnt.name=血之TNT
 tile.blood_stained_glass.name=染血玻璃
 tile.blood_stained_ice.name=染血冰块
@@ -13,13 +14,11 @@ tile.blood_stained_ice_packed.name=染血浮冰
 tile.blood_infused_wood.name=注血原木
 tile.blood_infused_planks.name=注血木板
 tile.blood_infused_iron_block.name=注血铁块
-tile.blood_door_wood.name=注血木门
-tile.blood_door_iron.name=注血铁门
 tile.blood_torch.name=血之火把
 tile.blood_infused_glowstone.name=注血萤石
-tile.blood_infused_redstone_lamp.name=注血红石灯
 tile.blood_lamp.name=注血灯
 tile.blood_infused_diamond_block.name=注血钻石块
+tile.blood_cake.name=血糕
 
 #Items
 item.bound_bow.name=约束之弓
@@ -46,12 +45,10 @@ item.blood_infused_axe_diamond.name=注血钻石斧 [WIP]
 item.blood_infused_shovel_diamond.name=注血钻石铲
 item.blood_infused_sword_diamond.name=注血钻石剑 [WIP]
 item.heart.name=心脏
-item.item_blood_door_wood.name=注血木门
-item.item_blood_door_iron.name=注血铁门
-item.bound_flint_and_steel.name=约束打火石
+item.bound_igniter.name=约束打火石
 item.soul_fragment.name=灵魂碎片
 item.soul_booster.name=增益灵魂之石
-item.soul_nullifier.name=减益灵魂之石 [WIP]
+item.soul_nullifier.name=减益灵魂之石
 item.blood_cookie.name=染血曲奇
 item.orange_juice.name=橙汁
 item.juice_and_cookies.name=橙汁和曲奇
@@ -62,6 +59,20 @@ item.vampire_ring.name=吸血鬼指环
 item.energy_gatling.name=能量加特林
 item.sigil_of_swimming.name=水泳印记
 item.sigil_of_ender.name=末影印记
+item.item_blood_cake.name=血糕
+item.blood_money1.name=血钱 x1
+item.blood_money4.name=血钱 x4
+item.blood_money16.name=血钱 x16
+item.blood_money64.name=血钱 x64
+item.blood_burned_string.name=血烧线
+item.glass_shard.name=玻璃片
+item.glass_sacrificial_dagger.name=玻璃牺牲匕首
+item.glass_sacrificial_orb.name=玻璃球
+item.glass_dagger_of_sacrifice.name=玻璃献祭刀
+item.glass_helmet.name=玻璃头盔
+item.glass_chestplate.name=玻璃胸甲
+item.glass_leggings.name=玻璃护腿
+item.glass_boots.name=玻璃靴子
 
 #TConstruct Stuffs
 material.bloodinfusediron=注血铁
@@ -84,7 +95,7 @@ part.largeplate=@material@大板
 part.lumberaxe.head=@material@宽斧刃
 part.medium.guard=@material@护手
 part.pickaxe.head=@material@镐头
-part.scythe.head=@material@镰刀刀刃
+part.scythe.head=@material@镰刀刃
 part.shovel.head=@material@铲头
 part.sword.blade=@material@剑刃
 part.toolrod=@material@手柄
