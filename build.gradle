@@ -61,7 +61,7 @@ minecraft {
     runDir = "eclipse"
 	
 	replaceIn "BloodArsenal.java"
-	replace "@VERSION@", config.mod_version + config.build_number
+	replace "@VERSION@", config.mod_version + "-" + config.build_number
 }
 
 dependencies {
