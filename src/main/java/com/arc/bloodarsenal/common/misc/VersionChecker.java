@@ -34,7 +34,7 @@ public class VersionChecker
             {
                 EntityPlayer player = Minecraft.getMinecraft().thePlayer;
                 int onlineBuild = Integer.parseInt(onlineVersion.split("1.1-")[1]);
-                int clientBuild = Integer.parseInt(BloodArsenal.VERSION);
+                int clientBuild = Integer.parseInt(BloodArsenal.VERSION.split("1.1-")[1]);
 
                 if (onlineBuild > clientBuild)
                 {
