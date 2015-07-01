@@ -94,7 +94,10 @@ public class BloodArsenalRecipes
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_leggings), "aaa", "aba", "a a", 'a', ModItems.glass_shard, 'b', apprenticeOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.glass_boots), "a a", "aba", 'a', ModItems.glass_shard, 'b', apprenticeOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.transparent_orb), "aba", "bcb", "ded", 'a', ModBlocks.blood_stained_glass, 'b', Blocks.glass, 'c', transcendentOrb, 'd', ModItems.blood_burned_string, 'e', WayofTime.alchemicalWizardry.ModItems.divinationSigil);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.life_imbued_helmet), "aba", "aca", "aaa", 'a', ModItems.blood_infused_iron, 'b', magicianOrb, 'c', Items.iron_chestplate);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.life_imbued_helmet), "aba", "aca", 'a', ModItems.blood_infused_iron, 'b', magicianOrb, 'c', Items.iron_helmet);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.life_imbued_chestplate), "aba", "aca", "aaa", 'a', ModItems.blood_infused_iron, 'b', magicianOrb, 'c', Items.iron_chestplate);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.life_imbued_leggings), "aba", "aca", "a a", 'a', ModItems.blood_infused_iron, 'b', magicianOrb, 'c', Items.iron_leggings);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.life_imbued_boots), "aba", "aca", 'a', ModItems.blood_infused_iron, 'b', magicianOrb, 'c', Items.iron_boots);
 
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone), "aaa", "aaa", "aaa", 'a', blankSlate);
         addOreDictRecipe(new ItemStack(ModBlocks.blood_stone, 1, 1), "aaa", "aaa", "aaa", 'a', reinforcedSlate);
