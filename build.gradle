@@ -59,6 +59,9 @@ repositories {
 minecraft {
     version = config.forge_version + "-" + config.mc_version
     runDir = "eclipse"
+	
+	replaceIn "BloodArsenal.java"
+	replace "@VERSION@", config.mod_version + config.build_number
 }
 
 dependencies {
@@ -66,6 +69,7 @@ dependencies {
     compile "codechicken:CodeChickenCore:" + config.mc_version + "-" + config.ccc_version + ":dev"
     compile "codechicken:NotEnoughItems:" + config.mc_version + "-" + config.nei_version + ":dev"
 	compile "codechicken:ForgeMultipart:" + config.mc_version + "-" + config.forgeMultipart_version + ":dev"
+//	compile "mcp.mobius.waila:Waila:" + config.waila_version + "_" + config.mc_version + ":dev"
     compile "mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf"
     compile "tconstruct:TConstruct:" + config.mc_version + "-" + config.tconstruct_version + ":deobf"
 }

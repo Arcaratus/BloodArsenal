@@ -24,6 +24,7 @@ tile.lp_materializer.name=Life Essence Materializer
 tile.compacter.name=Soul Compacter
 tile.compacted_mrs.name=Compacted Master Ritual Stone
 tile.blood_cake.name=Blood Cake
+tile.block_burned_string.name=Blood Burned String
 
 #Items
 item.bound_bow.name=Bound Bow
@@ -91,6 +92,10 @@ item.glass_chestplate.name=Glass Chestplate
 item.glass_leggings.name=Glass Leggings
 item.glass_boots.name=Glass Boots
 item.transparent_orb.name=Transparent Orb
+item.life_imbued_helmet.name=Life Imbued Helmet
+item.life_imbued_chestplate.name=Life Imbued Chestplate
+item.life_imbued_leggings.name=Life Imbued Leggings
+item.life_imbued_boots.name=Life Imbued Boots
 
 #Death Texts
 death.attack.deathFromBlood=%1$s lost too much blood
@@ -136,6 +141,7 @@ tooltip.sigil.lightning=Let 'er rip!
 tooltip.sigil.lightning2=Mode:
 tooltip.bloodMoney.money=Pay your debts in blood!
 tooltip.armor.glassArmor=More painful than it looks
+tooltip.armor.lifeImbuedArmor=Living Armor
 tooltip.energybattery.currentLP=Current LP:
 
 tooltip.shiftinfo=Press &cSHIFT&7 for more info
@@ -145,6 +151,8 @@ tooltip.ritualName=Ritual:
 tooltip.currentEssence=Current Essence:
 tooltip.altarTier=Altar Tier:
 tooltip.capacity=Capacity:
+
+tooltip.fillable.currentAmount=Stored LP:
 
 tooltip.bauble.sacrifice=Collecting some life!
 tooltip.bauble.empowered_sacrifice=Collecting more life!
@@ -173,6 +181,7 @@ message.enchant.noEnchantments=There are no enchantments to apply!
 message.enchant.notEnoughLP=You do not have enough LP!
 message.enchant.The enchantment is not valid for the item
 
+message.tile.contains=Contains:
 
 #Miscs
 ba.versioning.update=Get the latest Blood Arsenal, NOW!
@@ -184,9 +193,10 @@ ba.versioning.error=An error has occurred while downloading the mod!
 ba.versioning.downloadedAlready=You have the latest version already, delete the old BloodArsenal .jar and reload your game to update!
 ba.versioning.downloadingAlready=It's downloading! Be patient!
 ba.versioning.disabled=This feature is disabled.
+owner=Owner:
 
 #TConstruct Stuffs
-material.blood.infused.iron=Blood Infused Iron
+material.blood_infused_iron=Blood Infused Iron
 
 part.arrowhead=@material@ Arrowhead
 part.axe.head=@material@ Axe Head
