@@ -15,10 +15,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -129,7 +126,7 @@ public class BloodArsenal
     }
 
     @Mod.EventHandler
-    public void load(FMLInitializationEvent event)
+    public void init(FMLInitializationEvent event)
     {
         BloodArsenalRecipes.registerBindingRecipes();
         BloodArsenalRecipes.registerAltarRecipes();
@@ -137,6 +134,8 @@ public class BloodArsenal
         RitualRegistry.initRituals();
 
         proxy.init();
+
+        FMLInterModComms.sendMessage("Waila", "register", "com.arc.bloodarsenal.common.misc.WAILAPlugin.registerAddon");
 
         vampiricAura = new PotionBloodArsenal(BloodArsenalConfig.vampiricAuraID, false, 0).setIconIndex(0, 0).setPotionName("Vampiric Aura");
         bleeding = new PotionBloodArsenal(BloodArsenalConfig.bleedingID, true, 0).setIconIndex(1, 0).setPotionName("Bleeding");

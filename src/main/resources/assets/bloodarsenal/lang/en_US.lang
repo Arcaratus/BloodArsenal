@@ -144,13 +144,28 @@ tooltip.armor.glassArmor=More painful than it looks
 tooltip.armor.lifeImbuedArmor=Living Armor
 tooltip.energybattery.currentLP=Current LP:
 
-tooltip.shiftinfo=Press &cSHIFT&7 for more info
+tooltip.shiftinfo=-Press &cSHIFT&7 for more info-
 
 tooltip.ritualName=Ritual:
+
+tooltip.running=Running:
+tooltip.yes=Yes
+tooltip.no=No
+tooltip.direction=Direction:
 
 tooltip.currentEssence=Current Essence:
 tooltip.altarTier=Altar Tier:
 tooltip.capacity=Capacity:
+
+tooltip.speedUpgrades=Speed Upgrades:
+tooltip.efficiencyUpgrades=Efficiency Upgrades:
+tooltip.sacrificeUpgrades=Sacrifice Upgrades:
+tooltip.selfSacrificeUpgrades=Self-Sacrifice Upgrades:
+tooltip.displacementUpgrades=Dislocation Upgrades:
+tooltip.altarCapacitiveUpgrades=Capacity Upgrades:
+tooltip.orbCapacitiveUpgrades=Orb Upgrades:
+tooltip.betterCapacitiveUpgrades=Superior Capacity Upgrades:
+tooltip.accelerationUpgrades=Acceleration Upgrades:
 
 tooltip.fillable.currentAmount=Stored LP:
 
@@ -182,6 +197,14 @@ message.enchant.notEnoughLP=You do not have enough LP!
 message.enchant.The enchantment is not valid for the item
 
 message.tile.contains=Contains:
+
+message.altarCurrentTier=Altar's Current Tier:
+message.capacity=Capacity:
+message.altarProgress=Altar's Progress:
+message.consumptionRate=Consumption rate:
+message.altarEssence=Altar's Current Essence:
+message.inputTank=Input tank:
+message.outputTank=Output tank:
 
 #Miscs
 ba.versioning.update=Get the latest Blood Arsenal, NOW!

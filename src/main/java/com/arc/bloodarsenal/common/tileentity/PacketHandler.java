@@ -32,11 +32,6 @@ public enum PacketHandler
         {
             addClientHandler();
         }
-        if (FMLCommonHandler.instance().getSide() == Side.SERVER)
-        {
-            System.out.println("Server sided~");
-            addServerHandler();
-        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -48,15 +43,6 @@ public enum PacketHandler
         clientChannel.pipeline().addAfter(tileCodec, "TilePortableAltarHandler", new TilePortableAltarMessageHandler());
         clientChannel.pipeline().addAfter(tileCodec, "TileLifeInfuserHandler", new TileLifeInfuserMessageHandler());
         clientChannel.pipeline().addAfter(tileCodec, "TileLPMaterializer", new TileLPMaterializerMessageHandler());
-    }
-
-    @SideOnly(Side.SERVER)
-    private void addServerHandler()
-    {
-        FMLEmbeddedChannel serverChannel = this.channels.get(Side.SERVER);
-
-        String messageCodec = serverChannel.findChannelHandlerNameForType(BATileCodec.class);
-        serverChannel.pipeline().addAfter(messageCodec, "KeyboardMessageHandler", new KeyboardMessageHandler());
     }
 
     private static class TilePortableAltarMessageHandler extends SimpleChannelInboundHandler<TilePortableAltarMessage>
@@ -110,21 +96,6 @@ public enum PacketHandler
         }
     }
 
-    private static class KeyboardMessageHandler extends SimpleChannelInboundHandler<KeyboardMessage>
-    {
-        public KeyboardMessageHandler()
-        {
-            System.out.println("I am being created");
-        }
-
-        @Override
-        protected void channelRead0(ChannelHandlerContext ctx, KeyboardMessage msg) throws Exception
-        {
-            System.out.println("Hmmm");
-
-        }
-    }
-
     public static class BAMessage
     {
         int index;
@@ -161,11 +132,6 @@ public enum PacketHandler
         int[] items;
         int[] fluids;
         int capacity;
-    }
-
-    public static class KeyboardMessage extends BAMessage
-    {
-        byte keyPressed;
     }
 
     private class ClientToServerCodec extends FMLIndexedMessageToMessageCodec<BAMessage>

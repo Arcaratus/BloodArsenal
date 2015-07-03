@@ -299,7 +299,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
 
     public void sendChatInfoToPlayer(EntityPlayer player)
     {
-        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.tile.contains") + " " + this.getFluidAmount() + "LP"));
+        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.tile.contains") + " " + this.getFluidAmount() + "LE"));
     }
 
     @Override
@@ -331,8 +331,8 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
             }
         }
 
-        FluidStack flMain = new FluidStack(fluidData[0], fluidData[1]);
-        FluidStack flIn = new FluidStack(fluidData[2], fluidData[3]);
+        FluidStack flMain = new FluidStack(fluid, fluidData[1]);
+        FluidStack flIn = new FluidStack(fluidInput, fluidData[3]);
 
         this.setMainFluid(flMain);
         this.setInputFluid(flIn);
@@ -436,7 +436,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
 
             if (tile != null)
             {
-                FluidEvent.fireEvent(new FluidEvent.FluidFillingEvent(fluidInput, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord, this, resource.amount));
+                FluidEvent.fireEvent(new FluidEvent.FluidFillingEvent(fluidInput, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord, this, fluidInput.amount));
             }
 
             return fluidInput.amount;
@@ -457,7 +457,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
 
         if (tile != null)
         {
-            FluidEvent.fireEvent(new FluidEvent.FluidFillingEvent(fluidInput, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord, this, resource.amount));
+            FluidEvent.fireEvent(new FluidEvent.FluidFillingEvent(fluidInput, tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord, this, fluidInput.amount));
         }
 
         return filled;
@@ -501,7 +501,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid)
     {
-        return this.fluidInput != null && this.fluid.getFluid().equals(fluidInput.getFluid()) && this.fluid.amount > capacity;
+        return this.fluidInput != null && this.fluid.getFluid().equals(fluidInput.getFluid());
     }
 
     @Override

@@ -243,7 +243,7 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
 
     public void sendChatInfoToPlayer(EntityPlayer player)
     {
-        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.tile.contains") + " " + this.getFluidAmount() + "LP"));
+        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.tile.contains") + " " + this.getFluidAmount() + "LE"));
     }
 
     @Override
@@ -275,8 +275,8 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
             }
         }
 
-        FluidStack flMain = new FluidStack(fluidData[0], fluidData[1]);
-        FluidStack flIn = new FluidStack(fluidData[2], fluidData[3]);
+        FluidStack flMain = new FluidStack(fluid, fluidData[1]);
+        FluidStack flIn = new FluidStack(fluidOutput, fluidData[3]);
 
         this.setMainFluid(flMain);
         this.setOutputFluid(flIn);
@@ -315,6 +315,28 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
     public void updateEntity()
     {
         super.updateEntity();
+
+        if (getTankAbove() != null)
+        {
+            IFluidHandler aboveTank = getTankAbove();
+
+            if (aboveTank.canFill(ForgeDirection.DOWN, fluid.getFluid()))
+            {
+                aboveTank.fill(ForgeDirection.DOWN, fluidOutput, true);
+                drain(ForgeDirection.UP, fluidOutput, true);
+            }
+        }
+
+        if (getTankBelow() != null)
+        {
+            IFluidHandler belowTank = getTankBelow();
+
+            if (belowTank.canFill(ForgeDirection.UP, fluid.getFluid()))
+            {
+                belowTank.fill(ForgeDirection.UP, fluidOutput, true);
+                drain(ForgeDirection.DOWN, fluidOutput, true);
+            }
+        }
 
         if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
         {
@@ -373,26 +395,14 @@ public class TileLPMaterializer extends TileEntity implements IInventory, IFluid
         }
     }
 
-    private IFluidHandler[] checkForTanks(TileLPMaterializer tile)
+    private IFluidHandler getTankAbove()
     {
-        ForgeDirection[] directions = ForgeDirection.VALID_DIRECTIONS;
+        return worldObj.getTileEntity(xCoord, yCoord + 1, zCoord) != null && worldObj.getTileEntity(xCoord, yCoord + 1, zCoord) instanceof IFluidHandler ? (IFluidHandler) worldObj.getTileEntity(xCoord, yCoord + 1, zCoord) : null;
+    }
 
-        for (ForgeDirection forgeDirection : directions)
-        {
-            IFluidHandler[] fluidHandlers;
-            int x = tile.xCoord;
-            int y = tile.yCoord;
-            int z = tile.zCoord;
-
-            switch (forgeDirection)
-            {
-                case NORTH:
-                    worldObj.getTileEntity(x, y, z);
-                    break;
-            }
-        }
-
-        return null;
+    private IFluidHandler getTankBelow()
+    {
+        return worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) != null && worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) instanceof IFluidHandler ? (IFluidHandler) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) : null;
     }
 
     //Fluid Stuffs

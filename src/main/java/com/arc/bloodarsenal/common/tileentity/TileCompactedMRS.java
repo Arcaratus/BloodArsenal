@@ -76,6 +76,7 @@ public class TileCompactedMRS extends TEMasterStone implements IMasterRitualSton
         tag.setString("ritualName", ritualName);
     }
 
+    @Override
     public void readClientNBT(NBTTagCompound tag)
     {
         ritualName = tag.getString("ritualName");
@@ -94,6 +95,7 @@ public class TileCompactedMRS extends TEMasterStone implements IMasterRitualSton
         }
     }
 
+    @Override
     public void writeClientNBT(NBTTagCompound tag)
     {
         tag.setString("ritualName", ritualName);

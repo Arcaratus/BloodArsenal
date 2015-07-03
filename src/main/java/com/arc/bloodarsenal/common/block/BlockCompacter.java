@@ -48,8 +48,17 @@ public class BlockCompacter extends BlockContainer
     private float capacityMultiplier;
     private float orbCapacityMultiplier;
     private float dislocationMultiplier;
-    private int accelerationUpgrades;
     private int bufferCapacity;
+
+    private int speedUpgrades = 0;
+    private int efficiencyUpgrades = 0;
+    private int sacrificeUpgrades = 0;
+    private int selfSacrificeUpgrades = 0;
+    private int displacementUpgrades = 0;
+    private int altarCapacitiveUpgrades = 0;
+    private int orbCapacitiveUpgrades = 0;
+    private int betterCapacitiveUpgrades = 0;
+    private int accelerationUpgrades = 0;
 
     @SideOnly(Side.CLIENT)
     private IIcon topIcon;
@@ -369,6 +378,15 @@ public class BlockCompacter extends BlockContainer
         orbCapacityMultiplier = (float) (1 + 0.02 * upgrades.getOrbCapacitiveUpgrades());
         capacity = (int) (FluidContainerRegistry.BUCKET_VOLUME * 10 * capacityMultiplier);
         bufferCapacity = (int) (FluidContainerRegistry.BUCKET_VOLUME * 1 * capacityMultiplier);
+
+        speedUpgrades = upgrades.getSpeedUpgrades();
+        efficiencyUpgrades = upgrades.getEfficiencyUpgrades();
+        sacrificeUpgrades = upgrades.getSacrificeUpgrades();
+        selfSacrificeUpgrades = upgrades.getSelfSacrificeUpgrades();
+        displacementUpgrades = upgrades.getDisplacementUpgrades();
+        altarCapacitiveUpgrades = upgrades.getAltarCapacitiveUpgrades();
+        orbCapacitiveUpgrades = upgrades.getOrbCapacitiveUpgrades();
+        betterCapacitiveUpgrades = upgrades.getBetterCapacitiveUpgrades();
         accelerationUpgrades = upgrades.getAccelerationUpgrades();
 
         world.markBlockForUpdate(x, y, z);
@@ -421,7 +439,7 @@ public class BlockCompacter extends BlockContainer
                 altar.setCapacityMultiplier(capacityMultiplier);
                 altar.setCapacity(capacity);
                 altar.setBufferCapacity(bufferCapacity);
-                altar.setAccelerationUpgrades(accelerationUpgrades);
+                altar.setUpgrades(speedUpgrades, efficiencyUpgrades, sacrificeUpgrades, selfSacrificeUpgrades, displacementUpgrades, altarCapacitiveUpgrades, orbCapacitiveUpgrades, betterCapacitiveUpgrades, accelerationUpgrades);
 
                 world.markBlockForUpdate(x, y, z);
 

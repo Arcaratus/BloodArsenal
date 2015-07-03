@@ -25,7 +25,7 @@ public class PortableAltarBlock extends ItemBlock
     {
         if (GuiScreen.isShiftKeyDown())
         {
-            addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
+            addHiddenTooltip(par1ItemStack, par3List);
         }
         else
         {
@@ -33,7 +33,7 @@ public class PortableAltarBlock extends ItemBlock
         }
     }
 
-    public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+    public void addHiddenTooltip(ItemStack par1ItemStack, List par3List)
     {
         String capacity = par1ItemStack.getTagCompound().getString("capacity");
         int alterTier = par1ItemStack.getTagCompound().getInteger("upgradeLevel");

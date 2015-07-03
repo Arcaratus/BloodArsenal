@@ -19,6 +19,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
@@ -32,29 +33,37 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
     private int resultID;
     private int resultDamage;
     private int upgradeLevel;
-    protected FluidStack fluid;
+    public FluidStack fluid;
     public int capacity;
     private boolean isActive;
-    private int liquidRequired; //mB
+    public int liquidRequired; //mB
     private boolean canBeFilled;
-    private int consumptionRate;
+    public int consumptionRate;
     private int drainRate;
-    private float consumptionMultiplier;
+    public float consumptionMultiplier;
     private float efficiencyMultiplier;
     private float sacrificeEfficiencyMultiplier;
     private float selfSacrificeEfficiencyMultiplier;
     private float capacityMultiplier;
     private float orbCapacityMultiplier;
     private float dislocationMultiplier;
-    private int accelerationUpgrades;
     private boolean isUpgraded;
     private boolean isResultBlock;
     private int bufferCapacity;
-    protected FluidStack fluidOutput;
-    protected FluidStack fluidInput;
-    private int progress;
-    private int hasChanged = 0;
+    public FluidStack fluidOutput;
+    public FluidStack fluidInput;
+    public int progress;
     private int cooldownAfterCrafting = 500;
+
+    public int speedUpgrades = 0;
+    public int efficiencyUpgrades = 0;
+    public int sacrificeUpgrades = 0;
+    public int selfSacrificeUpgrades = 0;
+    public int displacementUpgrades = 0;
+    public int altarCapacitiveUpgrades = 0;
+    public int orbCapacitiveUpgrades = 0;
+    public int betterCapacitiveUpgrades = 0;
+    public int accelerationUpgrades = 0;
 
     private int lockdownDuration;
     private int demonBloodDuration;
@@ -421,16 +430,6 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         return fluid;
     }
 
-    public FluidStack getInputFluid()
-    {
-        return fluidInput;
-    }
-
-    public FluidStack getOutputFluid()
-    {
-        return fluidOutput;
-    }
-
     @Override
     public int getFluidAmount()
     {
@@ -551,8 +550,16 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         this.capacityMultiplier = capacityMultiplier;
     }
 
-    public void setAccelerationUpgrades(int accelerationUpgrades)
+    public void setUpgrades(int speedUpgrades, int efficiencyUpgrades, int sacrificeUpgrades, int selfSacrificeUpgrades, int displacementUpgrades, int altarCapacitiveUpgrades, int orbCapacitiveUpgrades, int betterCapacitiveUpgrades, int accelerationUpgrades)
     {
+        this.speedUpgrades = speedUpgrades;
+        this.efficiencyUpgrades = efficiencyUpgrades;
+        this.sacrificeUpgrades = sacrificeUpgrades;
+        this.selfSacrificeUpgrades = selfSacrificeUpgrades;
+        this.displacementUpgrades = displacementUpgrades;
+        this.altarCapacitiveUpgrades = altarCapacitiveUpgrades;
+        this.orbCapacitiveUpgrades = orbCapacitiveUpgrades;
+        this.betterCapacitiveUpgrades = betterCapacitiveUpgrades;
         this.accelerationUpgrades = accelerationUpgrades;
     }
 
@@ -935,7 +942,7 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
 
     public int[] buildIntDataList()
     {
-        int[] sortList = new int[1 * 3];
+        int[] sortList = new int[3];//1 * 3
         int pos = 0;
 
         for (ItemStack is : inv)
@@ -1124,9 +1131,9 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
 
     public void sendChatInfoToPlayer(EntityPlayer player)
     {
-        player.addChatMessage(new ChatComponentText("Altar's Current Essence: " + this.fluid.amount + "LP"));
-        player.addChatMessage(new ChatComponentText("Altar's Current Tier: " + this.upgradeLevel));
-        player.addChatMessage(new ChatComponentText("Capacity: " + this.getCapacity() + "LP"));
+        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.altarEssence") + " " + this.fluid.amount + "LP"));
+        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.altarCurrentTier") + " " + this.upgradeLevel));
+        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.capacity") + " " + this.getCapacity() + "LP"));
     }
 
     public void sendMoreChatInfoToPlayer(EntityPlayer player)
@@ -1134,12 +1141,12 @@ public class TilePortableAltar extends TileEntity implements IInventory, IFluidT
         if (getStackInSlot(0) != null)
         {
             int stackSize = getStackInSlot(0).stackSize;
-            player.addChatMessage(new ChatComponentText("Altar's Progress: " + progress + "LP/" + liquidRequired * stackSize + "LP"));
-            player.addChatMessage(new ChatComponentText("Consumption rate: " + (int) (consumptionRate * (1 + consumptionMultiplier)) + "LP/t"));
+            player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.altarProgress") + " " + progress + "LP/" + liquidRequired * stackSize + "LP"));
+            player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.consumptionRate") + " " + (int) (consumptionRate * (1 + consumptionMultiplier)) + "LP/t"));
         }
-        player.addChatMessage(new ChatComponentText("Altar's Current Essence: " + this.fluid.amount + "LP"));
-        player.addChatMessage(new ChatComponentText("Input tank: " + this.fluidInput.amount + "LP"));
-        player.addChatMessage(new ChatComponentText("Output tank: " + this.fluidOutput.amount + "LP"));
+        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.altarEssence") + " " + this.fluid.amount + "LP"));
+        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.inputTank") + " " + this.fluidInput.amount + "LP"));
+        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.outputTank") + " " + this.fluidOutput.amount + "LP"));
     }
 
     @Override

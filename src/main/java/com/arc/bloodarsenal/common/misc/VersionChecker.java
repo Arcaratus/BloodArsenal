@@ -17,8 +17,6 @@ public class VersionChecker
     public static boolean startedDownload = false;
     public static boolean downloadedFile = false;
 
-    private static String BUILD = "GRADLE:BUILD";
-
     public void init()
     {
         new ThreadVersionChecker();

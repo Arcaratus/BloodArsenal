@@ -26,7 +26,7 @@ public class CompactedMRSBlock extends ItemBlock
     {
         if (GuiScreen.isShiftKeyDown())
         {
-            addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
+            addHiddenTooltip(par1ItemStack, par3List);
         }
         else
         {
@@ -34,7 +34,7 @@ public class CompactedMRSBlock extends ItemBlock
         }
     }
 
-    public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+    public void addHiddenTooltip(ItemStack par1ItemStack, List par3List)
     {
         String ritualID = par1ItemStack.getTagCompound().getString("ritualName");
         String ritualName = Rituals.getNameOfRitual(ritualID);
