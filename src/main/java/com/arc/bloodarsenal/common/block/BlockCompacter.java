@@ -12,12 +12,10 @@ import WayofTime.alchemicalWizardry.common.bloodAltarUpgrade.UpgradedAltars;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEMasterStone;
 import com.arc.bloodarsenal.common.tileentity.TileCompactedMRS;
-import com.arc.bloodarsenal.common.tileentity.TileCompacter;
 import com.arc.bloodarsenal.common.tileentity.TilePortableAltar;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -33,7 +31,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 
 import java.util.List;
 
-public class BlockCompacter extends BlockContainer
+public class BlockCompacter extends Block
 {
     private String ritualName;
     private int direction;
@@ -266,12 +264,6 @@ public class BlockCompacter extends BlockContainer
         this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
         this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
         this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-    }
-
-    @Override
-    public TileEntity createNewTileEntity(World world, int meta)
-    {
-        return new TileCompacter();
     }
 
     private void checkRitual(TileEntity tileEntity)
