@@ -63,6 +63,7 @@ public class ModBlocks
     {
         GameRegistry.registerTileEntity(TilePortableAltar.class, "portable_altar");
         GameRegistry.registerTileEntity(TileLifeInfuser.class, "life_infuser");
+        GameRegistry.registerTileEntity(TileCompacter.class, "compacter");
         GameRegistry.registerTileEntity(TileLPMaterializer.class, "lp_materializer");
         GameRegistry.registerTileEntity(TileCompactedMRS.class, "compacted_mrs");
     }
