@@ -21,11 +21,14 @@ import net.minecraft.world.World;
 
 public class VampireCostume extends ItemArmor
 {
-    private static IIcon chestIcon;
-    private static IIcon leggingsIcon;
-    private static IIcon bootsIcon;
+    @SideOnly(Side.CLIENT)
+    private IIcon chestIcon;
+    @SideOnly(Side.CLIENT)
+    private IIcon leggingsIcon;
+    @SideOnly(Side.CLIENT)
+    private IIcon bootsIcon;
 
-    private static final boolean tryComplexRendering = true;
+    private boolean tryComplexRendering = true;
 
     public VampireCostume(int armorType)
     {

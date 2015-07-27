@@ -27,11 +27,16 @@ import java.util.List;
 
 public class BoundBow extends ItemBow implements IBindable
 {
-    private static IIcon active;
-    private static IIcon active_1;
-    private static IIcon active_2;
-    private static IIcon active_3;
-    private static IIcon passive;
+    @SideOnly(Side.CLIENT)
+    private IIcon active;
+    @SideOnly(Side.CLIENT)
+    private IIcon active_1;
+    @SideOnly(Side.CLIENT)
+    private IIcon active_2;
+    @SideOnly(Side.CLIENT)
+    private IIcon active_3;
+    @SideOnly(Side.CLIENT)
+    private IIcon passive;
 
     private int energyUsed;
 
@@ -318,5 +323,11 @@ public class BoundBow extends ItemBow implements IBindable
         {
             return passive;
         }
+    }
+
+    @Override
+    public boolean isItemTool(ItemStack stack)
+    {
+        return true;
     }
 }

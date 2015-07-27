@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ItemBloodMoney extends Item
 {
-    private static final int[] MONEY_MULTIPLIER = new int[]{1, 4, 16, 64};
+    private final int[] MONEY_MULTIPLIER = new int[]{1, 4, 16, 64};
 
     @SideOnly(Side.CLIENT)
     private IIcon[] icons;

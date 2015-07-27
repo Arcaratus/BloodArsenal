@@ -22,14 +22,13 @@ public class BloodArsenalRecipes
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_infused_wood), new ItemStack(Blocks.log), 2, 3000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModBlocks.blood_infused_iron_block), new ItemStack(Blocks.iron_block), 3, 54000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.item_blood_cake), new ItemStack(Items.cake), 3, 10000, 5, 5, false);
-        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_iron), new ItemStack(Items.iron_ingot), 2, 6000, 5, 5, false);
+        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_iron), new ItemStack(Items.iron_ingot), 3, 6000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_orange), new ItemStack(Items.dye, 1, 14), 1, 200, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_diamond_active), new ItemStack(ModItems.blood_infused_diamond_unactive), 4, 80000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.soul_fragment), new ItemStack(ModItems.heart), 4, 75000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_cookie), new ItemStack(Items.cookie), 1, 2000, 5, 5, false);
         AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_infused_glowstone_dust), new ItemStack(Items.glowstone_dust), 3, 5000, 5, 5, false);
-        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_ball), new ItemStack(Items.snowball), 2, 500, 5, 5, false);
-        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_money), new ItemStack(Items.paper), 4, 10000, 5, 5, false);
+        AltarRecipeRegistry.registerAltarRecipe(new ItemStack(ModItems.blood_money), new ItemStack(Items.paper), 3, 10000, 5, 5, false);
     }
 
     public static void registerBindingRecipes()
@@ -39,7 +38,6 @@ public class BloodArsenalRecipes
         BindingRegistry.registerRecipe(new ItemStack(ModItems.bound_shears), new ItemStack(Items.shears));
         BindingRegistry.registerRecipe(new ItemStack(ModItems.blood_infused_diamond_bound), new ItemStack(ModItems.blood_infused_diamond_active));
         BindingRegistry.registerRecipe(new ItemStack(ModItems.bound_igniter), new ItemStack(Items.flint_and_steel));
-        //Temporary
         if (BloodArsenal.isHalloween())
         {
             BindingRegistry.registerRecipe(new ItemStack(ModItems.vampire_cape), new ItemStack(Items.leather_chestplate));
@@ -66,8 +64,8 @@ public class BloodArsenalRecipes
 
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.blood_stained_ice, 8), "aaa", "aba", "aaa", 'a', Blocks.ice, 'b', apprenticeOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.blood_stained_glass, 8), "aaa", "aba", "aaa", 'a', Blocks.glass, 'b', apprenticeOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.life_infuser), "aba", "aca", "ada", 'a', ModItems.blood_infused_iron, 'b', masterOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.blockAltar, 'd', new ItemStack(ModItems.blood_infused_diamond_bound));
-        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.lp_materializer), "aba", "bcb", "aba", 'a', ModItems.blood_infused_iron, 'b', imbuedSlate, 'c', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.life_infuser), "aba", "aca", "ada", 'a', ModItems.blood_infused_iron, 'b', magicianOrb, 'c', WayofTime.alchemicalWizardry.ModBlocks.blockAltar, 'd', Items.bucket);
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.lp_materializer), "aba", "bcb", "aba", 'a', ModItems.blood_infused_iron, 'b', imbuedSlate, 'c', magicianOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.compacter), "aaa", "bcb", "ded", 'a', ModBlocks.blood_infused_planks, 'b', ModItems.blood_infused_diamond_bound, 'c', Blocks.piston, 'd', ModBlocks.blood_infused_iron_block, 'e', archmageOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_axe_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_axe_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.blood_infused_pickaxe_iron), "aaa", "aba", "cdc", 'a', ModItems.blood_infused_iron, 'b', ModItems.blood_infused_pickaxe_wood, 'c', ModItems.amorphic_catalyst, 'd', magicianOrb);

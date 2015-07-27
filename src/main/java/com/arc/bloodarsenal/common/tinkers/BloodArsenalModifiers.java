@@ -6,11 +6,6 @@ import tconstruct.library.crafting.ModifyBuilder;
 
 public class BloodArsenalModifiers
 {
-    public static void init()
-    {
-        initModifiers();
-    }
-
     public static void initModifiers()
     {
         ItemStack masterOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.masterBloodOrb, 1, OreDictionary.WILDCARD_VALUE);

@@ -1,22 +1,30 @@
 package com.arc.bloodarsenal.common.tinkers;
 
+import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.tools.ToolCore;
 import tconstruct.modifiers.tools.ModBoolean;
+import tconstruct.util.config.PHConstruct;
+
+import java.util.ArrayList;
 
 public class ModSoulbound extends ModBoolean
 {
     public int modifiersRequired = 1;
+    private String owner;
 
     public ModSoulbound(ItemStack[] items)
     {
-        super(items, 1, "Soulbound", "\u00a74", "Soulbound");
+        super(items, 30, "Soulbound", EnumChatFormatting.DARK_RED.toString(), "Soulbound");
     }
 
     @Override
-    public boolean matches (ItemStack[] input, ItemStack tool)
+    public boolean matches(ItemStack[] input, ItemStack tool)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 
@@ -26,24 +34,28 @@ public class ModSoulbound extends ModBoolean
                 return false;
 
         ItemStack foundOrb = null;
-        ItemStack masterOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.masterBloodOrb, 1, OreDictionary.WILDCARD_VALUE);
 
         for (ItemStack stack : input)
-            {
-                if (stack == null)
-                    continue;
-                if (stack.getItem() != masterOrb.getItem())
-                    continue;
-                if (foundOrb != null)
-                    return false;
+        {
+            if (stack == null)
+                continue;
+            if (!(stack.getItem() instanceof IBloodOrb))
+                continue;
+            if (!(((IBloodOrb) stack.getItem()).getOrbLevel() >= 4))
+                continue;
+            if (SoulNetworkHandler.getOwnerName(stack).equals(""))
+                continue;
+            if (foundOrb != null)
+                return false;
 
-                foundOrb = stack;
-            }
+            foundOrb = stack;
+        }
 
         if (foundOrb == null)
             return false;
-
-        // otherwise check if we have enough modfiers
+        if (tags.getBoolean(key))
+            return false;
+            // otherwise check if we have enough modfiers
         else if (tags.getInteger("Modifiers") < modifiersRequired)
             return false;
 
@@ -52,7 +64,7 @@ public class ModSoulbound extends ModBoolean
     }
 
     @Override
-    public void modify (ItemStack[] input, ItemStack tool)
+    public void modify(ItemStack[] input, ItemStack tool)
     {
         NBTTagCompound tags = tool.getTagCompound();
 
@@ -62,27 +74,33 @@ public class ModSoulbound extends ModBoolean
             int modifiers = tags.getCompoundTag("InfiTool").getInteger("Modifiers");
             modifiers -= modifiersRequired;
             tags.getCompoundTag("InfiTool").setInteger("Modifiers", modifiers);
-            addModifierTip(tool, "\u00a74");
+            addModifierTip(tool, EnumChatFormatting.DARK_RED + "Soulbound");
         }
 
         tags.getCompoundTag("InfiTool").setBoolean(key, true);
 
         // find the battery in the input
         ItemStack inputBattery = null;
-        ItemStack masterOrb = new ItemStack(WayofTime.alchemicalWizardry.ModItems.masterBloodOrb, 1, OreDictionary.WILDCARD_VALUE);
 
         for (ItemStack stack : input)
-            {
-                if (stack == null)
-                    continue;
-                if (stack.getItem() != masterOrb.getItem())
-                    continue;
+        {
+            if (stack == null)
+                continue;
+            if (!(stack.getItem() instanceof IBloodOrb))
+                continue;
+            if (!(((IBloodOrb) stack.getItem()).getOrbLevel() >= 4))
+                continue;
+            if (SoulNetworkHandler.getOwnerName(stack).equals(""))
+                continue;
+            if (inputBattery != null)
+                return;
 
-                // we're guaranteed to only find one battery because more are prevented above
-                inputBattery = stack;
-            }
+            this.owner = SoulNetworkHandler.getOwnerName(stack);
+            // we're guaranteed to only find one battery because more are prevented above
+            inputBattery = stack;
+        }
 
-        tags.setString("Owner", "");
+        tags.setString("Owner", owner);
         tags.setInteger(key, 1);
     }
 }

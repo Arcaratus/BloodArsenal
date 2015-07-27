@@ -57,14 +57,12 @@ public class ModItems
     public static Item vampire_greaves;
     public static Item vampire_boots;
     public static Item vampire_ring;
-    public static Item energy_gatling;
     public static Item sigil_of_swimming;
     public static Item sigil_of_ender;
     public static Item blood_infused_glowstone_dust;
     public static Item self_sacrifice_amulet;
     public static Item sacrifice_amulet;
     public static Item sigil_of_divinity;
-    public static Item blood_ball;
     public static Item wolf_hide;
     public static Item blood_money;
     public static Item blood_burned_string;
@@ -125,12 +123,10 @@ public class ModItems
         vampire_cape = registerItem(new VampireCostume(1), "vampire_cape");
         vampire_greaves = registerItem(new VampireCostume(2), "vampire_greaves");
         vampire_boots = registerItem(new VampireCostume(3), "vampire_boots");
-        energy_gatling = registerItem(new EnergyGatling(), "energy_gatling");
         sigil_of_swimming = registerItem(new SigilSwimming(), "sigil_of_swimming");
         sigil_of_ender = registerItem(new SigilEnder(), "sigil_of_ender");
         blood_infused_glowstone_dust = registerItem(new ItemBloodArsenal(), "blood_infused_glowstone_dust");
         sigil_of_divinity = registerItem(new SigilDivinity(), "sigil_of_divinity");
-        blood_ball = registerItem(new ItemBloodBall(), "blood_ball");
         wolf_hide = registerItem(new ItemBloodArsenal(), "wolf_hide");
         blood_money = registerItem(new ItemBloodMoney(), "blood_money");
         blood_burned_string = registerItem(new ItemReed(ModBlocks.block_burned_string), "blood_burned_string");

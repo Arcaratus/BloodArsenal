@@ -1,16 +1,13 @@
 package com.arc.bloodarsenal.common;
 
-import com.arc.bloodarsenal.common.entity.ModEntities;
 import com.arc.bloodarsenal.common.entity.ModLivingDropsEvent;
 import com.arc.bloodarsenal.common.gui.GuiHandler;
 import com.arc.bloodarsenal.common.items.ModItems;
 import com.arc.bloodarsenal.common.items.sigil.holding.AHPacketHandler;
-import com.arc.bloodarsenal.common.tinkers.BloodArsenalModifiers;
-import com.arc.bloodarsenal.common.tinkers.BloodArsenalTinkers;
-import com.arc.bloodarsenal.common.tinkers.RecipeHelper;
 import com.arc.bloodarsenal.common.misc.CommandDownloadMod;
 import com.arc.bloodarsenal.common.potion.PotionBloodArsenal;
 import com.arc.bloodarsenal.common.rituals.RitualRegistry;
+import com.arc.bloodarsenal.common.tinkers.BloodArsenalTinkers;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -33,7 +30,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
 
-@Mod(modid = BloodArsenal.MODID, version = BloodArsenal.VERSION, name = "Blood Arsenal", dependencies = "required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:TConstruct;after:Waila", guiFactory = "com.arc.bloodarsenal.common.gui.ConfigGuiFactory")
+@Mod(modid = BloodArsenal.MODID, version = BloodArsenal.VERSION, name = "Blood Arsenal", dependencies = "required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:guideapi;after:TConstruct;after:Waila", guiFactory = "com.arc.bloodarsenal.common.gui.ConfigGuiFactory")
 public class BloodArsenal
 {
     public final static String MODID = "BloodArsenal";
@@ -85,8 +82,6 @@ public class BloodArsenal
         ModBlocks.registerTileEntities();
 
 	    ModItems.init();
-
-        ModEntities.init();
 
 	    Potion[] potionTypes;
 
@@ -160,11 +155,13 @@ public class BloodArsenal
             if (BloodArsenalConfig.tinkersIntegration)
             {
                 logger.info("Loaded Tinker's Construct integration");
-
-                BloodArsenalTinkers.init();
-                BloodArsenalModifiers.init();
-                RecipeHelper.addRecipes();
+                BloodArsenalTinkers.INSTANCE.init();
             }
+        }
+
+        if (Loader.isModLoaded("guideapi"))
+        {
+
         }
     }
 

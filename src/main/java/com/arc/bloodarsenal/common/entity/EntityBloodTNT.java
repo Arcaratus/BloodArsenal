@@ -35,18 +35,22 @@ public class EntityBloodTNT extends Entity
         tntPlacedBy = par8EntityLivingBase;
     }
 
+    @Override
     public void entityInit() {}
 
+    @Override
     public boolean canTriggerWalking()
     {
         return false;
     }
 
+    @Override
     public boolean canBeCollidedWith()
     {
         return !isDead;
     }
 
+    @Override
     public void onUpdate()
     {
         prevPosX = posX;
@@ -84,16 +88,19 @@ public class EntityBloodTNT extends Entity
         worldObj.createExplosion(this, posX, posY, posZ, f, true);
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound par1)
     {
         par1.setByte("Fuse", (byte) fuse);
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound par1)
     {
         fuse = par1.getByte("Fuse");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public float getShadowSize()
     {

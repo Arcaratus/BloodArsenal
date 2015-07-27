@@ -29,14 +29,16 @@ public class BloodArsenalConfig
     public static boolean ritualDisabledEnchantment;
 
     // Block Settings
-    public static String[] blocksToBeDisabled = {};
+    public static String[] blocksToBeDisabled;
 
 	// Item Settings
-    public static String[] itemsToBeDisabled = {};
+    public static String[] itemsToBeDisabled;
 
-    //ModSettings
+    //Mod Settings
     public static boolean baublesIntegration;
     public static boolean tinkersIntegration;
+    public static int bloodInfusedWoodID;
+    public static int bloodInfusedIronID;
 
     //LP Settings
     public static int sigilSwimmingCost;
@@ -91,6 +93,8 @@ public class BloodArsenalConfig
 
         baublesIntegration = config.get(modSettings, "Enable Baubles integration?", true).getBoolean(baublesIntegration);
         tinkersIntegration = config.get(modSettings, "Enable TConstruct integration?", true).getBoolean(tinkersIntegration);
+        bloodInfusedWoodID = config.get(modSettings, "Material ID for Blood Infused Wood; Default: 250", 250).getInt(bloodInfusedWoodID);
+        bloodInfusedIronID = config.get(modSettings, "Material ID for Blood Infused Iron; Defualt: 251", 251).getInt(bloodInfusedIronID);
 
         sigilSwimmingCost = config.get(lpSettings, "Sigil of Swimming cost; Default: 150", 150).getInt(sigilSwimmingCost);
         sigilDivinityCost = config.get(lpSettings, "Sigil of Divinity cost; Default: 1000000", 1000000).getInt(sigilDivinityCost);

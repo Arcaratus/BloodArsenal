@@ -4,7 +4,7 @@ import com.arc.bloodarsenal.common.entity.EntityBloodTNT;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.BlockTNT;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockBloodTNT extends Block
+public class BlockBloodTNT extends BlockTNT
 {
     @SideOnly(Side.CLIENT)
     private IIcon top;
@@ -26,7 +26,7 @@ public class BlockBloodTNT extends Block
     
     public BlockBloodTNT()
     {
-        super(Material.tnt);
+        super();
         setHardness(0.0F);
         setStepSound(soundTypeGrass);
     }
@@ -80,7 +80,7 @@ public class BlockBloodTNT extends Block
     @Override
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5)
     {
-        spawnTNT(par1World, par2, par3, par4, par5, (EntityLivingBase) null);
+        spawnTNT(par1World, par2, par3, par4, par5, null);
     }
 
     public void spawnTNT(World par1World, int par2, int par3, int par4, int par5, EntityLivingBase par6EntityLivingBase)

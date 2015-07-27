@@ -219,36 +219,9 @@ ba.versioning.disabled=This feature is disabled.
 owner=Owner:
 
 #TConstruct Stuffs
-material.blood_infused_iron=Blood Infused Iron
+material.bloodarsenal.blood_infused_wood=Blood Infused Wood
+material.bloodarsenal.blood_infused_iron=Blood Infused Iron
 
-part.arrowhead=@material@ Arrowhead
-part.axe.head=@material@ Axe Head
-part.battle.sign=@material@ Battle Sign
-part.binding=@material@ Binding
-part.bolt=@material@ Bolt
-part.bow.limb=@material@ Bow Limb
-part.chisel.head=@material@ Chisel Head
-part.chunk=@material@ Chunk
-part.crossbar=@material@ Crossbar
-part.crossbow.body=@material@ Crossbow Body
-part.crossbow.limb=@material@ Crossbow Limb
-part.excavator.head=@material@ Excavator Head
-part.frypan.head=@material@ Pan Head
-part.full.guard=@material@ Full Guard
-part.hammer.head=@material@ Hammer Head
-part.knife.blade=@material@ Knife Blade
-part.large.guard=@material@ Large Guard
-part.large.sword.blade=@material@ Large Sword Blade
-part.largeplate=@material@ Large Plate
-part.lumberaxe.head=@material@ Broad Axe Head
-part.medium.guard=@material@ Medium Guard
-part.pickaxe.head=@material@ Pickaxe Head
-part.scythe.head=@material@ Scythe Head
-part.shovel.head=@material@ Shovel Head
-part.shuriken=@material@ Shuriken
-part.sword.blade=@material@ Sword Blade
-part.toolrod=@material@ Tool Rod
-part.toughbind=@material@ Tough Binding
-part.toughrod=@material@ Tough Rod
+fluid.molten.blood_infused_iron=Molten Blood Infused Iron
 
 modifier.toolstation.Soulbound=Soulbound

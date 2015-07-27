@@ -22,9 +22,11 @@ import java.util.List;
 public class BoundIgniter extends Item implements IBindable
 {
     private int energyUsed;
-    
-    private static IIcon active;
-    private static IIcon passive;
+
+    @SideOnly(Side.CLIENT)
+    private IIcon active;
+    @SideOnly(Side.CLIENT)
+    private IIcon passive;
 
     public BoundIgniter()
     {
@@ -167,7 +169,6 @@ public class BoundIgniter extends Item implements IBindable
         }
 
         par1ItemStack.setItemDamage(0);
-        return;
     }
 
     public void setActivated(ItemStack par1ItemStack, boolean newActivated)

@@ -33,8 +33,10 @@ public class BoundShears extends ItemShears implements IBindable
 {
     private int energyUsed;
 
-    private static IIcon active;
-    private static IIcon passive;
+    @SideOnly(Side.CLIENT)
+    private IIcon active;
+    @SideOnly(Side.CLIENT)
+    private IIcon passive;
     
     public BoundShears()
     {
@@ -287,6 +289,5 @@ public class BoundShears extends ItemShears implements IBindable
         }
 
         par1ItemStack.setItemDamage(0);
-        return;
     }
 }

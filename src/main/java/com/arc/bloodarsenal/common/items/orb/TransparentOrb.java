@@ -44,11 +44,11 @@ public class TransparentOrb extends EnergyBattery
             return;
         }
 
-        int maxEssence = this.getMaxEssence();
-        int section = maxEssence / 23;
+        int maxEssence = SoulNetworkHandler.getMaximumForOrbTier(SoulNetworkHandler.getCurrentMaxOrb(SoulNetworkHandler.getOwnerName(itemStack)));
+        int section = maxEssence / 44;
         int currentEssence = SoulNetworkHandler.getCurrentEssence(SoulNetworkHandler.getOwnerName(itemStack));
 
-        if (currentEssence != 0)
+        if (currentEssence > 0)
         {
             int metaToBe = (currentEssence / section);
             itemStack.setItemDamage(metaToBe);
