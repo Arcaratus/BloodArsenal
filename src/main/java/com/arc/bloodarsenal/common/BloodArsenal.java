@@ -44,6 +44,7 @@ public class BloodArsenal
     public static Potion vampiricAura;
     public static Potion bleeding;
     public static Potion swimming;
+    public static Potion soulBurn;
 
     public static Item.ToolMaterial infusedWood = EnumHelper.addToolMaterial("InfusedWood", 1, 0, 5.0F, 1.0F, 0);
     public static Item.ToolMaterial infusedIron = EnumHelper.addToolMaterial("InfusedIron", 3, 0, 11.0F, 4.0F, 0);
@@ -135,6 +136,7 @@ public class BloodArsenal
         vampiricAura = new PotionBloodArsenal(BloodArsenalConfig.vampiricAuraID, false, 0).setIconIndex(0, 0).setPotionName("Vampiric Aura");
         bleeding = new PotionBloodArsenal(BloodArsenalConfig.bleedingID, true, 0).setIconIndex(1, 0).setPotionName("Bleeding");
         swimming = new PotionBloodArsenal(BloodArsenalConfig.swimmingID, false, 0).setIconIndex(2, 0).setPotionName("Swimming");
+        soulBurn = new PotionBloodArsenal(BloodArsenalConfig.soulBurnID, true, 0).setIconIndex(3, 0).setPotionName("Soul Burn");
     }
 
     @Mod.EventHandler

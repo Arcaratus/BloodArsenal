@@ -140,7 +140,7 @@ public class RitualEffectWithering extends RitualEffect
     @Override
     public List<RitualComponent> getRitualComponentList()
     {
-        ArrayList<RitualComponent> witherRitual = new ArrayList();
+        ArrayList<RitualComponent> witherRitual = new ArrayList<RitualComponent>();
         witherRitual.add(new RitualComponent(1, 0, -1, RitualComponent.DUSK));
         witherRitual.add(new RitualComponent(-1, 0, -1, RitualComponent.DUSK));
         witherRitual.add(new RitualComponent(-1, 0, 1, RitualComponent.DUSK));

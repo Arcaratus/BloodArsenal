@@ -1,5 +1,7 @@
 package com.arc.bloodarsenal.common;
 
+import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import baubles.common.network.PacketHandler;
@@ -25,7 +27,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -96,11 +99,6 @@ public class BloodArsenalEventHooks
         }
     }
 
-    public void こんにちは(EntityPlayer player)
-    {
-        player.addChatMessage(new ChatComponentText("こんにちは！"));
-    }
-
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event)
     {
@@ -131,6 +129,33 @@ public class BloodArsenalEventHooks
                     entityLiving.addPotionEffect(new PotionEffect(Potion.blindness.id, duration, 1));
                     entityLiving.hurtResistantTime = Math.min(entityLiving.hurtResistantTime, 20 / (amplifier + 1));
                 }
+            }
+
+            if (entityLiving.isPotionActive(BloodArsenal.soulBurn))
+            {
+                int amplifier = entityLiving.getActivePotionEffect(BloodArsenal.soulBurn).getAmplifier();
+                entityLiving.setFire(2);
+
+                if (entityLiving instanceof EntityPlayer)
+                {
+                    if (entityLiving.worldObj.getWorldTime() % (10 / (amplifier + 1)) == 0)
+                    {
+                        String owner = entityLiving.getCommandSenderName();
+                        World worldSave = MinecraftServer.getServer().worldServers[0];
+                        LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
+
+                        if (data == null)
+                        {
+                            data = new LifeEssenceNetwork(owner);
+                            worldSave.setItemData(owner, data);
+                        }
+
+                        int lpToMinus = 1000 * (2 ^ (amplifier + 1));
+
+                        SoulNetworkHandler.syphonAndDamageFromNetwork(owner, (EntityPlayer) entityLiving, lpToMinus);
+                    }
+                }
+
             }
 
             if (entityLiving instanceof EntityPlayer)

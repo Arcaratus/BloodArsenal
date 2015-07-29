@@ -262,7 +262,7 @@ public class RitualEffectEnchant extends RitualEffect
     @Override
     public List<RitualComponent> getRitualComponentList()
     {
-        ArrayList<RitualComponent> enchantRitual = new ArrayList();
+        ArrayList<RitualComponent> enchantRitual = new ArrayList<RitualComponent>();
         enchantRitual.add(new RitualComponent(2, 0, 0, RitualComponent.EARTH));
         enchantRitual.add(new RitualComponent(3, 0, 0, RitualComponent.DUSK));
         enchantRitual.add(new RitualComponent(3, 0, -1, RitualComponent.EARTH));

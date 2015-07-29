@@ -144,7 +144,7 @@ public class RitualEffectMidas extends RitualEffect
     @Override
     public List<RitualComponent> getRitualComponentList()
     {
-        ArrayList<RitualComponent> midasRitual = new ArrayList();
+        ArrayList<RitualComponent> midasRitual = new ArrayList<RitualComponent>();
         midasRitual.add(new RitualComponent(1, 0, 0, RitualComponent.EARTH));
         midasRitual.add(new RitualComponent(-1, 0, 0, RitualComponent.EARTH));
         midasRitual.add(new RitualComponent(0, 0, 1, RitualComponent.EARTH));

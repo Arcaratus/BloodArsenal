@@ -22,11 +22,14 @@ public class BloodArsenalConfig
     public static int vampiricAuraID;
 	public static int bleedingID;
 	public static int swimmingID;
+    public static int soulBurnID;
 
     // Ritual Blacklist
     public static boolean ritualDisabledMidas;
     public static boolean ritualDisabledWither;
     public static boolean ritualDisabledEnchantment;
+    public static boolean ritualDisabledMobOppression;
+    public static boolean ritualDisabledFisherman;
 
     // Block Settings
     public static String[] blocksToBeDisabled;
@@ -83,10 +86,13 @@ public class BloodArsenalConfig
         vampiricAuraID = config.get(potionId, "Vampiric Aura", 50).getInt(vampiricAuraID);
         bleedingID = config.get(potionId, "Bleeding", 51).getInt(bleedingID);
         swimmingID = config.get(potionId, "Swimming", 52).getInt(swimmingID);
+        soulBurnID = config.get(potionId, "Soul Burn", 53).getInt(soulBurnID);
 
         ritualDisabledWither = config.get(ritualBlacklist, "Ritual of Withering", false).getBoolean(ritualDisabledWither);
         ritualDisabledMidas = config.get(ritualBlacklist, "Midas Touch", false).getBoolean(ritualDisabledMidas);
         ritualDisabledEnchantment = config.get(ritualBlacklist, "The Enchantress's Spell", false).getBoolean(ritualDisabledEnchantment);
+        ritualDisabledMobOppression = config.get(ritualBlacklist, "Ritual of Mob Oppression", false).getBoolean(ritualDisabledMobOppression);
+        ritualDisabledFisherman = config.get(ritualBlacklist, "Fisherman's Hymn", false).getBoolean(ritualDisabledFisherman);
 
         blocksToBeDisabled = config.getStringList("Disable blocks here", blockSettings, new String[]{""}, "Type in the unlocalized name of the block you want disabled here (separate them using ENTER)");
         itemsToBeDisabled = config.getStringList("Disable items here", itemSettings, new String[]{""}, "Type in the unlocalized name of the item you want disabled (separate them using ENTER)");
