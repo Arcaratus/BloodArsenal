@@ -6,6 +6,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+/*
+ *  This portion here means that all this is from
+ *  Botania by Vazkii https://github.com/Vazkii/Botania
+ */
 public class ThreadVersionChecker extends Thread
 {
     public ThreadVersionChecker()
