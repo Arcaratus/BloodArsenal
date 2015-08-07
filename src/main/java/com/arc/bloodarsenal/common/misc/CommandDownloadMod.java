@@ -6,6 +6,10 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 
+/*
+ *  This portion here means that all this is from
+ *  Botania by Vazkii https://github.com/Vazkii/Botania
+ */
 public class CommandDownloadMod extends CommandBase
 {
     private static final boolean ENABLED = true;
