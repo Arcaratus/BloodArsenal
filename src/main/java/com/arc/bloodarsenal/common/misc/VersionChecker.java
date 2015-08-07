@@ -8,6 +8,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.*;
 
+/*
+ *  This portion here means that all this is from
+ *  Botania by Vazkii https://github.com/Vazkii/Botania
+ */
 public class VersionChecker
 {
     public static boolean doneChecking = false;
