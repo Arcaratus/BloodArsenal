@@ -2,21 +2,21 @@
 itemGroup.BA_TAB=Blood Arsenal
 
 #Blocks
-tile.blood_stone_1.name=空白血石块
-tile.blood_stone_2.name=加强血石块
-tile.blood_stone_3.name=灌輸血石块
-tile.blood_stone_4.name=惡魔血石块
-tile.blood_stone_5.name=懸幽血石板
+tile.blood_stone_1.name=空白石板塊
+tile.blood_stone_2.name=加強石板塊
+tile.blood_stone_3.name=灌輸石板塊
+tile.blood_stone_4.name=惡魔石板塊
+tile.blood_stone_5.name=懸幽石板塊
 tile.blood_tnt.name=血之TNT
 tile.blood_stained_glass.name=染血玻璃
 tile.blood_stained_ice.name=染血冰塊
-tile.blood_stained_ice_packed.name=染血浮冰
+tile.blood_stained_ice_packed.name=染血冰磚
 tile.blood_infused_wood.name=注血原木
 tile.blood_infused_planks.name=注血木板
 tile.blood_infused_iron_block.name=注血鐵塊
 tile.blood_torch.name=血之火把
 tile.blood_infused_glowstone.name=注血螢石
-tile.blood_lamp.name=注血灯
+tile.blood_lamp.name=注血燈
 tile.blood_infused_diamond_block.name=注血鑽石塊
 
 #Items
@@ -48,16 +48,16 @@ item.bound_flint_and_steel.name=約束打火石
 item.soul_fragment.name=靈魂碎片
 item.soul_booster.name=增益靈魂之石
 item.soul_nullifier.name=減益靈魂之石
-item.blood_cookie.name=染血曲奇
+item.blood_cookie.name=染血餅乾
 item.orange_juice.name=橙汁
-item.juice_and_cookies.name=橙汁和曲奇
+item.juice_and_cookies.name=橙汁和餅乾
 item.vampire_cape.name=吸血鬼斗篷
 item.vampire_greaves.name=吸血鬼護脛
 item.vampire_boots.name=吸血鬼長靴
 item.vampire_ring.name=吸血鬼指環
 item.energy_gatling.name=能量加特林
 item.sigil_of_swimming.name=水泳印記
-item.sigil_of_ender.name=末影印記
+item.sigil_of_ender.name=終界印記
 
 #TConstruct Stuffs
 material.bloodinfusediron=注血鐵
