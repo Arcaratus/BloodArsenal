@@ -153,7 +153,7 @@ tooltip.yes=是
 tooltip.no=否
 tooltip.direction=方向:
 
-tooltip.currentEssence=目前的生命能量:
+tooltip.currentEssence=祭壇目前生命能量:
 tooltip.altarTier=祭壇階級:
 tooltip.capacity=祭壇儲存量:
 
@@ -190,21 +190,21 @@ message.compacter.itemInAltar=祭壇裡有物品！
 message.compacter.wrongOrbTier=你需要更好的寶珠！
 
 message.enchant.noAltar=沒有祭壇！
-message.enchant.noPedestals=沒有
-message.enchant.noEnchantItem=There is no item to enchant!
-message.enchant.noEnchantments=There are no enchantments to apply!
-message.enchant.notEnoughLP=You do not have enough LP!
-message.enchant.The enchantment is not valid for the item
+message.enchant.noPedestals=沒有基柱！
+message.enchant.noEnchantItem=沒有物品！
+message.enchant.noEnchantments=沒有附魔！
+message.enchant.notEnoughLP=你沒有足夠的LP！
+message.enchant.notValid=無法附上此附魔！
 
-message.tile.contains=Contains:
+message.tile.contains=包含:
 
-message.altarCurrentTier=Altar's Current Tier:
-message.capacity=Capacity:
-message.altarProgress=Altar's Progress:
-message.consumptionRate=Consumption rate:
-message.altarEssence=Altar's Current Essence:
-message.inputTank=Input tank:
-message.outputTank=Output tank:
+message.altarCurrentTier=祭壇階級:
+message.capacity=祭壇儲存量:
+message.altarProgress=祭壇進度:
+message.consumptionRate=生命能量消耗速度:
+message.altarEssence=祭壇目前生命能量:
+message.inputTank=輸入槽:
+message.outputTank=輸出槽:
 
 #Miscs
 ba.versioning.update=現在去下載最新的 Blood Arsenal！
