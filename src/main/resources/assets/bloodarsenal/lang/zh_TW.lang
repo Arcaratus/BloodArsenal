@@ -177,20 +177,20 @@ tooltip.bauble.empowered_self_sacrifice=蒐集更多你的生命中！
 #Messages
 message.bloodMoney.tooMuch=你的靈魂網絡無法儲存那麼多LP！
 
-message.cake.lie=The cake is a lie!
-message.cake.eating=Omm nom nom!
-message.cake.tooFull=You are too full to eat any cake
+message.cake.lie=蛋糕是個謊言！
+message.cake.eating=(咀嚼聲)
+message.cake.tooFull=你目前無法吃下任何蛋糕
 
-message.door.severedConnection=You have severed a connection to the Soul Network!
-message.door.tooWeak=You are too weak to open the door.
-message.door.draining=You feel an odd draining sensation as the door actively resists you.
+message.door.severedConnection=你關閉了一個靈魂網絡的聯結！
+message.door.tooWeak=你目前因太虛弱而無法開門。
+message.door.draining=在門抗拒你時，你感到一種奇怪的流失感。
 
-message.compacter.notEnoughLP=There is not enough LP in your Soul Network!
-message.compacter.itemInAltar=There is an item in the altar!
-message.compacter.wrongOrbTier=You need a better orb to do this!
+message.compacter.notEnoughLP=你的靈魂網絡裡沒有足夠的LP！
+message.compacter.itemInAltar=祭壇裡有物品！
+message.compacter.wrongOrbTier=你需要更好的寶珠！
 
-message.enchant.noAltar=There is no altar!
-message.enchant.noPedestals=There are no pedestals!
+message.enchant.noAltar=沒有祭壇！
+message.enchant.noPedestals=沒有
 message.enchant.noEnchantItem=There is no item to enchant!
 message.enchant.noEnchantments=There are no enchantments to apply!
 message.enchant.notEnoughLP=You do not have enough LP!
