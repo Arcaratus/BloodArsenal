@@ -134,15 +134,15 @@ tooltip.tool.glassSacrificeDagger=不可用於玩耍
 tooltip.tool.glassDaggerOfSacrifice=讓它更痛
 tooltip.sigil.swimming=一直游！
 tooltip.sigil.ender1=將手伸進
-tooltip.sigil.ender2=終界裡！
+tooltip.sigil.ender2=終界中！
 tooltip.sigil.divinity=祝神靈保護你！
 tooltip.sigil.augmentedHolding=裝下所有的印記！
 tooltip.sigil.lightning=讓她劈下吧！
 tooltip.sigil.lightning2=模式:
 tooltip.bloodMoney.money=血債血還！
-tooltip.armor.glassArmor=More painful than it looks
+tooltip.armor.glassArmor=比看起來更痛
 tooltip.armor.lifeImbuedArmor=活的裝甲
-tooltip.energybattery.currentLP=目前的生命能量:
+tooltip.energybattery.currentLP=目前LP:
 
 tooltip.shiftinfo=-按下 &cSHIFT&7 獲得更多資訊-
 
@@ -167,15 +167,15 @@ tooltip.orbCapacitiveUpgrades=寶珠升級:
 tooltip.betterCapacitiveUpgrades=超容升級:
 tooltip.accelerationUpgrades=促進升級:
 
-tooltip.fillable.currentAmount=儲存的生命能量:
+tooltip.fillable.currentAmount=儲存的LP:
 
-tooltip.bauble.sacrifice=Collecting some life!
-tooltip.bauble.empowered_sacrifice=Collecting more life!
-tooltip.bauble.self_sacrifice=Collecting your life!
-tooltip.bauble.empowered_self_sacrifice=Collecting more of your life!
+tooltip.bauble.sacrifice=蒐集生命中！
+tooltip.bauble.empowered_sacrifice=蒐集更多的生命中！
+tooltip.bauble.self_sacrifice=蒐集你的生命中！
+tooltip.bauble.empowered_self_sacrifice=蒐集更多你的生命中！
 
 #Messages
-message.bloodMoney.tooMuch=Your Soul Network cannot hold that much LP.
+message.bloodMoney.tooMuch=你的靈魂網絡無法儲存那麼多LP！
 
 message.cake.lie=The cake is a lie!
 message.cake.eating=Omm nom nom!
