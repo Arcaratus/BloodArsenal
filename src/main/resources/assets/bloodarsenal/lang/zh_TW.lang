@@ -194,7 +194,7 @@ message.enchant.noPedestals=沒有基柱！
 message.enchant.noEnchantItem=沒有物品！
 message.enchant.noEnchantments=沒有附魔！
 message.enchant.notEnoughLP=你沒有足夠的LP！
-message.enchant.notValid=無法附上此附魔！
+message.enchant.enchantIsNotValid=無法附上此附魔！
 
 message.tile.contains=包含:
 
