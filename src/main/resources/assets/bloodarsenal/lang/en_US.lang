@@ -194,7 +194,7 @@ message.enchant.noPedestals=There are no pedestals!
 message.enchant.noEnchantItem=There is no item to enchant!
 message.enchant.noEnchantments=There are no enchantments to apply!
 message.enchant.notEnoughLP=You do not have enough LP!
-message.enchant.The enchantment is not valid for the item
+message.enchant.enchantIsNotValid=The enchantment is not valid for the item
 
 message.tile.contains=Contains:
 
