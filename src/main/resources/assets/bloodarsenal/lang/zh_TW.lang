@@ -207,7 +207,6 @@ message.inputTank=輸入槽:
 message.outputTank=輸出槽:
 
 #Miscs
-ba.versioning.update=現在去下載最新的 Blood Arsenal！
 ba.versioning.outdated=您正在使用 Blood Arsenal %s，最新的是 %s。
 ba.versioning.updateMessage=["按此... [",{"text":"下載","color":"red","hoverEvent":{"action":"show_text","value":{"text":"按此自動下載最新版本","color":"red"}},"clickEvent":{"action":"run_command","value":"/bloodarsenal-download-latest %version%"}},"] [",{"text":"官網","color":"red","hoverEvent":{"action":"show_text","value":{"text":"按此去官網","color":"red"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/mc-mods/228823-blood-magic-addon-blood-arsenal/files"}},"] [",{"text":"更新紀錄","color":"red","hoverEvent":{"action":"show_text","value":{"text":"按此看更新紀錄","color":"red"}},"clickEvent":{"action":"open_url","value":"http://www.curse.com/mc-mods/minecraft/228823-blood-magic-addon-blood-arsenal#t1:changes"}},"]"]
 ba.versioning.startingDownload=[{"text":"開始下載 %s 請不要移除硬碟。", "color":"orange"},{"text":"支持作者 Arcaratus","color":"cyan"},{"text":" on [","color":"orange"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"按此去 Arcaratus 的 Patreon","color":"cyan"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Arcaratus"}},{"text":"]!","color":"orange"}]

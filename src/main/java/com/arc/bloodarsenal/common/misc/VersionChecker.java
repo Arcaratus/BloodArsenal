@@ -41,16 +41,27 @@ public class VersionChecker
             if (!onlineVersion.isEmpty())
             {
                 EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-                int onlineBuild = Integer.parseInt(onlineVersion.split("1.1-")[1]);
-                int clientBuild = BloodArsenal.VERSION.equals("@VERSION@") ? 0 : Integer.parseInt(BloodArsenal.VERSION.split("1.1-")[1]);
+                int onlineBuild1 = Integer.parseInt(onlineVersion.substring(2, 3));
+                int onlineBuild2 = Integer.parseInt(onlineVersion.substring(3));
+                int clientBuild1 = BloodArsenal.VERSION.equals("@VERSION@") ? 0 : Integer.parseInt(BloodArsenal.VERSION.substring(2, 3));
+                int clientBuild2 = BloodArsenal.VERSION.equals("@VERSION@") ? 0 : Integer.parseInt(BloodArsenal.VERSION.substring(3));
 
-                if (onlineBuild > clientBuild)
+                if (onlineBuild1 > clientBuild1)
                 {
-                    player.addChatComponentMessage(new ChatComponentTranslation("ba.versioning.update").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
                     player.addChatComponentMessage(new ChatComponentTranslation("ba.versioning.outdated", BloodArsenal.VERSION, onlineVersion));
 
                     IChatComponent component = IChatComponent.Serializer.func_150699_a(StatCollector.translateToLocal("ba.versioning.updateMessage").replaceAll("%version%", onlineVersion));
                     player.addChatComponentMessage(component);
+                }
+                else if (onlineBuild1 == clientBuild1)
+                {
+                    if (onlineBuild2 > clientBuild2)
+                    {
+                        player.addChatComponentMessage(new ChatComponentTranslation("ba.versioning.outdated", BloodArsenal.VERSION, onlineVersion));
+
+                        IChatComponent component = IChatComponent.Serializer.func_150699_a(StatCollector.translateToLocal("ba.versioning.updateMessage").replaceAll("%version%", onlineVersion));
+                        player.addChatComponentMessage(component);
+                    }
                 }
             }
 
