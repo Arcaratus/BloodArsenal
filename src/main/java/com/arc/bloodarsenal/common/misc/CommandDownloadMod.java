@@ -1,3 +1,13 @@
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [May 31, 2014, 10:22:44 PM (GMT)]
+ */
 package com.arc.bloodarsenal.common.misc;
 
 import net.minecraft.command.CommandBase;
@@ -6,6 +16,10 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 
+/*
+ *  This portion here means that all this is from
+ *  Botania by Vazkii https://github.com/Vazkii/Botania
+ */
 public class CommandDownloadMod extends CommandBase
 {
     private static final boolean ENABLED = true;

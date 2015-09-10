@@ -1,3 +1,13 @@
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [May 31, 2014, 10:22:44 PM (GMT)]
+ */
 package com.arc.bloodarsenal.common.misc;
 
 import com.arc.bloodarsenal.common.BloodArsenal;
@@ -8,6 +18,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.*;
 
+/*
+ *  This portion here means that all this is from
+ *  Botania by Vazkii https://github.com/Vazkii/Botania
+ */
 public class VersionChecker
 {
     public static boolean doneChecking = false;
