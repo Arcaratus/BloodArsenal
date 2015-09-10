@@ -7,17 +7,31 @@ import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSyncBauble;
+import com.arc.bloodarsenal.common.BloodArsenalConfig;
+import com.arc.bloodarsenal.common.items.ModItems;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
 import java.util.List;
 
@@ -26,8 +40,58 @@ public class EmpoweredSelfSacrificeAmulet extends SelfSacrificeAmulet implements
     public EmpoweredSelfSacrificeAmulet()
     {
         super();
-        setMaxDamage(0);
-        setUnlocalizedName("empowered_self_sacrifice_amulet");
+        setHasSubtypes(true);
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @Override
+    @SubscribeEvent
+    public void selfSacrificeHandler(LivingAttackEvent event)
+    {
+        EntityLivingBase entityAttacked = event.entityLiving;
+        Entity entityAttacking = event.source.getSourceOfDamage();
+
+        if (entityAttacking != null && entityAttacked != null && entityAttacked instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration)
+        {
+            float damageDone = event.ammount;
+
+            EntityPlayer player = (EntityPlayer) entityAttacked;
+            InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+
+            for (int i = 0; i < inv.getSizeInventory(); i++)
+            {
+                ItemStack stack = inv.getStackInSlot(i);
+
+                if (stack != null)
+                {
+                    if (stack.getItem() == ModItems.empowered_self_sacrifice_amulet)
+                    {
+                        EmpoweredSelfSacrificeAmulet selfSacrificeAmulet = (EmpoweredSelfSacrificeAmulet) ModItems.empowered_self_sacrifice_amulet;
+                        int lpReceived = (int) damageDone;
+                        boolean shouldExecute = selfSacrificeAmulet.getStoredLP(stack) < 50000;
+
+                        if (shouldExecute)
+                        {
+                            PotionEffect regenEffect = player.getActivePotionEffect(Potion.regeneration);
+
+                            if (regenEffect != null && regenEffect.getAmplifier() >= 2)
+                            {
+                                selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 5) / (regenEffect.getAmplifier() + 1), 50000));
+                            }
+                            else
+                            {
+                                selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 5), 50000));
+                            }
+                        }
+
+                        if (player instanceof EntityPlayerMP)
+                        {
+                            PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -37,7 +101,7 @@ public class EmpoweredSelfSacrificeAmulet extends SelfSacrificeAmulet implements
 
         if (!(par1ItemStack.stackTagCompound == null))
         {
-            par3List.add("Stored LP: " + this.getStoredLP(par1ItemStack));
+            par3List.add("Stored LP: " + EnumChatFormatting.RED + this.getStoredLP(par1ItemStack));
 
             if (!par1ItemStack.stackTagCompound.getString("ownerName").equals(""))
             {

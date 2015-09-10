@@ -73,11 +73,6 @@ public class BloodArsenalEventHooks
                     }
                 }
 
-                if (BloodArsenalConfig.baublesIntegration && Loader.isModLoaded("Baubles"))
-                {
-                    selfSacrificeHandler(event);
-                }
-
                 EntityPlayerMP player = (EntityPlayerMP) entityAttacked;
 
                 if (player.inventory.armorInventory != null)
@@ -100,17 +95,6 @@ public class BloodArsenalEventHooks
     }
 
     @SubscribeEvent
-    public void onLivingDeath(LivingDeathEvent event)
-    {
-        Entity killer = event.source.getEntity();
-
-        if (killer != null && killer instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration && Loader.isModLoaded("Baubles"))
-        {
-            sacrificeHandler(event);
-        }
-    }
-
-    @SubscribeEvent
     public void onEntityUpdate(LivingEvent.LivingUpdateEvent event)
     {
         EntityLivingBase entityLiving = event.entityLiving;
@@ -121,13 +105,13 @@ public class BloodArsenalEventHooks
             {
                 int amplifier = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getAmplifier();
                 int duration = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getDuration();
-                int damage = (rand.nextInt(2) * (amplifier + 1) + rand.nextInt(3));
+                int damage = (rand.nextInt(2) * (amplifier + 1) + rand.nextInt(2));
 
-                if (entityLiving.worldObj.getWorldTime() % (20 / (amplifier + 1)) == 0)
+                if (entityLiving.worldObj.getWorldTime() % (60 / (amplifier + 1)) == 0)
                 {
                     entityLiving.attackEntityFrom(BloodArsenal.deathFromBlood, damage);
                     entityLiving.addPotionEffect(new PotionEffect(Potion.blindness.id, duration, 1));
-                    entityLiving.hurtResistantTime = Math.min(entityLiving.hurtResistantTime, 20 / (amplifier + 1));
+//                    entityLiving.hurtResistantTime = Math.min(entityLiving.hurtResistantTime, 60 / (amplifier + 1));
                 }
             }
 
@@ -155,7 +139,6 @@ public class BloodArsenalEventHooks
                         SoulNetworkHandler.syphonAndDamageFromNetwork(owner, (EntityPlayer) entityLiving, lpToMinus);
                     }
                 }
-
             }
 
             if (entityLiving instanceof EntityPlayer)
@@ -257,57 +240,7 @@ public class BloodArsenalEventHooks
     }
 
     @Optional.Method(modid = "Baubles")
-    private void sacrificeHandler(LivingDeathEvent event)
-    {
-        Entity killer = event.source.getEntity();
-        EntityLivingBase victim = event.entityLiving;
-
-        EntityPlayer player = (EntityPlayer) killer;
-        InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
-
-        for (int i = 0; i < inv.getSizeInventory(); i++)
-        {
-            ItemStack stack = inv.getStackInSlot(i);
-
-            if (stack != null)
-            {
-                if (stack.getItem() == ModItems.sacrifice_amulet)
-                {
-                    SacrificeAmulet sacrificeAmulet = (SacrificeAmulet) ModItems.sacrifice_amulet;
-                    float victimHealth = victim.getMaxHealth();
-                    boolean healthGood = victimHealth > 4.0F;
-                    int lpReceived = healthGood ? 200 : 50;
-                    boolean shouldExecute = sacrificeAmulet.getStoredLP(stack) < 10000;
-
-                    if (shouldExecute)
-                    {
-                        sacrificeAmulet.setStoredLP(stack, Math.min(sacrificeAmulet.getStoredLP(stack) + (lpReceived * 2), 10000));
-                    }
-                }
-
-                if (stack.getItem() == ModItems.empowered_sacrifice_amulet)
-                {
-                    EmpoweredSacrificeAmulet sacrificeAmulet = (EmpoweredSacrificeAmulet) ModItems.empowered_sacrifice_amulet;
-                    float victimHealth = victim.getMaxHealth();
-                    boolean healthGood = victimHealth > 4.0F;
-                    int lpReceived = healthGood ? 200 : 50;
-                    boolean shouldExecute = sacrificeAmulet.getStoredLP(stack) < 50000;
-
-                    if (shouldExecute)
-                    {
-                        sacrificeAmulet.setStoredLP(stack, Math.min(sacrificeAmulet.getStoredLP(stack) + (lpReceived * 5), 50000));
-                    }
-                }
-
-                if (player instanceof EntityPlayerMP)
-                {
-                    PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
-                }
-            }
-        }
-    }
-
-    @Optional.Method(modid = "Baubles")
+    @SubscribeEvent
     private void selfSacrificeHandler(LivingAttackEvent event)
     {
         EntityLivingBase entityAttacked = event.entityLiving;
@@ -341,6 +274,11 @@ public class BloodArsenalEventHooks
                             selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 2), 10000));
                         }
                     }
+
+//                    if (player instanceof EntityPlayerMP)
+                    {
+                        PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
+                    }
                 }
 
                 if (stack.getItem() == ModItems.empowered_self_sacrifice_amulet)
@@ -362,11 +300,11 @@ public class BloodArsenalEventHooks
                             selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 5), 50000));
                         }
                     }
-                }
 
-                if (player instanceof EntityPlayerMP)
-                {
-                    PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
+//                    if (player instanceof EntityPlayerMP)
+                    {
+                        PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
+                    }
                 }
             }
         }

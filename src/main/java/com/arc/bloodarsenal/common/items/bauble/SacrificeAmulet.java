@@ -4,17 +4,30 @@ import WayofTime.alchemicalWizardry.api.items.IAltarManipulator;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSyncBauble;
+import com.arc.bloodarsenal.common.BloodArsenalConfig;
+import com.arc.bloodarsenal.common.items.ModItems;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 import java.util.List;
 
@@ -23,7 +36,48 @@ public class SacrificeAmulet extends ItemBauble implements IAltarManipulator, IB
     public SacrificeAmulet()
     {
         super();
-        setUnlocalizedName("sacrifice_amulet");
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @SubscribeEvent
+    public void sacrificeHandler(LivingDeathEvent event)
+    {
+        Entity killer = event.source.getEntity();
+
+        if (killer != null && killer instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration)
+        {
+            EntityLivingBase victim = event.entityLiving;
+
+            EntityPlayer player = (EntityPlayer) killer;
+            InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+
+            for (int i = 0; i < inv.getSizeInventory(); i++)
+            {
+                ItemStack stack = inv.getStackInSlot(i);
+
+                if (stack != null)
+                {
+                    if (stack.getItem() == ModItems.sacrifice_amulet)
+                    {
+                        SacrificeAmulet sacrificeAmulet = (SacrificeAmulet) ModItems.sacrifice_amulet;
+                        float victimHealth = victim.getMaxHealth();
+                        boolean healthGood = victimHealth > 4.0F;
+                        int lpReceived = healthGood ? 200 : 50;
+                        boolean shouldExecute = sacrificeAmulet.getStoredLP(stack) < 10000;
+
+                        if (shouldExecute)
+                        {
+                            sacrificeAmulet.setStoredLP(stack, Math.min(sacrificeAmulet.getStoredLP(stack) + (lpReceived * 2), 10000));
+                        }
+
+                        if (player instanceof EntityPlayerMP)
+                        {
+                            PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -33,7 +87,7 @@ public class SacrificeAmulet extends ItemBauble implements IAltarManipulator, IB
 
         if (!(par1ItemStack.stackTagCompound == null))
         {
-            par3List.add("Stored LP: " + this.getStoredLP(par1ItemStack));
+            par3List.add("Stored LP: " + EnumChatFormatting.RED + this.getStoredLP(par1ItemStack));
         }
     }
 

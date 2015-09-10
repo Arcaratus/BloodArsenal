@@ -3,7 +3,6 @@ package com.arc.bloodarsenal.common.items.bauble;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
-import com.arc.bloodarsenal.common.BloodArsenal;
 import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,8 +18,6 @@ public abstract class ItemBauble extends Item implements IBauble
         super();
         setMaxStackSize(1);
         setMaxDamage(0);
-        setHasSubtypes(true);
-        setCreativeTab(BloodArsenal.BA_TAB);
     }
 
     @Override
@@ -48,7 +45,7 @@ public abstract class ItemBauble extends Item implements IBauble
 
                     onEquipped(par1ItemStack, par3EntityPlayer);
 
-                    if(stackInSlot != null)
+                    if (stackInSlot != null)
                     {
                         ((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, par3EntityPlayer);
                         return stackInSlot.copy();
@@ -74,14 +71,7 @@ public abstract class ItemBauble extends Item implements IBauble
     }
 
     @Override
-    public void onWornTick(ItemStack stack, EntityLivingBase player)
-    {
-        if (player.ticksExisted == 1)
-        {
-            onEquippedOrLoadedIntoWorld(stack, player);
-        }
-    }
-
+    public void onWornTick(ItemStack stack, EntityLivingBase player) {}
     @Override
     public void onEquipped(ItemStack stack, EntityLivingBase player)
     {
@@ -93,9 +83,7 @@ public abstract class ItemBauble extends Item implements IBauble
     }
 
     @Override
-    public void onUnequipped(ItemStack stack, EntityLivingBase player)
-    {
-    }
+    public void onUnequipped(ItemStack stack, EntityLivingBase player) {}
 
     @Override
     public boolean hasContainerItem(ItemStack stack)

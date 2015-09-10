@@ -4,17 +4,31 @@ import WayofTime.alchemicalWizardry.api.items.IAltarManipulator;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSyncBauble;
+import com.arc.bloodarsenal.common.BloodArsenalConfig;
+import com.arc.bloodarsenal.common.items.ModItems;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
 import java.util.List;
 
@@ -23,7 +37,55 @@ public class SelfSacrificeAmulet extends ItemBauble implements IAltarManipulator
     public SelfSacrificeAmulet()
     {
         super();
-        setUnlocalizedName("self_sacrifice_amulet");
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @SubscribeEvent
+    public void selfSacrificeHandler(LivingAttackEvent event)
+    {
+        EntityLivingBase entityAttacked = event.entityLiving;
+
+        if (entityAttacked != null && entityAttacked instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration)
+        {
+            float damageDone = event.ammount;
+
+            EntityPlayer player = (EntityPlayer) entityAttacked;
+            InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+
+            for (int i = 0; i < inv.getSizeInventory(); i++)
+            {
+                ItemStack stack = inv.getStackInSlot(i);
+
+                if (stack != null)
+                {
+                    if (stack.getItem() == ModItems.self_sacrifice_amulet)
+                    {
+                        SelfSacrificeAmulet selfSacrificeAmulet = (SelfSacrificeAmulet) ModItems.self_sacrifice_amulet;
+                        int lpReceived = (int) damageDone;
+                        boolean shouldExecute = selfSacrificeAmulet.getStoredLP(stack) < 10000;
+
+                        if (shouldExecute)
+                        {
+                            PotionEffect regenEffect = player.getActivePotionEffect(Potion.regeneration);
+
+                            if (regenEffect != null && regenEffect.getAmplifier() >= 2)
+                            {
+                                selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 2) / (regenEffect.getAmplifier() + 1), 10000));
+                            }
+                            else
+                            {
+                                selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 2), 10000));
+                            }
+                        }
+
+                        if (player instanceof EntityPlayerMP)
+                        {
+                            PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -33,7 +95,7 @@ public class SelfSacrificeAmulet extends ItemBauble implements IAltarManipulator
 
         if (!(par1ItemStack.stackTagCompound == null))
         {
-            par3List.add("Stored LP: " + this.getStoredLP(par1ItemStack));
+            par3List.add("Stored LP: " + EnumChatFormatting.RED + this.getStoredLP(par1ItemStack));
         }
     }
 
