@@ -5,7 +5,6 @@ import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
 import com.arc.bloodarsenal.common.block.ModBlocks;
 import com.arc.bloodarsenal.common.items.ModItems;
-import cpw.mods.fml.common.Optional;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -130,7 +129,6 @@ public class BloodArsenalRecipes
         addShapelessOreDictRecipe(new ItemStack(ModItems.juice_and_cookies), Items.cookie, ModItems.orange_juice);
     }
 
-    @Optional.Method(modid = "Baubles")
     public static void addBaublesRecipe()
     {
         int craftingConstant = OreDictionary.WILDCARD_VALUE;
