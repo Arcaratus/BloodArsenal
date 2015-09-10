@@ -77,11 +77,6 @@ public class SelfSacrificeAmulet extends ItemBauble implements IAltarManipulator
                                 selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 2), 10000));
                             }
                         }
-
-                        if (player instanceof EntityPlayerMP)
-                        {
-                            PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
-                        }
                     }
                 }
             }

@@ -74,11 +74,6 @@ public class EmpoweredSacrificeAmulet extends SacrificeAmulet implements IBauble
                         {
                             sacrificeAmulet.setStoredLP(stack, Math.min(sacrificeAmulet.getStoredLP(stack) + (lpReceived * 5), 50000));
                         }
-
-                        if (player instanceof EntityPlayerMP)
-                        {
-                            PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
-                        }
                     }
                 }
             }

@@ -83,11 +83,6 @@ public class EmpoweredSelfSacrificeAmulet extends SelfSacrificeAmulet implements
                                 selfSacrificeAmulet.setStoredLP(stack, Math.min(selfSacrificeAmulet.getStoredLP(stack) + (lpReceived * 5), 50000));
                             }
                         }
-
-                        if (player instanceof EntityPlayerMP)
-                        {
-                            PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, i), (EntityPlayerMP) player);
-                        }
                     }
                 }
             }
