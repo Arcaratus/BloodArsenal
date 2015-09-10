@@ -3,10 +3,12 @@ package com.arc.bloodarsenal.common;
 import com.arc.bloodarsenal.common.entity.ModLivingDropsEvent;
 import com.arc.bloodarsenal.common.gui.GuiHandler;
 import com.arc.bloodarsenal.common.items.ModItems;
+import com.arc.bloodarsenal.common.items.book.BloodBurnedTome;
 import com.arc.bloodarsenal.common.items.sigil.holding.AHPacketHandler;
 import com.arc.bloodarsenal.common.misc.CommandDownloadMod;
 import com.arc.bloodarsenal.common.potion.PotionBloodArsenal;
 import com.arc.bloodarsenal.common.rituals.RitualRegistry;
+import com.arc.bloodarsenal.common.thaumcraft.BloodArsenalThaumcraft;
 import com.arc.bloodarsenal.common.tinkers.BloodArsenalTinkers;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -30,7 +32,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
 
-@Mod(modid = BloodArsenal.MODID, version = BloodArsenal.VERSION, name = "Blood Arsenal", dependencies = "required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:guideapi;after:TConstruct;after:Waila", guiFactory = "com.arc.bloodarsenal.common.gui.ConfigGuiFactory")
+@Mod(modid = BloodArsenal.MODID, version = BloodArsenal.VERSION, name = "Blood Arsenal", dependencies = "required-after:AWWayofTime;after:NotEnoughItems;after:Baubles;after:guideapi;after:TConstruct;after:Waila;after:ForbiddenMagic", guiFactory = "com.arc.bloodarsenal.common.gui.ConfigGuiFactory")
 public class BloodArsenal
 {
     public final static String MODID = "BloodArsenal";
@@ -52,8 +54,9 @@ public class BloodArsenal
     public static Item.ToolMaterial infusedNetherium = EnumHelper.addToolMaterial("InfusedNetherium", 8, 0, 31.0F, 18.0F, 0);
 
     public static ItemArmor.ArmorMaterial vampireArmor = EnumHelper.addArmorMaterial("VampireArmor", 0, new int[]{2, 7, 4, 2}, 0);
-    public static ItemArmor.ArmorMaterial lifeImbuedArmor = EnumHelper.addArmorMaterial("ImbuedArmor", 0, new int[]{4, 13, 9, 4}, 8);
+    public static ItemArmor.ArmorMaterial lifeImbuedArmor = EnumHelper.addArmorMaterial("ImbuedArmor", 0, new int[]{4, 13, 9, 4}, 0);
     public static ItemArmor.ArmorMaterial glassArmor = EnumHelper.addArmorMaterial("GlassArmor", 0, new int[]{1, 4, 3, 1}, 4);
+    public static ItemArmor.ArmorMaterial elementalLifeImbuedArmor = EnumHelper.addArmorMaterial("ElementalImbuedArmor", 0, new int[]{6, 16, 12, 6}, 0);
 
 	public static Logger logger = LogManager.getLogger(MODID);
     public static CreativeTabs BA_TAB = new CreativeTabs("BA_TAB")
@@ -66,7 +69,7 @@ public class BloodArsenal
     };
 
     public static final AHPacketHandler packetPipeline = new AHPacketHandler();
-    public static DamageSource deathFromBlood = (new DamageSource("deathFromBlood")).setDamageBypassesArmor();
+    public static DamageSource deathFromBlood = new DamageSource("deathFromBlood").setDamageBypassesArmor();
 
     public static boolean isHalloween()
     {
@@ -142,28 +145,35 @@ public class BloodArsenal
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-        if (Loader.isModLoaded("Baubles"))
+        if (Loader.isModLoaded("Baubles") && BloodArsenalConfig.baublesIntegration)
         {
-            if (BloodArsenalConfig.baublesIntegration)
-            {
-                logger.info("Loaded Baubles integration");
-                ModItems.registerBaubles();
-                BloodArsenalRecipes.addBaublesRecipe();
-            }
+            logger.info("Loaded Baubles integration");
+            ModItems.registerBaubles();
+            BloodArsenalRecipes.addBaublesRecipe();
         }
 
-        if (Loader.isModLoaded("TConstruct"))
+        if (Loader.isModLoaded("TConstruct") && BloodArsenalConfig.tinkersIntegration)
         {
-            if (BloodArsenalConfig.tinkersIntegration)
-            {
-                logger.info("Loaded Tinker's Construct integration");
-                BloodArsenalTinkers.INSTANCE.init();
-            }
+            logger.info("Loaded Tinker's Construct integration");
+            BloodArsenalTinkers.INSTANCE.init();
         }
 
-        if (Loader.isModLoaded("guideapi"))
+        if (Loader.isModLoaded("guideapi") && BloodArsenalConfig.guideAPIIntegration)
         {
+            BloodBurnedTome.registerTome();
+        }
 
+        if (Loader.isModLoaded("ForbiddenMagic") && BloodArsenalConfig.thaumcraftIntegration)
+        {
+            logger.info("Loaded Thaumcraft/Forbidden Magic integration");
+            ModItems.registerThaumcraftItems();
+            BloodArsenalThaumcraft.init();
+        }
+
+        if (Loader.isModLoaded("ForgeMultipart") && BloodArsenalConfig.forgeMultipartIntegration)
+        {
+            logger.info("Loaded Forge Multipart integration");
+            ModBlocks.registerMultiparts();
         }
     }
 

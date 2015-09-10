@@ -39,7 +39,11 @@ public class BloodArsenalConfig
 
     //Mod Settings
     public static boolean baublesIntegration;
+    public static boolean forgeMultipartIntegration;
+    public static boolean guideAPIIntegration;
+    public static boolean thaumcraftIntegration;
     public static boolean tinkersIntegration;
+    public static boolean researchTag;
     public static int bloodInfusedWoodID;
     public static int bloodInfusedIronID;
 
@@ -98,7 +102,10 @@ public class BloodArsenalConfig
         itemsToBeDisabled = config.getStringList("Disable items here", itemSettings, new String[]{""}, "Type in the unlocalized name of the item you want disabled (separate them using ENTER)");
 
         baublesIntegration = config.get(modSettings, "Enable Baubles integration?", true).getBoolean(baublesIntegration);
-        tinkersIntegration = config.get(modSettings, "Enable TConstruct integration?", true).getBoolean(tinkersIntegration);
+        forgeMultipartIntegration = config.get(modSettings, "Enable Forge Multipart Integration?", true).getBoolean(forgeMultipartIntegration);
+        thaumcraftIntegration = config.get(modSettings, "Enable Thaumcraft/Forbidden Magic integration?", true).getBoolean(thaumcraftIntegration);
+        tinkersIntegration = config.get(modSettings, "Enable Tinker's Construct integration?", true).getBoolean(tinkersIntegration);
+        researchTag = config.get(modSettings, "Add [BA] to all of Blood Arsenal's research?", true).getBoolean(researchTag);
         bloodInfusedWoodID = config.get(modSettings, "Material ID for Blood Infused Wood; Default: 250", 250).getInt(bloodInfusedWoodID);
         bloodInfusedIronID = config.get(modSettings, "Material ID for Blood Infused Iron; Defualt: 251", 251).getInt(bloodInfusedIronID);
 

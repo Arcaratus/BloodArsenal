@@ -12,10 +12,17 @@ import com.arc.bloodarsenal.common.items.orb.TransparentOrb;
 import com.arc.bloodarsenal.common.items.sigil.*;
 import com.arc.bloodarsenal.common.items.sigil.holding.SigilAugmentedHolding;
 import com.arc.bloodarsenal.common.items.tool.*;
-import cpw.mods.fml.common.Optional;
+import com.arc.bloodarsenal.common.thaumcraft.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemReed;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import scala.actors.threadpool.Arrays;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.wands.StaffRod;
+import thaumcraft.api.wands.WandCap;
+import thaumcraft.api.wands.WandRod;
 
 import java.util.ArrayList;
 
@@ -82,9 +89,18 @@ public class ModItems
     public static Item life_imbued_chestplate;
     public static Item life_imbued_leggings;
     public static Item life_imbued_boots;
-    public static Item burned_tome;
+    public static Item bound_diamond_shard;
+    public static Item wandCore;
+    public static Item wandCap;
+    public static WandRod WAND_ROD_BLOOD_INFUSED_WOOD;
+    public static StaffRod STAFF_ROD_BLOOD_INFUSED_WOOD;
+    public static WandCap WAND_CAP_BLOOD_INFUSED_IRON;
+    public static Item life_imbued_helmet_water;
+    public static Item life_imbued_chestplate_fire;
+    public static Item life_imbued_leggings_earth;
+    public static Item life_imbued_boots_air;
 
-    public static ArrayList<String> itemsNotToBeRegistered = new ArrayList();
+    public static ArrayList<String> itemsNotToBeRegistered = new ArrayList<String>();
 
     public static void init()
     {
@@ -144,22 +160,27 @@ public class ModItems
         life_imbued_chestplate = registerItem(new LifeImbuedArmor(1), "life_imbued_chestplate");
         life_imbued_leggings = registerItem(new LifeImbuedArmor(2), "life_imbued_leggings");
         life_imbued_boots = registerItem(new LifeImbuedArmor(3), "life_imbued_boots");
+        bound_diamond_shard = registerItem(new ItemBoundDiamondShards(), "bound_diamond_shard");
     }
 
-    @Optional.Method(modid = "Baubles")
     public static void registerBaubles()
     {
-        vampire_ring = new VampireRing();
-        self_sacrifice_amulet = new SelfSacrificeAmulet();
-        sacrifice_amulet = new SacrificeAmulet();
-        empowered_sacrifice_amulet = new EmpoweredSacrificeAmulet();
-        empowered_self_sacrifice_amulet = new EmpoweredSelfSacrificeAmulet();
+        vampire_ring = registerItem(new VampireRing(), "vampire_ring");
+        self_sacrifice_amulet = registerItem(new SelfSacrificeAmulet(), "self_sacrifice_amulet");
+        sacrifice_amulet = registerItem(new SacrificeAmulet(), "sacrifice_amulet");
+        empowered_sacrifice_amulet = registerItem(new EmpoweredSacrificeAmulet(), "empowered_self_sacrifice_amulet");
+        empowered_self_sacrifice_amulet = registerItem(new EmpoweredSelfSacrificeAmulet(), "empowered_sacrifice_amulet");
+    }
 
-        GameRegistry.registerItem(vampire_ring, "vampire_ring");
-        GameRegistry.registerItem(self_sacrifice_amulet, "self_sacrifice_amulet");
-        GameRegistry.registerItem(sacrifice_amulet, "sacrifice_amulet");
-        GameRegistry.registerItem(empowered_self_sacrifice_amulet, "empowered_self_sacrifice_amulet");
-        GameRegistry.registerItem(empowered_sacrifice_amulet, "empowered_sacrifice_amulet");
+    public static void registerThaumcraftItems()
+    {
+        wandCore = (new ItemWandCores()).setUnlocalizedName("wand_cores");
+        GameRegistry.registerItem(wandCore, "wand_cores");
+        wandCap = (new ItemWandCaps()).setUnlocalizedName("wand_caps");
+        GameRegistry.registerItem(wandCap, "wand_caps");
+        WAND_ROD_BLOOD_INFUSED_WOOD = new WandRod("blood_wood", 100, new ItemStack(wandCore, 1, 0), 16, new BloodWoodWandUpdate(), new ResourceLocation("bloodarsenal", "models/wand_rod_blood_wood.png"));
+        STAFF_ROD_BLOOD_INFUSED_WOOD = new StaffRod("blood_wood", 60, new ItemStack(wandCore, 1, 1), 27, new BloodWoodStaffUpdate(), new ResourceLocation("bloodarsenal", "models/wand_rod_blood_wood.png"));
+        WAND_CAP_BLOOD_INFUSED_IRON = new BloodyWandCap("blood_iron", 0.85F, Arrays.asList(new Aspect[]{Aspect.WATER}), 0.80F, new ItemStack(wandCap, 1, 0), 5, new ResourceLocation("bloodarsenal", "models/wand_cap_blood_iron.png"));
     }
 
     public static Item registerItem(Item item, String unlocalizedName)

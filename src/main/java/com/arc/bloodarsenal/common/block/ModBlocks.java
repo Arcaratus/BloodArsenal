@@ -34,7 +34,7 @@ public class ModBlocks
     public static Block compacted_mrs;
     public static Block block_burned_string;
 
-    public static ArrayList<String> blocksNotToBeRegistered = new ArrayList();
+    public static ArrayList<String> blocksNotToBeRegistered = new ArrayList<String>();
 
     public static void init()
     {
@@ -112,5 +112,15 @@ public class ModBlocks
         }
 
         return block;
+    }
+
+    public static void registerMultiparts()
+    {
+        try
+        {
+            Class clazz = Class.forName("com.arc.bloodarsenal.common.block.MultipartHandler");
+            clazz.newInstance();
+        }
+        catch(Throwable e) {}
     }
 }
