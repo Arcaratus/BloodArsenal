@@ -73,19 +73,25 @@ public class BloodArsenalEventHooks
                     }
                 }
 
-                EntityPlayerMP player = (EntityPlayerMP) entityAttacked;
-
-                if (player.inventory.armorInventory != null)
+                // ThaumicTinkerer extends Thaumcraft's Fakeplayer, which extends EntityPlayer instead
+                // of Forge's FakePlayer class. That's why the Tinkerer's table crashes here.
+                // With this sanity check any crashes related to that problem should be gone
+                if (entityAttacked instanceof EntityPlayerMP)
                 {
-                    for (int i = 0; i < 4; i++)
+                    EntityPlayerMP player = (EntityPlayerMP) entityAttacked;
+    
+                    if (player.inventory.armorInventory != null)
                     {
-                        ItemStack armorStack = player.inventory.armorInventory[3 - i];
-
-                        if (armorStack != null && armorStack.getItem() instanceof GlassArmor)
+                        for (int i = 0; i < 4; i++)
                         {
-                            if (entityAttacking instanceof EntityLivingBase)
+                            ItemStack armorStack = player.inventory.armorInventory[3 - i];
+    
+                            if (armorStack != null && armorStack.getItem() instanceof GlassArmor)
                             {
-                                ((EntityLivingBase) entityAttacking).addPotionEffect(new PotionEffect(BloodArsenalConfig.bleedingID, rand.nextInt(3) * 20, rand.nextInt(1)));
+                                if (entityAttacking instanceof EntityLivingBase)
+                                {
+                                    ((EntityLivingBase) entityAttacking).addPotionEffect(new PotionEffect(BloodArsenalConfig.bleedingID, rand.nextInt(3) * 20, rand.nextInt(1)));
+                                }
                             }
                         }
                     }
