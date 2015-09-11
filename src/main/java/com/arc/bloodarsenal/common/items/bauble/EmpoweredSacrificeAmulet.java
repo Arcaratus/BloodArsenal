@@ -9,11 +9,8 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
-import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSyncBauble;
 import com.arc.bloodarsenal.common.BloodArsenalConfig;
 import com.arc.bloodarsenal.common.items.ModItems;
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -30,6 +27,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 import java.util.List;
@@ -49,7 +47,7 @@ public class EmpoweredSacrificeAmulet extends SacrificeAmulet implements IBauble
     {
         Entity killer = event.source.getEntity();
 
-        if (killer != null && killer instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration)
+        if (killer != null && killer instanceof EntityPlayerMP && !(killer instanceof FakePlayer) && BloodArsenalConfig.baublesIntegration)
         {
             EntityLivingBase victim = event.entityLiving;
 

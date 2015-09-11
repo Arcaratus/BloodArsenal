@@ -8,7 +8,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 
@@ -26,7 +26,7 @@ public class VampireRing extends ItemBauble implements IBauble
     {
         super.onWornTick(par1ItemStack, player);
 
-        if (player instanceof EntityPlayer && !player.worldObj.isRemote)
+        if (player instanceof EntityPlayerMP && !player.worldObj.isRemote)
         {
             if (player.getActivePotionEffect(BloodArsenal.vampiricAura) != null)
             {

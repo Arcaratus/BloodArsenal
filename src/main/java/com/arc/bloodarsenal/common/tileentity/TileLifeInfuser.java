@@ -31,6 +31,8 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
     private boolean canBeFilled;
     protected FluidStack fluidInput;
 
+    private int bufferCapacity;
+
     public FluidTank[] tanks = {new FluidTankRestricted(FluidContainerRegistry.BUCKET_VOLUME * 20, "Life Essence")};
 
     public TileLifeInfuser()
@@ -39,6 +41,8 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         fluid = new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 0);
         fluidInput = new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 0);
         this.capacity = FluidContainerRegistry.BUCKET_VOLUME * 20;
+
+        bufferCapacity = FluidContainerRegistry.BUCKET_VOLUME;
     }
 
     @Override
@@ -77,6 +81,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
 
         canBeFilled = par1NBTTagCompound.getBoolean("canBeFilled");
         capacity = par1NBTTagCompound.getInteger("capacity");
+        bufferCapacity = par1NBTTagCompound.getInteger("bufferCapacity");
     }
 
     @Override
@@ -115,6 +120,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         par1NBTTagCompound.setTag("Inventory", itemList);
         par1NBTTagCompound.setBoolean("canBeFilled", canBeFilled);
         par1NBTTagCompound.setInteger("capacity", capacity);
+        par1NBTTagCompound.setInteger("bufferCapacity", bufferCapacity);
     }
 
     @Override
@@ -419,7 +425,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
         {
             if (fluidInput == null)
             {
-                return Math.min(capacity, resource.amount);
+                return Math.min(bufferCapacity, resource.amount);
             }
 
             if (!fluidInput.isFluidEqual(resource))
@@ -427,7 +433,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
                 return 0;
             }
 
-            return Math.min(capacity - fluidInput.amount, resource.amount);
+            return Math.min(bufferCapacity - fluidInput.amount, resource.amount);
         }
 
         if (fluidInput == null)
@@ -447,12 +453,16 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
             return 0;
         }
 
-        int filled = capacity - fluidInput.amount;
+        int filled = bufferCapacity - fluidInput.amount;
 
         if (resource.amount < filled)
         {
             fluidInput.amount += resource.amount;
             filled = resource.amount;
+        }
+        else
+        {
+            fluidInput.amount = bufferCapacity;
         }
 
         if (tile != null)

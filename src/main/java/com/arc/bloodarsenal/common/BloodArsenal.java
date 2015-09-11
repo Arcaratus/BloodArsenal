@@ -167,7 +167,7 @@ public class BloodArsenal
         {
             logger.info("Loaded Thaumcraft/Forbidden Magic integration");
             ModItems.registerThaumcraftItems();
-            BloodArsenalThaumcraft.init();
+            BloodArsenalThaumcraft.addResearch();
         }
 
         if (Loader.isModLoaded("ForgeMultipart") && BloodArsenalConfig.forgeMultipartIntegration)

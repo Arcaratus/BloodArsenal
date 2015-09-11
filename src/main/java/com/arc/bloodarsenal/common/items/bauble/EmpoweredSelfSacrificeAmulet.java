@@ -9,8 +9,6 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
-import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSyncBauble;
 import com.arc.bloodarsenal.common.BloodArsenalConfig;
 import com.arc.bloodarsenal.common.items.ModItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -51,7 +49,7 @@ public class EmpoweredSelfSacrificeAmulet extends SelfSacrificeAmulet implements
         EntityLivingBase entityAttacked = event.entityLiving;
         Entity entityAttacking = event.source.getSourceOfDamage();
 
-        if (entityAttacking != null && entityAttacked != null && entityAttacked instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration)
+        if (entityAttacking != null && entityAttacked != null && entityAttacked instanceof EntityPlayerMP && BloodArsenalConfig.baublesIntegration)
         {
             float damageDone = event.ammount;
 

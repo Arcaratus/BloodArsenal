@@ -27,6 +27,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Random;
 
 public class GlassDaggerOfSacrifice extends EnergyItems
 {
@@ -74,10 +75,13 @@ public class GlassDaggerOfSacrifice extends EnergyItems
         }
 
         int lifeEssence = 500;
-        if (par2EntityLivingBase instanceof EntityVillager) lifeEssence = 3000;
-        else if (par2EntityLivingBase instanceof EntitySlime) lifeEssence = 225;
+        Random random = new Random();
+
+        if (random.nextInt(3) == 2) lifeEssence = 100;
+        else if (par2EntityLivingBase instanceof EntityVillager) lifeEssence = 2500;
+        else if (par2EntityLivingBase instanceof EntitySlime) lifeEssence = 200;
         else if (par2EntityLivingBase instanceof EntityEnderman) lifeEssence = 300;
-        else if (par2EntityLivingBase instanceof EntityAnimal) lifeEssence = 375;
+        else if (par2EntityLivingBase instanceof EntityAnimal) lifeEssence = 350;
 
         if (findAndFillAltar(par2EntityLivingBase.worldObj, par2EntityLivingBase, lifeEssence))
         {

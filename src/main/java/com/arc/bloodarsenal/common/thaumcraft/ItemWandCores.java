@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ItemWandCores extends Item
 {
-    public final String[] types = new String[]{"blood_wood"};
+    public final String[] types = new String[]{"blood_wood", "blood_wood_staff"};
     public IIcon[] icon;
 
     public ItemWandCores()

@@ -6,15 +6,12 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
-import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSyncBauble;
 import com.arc.bloodarsenal.common.BloodArsenalConfig;
 import com.arc.bloodarsenal.common.items.ModItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -45,7 +42,7 @@ public class SelfSacrificeAmulet extends ItemBauble implements IAltarManipulator
     {
         EntityLivingBase entityAttacked = event.entityLiving;
 
-        if (entityAttacked != null && entityAttacked instanceof EntityPlayer && BloodArsenalConfig.baublesIntegration)
+        if (entityAttacked != null && entityAttacked instanceof EntityPlayerMP && BloodArsenalConfig.baublesIntegration)
         {
             float damageDone = event.ammount;
 
