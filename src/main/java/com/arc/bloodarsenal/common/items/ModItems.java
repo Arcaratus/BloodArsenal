@@ -18,13 +18,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import scala.actors.threadpool.Arrays;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ModItems
 {
