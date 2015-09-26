@@ -13,6 +13,7 @@ import com.arc.bloodarsenal.common.items.sigil.*;
 import com.arc.bloodarsenal.common.items.sigil.holding.SigilAugmentedHolding;
 import com.arc.bloodarsenal.common.items.tool.*;
 import com.arc.bloodarsenal.common.thaumcraft.*;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemReed;
@@ -163,15 +164,17 @@ public class ModItems
         bound_diamond_shard = registerItem(new ItemBoundDiamondShards(), "bound_diamond_shard");
     }
 
+    @Optional.Method(modid = "Baubles")
     public static void registerBaubles()
     {
         vampire_ring = registerItem(new VampireRing(), "vampire_ring");
         self_sacrifice_amulet = registerItem(new SelfSacrificeAmulet(), "self_sacrifice_amulet");
         sacrifice_amulet = registerItem(new SacrificeAmulet(), "sacrifice_amulet");
-        empowered_sacrifice_amulet = registerItem(new EmpoweredSacrificeAmulet(), "empowered_self_sacrifice_amulet");
-        empowered_self_sacrifice_amulet = registerItem(new EmpoweredSelfSacrificeAmulet(), "empowered_sacrifice_amulet");
+        empowered_sacrifice_amulet = registerItem(new EmpoweredSacrificeAmulet(), "empowered_sacrifice_amulet");
+        empowered_self_sacrifice_amulet = registerItem(new EmpoweredSelfSacrificeAmulet(), "empowered_self_sacrifice_amulet");
     }
 
+    @Optional.Method(modid = "Thaumcraft")
     public static void registerThaumcraftItems()
     {
         wandCore = (new ItemWandCores()).setUnlocalizedName("wand_cores");

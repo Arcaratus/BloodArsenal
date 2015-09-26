@@ -2,20 +2,11 @@ package com.arc.bloodarsenal.common;
 
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
-import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSyncBauble;
 import com.arc.bloodarsenal.common.items.ModItems;
 import com.arc.bloodarsenal.common.items.armor.GlassArmor;
-import com.arc.bloodarsenal.common.items.bauble.EmpoweredSacrificeAmulet;
-import com.arc.bloodarsenal.common.items.bauble.EmpoweredSelfSacrificeAmulet;
-import com.arc.bloodarsenal.common.items.bauble.SacrificeAmulet;
-import com.arc.bloodarsenal.common.items.bauble.SelfSacrificeAmulet;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.material.Material;
@@ -30,7 +21,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -76,7 +66,7 @@ public class BloodArsenalEventHooks
                 // ThaumicTinkerer extends Thaumcraft's Fakeplayer, which extends EntityPlayer instead
                 // of Forge's FakePlayer class. That's why the Tinkerer's table crashes here.
                 // With this sanity check any crashes related to that problem should be gone
-                if (entityAttacked instanceof EntityPlayerMP)
+                if (GameRegistry.findItem(BloodArsenal.MODID, "glass_helmet") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_chestplate") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_leggings") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_boots") != null && entityAttacked instanceof EntityPlayerMP)
                 {
                     EntityPlayerMP player = (EntityPlayerMP) entityAttacked;
     
@@ -113,11 +103,12 @@ public class BloodArsenalEventHooks
                 int duration = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getDuration();
                 int damage = (rand.nextInt(2) * (amplifier + 1) + rand.nextInt(2));
 
+                entityLiving.addPotionEffect(new PotionEffect(Potion.blindness.id, duration, 1));
                 if (entityLiving.worldObj.getWorldTime() % (60 / (amplifier + 1)) == 0)
                 {
                     entityLiving.attackEntityFrom(BloodArsenal.deathFromBlood, damage);
-                    entityLiving.addPotionEffect(new PotionEffect(Potion.blindness.id, duration, 1));
-//                    entityLiving.hurtResistantTime = Math.min(entityLiving.hurtResistantTime, 60 / (amplifier + 1));
+                    entityLiving.hurtResistantTime = Math.min(entityLiving.hurtResistantTime, 60 / (amplifier + 1));
+                    entityLiving.onEntityUpdate();
                 }
             }
 
@@ -211,24 +202,39 @@ public class BloodArsenalEventHooks
     @SubscribeEvent
     public void harvestEvent(BlockEvent.HarvestDropsEvent event)
     {
-        Block block = event.block;
-        EntityPlayer player = event.harvester;
-        Random random = new Random();
-
-        if (!event.world.isRemote && !event.isSilkTouching)
+        if (GameRegistry.findItem(BloodArsenal.MODID, "glass_shard") != null)
         {
-            if (player != null)
+            Block block = event.block;
+            EntityPlayer player = event.harvester;
+            Random random = new Random();
+
+            if (player != null && player instanceof EntityPlayerMP)
             {
-                if (block != null && block instanceof BlockGlass)
+                if (!event.world.isRemote && !event.isSilkTouching)
                 {
-                    if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.flint)
+                    if (block != null && block instanceof BlockGlass)
                     {
-                        event.drops.add(new ItemStack(ModItems.glass_shard));
-                        if (random.nextInt() + 5 < 8)
+                        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.flint)
                         {
                             event.drops.add(new ItemStack(ModItems.glass_shard));
+                            if (random.nextInt() + 5 < 8)
+                            {
+                                event.drops.add(new ItemStack(ModItems.glass_shard));
+                            }
+
+                            event.dropChance = 0.25F;
+                            if (BloodArsenalConfig.isGlassDangerous && random.nextInt(5) > 3)
+                            {
+                                player.addPotionEffect(new PotionEffect(BloodArsenal.bleeding.id, 4 * 20, random.nextInt(2)));
+                            }
                         }
-                        event.dropChance = 0.25F;
+                        else
+                        {
+                            if (BloodArsenalConfig.isGlassDangerous && random.nextInt(3) == 2)
+                            {
+                                player.addPotionEffect(new PotionEffect(BloodArsenal.bleeding.id, 8 * 20, random.nextInt(3)));
+                            }
+                        }
                     }
                 }
             }

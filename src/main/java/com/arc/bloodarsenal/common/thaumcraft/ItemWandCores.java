@@ -13,9 +13,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import thaumcraft.api.ItemApi;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
-import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 import java.util.List;
@@ -61,13 +61,13 @@ public class ItemWandCores extends Item
         }
 
         ItemStack var5;
-        var5 = new ItemStack(ConfigItems.itemWandCasting, 1, 84);
-        ((ItemWandCasting)var5.getItem()).setCap(var5, (WandCap)WandCap.caps.get("blood_iron"));
-        ((ItemWandCasting)var5.getItem()).setRod(var5, (WandRod) WandRod.rods.get("blood_wood"));
+        var5 = ItemApi.getItem("itemWandCasting", 84);
+        ((ItemWandCasting) var5.getItem()).setCap(var5, WandCap.caps.get("blood_iron"));
+        ((ItemWandCasting)var5.getItem()).setRod(var5, WandRod.rods.get("blood_wood"));
         list.add(var5);
-        var5 = new ItemStack(ConfigItems.itemWandCasting, 1, 168);
-        ((ItemWandCasting)var5.getItem()).setCap(var5, (WandCap)WandCap.caps.get("blood_iron"));
-        ((ItemWandCasting)var5.getItem()).setRod(var5, (WandRod)WandRod.rods.get("blood_wood_staff"));
+        var5 = ItemApi.getItem("itemWandCasting", 168);
+        ((ItemWandCasting)var5.getItem()).setCap(var5, WandCap.caps.get("blood_iron"));
+        ((ItemWandCasting)var5.getItem()).setRod(var5, WandRod.rods.get("blood_wood_staff"));
         list.add(var5);
     }
 

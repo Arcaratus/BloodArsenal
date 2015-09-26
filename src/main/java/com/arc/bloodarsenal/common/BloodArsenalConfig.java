@@ -59,6 +59,7 @@ public class BloodArsenalConfig
     public static boolean versionCheckingAllowed;
 	public static boolean isRedGood;
     public static boolean cakeIsLie;
+    public static boolean isGlassDangerous;
 	
 	public static void init(File file)
 	{
@@ -103,11 +104,12 @@ public class BloodArsenalConfig
 
         baublesIntegration = config.get(modSettings, "Enable Baubles integration?", true).getBoolean(baublesIntegration);
         forgeMultipartIntegration = config.get(modSettings, "Enable Forge Multipart Integration?", true).getBoolean(forgeMultipartIntegration);
+        guideAPIIntegration = config.get(modSettings, "Enable the Blood Burned Tome from Guide-API?", true).getBoolean(guideAPIIntegration);
         thaumcraftIntegration = config.get(modSettings, "Enable Thaumcraft/Forbidden Magic integration?", true).getBoolean(thaumcraftIntegration);
         tinkersIntegration = config.get(modSettings, "Enable Tinker's Construct integration?", true).getBoolean(tinkersIntegration);
         researchTag = config.get(modSettings, "Add [BA] to all of Blood Arsenal's research?", true).getBoolean(researchTag);
-        bloodInfusedWoodID = config.get(modSettings, "Material ID for Blood Infused Wood; Default: 250", 250).getInt(bloodInfusedWoodID);
-        bloodInfusedIronID = config.get(modSettings, "Material ID for Blood Infused Iron; Defualt: 251", 251).getInt(bloodInfusedIronID);
+        bloodInfusedWoodID = config.get(modSettings, "[Tinker's Construct] Material ID for Blood Infused Wood; Default: 250", 250).getInt(bloodInfusedWoodID);
+        bloodInfusedIronID = config.get(modSettings, "[Tinker's Construct] Material ID for Blood Infused Iron; Default: 251", 251).getInt(bloodInfusedIronID);
 
         sigilSwimmingCost = config.get(lpSettings, "Sigil of Swimming cost; Default: 150", 150).getInt(sigilSwimmingCost);
         sigilDivinityCost = config.get(lpSettings, "Sigil of Divinity cost; Default: 1000000", 1000000).getInt(sigilDivinityCost);
@@ -119,6 +121,7 @@ public class BloodArsenalConfig
         versionCheckingAllowed = config.get(misc, "Is auto-magic version checking allowed?", true, "Allows for your version to be checked against the latest version").getBoolean();
         isRedGood = config.get(misc, "Is RED > PURPLE?", false, "Purple is always better than Red. But I won't tell you how to live your life. Even if it is incorrectly.").getBoolean(isRedGood);
         cakeIsLie = config.get(misc, "The cake is a lie", false, "The cake is a lie").getBoolean(cakeIsLie);
+        isGlassDangerous = config.get(misc, "Is glass dangerous?", true, "Breaking glass is dangerous unless you're a wimp").getBoolean(isGlassDangerous);
 
         config.save();
     }

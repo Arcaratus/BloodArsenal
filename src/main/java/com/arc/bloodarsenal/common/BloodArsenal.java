@@ -160,6 +160,7 @@ public class BloodArsenal
 
         if (Loader.isModLoaded("guideapi") && BloodArsenalConfig.guideAPIIntegration)
         {
+            logger.info("Loaded Guide-API integration");
             BloodBurnedTome.registerTome();
         }
 

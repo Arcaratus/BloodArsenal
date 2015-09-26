@@ -1,6 +1,7 @@
 package com.arc.bloodarsenal.common.block;
 
 import com.arc.bloodarsenal.common.entity.EntityBloodTNT;
+import com.arc.bloodarsenal.common.items.ModItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -99,7 +100,7 @@ public class BlockBloodTNT extends BlockTNT
     @Override
     public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5, int par6, float par7, float par8, float par9)
     {
-        if (par5.getCurrentEquippedItem() != null && par5.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
+        if (par5.getCurrentEquippedItem() != null && (par5.getCurrentEquippedItem().getItem() == Items.flint_and_steel || par5.getCurrentEquippedItem().getItem() == ModItems.bound_igniter))
         {
             spawnTNT(par1World, par2, par3, par4, 1, par5);
             par1World.setBlockToAir(par2, par3, par4);
