@@ -66,7 +66,7 @@ public class BloodArsenalEventHooks
                 // ThaumicTinkerer extends Thaumcraft's Fakeplayer, which extends EntityPlayer instead
                 // of Forge's FakePlayer class. That's why the Tinkerer's table crashes here.
                 // With this sanity check any crashes related to that problem should be gone
-                if (GameRegistry.findItem(BloodArsenal.MODID, "glass_helmet") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_chestplate") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_leggings") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_boots") != null && entityAttacked instanceof EntityPlayerMP)
+//                if (GameRegistry.findItem(BloodArsenal.MODID, "glass_helmet") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_chestplate") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_leggings") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_boots") != null && entityAttacked instanceof EntityPlayerMP)
                 {
                     EntityPlayerMP player = (EntityPlayerMP) entityAttacked;
     
