@@ -1,0 +1,6 @@
+{
+  "parent":"bloodarsenal:item/ItemModelBase",
+  "textures": {
+    "layer0":"bloodarsenal:items/TEXTURE_NAME"
+  }
+}
