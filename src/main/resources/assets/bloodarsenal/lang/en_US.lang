@@ -1,2 +1,12 @@
-#Creative Tab
+# Creative Tab
 itemGroup.BloodArsenal.creativeTab=Blood Arsenal
+
+# Items
+item.BloodArsenal.glass_shard.name=Glass Shard
+
+# Blocks
+tile.BloodArsenal.blood_infused_wood.log.name=Blood Infused Wooden Log
+tile.BloodArsenal.blood_infused_wood.planks.name=Blood Infused Wooden Planks
+
+# Tooltips
+tooltip.BloodArsenal.glass_shard.desc=Piercingly transparent

@@ -2,9 +2,12 @@ package arc.bloodarsenal;
 
 import WayofTime.bloodmagic.api.util.helper.LogHelper;
 import arc.bloodarsenal.proxy.CommonProxy;
+import arc.bloodarsenal.registry.ModBlocks;
+import arc.bloodarsenal.registry.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -39,9 +42,19 @@ public class BloodArsenal
     private LogHelper logger = new LogHelper(BloodArsenal.MOD_ID);
     private File configDir;
 
-    private File getConfigDir()
+    private static boolean isDev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+
+    public LogHelper getLogger()
+    {
+        return this.logger;
+    }
+    public File getConfigDir()
     {
         return this.configDir;
+    }
+    public static boolean isDev()
+    {
+        return isDev;
     }
 
     @Mod.EventHandler
@@ -49,6 +62,11 @@ public class BloodArsenal
     {
         configDir = new File(event.getModConfigurationDirectory(), "BloodArsenal");
         ConfigHandler.init(new File(getConfigDir(), "BloodArsenal.cfg"));
+
+        ModItems.init();
+        ModBlocks.init();
+
+        PROXY.preInit();
     }
 
     @Mod.EventHandler

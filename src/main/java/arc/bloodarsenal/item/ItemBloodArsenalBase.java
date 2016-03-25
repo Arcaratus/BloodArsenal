@@ -1,5 +1,6 @@
 package arc.bloodarsenal.item;
 
+import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,10 +9,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ItemBloodArsenalBase extends Item
+public class ItemBloodArsenalBase extends Item implements IVariantProvider
 {
     protected final String tooltipBase;
     private final String name;
@@ -19,7 +23,7 @@ public class ItemBloodArsenalBase extends Item
     public ItemBloodArsenalBase(String name)
     {
         super();
-        setUnlocalizedName(BloodArsenal.MOD_ID + name);
+        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
         setCreativeTab(BloodArsenal.tabBloodArsenal);
 
         this.name = name;
@@ -34,5 +38,13 @@ public class ItemBloodArsenalBase extends Item
             tooltip.add(TextHelper.localizeEffect(tooltipBase + "desc"));
 
         super.addInformation(stack, player, tooltip, advanced);
+    }
+
+    @Override
+    public List<Pair<Integer, String>> getVariants()
+    {
+        List<Pair<Integer, String>> ret = new ArrayList<Pair<Integer, String>>();
+        ret.add(new ImmutablePair<Integer, String>(0, "type=" + this.getUnlocalizedName().substring(18)));
+        return ret;
     }
 }

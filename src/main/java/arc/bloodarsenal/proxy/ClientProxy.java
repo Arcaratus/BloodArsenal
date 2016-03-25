@@ -1,8 +1,17 @@
 package arc.bloodarsenal.proxy;
 
+import WayofTime.bloodmagic.client.IMeshProvider;
+import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.InventoryRenderHelperV2;
 import arc.bloodarsenal.BloodArsenal;
+import arc.bloodarsenal.registry.ModBlocks;
 import arc.bloodarsenal.registry.ModItems;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class ClientProxy extends CommonProxy
 {
@@ -21,7 +30,8 @@ public class ClientProxy extends CommonProxy
 
         renderHelper = new InventoryRenderHelperV2(BloodArsenal.DOMAIN);
 
-        ModItems.initRenders();
+        ModItems.initSpecialRenders();
+        ModBlocks.initSpecialRenders();
     }
 
     @Override
@@ -34,5 +44,36 @@ public class ClientProxy extends CommonProxy
     public void postInit()
     {
 
+    }
+
+    @Override
+    public void tryHandleBlockModel(Block block, String name)
+    {
+        if (block instanceof IVariantProvider)
+        {
+            IVariantProvider variantProvider = (IVariantProvider) block;
+            for (Pair<Integer, String> variant : variantProvider.getVariants())
+                ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), variant.getLeft(), new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, name), variant.getRight()));
+        }
+    }
+
+    @Override
+    public void tryHandleItemModel(Item item, String name)
+    {
+        if (item instanceof IMeshProvider)
+        {
+            IMeshProvider meshProvider = (IMeshProvider) item;
+            ModelLoader.setCustomMeshDefinition(item, meshProvider.getMeshDefinition());
+            ResourceLocation resourceLocation = meshProvider.getCustomLocation();
+            if (resourceLocation == null)
+                resourceLocation = new ResourceLocation(BloodArsenal.MOD_ID, "item/" + name);
+            for (String variant : meshProvider.getVariants())
+                ModelLoader.registerItemVariants(item, new ModelResourceLocation(resourceLocation, variant));
+        } else if (item instanceof IVariantProvider)
+        {
+            IVariantProvider variantProvider = (IVariantProvider) item;
+            for (Pair<Integer, String> variant : variantProvider.getVariants())
+                ModelLoader.setCustomModelResourceLocation(item, variant.getLeft(), new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "item/" + name), variant.getRight()));
+        }
     }
 }
