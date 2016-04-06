@@ -2,19 +2,32 @@ package arc.bloodarsenal.registry;
 
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
-import arc.bloodarsenal.block.BlockBloodInfusedWood;
-import arc.bloodarsenal.item.block.ItemBlockBloodInfusedWood;
+import arc.bloodarsenal.block.*;
+import arc.bloodarsenal.item.block.ItemBlockBloodInfusedWoodenSlab;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSlab;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModBlocks
 {
-    public static Block blood_infused_wood;
+    public static Block bloodInfusedWoodenLog;
+    public static Block bloodInfusedWoodenPlanks;
+    public static Block bloodInfusedWoodenStairs;
+    public static Block bloodInfusedWoodenDoubleSlab;
+    public static Block bloodInfusedWoodenSlab;
+    public static Block bloodStainedGlass;
 
     public static void init()
     {
-        blood_infused_wood = registerBlock(new BlockBloodInfusedWood(), ItemBlockBloodInfusedWood.class);
+        bloodInfusedWoodenLog = registerBlock(new BlockBloodInfusedWoodenLog("bloodInfusedWoodenLog"));
+        bloodInfusedWoodenPlanks = registerBlock(new BlockBloodInfusedWoodenPlanks("bloodInfusedWoodenPlanks"));
+        bloodInfusedWoodenStairs = registerBlock(new BlockBloodInfusedWoodenStairs("bloodInfusedWoodenStairs", bloodInfusedWoodenPlanks));
+        bloodInfusedWoodenDoubleSlab = registerBlock(new BlockBloodInfusedWoodenSlab.BlockBloodInfusedWoodenDoubleSlab().setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedWoodenDoubleSlab"));
+        bloodInfusedWoodenSlab = new BlockBloodInfusedWoodenSlab.BlockBloodInfusedWoodenHalfSlab().setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedWoodenHalfSlab");
+        bloodInfusedWoodenSlab = registerBlock(new ItemBlockBloodInfusedWoodenSlab("bloodInfusedWoodenSlab"));
+        bloodStainedGlass = registerBlock(new BlockBloodStainedGlass("bloodStainedGlass"));
 
         initTiles();
     }
@@ -29,19 +42,23 @@ public class ModBlocks
 
     }
 
-    private static Block registerBlock(Block block, Class<? extends ItemBlock> itemBlock, String name)
+    public static Block registerBlock(ItemBlock itemBlock, String name)
     {
+        Block block = itemBlock.block;
+
         if (!ConfigHandler.blockBlacklist.contains(name))
         {
-            GameRegistry.registerBlock(block, itemBlock);
+            GameRegistry.register(block);
+            GameRegistry.register(itemBlock.setRegistryName(block.getRegistryName()));
             BloodArsenal.PROXY.tryHandleBlockModel(block, name);
         }
 
         return block;
     }
 
-    private static Block registerBlock(Block block, Class<? extends ItemBlock> itemBlock)
+    public static Block registerBlock(ItemBlock itemBlock)
     {
+        Block block = itemBlock.block;
         block.setRegistryName(block.getClass().getSimpleName());
         if (block.getRegistryName() == null)
         {
@@ -49,17 +66,18 @@ public class ModBlocks
             return block;
         }
 
-        String blockName = block.getRegistryName().split(":")[1];
+        String blockName = block.getRegistryName().toString().split(":")[1];
         if (!ConfigHandler.blockBlacklist.contains(blockName))
         {
-            GameRegistry.registerBlock(block, itemBlock);
+            GameRegistry.register(block);
+            GameRegistry.register(itemBlock.setRegistryName(block.getRegistryName().getResourcePath()));
             BloodArsenal.PROXY.tryHandleBlockModel(block, blockName);
         }
 
         return block;
     }
 
-    private static Block registerBlock(Block block)
+    public static Block registerBlock(Block block)
     {
         block.setRegistryName(block.getClass().getSimpleName());
         if (block.getRegistryName() == null)
@@ -68,10 +86,12 @@ public class ModBlocks
             return null;
         }
 
-        String blockName = block.getRegistryName().split(":")[1];
+        String blockName = block.getRegistryName().toString().split(":")[1];
+        System.out.println("REGISTERY: " + blockName);
         if (!ConfigHandler.blockBlacklist.contains(blockName))
         {
-            GameRegistry.registerBlock(block);
+            GameRegistry.register(block);
+            GameRegistry.register(new ItemBlock(block).setRegistryName(block.getRegistryName().getResourcePath()));
             BloodArsenal.PROXY.tryHandleBlockModel(block, blockName);
         }
 

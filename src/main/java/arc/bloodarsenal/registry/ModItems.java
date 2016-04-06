@@ -5,14 +5,19 @@ import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.item.ItemBloodArsenalBase;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.apache.commons.lang3.text.WordUtils;
 
 public class ModItems
 {
-    public static Item glass_shard;
+    public static Item glassShard;
+    public static Item bloodInfusedStick;
+
+    public static Item bloodInfusedWoodenSlabItem;
 
     public static void init()
     {
-        glass_shard = registerItem(new ItemBloodArsenalBase("glass_shard"));
+        glassShard = registerItemUniquely(new ItemBloodArsenalBase("glassShard"));
+        bloodInfusedStick = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedStick"));
     }
 
     public static void initSpecialRenders()
@@ -20,7 +25,7 @@ public class ModItems
 
     }
 
-    private static Item registerItem(Item item, String name)
+    public static Item registerItem(Item item, String name)
     {
         if (!ConfigHandler.itemBlacklist.contains(name))
         {
@@ -31,7 +36,7 @@ public class ModItems
         return item;
     }
 
-    private static Item registerItem(Item item)
+    public static Item registerItem(Item item)
     {
         item.setRegistryName(item.getClass().getSimpleName());
         if (item.getRegistryName() == null)
@@ -40,11 +45,32 @@ public class ModItems
             return item;
         }
 
-        String itemName = item.getRegistryName().split(":")[1];
+        System.out.println("REGISTRY: " + item.getRegistryName());
+        String itemName = item.getRegistryName().toString().split(":")[1];
         if (!ConfigHandler.itemBlacklist.contains(itemName))
         {
             GameRegistry.registerItem(item);
             BloodArsenal.PROXY.tryHandleItemModel(item, itemName);
+        }
+
+        return item;
+    }
+
+    public static Item registerItemUniquely(Item item)
+    {
+        item.setRegistryName(item.getClass().getSimpleName() + "." + WordUtils.capitalize(item.getUnlocalizedName().substring(18)));
+        if (item.getRegistryName() == null)
+        {
+            BloodArsenal.INSTANCE.getLogger().error("Attempted to register Item {} without setting a registry name. Item will not be registered. Please report this.", item.getClass().getCanonicalName());
+            return item;
+        }
+
+        System.out.println("REGISTRY: " + item.getRegistryName());
+        String itemName = item.getRegistryName().toString().split(":")[1];
+        if (!ConfigHandler.itemBlacklist.contains(itemName))
+        {
+            GameRegistry.registerItem(item);
+            BloodArsenal.PROXY.tryHandleItemModel(item, itemName.split("[.]")[0]);
         }
 
         return item;

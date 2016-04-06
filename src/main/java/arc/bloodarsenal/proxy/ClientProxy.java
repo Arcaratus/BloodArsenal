@@ -7,10 +7,13 @@ import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.registry.ModBlocks;
 import arc.bloodarsenal.registry.ModItems;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class ClientProxy extends CommonProxy

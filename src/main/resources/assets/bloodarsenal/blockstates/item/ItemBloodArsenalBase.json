@@ -6,14 +6,15 @@
   },
   "variants": {
     "type": {
-      "glass_shard": {
+      "glassshard": {
         "textures": {
           "layer0": "bloodarsenal:items/GlassShard"
         }
       },
-      "reinforced": {
+      "bloodinfusedstick": {
+		"transform": "forge:default-tool",
         "textures": {
-          "layer0": "bloodmagic:items/ReinforcedSlate"
+          "layer0": "bloodarsenal:items/BloodInfusedStick"
         }
       },
       "imbued": {

@@ -2,11 +2,16 @@
 itemGroup.BloodArsenal.creativeTab=Blood Arsenal
 
 # Items
-item.BloodArsenal.glass_shard.name=Glass Shard
+item.BloodArsenal.glassShard.name=Glass Shard
+item.BloodArsenal.bloodInfusedStick.name=Blood Infused Stick
 
 # Blocks
-tile.BloodArsenal.blood_infused_wood.log.name=Blood Infused Wooden Log
-tile.BloodArsenal.blood_infused_wood.planks.name=Blood Infused Wooden Planks
+tile.BloodArsenal.bloodInfusedWoodenLog.name=Blood Infused Wooden Log
+tile.BloodArsenal.bloodInfusedWoodenPlanks.name=Blood Infused Wooden Planks
+tile.BloodArsenal.bloodInfusedWoodenStairs.name=Blood Infused Wooden Stairs
+tile.BloodArsenal.bloodInfusedWoodenDoubleSlab.name=Blood Infused Wooden Slab
+tile.BloodArsenal.bloodInfusedWoodenHalfSlab.name=Blood Infused Wooden Slab
+tile.BloodArsenal.bloodStainedGlass.name=Blood Stained Glass
 
 # Tooltips
-tooltip.BloodArsenal.glass_shard.desc=Piercingly transparent
+tooltip.BloodArsenal.glassShard.desc=Piercingly transparent

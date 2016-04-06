@@ -24,6 +24,7 @@ public class ItemBloodArsenalBase extends Item implements IVariantProvider
     {
         super();
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+//        setRegistryName("Item" + WordUtils.capitalize(Strings.join(getUnlocalizedName().split("[_]"), "")));
         setCreativeTab(BloodArsenal.tabBloodArsenal);
 
         this.name = name;
@@ -44,7 +45,7 @@ public class ItemBloodArsenalBase extends Item implements IVariantProvider
     public List<Pair<Integer, String>> getVariants()
     {
         List<Pair<Integer, String>> ret = new ArrayList<Pair<Integer, String>>();
-        ret.add(new ImmutablePair<Integer, String>(0, "type=" + this.getUnlocalizedName().substring(18)));
+        ret.add(new ImmutablePair<Integer, String>(0, "type=" + name));
         return ret;
     }
 }
