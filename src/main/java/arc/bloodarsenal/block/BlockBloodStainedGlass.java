@@ -70,7 +70,7 @@ public class BlockBloodStainedGlass extends BlockBreakable implements IVariantPr
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer()
     {
-        return BlockRenderLayer.CUTOUT;
+        return BlockRenderLayer.TRANSLUCENT;
     }
 
     @Override

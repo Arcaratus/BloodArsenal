@@ -4,6 +4,7 @@ import WayofTime.bloodmagic.api.util.helper.LogHelper;
 import arc.bloodarsenal.proxy.CommonProxy;
 import arc.bloodarsenal.registry.ModBlocks;
 import arc.bloodarsenal.registry.ModItems;
+import arc.bloodarsenal.registry.ModRecipes;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -72,7 +73,7 @@ public class BloodArsenal
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
-
+        ModRecipes.init();
     }
 
     @Mod.EventHandler

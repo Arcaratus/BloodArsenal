@@ -5,9 +5,7 @@ import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.block.*;
 import arc.bloodarsenal.item.block.ItemBlockBloodInfusedWoodenSlab;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSlab;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemSlab;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModBlocks
@@ -17,17 +15,29 @@ public class ModBlocks
     public static Block bloodInfusedWoodenStairs;
     public static Block bloodInfusedWoodenDoubleSlab;
     public static Block bloodInfusedWoodenSlab;
+    public static Block bloodInfusedWoodenFence;
+    public static Block bloodInfusedWoodenFenceGate;
     public static Block bloodStainedGlass;
+    public static Block bloodStainedGlassPane;
+    public static Block bloodTorch;
+    public static Block bloodInfusedIronBlock;
+    public static Block bloodInfusedGlowstone;
 
     public static void init()
     {
         bloodInfusedWoodenLog = registerBlock(new BlockBloodInfusedWoodenLog("bloodInfusedWoodenLog"));
         bloodInfusedWoodenPlanks = registerBlock(new BlockBloodInfusedWoodenPlanks("bloodInfusedWoodenPlanks"));
         bloodInfusedWoodenStairs = registerBlock(new BlockBloodInfusedWoodenStairs("bloodInfusedWoodenStairs", bloodInfusedWoodenPlanks));
-        bloodInfusedWoodenDoubleSlab = registerBlock(new BlockBloodInfusedWoodenSlab.BlockBloodInfusedWoodenDoubleSlab().setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedWoodenDoubleSlab"));
+        bloodInfusedWoodenDoubleSlab = registerBlock(new BlockBloodInfusedWoodenSlab.BlockBloodInfusedWoodenDoubleSlab().setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedWoodenDoubleSlab").setCreativeTab(null));
         bloodInfusedWoodenSlab = new BlockBloodInfusedWoodenSlab.BlockBloodInfusedWoodenHalfSlab().setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedWoodenHalfSlab");
         bloodInfusedWoodenSlab = registerBlock(new ItemBlockBloodInfusedWoodenSlab("bloodInfusedWoodenSlab"));
+        bloodInfusedWoodenFence = registerBlock(new BlockBloodInfusedWoodenFence("bloodInfusedWoodenFence"));
+//        bloodInfusedWoodenFenceGate = registerBlock(new BlockBloodInfusedWoodenFenceGate("bloodInfusedWoodenFenceGate"));
         bloodStainedGlass = registerBlock(new BlockBloodStainedGlass("bloodStainedGlass"));
+        bloodStainedGlassPane = registerBlock(new BlockBloodStainedGlassPane("bloodStainedGlassPane"));
+        bloodTorch = registerBlock(new BlockBloodTorch("bloodTorch"));
+        bloodInfusedIronBlock = registerBlock(new BlockBloodInfusedIron("bloodInfusedIronBlock"));
+        bloodInfusedGlowstone = registerBlock(new BlockBloodInfusedGlowstone("bloodInfusedGlowstone"));
 
         initTiles();
     }

@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": { },
+    "model": "cube_all",
+	"uvlock": true
+  },
+  "variants": {
+    "facing=up": { "model": "bloodarsenal:BlockBloodTorch" },
+        "facing=east": { "model": "bloodarsenal:BlockBloodTorchWall" },
+        "facing=south": { "model": "bloodarsenal:BlockBloodTorchWall", "y": 90 },
+        "facing=west": { "model": "bloodarsenal:BlockBloodTorchWall", "y": 180 },
+        "facing=north": { "model": "bloodarsenal:BlockBloodTorchWall", "y": 270 }
+  }
+}

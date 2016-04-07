@@ -1,0 +1,29 @@
+{
+  "multipart": [
+    {   "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPanePost" }},
+    {   "when": { "north": true },
+        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneSide" }
+    },
+    {   "when": { "east": true },
+        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneSide", "y": 90 }
+    },
+    {   "when": { "south": true },
+        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneSideAlt" }
+    },
+    {   "when": { "west": true },
+        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneSideAlt", "y": 90 }
+    },
+    {   "when": { "north": false },
+        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneNoSide" }
+    },
+    {   "when": { "east": false },
+        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneNoSideAlt" }
+    },
+    {   "when": { "south": false },
+        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneNoSideAlt", "y": 90 }
+    },
+    {   "when": { "west": false },
+        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneNoSide", "y": 270 }
+    }
+  ]
+}

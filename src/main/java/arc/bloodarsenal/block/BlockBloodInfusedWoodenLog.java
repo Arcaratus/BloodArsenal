@@ -8,13 +8,13 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -32,7 +32,7 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
         setCreativeTab(BloodArsenal.tabBloodArsenal);
         setHardness(3.0F);
-        setResistance(4.0F);
+        setResistance(6.0F);
         setHarvestLevel("axe", 0);
 
         setDefaultState(blockState.getBaseState().withProperty(VARIANT, EnumType.BLOODINFUSED).withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
@@ -45,25 +45,18 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
-    {
-        list.add(new ItemStack(itemIn, 1, EnumType.BLOODINFUSED.getMetadata()));
-    }
-
-    @Override
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
     public IBlockState getStateFromMeta(int meta)
     {
         return this.getDefaultState().withProperty(LOG_AXIS, BlockLog.EnumAxis.values()[meta >> 2]).withProperty(VARIANT, EnumType.BLOODINFUSED);
     }
 
     @Override
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
+    public boolean isFireSource(World world, BlockPos pos, EnumFacing side)
+    {
+        return true;
+    }
+
+    @Override
     @SuppressWarnings("incomplete-switch")
     public int getMetaFromState(IBlockState state)
     {
@@ -98,10 +91,6 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
     }
 
     @Override
-    /**
-     * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
-     * returns the metadata of the dropped item based on the old metadata of the block.
-     */
     public int damageDropped(IBlockState state)
     {
         return state.getValue(VARIANT).getMetadata();
@@ -123,7 +112,6 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
         private final int meta;
         private final String name;
         private final String unlocalizedName;
-        /** The color that represents this entry on a map. */
         private final MapColor mapColor;
 
         EnumType(int metaIn, String nameIn, MapColor mapColorIn)
@@ -144,9 +132,6 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
             return this.meta;
         }
 
-        /**
-         * The color which represents this entry on a map.
-         */
         public MapColor getMapColor()
         {
             return this.mapColor;

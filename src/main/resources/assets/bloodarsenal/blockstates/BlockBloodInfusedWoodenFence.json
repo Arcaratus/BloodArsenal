@@ -1,0 +1,17 @@
+{
+  "multipart": [
+    {   "apply": { "model": "bloodarsenal:BlockBloodInfusedWoodenFencePost" }},
+    {   "when": { "north": "true" },
+        "apply": { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceSide", "uvlock": true }
+    },
+    {   "when": { "east": "true" },
+        "apply": { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceSide", "y": 90, "uvlock": true }
+    },
+    {   "when": { "south": "true" },
+        "apply": { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceSide", "y": 180, "uvlock": true }
+    },
+    {   "when": { "west": "true" },
+        "apply": { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceSide", "y": 270, "uvlock": true }
+    }
+  ]
+}

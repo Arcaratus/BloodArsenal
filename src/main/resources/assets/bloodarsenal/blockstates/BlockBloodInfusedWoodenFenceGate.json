@@ -1,0 +1,20 @@
+{
+  "variants": {
+        "facing=south,in_wall=false,open=false": { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceGateClosed" },
+        "facing=west,in_wall=false,open=false":  { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceGateClosed", "y": 90, "uvlock": true },
+        "facing=north,in_wall=false,open=false": { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceGateClosed", "y": 180, "uvlock": true },
+        "facing=east,in_wall=false,open=false":  { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceGateClosed", "y": 270, "uvlock": true },
+        "facing=south,in_wall=false,open=true": { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceGateOpen" },
+        "facing=west,in_wall=false,open=true":  { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceGateOpen", "y": 90, "uvlock": true },
+        "facing=north,in_wall=false,open=true": { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceGateOpen", "y": 180, "uvlock": true },
+        "facing=east,in_wall=false,open=true":  { "model": "bloodarsenal:BlockBloodInfusedWoodenFenceGateOpen", "y": 270, "uvlock": true },
+        "facing=south,in_wall=true,open=false": { "model": "bloodarsenal:BlockBloodInfusedWoodenWallGateClosed" },
+        "facing=west,in_wall=true,open=false":  { "model": "bloodarsenal:BlockBloodInfusedWoodenWallGateClosed", "y": 90, "uvlock": true },
+        "facing=north,in_wall=true,open=false": { "model": "bloodarsenal:BlockBloodInfusedWoodenWallGateClosed", "y": 180, "uvlock": true },
+        "facing=east,in_wall=true,open=false":  { "model": "bloodarsenal:BlockBloodInfusedWoodenWallGateClosed", "y": 270, "uvlock": true },
+        "facing=south,in_wall=true,open=true": { "model": "bloodarsenal:BlockBloodInfusedWoodenWallGateOpen" },
+        "facing=west,in_wall=true,open=true":  { "model": "bloodarsenal:BlockBloodInfusedWoodenWallGateOpen", "y": 90, "uvlock": true },
+        "facing=north,in_wall=true,open=true": { "model": "bloodarsenal:BlockBloodInfusedWoodenWallGateOpen", "y": 180, "uvlock": true },
+        "facing=east,in_wall=true,open=true":  { "model": "bloodarsenal:BlockBloodInfusedWoodenWallGateOpen", "y": 270, "uvlock": true }
+    }
+}

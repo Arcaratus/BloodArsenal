@@ -11,7 +11,13 @@ tile.BloodArsenal.bloodInfusedWoodenPlanks.name=Blood Infused Wooden Planks
 tile.BloodArsenal.bloodInfusedWoodenStairs.name=Blood Infused Wooden Stairs
 tile.BloodArsenal.bloodInfusedWoodenDoubleSlab.name=Blood Infused Wooden Slab
 tile.BloodArsenal.bloodInfusedWoodenHalfSlab.name=Blood Infused Wooden Slab
+tile.BloodArsenal.bloodInfusedWoodenFence.name=Blood Infused Wooden Fence
+tile.BloodArsenal.bloodInfusedWoodenFenceGate.name=Blood Infused Wooden Fence Gate
 tile.BloodArsenal.bloodStainedGlass.name=Blood Stained Glass
+tile.BloodArsenal.bloodStainedGlassPane.name=Blood Stained Glass Pane
+tile.BloodArsenal.bloodTorch.name=Blood Torch
+tile.BloodArsenal.bloodInfusedIronBlock.name=Blood Infused Iron Block
+tile.BloodArsenal.bloodInfusedGlowstone.name=Blood Infused Glowstone
 
 # Tooltips
 tooltip.BloodArsenal.glassShard.desc=Piercingly transparent

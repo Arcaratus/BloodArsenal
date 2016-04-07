@@ -11,10 +11,14 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -31,7 +35,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
         super(Material.wood);
 
         setHardness(3.0F);
-        setResistance(4.0F);
+        setResistance(6.0F);
         setHarvestLevel("axe", 0);
         setSoundType(SoundType.WOOD);
         useNeighborBrightness = true;
@@ -45,6 +49,19 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
 
         this.setDefaultState(iblockstate.withProperty(VARIANT, BlockBloodInfusedWoodenLog.EnumType.BLOODINFUSED));
         setCreativeTab(BloodArsenal.tabBloodArsenal);
+    }
+
+    @Override
+    public boolean isFireSource(World world, BlockPos pos, EnumFacing side)
+    {
+        return true;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
+    {
+        list.add(new ItemStack(itemIn, 1, 0));
     }
 
     @Override

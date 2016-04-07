@@ -1,0 +1,7 @@
+{
+  "parent": "block/pane_side_alt",
+  "textures": {
+	"edge": "bloodarsenal:blocks/BloodStainedGlassPaneTop",
+	"pane": "bloodarsenal:blocks/BloodStainedGlass"
+  }
+}
