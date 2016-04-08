@@ -41,6 +41,11 @@ public class ModRecipes
 
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlass, 8), "aaa", "aba", "aaa", 'a', "blockGlass", 'b', weakOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlassPane, 8), "aaa", "aba", "aaa", 'a', "glassPane", 'b', weakOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedWoodenPickaxe), "aba", " c ", " c ", 'a', ModBlocks.bloodInfusedWoodenLog, 'b', apprenticeOrb, 'c', ModItems.bloodInfusedStick);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedWoodenAxe), "ba ", "ac ", " c ", 'a', ModBlocks.bloodInfusedWoodenLog, 'b', apprenticeOrb, 'c', ModItems.bloodInfusedStick);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedWoodenAxe), " ab", " ca", " c ", 'a', ModBlocks.bloodInfusedWoodenLog, 'b', apprenticeOrb, 'c', ModItems.bloodInfusedStick);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedWoodenShovel), " a ", " c ", " b ", 'a', ModBlocks.bloodInfusedWoodenLog, 'b', apprenticeOrb, 'c', ModItems.bloodInfusedStick);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedWoodenSword), " a ", " a ", "cbc", 'a', ModBlocks.bloodInfusedWoodenLog, 'b', apprenticeOrb, 'c', ModItems.bloodInfusedStick);
 
         //SHAPELESS
         addShapelessOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenPlanks, 2), ModBlocks.bloodInfusedWoodenLog);
