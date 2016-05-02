@@ -38,6 +38,7 @@ public class ModRecipes
         addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenFence, 3), "aba", "aba", 'a', ModBlocks.bloodInfusedWoodenPlanks, 'b', ModItems.bloodInfusedStick);
         addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenPlanks), "a", "a", 'a',  ModBlocks.bloodInfusedWoodenSlab);
         addOreDictRecipe(new ItemStack(ModBlocks.bloodStainedGlassPane, 16), "aaa", "aaa", 'a', ModBlocks.bloodStainedGlass);
+        addOreDictRecipe(new ItemStack(ModBlocks.glassShardBlock), "a a", " a ",  "a a", 'a', ModItems.glassShard);
 
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlass, 8), "aaa", "aba", "aaa", 'a', "blockGlass", 'b', weakOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlassPane, 8), "aaa", "aba", "aaa", 'a', "glassPane", 'b', weakOrb);

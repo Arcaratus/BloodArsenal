@@ -6,10 +6,14 @@ import WayofTime.bloodmagic.util.helper.InventoryRenderHelperV2;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.registry.ModBlocks;
 import arc.bloodarsenal.registry.ModItems;
+import arc.bloodarsenal.util.IComplexVariantProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
@@ -57,6 +61,16 @@ public class ClientProxy extends CommonProxy
             IVariantProvider variantProvider = (IVariantProvider) block;
             for (Pair<Integer, String> variant : variantProvider.getVariants())
                 ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), variant.getLeft(), new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, name), variant.getRight()));
+        }
+
+        if (block instanceof IComplexVariantProvider)
+        {
+            IComplexVariantProvider complexVariantProvider = (IComplexVariantProvider) block;
+            if (complexVariantProvider.getIgnoredProperties() != null)
+            {
+                IStateMapper customMapper = (new StateMap.Builder()).ignore(complexVariantProvider.getIgnoredProperties()).build();
+                ModelLoader.setCustomStateMapper(block, customMapper);
+            }
         }
     }
 

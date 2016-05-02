@@ -3,24 +3,24 @@ package arc.bloodarsenal.registry;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.item.ItemBloodArsenalBase;
-import arc.bloodarsenal.item.tool.ItemBloodInfusedWoodenAxe;
-import arc.bloodarsenal.item.tool.ItemBloodInfusedWoodenPickaxe;
-import arc.bloodarsenal.item.tool.ItemBloodInfusedWoodenShovel;
-import arc.bloodarsenal.item.tool.ItemBloodInfusedWoodenSword;
+import arc.bloodarsenal.item.tool.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.text.WordUtils;
 
 public class ModItems
 {
     public static Item glassShard;
     public static Item bloodInfusedStick;
-
     public static Item bloodInfusedWoodenPickaxe;
     public static Item bloodInfusedWoodenAxe;
     public static Item bloodInfusedWoodenShovel;
     public static Item bloodInfusedWoodenSword;
+    public static Item bloodInfusedIron;
+    public static Item glassSacrificialDagger;
+    public static Item glassDaggerOfSacrifice;
 
     public static Item.ToolMaterial bloodInfusedWoodMaterial = EnumHelper.addToolMaterial("BloodInfusedWoodMaterial", 1, 186, 5.5F, 1.0F, 18);
 
@@ -32,6 +32,16 @@ public class ModItems
         bloodInfusedWoodenAxe = registerItem(new ItemBloodInfusedWoodenAxe());
         bloodInfusedWoodenShovel = registerItem(new ItemBloodInfusedWoodenShovel());
         bloodInfusedWoodenSword = registerItem(new ItemBloodInfusedWoodenSword());
+        bloodInfusedIron = registerItem(new ItemBloodArsenalBase("bloodInfusedIron"));
+        glassSacrificialDagger = registerItem(new ItemGlassSacrificialDagger("glassSacrificialDagger"));
+        glassDaggerOfSacrifice = registerItem(new ItemGlassDaggerOfSacrifice("glassDaggerOfSacrifice"));
+
+        addOreDictItems();
+    }
+
+    public static void addOreDictItems()
+    {
+        OreDictionary.registerOre("glassShard", glassShard);
     }
 
     public static void initSpecialRenders()

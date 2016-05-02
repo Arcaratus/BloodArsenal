@@ -41,6 +41,9 @@ def gitHash = 'unknown'
 
 if (new File(projectDir, '.git').exists())
     gitHash = repo.log().find().abbreviatedId
+	
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 repositories {
     maven { url "http://dvs1.progwml6.com/files/maven" }
@@ -62,7 +65,7 @@ dependencies {
 	deobfCompile "com.wayoftime.bloodmagic:BloodMagic:${mc_version}-${bloodmagic_version}-ss"
 //    deobfCompile "info.amerifrance.guideapi:Guide-API:${mc_version}-${guideapi_version}"
 
-//    compile "mcp.mobius.waila:Waila:${waila_version}_1.8.8:dev"
+    compile "mcp.mobius.waila:Waila:${waila_version}_1.9-dev"
 //    compile name: "Thaumcraft", version: "${mc_version}-${thaumcraft_version}", ext: "jar"
 //    compile name: 'Baubles', version: "${baubles_version}", ext: 'jar'
 }

@@ -17,9 +17,9 @@
           "layer0": "bloodarsenal:items/BloodInfusedStick"
         }
       },
-      "imbued": {
+      "bloodinfusediron": {
         "textures": {
-          "layer0": "bloodmagic:items/InfusedSlate"
+          "layer0": "bloodarsenal:items/BloodInfusedIron"
         }
       },
       "demonic": {

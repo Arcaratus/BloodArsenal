@@ -22,6 +22,7 @@ public class ModBlocks
     public static Block bloodTorch;
     public static Block bloodInfusedIronBlock;
     public static Block bloodInfusedGlowstone;
+    public static Block glassShardBlock;
 
     public static void init()
     {
@@ -32,12 +33,13 @@ public class ModBlocks
         bloodInfusedWoodenSlab = new BlockBloodInfusedWoodenSlab.BlockBloodInfusedWoodenHalfSlab().setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedWoodenHalfSlab");
         bloodInfusedWoodenSlab = registerBlock(new ItemBlockBloodInfusedWoodenSlab("bloodInfusedWoodenSlab"));
         bloodInfusedWoodenFence = registerBlock(new BlockBloodInfusedWoodenFence("bloodInfusedWoodenFence"));
-//        bloodInfusedWoodenFenceGate = registerBlock(new BlockBloodInfusedWoodenFenceGate("bloodInfusedWoodenFenceGate"));
+        bloodInfusedWoodenFenceGate = registerBlock(new BlockBloodInfusedWoodenFenceGate("bloodInfusedWoodenFenceGate"));
         bloodStainedGlass = registerBlock(new BlockBloodStainedGlass("bloodStainedGlass"));
         bloodStainedGlassPane = registerBlock(new BlockBloodStainedGlassPane("bloodStainedGlassPane"));
         bloodTorch = registerBlock(new BlockBloodTorch("bloodTorch"));
         bloodInfusedIronBlock = registerBlock(new BlockBloodInfusedIron("bloodInfusedIronBlock"));
         bloodInfusedGlowstone = registerBlock(new BlockBloodInfusedGlowstone("bloodInfusedGlowstone"));
+        glassShardBlock = registerBlock(new BlockGlassShard("glassShardBlock"));
 
         initTiles();
     }
@@ -52,14 +54,12 @@ public class ModBlocks
 
     }
 
-    public static Block registerBlock(ItemBlock itemBlock, String name)
+    public static Block registerBlock(Block block, String name)
     {
-        Block block = itemBlock.block;
-
         if (!ConfigHandler.blockBlacklist.contains(name))
         {
             GameRegistry.register(block);
-            GameRegistry.register(itemBlock.setRegistryName(block.getRegistryName()));
+            GameRegistry.register(new ItemBlock(block).setRegistryName(name));
             BloodArsenal.PROXY.tryHandleBlockModel(block, name);
         }
 

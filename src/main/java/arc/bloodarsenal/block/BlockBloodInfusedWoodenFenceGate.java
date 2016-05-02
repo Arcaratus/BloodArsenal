@@ -1,10 +1,11 @@
 package arc.bloodarsenal.block;
 
-import WayofTime.bloodmagic.client.IVariantProvider;
 import arc.bloodarsenal.BloodArsenal;
+import arc.bloodarsenal.util.IComplexVariantProvider;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -16,7 +17,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockBloodInfusedWoodenFenceGate extends BlockFenceGate implements IVariantProvider
+public class BlockBloodInfusedWoodenFenceGate extends BlockFenceGate implements IComplexVariantProvider
 {
     public BlockBloodInfusedWoodenFenceGate(String name)
     {
@@ -48,5 +49,11 @@ public class BlockBloodInfusedWoodenFenceGate extends BlockFenceGate implements 
         List<Pair<Integer, String>> ret = new ArrayList<>();
         ret.add(new ImmutablePair<>(0, "normal"));
         return ret;
+    }
+
+    @Override
+    public IProperty[] getIgnoredProperties()
+    {
+        return new IProperty[] {POWERED};
     }
 }

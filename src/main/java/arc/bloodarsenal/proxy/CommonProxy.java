@@ -1,8 +1,10 @@
 package arc.bloodarsenal.proxy;
 
 import WayofTime.bloodmagic.util.helper.InventoryRenderHelperV2;
+import arc.bloodarsenal.util.handler.EventHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 
 public class CommonProxy
 {
@@ -13,7 +15,7 @@ public class CommonProxy
 
     public void preInit()
     {
-//        MinecraftForge.EVENT_BUS.register(new EventHandler());
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
         registerRenderers();
     }
 

@@ -4,7 +4,10 @@ import WayofTime.bloodmagic.api.util.helper.LogHelper;
 import arc.bloodarsenal.proxy.CommonProxy;
 import arc.bloodarsenal.registry.ModBlocks;
 import arc.bloodarsenal.registry.ModItems;
+import arc.bloodarsenal.registry.ModPotions;
 import arc.bloodarsenal.registry.ModRecipes;
+import arc.bloodarsenal.util.DamageSourceBleeding;
+import arc.bloodarsenal.util.DamageSourceGlass;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -57,6 +60,14 @@ public class BloodArsenal
     {
         return isDev;
     }
+    public static DamageSourceGlass getDamageSourceGlass()
+    {
+        return new DamageSourceGlass();
+    }
+    public static DamageSourceBleeding getDamageSourceBleeding()
+    {
+        return new DamageSourceBleeding();
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -66,6 +77,7 @@ public class BloodArsenal
 
         ModItems.init();
         ModBlocks.init();
+        ModPotions.init();
 
         PROXY.preInit();
     }

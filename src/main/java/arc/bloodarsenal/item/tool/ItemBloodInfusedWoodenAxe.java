@@ -3,10 +3,13 @@ package arc.bloodarsenal.item.tool;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 
 import java.util.Set;
 
@@ -17,6 +20,12 @@ public class ItemBloodInfusedWoodenAxe extends ItemBloodInfusedWoodenTool
     public ItemBloodInfusedWoodenAxe()
     {
         super("axe", 6.0F, EFFECTIVE_ON);
+    }
+
+    @Override
+    public float getStrVsBlock(ItemStack stack, IBlockState state)
+    {
+        return state.getMaterial() != Material.plants && state.getMaterial() != Material.wood && state.getMaterial() != Material.leaves ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
     }
 
     @Override

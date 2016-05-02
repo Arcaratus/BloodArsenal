@@ -9,6 +9,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -49,7 +51,28 @@ public class ItemBloodInfusedTool extends ItemTool implements IVariantProvider
         {
             if (entity instanceof EntityPlayer)
             {
-                NetworkHelper.getSoulNetwork((EntityPlayer) entity).syphonAndDamage((EntityPlayer) entity, repairCost);
+                int cost = repairCost;
+
+                if (stack.isItemEnchanted())
+                {
+                    NBTTagList enchants = stack.getEnchantmentTagList();
+
+                    if (enchants != null && enchants.tagCount() > 0)
+                    {
+                        NBTTagCompound enchant;
+
+                        for (int i = 0; i <= enchants.tagCount(); i++)
+                        {
+                            enchant = enchants.getCompoundTagAt(i);
+                            short lvl = enchant.getShort("lvl");
+
+                            cost *= ((repairCost / 10) * lvl);
+                        }
+                    }
+                }
+
+                System.out.println("COST: " + cost);
+                NetworkHelper.getSoulNetwork((EntityPlayer) entity).syphonAndDamage((EntityPlayer) entity, cost);
                 stack.setItemDamage(stack.getItemDamage() - 2);
             }
         }
