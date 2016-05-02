@@ -32,7 +32,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
 
     public BlockBloodInfusedWoodenSlab()
     {
-        super(Material.wood);
+        super(Material.WOOD);
 
         setHardness(3.0F);
         setResistance(6.0F);
@@ -48,7 +48,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
         }
 
         this.setDefaultState(iblockstate.withProperty(VARIANT, BlockBloodInfusedWoodenLog.EnumType.BLOODINFUSED));
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }
 
     @Override

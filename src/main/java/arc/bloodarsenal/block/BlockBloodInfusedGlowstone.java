@@ -2,11 +2,11 @@ package arc.bloodarsenal.block;
 
 import WayofTime.bloodmagic.api.altar.EnumAltarComponent;
 import WayofTime.bloodmagic.api.altar.IAltarComponent;
+import arc.bloodarsenal.registry.ModItems;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
 
@@ -16,7 +16,7 @@ public class BlockBloodInfusedGlowstone extends BlockBloodArsenalBase implements
 {
     public BlockBloodInfusedGlowstone(String name)
     {
-        super(name, Material.glass);
+        super(name, Material.GLASS);
 
         setHardness(0.75F);
         setResistance(1.0F);
@@ -39,13 +39,13 @@ public class BlockBloodInfusedGlowstone extends BlockBloodArsenalBase implements
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Items.glowstone_dust;
+        return ModItems.bloodInfusedGlowstoneDust;
     }
 
     @Override
     public MapColor getMapColor(IBlockState state)
     {
-        return MapColor.redColor;
+        return MapColor.RED;
     }
 
     @Override

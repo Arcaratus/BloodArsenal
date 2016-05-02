@@ -12,7 +12,7 @@ public class ModPotions
 
     public static void init()
     {
-        bleeding = registerPotion("Bleeding", new ResourceLocation("bleeding"), true, 0xFF0000, 0, 0);
+        bleeding = registerPotion("Bleeding", new ResourceLocation("bleeding"), true, 0xFF0000, 1, 0);
 
         MinecraftForge.EVENT_BUS.register(new PotionEventHandlers());
     }
@@ -21,7 +21,7 @@ public class ModPotions
     {
         Potion potion = new PotionBloodArsenal(name, badEffect, potionColour, x, y);
 
-        Potion.potionRegistry.register(-1, location, potion);
+        Potion.REGISTRY.register(-1, location, potion);
 
         return potion;
     }

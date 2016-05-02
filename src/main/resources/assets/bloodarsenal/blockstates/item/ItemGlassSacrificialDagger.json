@@ -5,10 +5,17 @@
     "transform": "forge:default-tool"
   },
   "variants": {
-    "normal": [{
-	  "textures": {
-		"layer0": "bloodarsenal:items/GlassSacrificialDagger"
+    "type": {
+	  "normal": {
+	    "textures": {
+		  "layer0": "bloodarsenal:items/GlassSacrificialDagger"
+	    }
+      },
+	  "ceremonial": {
+	    "textures": {
+		  "layer0": "bloodarsenal:items/CeremonialGlassSacrificialDagger"
+	    }
 	  }
-    }]
+	}
   }
 }

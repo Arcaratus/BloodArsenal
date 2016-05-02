@@ -4,9 +4,10 @@ import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
-import arc.bloodarsenal.registry.Constants;
+import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.registry.ModItems;
 import com.google.common.collect.Multimap;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -14,7 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -31,17 +31,17 @@ public class ItemBloodInfusedWoodenSword extends ItemSword implements IVariantPr
         super(ModItems.bloodInfusedWoodMaterial);
 
         setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedWooden.sword");
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }
 
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected)
     {
-        if (stack.getItemDamage() > 0 && world.getWorldTime() % Constants.Item.WOODEN_REPAIR_UPDATE == 0 && !world.isRemote)
+        if (stack.getItemDamage() > 0 && world.getWorldTime() % ConfigHandler.bloodInfusedWoodenToolsRepairUpdate == 0 && !world.isRemote)
         {
             if (entity instanceof EntityPlayer)
             {
-                NetworkHelper.getSoulNetwork((EntityPlayer) entity).syphonAndDamage((EntityPlayer) entity, Constants.Item.WOODEN_REPAIR_COST);
+                NetworkHelper.getSoulNetwork((EntityPlayer) entity).syphonAndDamage((EntityPlayer) entity, ConfigHandler.bloodInfusedWoodenToolsRepairCost);
                 stack.setItemDamage(stack.getItemDamage() - 2);
             }
         }
@@ -50,14 +50,14 @@ public class ItemBloodInfusedWoodenSword extends ItemSword implements IVariantPr
     @Override
     public int getItemEnchantability()
     {
-        return 18;
+        return 13;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
-        if (I18n.canTranslate("tooltip.BloodArsenal.bloodInfusedWooden.sword.desc"))
+        if (I18n.hasKey("tooltip.BloodArsenal.bloodInfusedWooden.sword.desc"))
             tooltip.add(TextHelper.localizeEffect("tooltip.BloodArsenal.bloodInfusedWooden.sword.desc"));
 
         super.addInformation(stack, player, tooltip, advanced);
@@ -69,7 +69,7 @@ public class ItemBloodInfusedWoodenSword extends ItemSword implements IVariantPr
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 5, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 5.5, 0));
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -3, 0));
         }
         return multimap;
@@ -78,8 +78,8 @@ public class ItemBloodInfusedWoodenSword extends ItemSword implements IVariantPr
     @Override
     public List<Pair<Integer, String>> getVariants()
     {
-        List<Pair<Integer, String>> ret = new ArrayList<Pair<Integer, String>>();
-        ret.add(new ImmutablePair<Integer, String>(0, "normal"));
+        List<Pair<Integer, String>> ret = new ArrayList<>();
+        ret.add(new ImmutablePair<>(0, "normal"));
         return ret;
     }
 }

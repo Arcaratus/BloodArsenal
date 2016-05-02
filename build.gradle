@@ -5,7 +5,7 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
         classpath 'org.ajoberstar:gradle-git:0.10.1'
     }
 }
@@ -56,7 +56,7 @@ repositories {
     }
     ivy {
         name "Baubles"
-        artifactPattern "https://dl.dropboxusercontent.com/u/47135879/[module]-1.8.9-[revision]-deobf.[ext]"
+        artifactPattern "https://dl.dropboxusercontent.com/u/47135879/[module]-1.9.4-[revision]-deobf.[ext]"
     }
 }
 
@@ -65,17 +65,20 @@ dependencies {
 	deobfCompile "com.wayoftime.bloodmagic:BloodMagic:${mc_version}-${bloodmagic_version}-ss"
 //    deobfCompile "info.amerifrance.guideapi:Guide-API:${mc_version}-${guideapi_version}"
 
-    compile "mcp.mobius.waila:Waila:${waila_version}_1.9-dev"
+    compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}-dev"
 //    compile name: "Thaumcraft", version: "${mc_version}-${thaumcraft_version}", ext: "jar"
-//    compile name: 'Baubles', version: "${baubles_version}", ext: 'jar'
+    compile name: 'Baubles', version: "${baubles_version}", ext: 'jar'
+	
+//	deobfCompile "slimeknights.mantle:Mantle:${mc_version}-${mantle_version}:deobf"
+//    deobfCompile "slimeknights:TConstruct:${mc_version}-${tconstruct_version}:deobf"
 }
 
 minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "run"
 
- //   replace "@VERSION@", project.version
- //   replaceIn "Constants.java"
+    replace "@VERSION@", project.version
+    replaceIn "BloodArsenal.java"
 
     clientRunArgs += "--username=${username}"
 
@@ -129,7 +132,9 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifact jar
+            artifact javadocJar
             artifact sourceJar
+            artifact apiJar
         }
     }
     repositories {
@@ -169,21 +174,19 @@ def curseRelations = {
     optionalLibrary 'waila'
 }
 
-//curseforge {
-//    if (project.hasProperty('curse_key_WayofTime'))
-//        apiKey = project.curse_key_WayofTime
-//
-//    project {
-//        id = "${curse_id}"
-//        changelog = getChangelogText()
-//        releaseType = 'beta'
-//
-//        addGameVersion '1.8.9'
-//
-//        relations curseRelations
-//
-//        addArtifact javadocJar
-//        addArtifact sourceJar
-//        addArtifact apiJar
-//    }
-//}
+curseforge {
+    if (project.hasProperty('curse_key_WayofTime'))
+        apiKey = project.curse_key_WayofTime
+
+    project {
+        id = "${curse_id}"
+        changelog = getChangelogText()
+        releaseType = 'beta'
+
+        relations curseRelations
+
+        addArtifact javadocJar
+        addArtifact sourceJar
+        addArtifact apiJar
+    }
+}

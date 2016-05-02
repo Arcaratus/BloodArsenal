@@ -23,6 +23,7 @@ public class ModBlocks
     public static Block bloodInfusedIronBlock;
     public static Block bloodInfusedGlowstone;
     public static Block glassShardBlock;
+    public static Block bloodBurnedString;
 
     public static void init()
     {
@@ -40,6 +41,7 @@ public class ModBlocks
         bloodInfusedIronBlock = registerBlock(new BlockBloodInfusedIron("bloodInfusedIronBlock"));
         bloodInfusedGlowstone = registerBlock(new BlockBloodInfusedGlowstone("bloodInfusedGlowstone"));
         glassShardBlock = registerBlock(new BlockGlassShard("glassShardBlock"));
+        bloodBurnedString = registerBlock(new BlockBloodBurnedString("bloodBurnedString"));
 
         initTiles();
     }
@@ -97,7 +99,6 @@ public class ModBlocks
         }
 
         String blockName = block.getRegistryName().toString().split(":")[1];
-        System.out.println("REGISTERY: " + blockName);
         if (!ConfigHandler.blockBlacklist.contains(blockName))
         {
             GameRegistry.register(block);

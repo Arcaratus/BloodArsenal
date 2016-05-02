@@ -24,7 +24,7 @@ public class BlockBloodInfusedWoodenFenceGate extends BlockFenceGate implements 
         super(BlockPlanks.EnumType.DARK_OAK);
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(3.0F);
         setResistance(6.0F);
         setHarvestLevel("axe", 0);

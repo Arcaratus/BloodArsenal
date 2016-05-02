@@ -30,7 +30,7 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
         super();
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(3.0F);
         setResistance(6.0F);
         setHarvestLevel("axe", 0);
@@ -106,7 +106,7 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
 
     public enum EnumType implements IStringSerializable
     {
-        BLOODINFUSED(0, "blood_infused", MapColor.redColor);
+        BLOODINFUSED(0, "blood_infused", MapColor.RED);
 
         private static final EnumType[] META_LOOKUP = new EnumType[values().length];
         private final int meta;

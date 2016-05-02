@@ -20,10 +20,10 @@ public class BlockBloodStainedGlassPane extends BlockPane implements IVariantPro
 {
     public BlockBloodStainedGlassPane(String name)
     {
-        super(Material.glass, false);
+        super(Material.GLASS, false);
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(1.0F);
         setResistance(3.0F);
         setHarvestLevel("axe", 0);

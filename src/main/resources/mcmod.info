@@ -2,13 +2,13 @@
 {
   "modid": "BloodArsenal",
   "name": "Blood Arsenal",
-  "description": "MISSINGNO",
+  "description": "Blood-themed addon for Blood Magic",
   "version": "${version}",
-  "mcversion": "1.9",
+  "mcversion": "1.9.4",
   "url": "",
   "updateUrl": "",
   "authorList": [ "Arcaratus" ],
-  "credits": "",
+  "credits": "WayofTime, TehNut",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

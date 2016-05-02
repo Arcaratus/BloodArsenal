@@ -11,6 +11,6 @@ public class ItemBlockBloodInfusedWoodenSlab extends ItemSlab
     {
         super(ModBlocks.bloodInfusedWoodenSlab, (BlockSlab) ModBlocks.bloodInfusedWoodenSlab, (BlockSlab) ModBlocks.bloodInfusedWoodenDoubleSlab);
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }
 }

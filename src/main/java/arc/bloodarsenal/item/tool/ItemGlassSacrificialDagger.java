@@ -8,6 +8,8 @@ import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.registry.ModPotions;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -19,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +33,7 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
         super();
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setMaxStackSize(1);
         setFull3D();
     }
@@ -101,7 +104,7 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
         double posX = player.posX;
         double posY = player.posY;
         double posZ = player.posZ;
-        world.playSound(null, posX, posY, posZ, SoundEvents.block_fire_extinguish, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+        world.playSound(null, posX, posY, posZ, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
 
         for (int l = 0; l < 8; ++l)
             world.spawnParticle(EnumParticleTypes.REDSTONE, posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0, 0, 0);
@@ -116,10 +119,18 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
+    public ItemMeshDefinition getMeshDefinition()
+    {
+        return (stack -> new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "item/ItemGlassSacrificialDagger"), canUseForSacrifice(stack) ? "type=ceremonial" : "type=normal"));
+    }
+
+    @Override
     public List<String> getVariants()
     {
         List<String> variants = new ArrayList<>();
-        variants.add("normal");
+        variants.add("type=normal");
+        variants.add("type=ceremonial");
         return variants;
     }
 }

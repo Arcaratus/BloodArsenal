@@ -20,7 +20,7 @@ public class BlockBloodArsenalBase extends Block implements IVariantProvider
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
         if (inCreativeTabs)
-            setCreativeTab(BloodArsenal.tabBloodArsenal);
+            setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }
 
     public BlockBloodArsenalBase(String name, Material material)

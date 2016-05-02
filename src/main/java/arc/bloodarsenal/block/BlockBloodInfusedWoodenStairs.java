@@ -18,7 +18,7 @@ public class BlockBloodInfusedWoodenStairs extends BlockStairs implements IVaria
         super(block.getDefaultState());
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(3.0F);
         setResistance(4.0F);
         setHarvestLevel("axe", 0);

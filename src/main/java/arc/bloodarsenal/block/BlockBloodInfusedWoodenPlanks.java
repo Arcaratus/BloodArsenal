@@ -10,7 +10,7 @@ public class BlockBloodInfusedWoodenPlanks extends BlockBloodArsenalBase
 {
     public BlockBloodInfusedWoodenPlanks(String name)
     {
-        super(name, Material.wood);
+        super(name, Material.WOOD);
 
         setHardness(3.0F);
         setResistance(6.0F);

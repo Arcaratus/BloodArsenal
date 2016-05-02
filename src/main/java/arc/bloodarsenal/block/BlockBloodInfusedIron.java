@@ -9,7 +9,7 @@ public class BlockBloodInfusedIron extends BlockBloodArsenalBase
 {
     public BlockBloodInfusedIron(String name)
     {
-        super(name, Material.iron);
+        super(name, Material.IRON);
 
         setHardness(7.5F);
         setResistance(10.0F);

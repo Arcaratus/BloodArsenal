@@ -28,10 +28,10 @@ public class BlockBloodStainedGlass extends BlockBreakable implements IVariantPr
 {
     public BlockBloodStainedGlass(String name)
     {
-        super(Material.glass, false);
+        super(Material.GLASS, false);
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(1F);
         setResistance(3F);
         setSoundType(SoundType.GLASS);

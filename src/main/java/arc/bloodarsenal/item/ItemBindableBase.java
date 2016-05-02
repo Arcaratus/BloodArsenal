@@ -7,9 +7,9 @@ import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
 import com.google.common.base.Strings;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -24,8 +24,8 @@ public class ItemBindableBase extends ItemBindable
     {
         super();
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + name);
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 
         this.name = name;
         this.tooltipBase = "tooltip.BloodArsenal." + name + ".";
@@ -35,7 +35,7 @@ public class ItemBindableBase extends ItemBindable
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
-        if (I18n.canTranslate(tooltipBase + "desc"))
+        if (I18n.hasKey(tooltipBase + "desc"))
             tooltip.add(TextHelper.localizeEffect(tooltipBase + "desc"));
 
         NBTHelper.checkNBT(stack);

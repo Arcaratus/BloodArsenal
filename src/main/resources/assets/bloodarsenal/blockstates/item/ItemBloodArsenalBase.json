@@ -17,19 +17,19 @@
           "layer0": "bloodarsenal:items/BloodInfusedStick"
         }
       },
-      "bloodinfusediron": {
+	  "bloodinfusedglowstonedust": {
         "textures": {
-          "layer0": "bloodarsenal:items/BloodInfusedIron"
+          "layer0": "bloodarsenal:items/BloodInfusedGlowstoneDust"
         }
       },
-      "demonic": {
+	  "inertbloodinfusedironingot": {
         "textures": {
-          "layer0": "bloodmagic:items/DemonSlate"
+          "layer0": "bloodarsenal:items/InertBloodInfusedIronIngot"
         }
       },
-      "ethereal": {
+      "bloodinfusedironingot": {
         "textures": {
-          "layer0": "bloodmagic:items/EtherealSlate"
+          "layer0": "bloodarsenal:items/BloodInfusedIronIngot"
         }
       }
     }

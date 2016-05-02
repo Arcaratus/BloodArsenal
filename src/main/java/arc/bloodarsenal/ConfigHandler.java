@@ -21,6 +21,18 @@ public class ConfigHandler
     public static int glassSacrificialDaggerLP;
     public static int glassSacrificialDaggerHealth;
     public static int glassDaggerOfSacrificeLPMultiplier;
+    public static int bloodInfusedWoodenToolsRepairUpdate;
+    public static int bloodInfusedWoodenToolsRepairCost;
+    public static int bloodInfusedIronToolsRepairUpdate;
+    public static int bloodInfusedIronToolsRepairCost;
+    public static int sigilEnderOpenCost;
+    public static int sigilEnderTeleportMultiplier;
+
+    // Mod configs
+    public static boolean baublesEnabled;
+
+    public static int sacrificeAmuletConversion;
+    public static int selfSacrificeAmuletConversion;
 
     // Miscellaneous
     public static boolean doGlassShardsDrop;
@@ -51,6 +63,20 @@ public class ConfigHandler
         glassSacrificialDaggerLP = config.getInt("glassSacrificialDaggerLP", category, 500, 0, Integer.MAX_VALUE, "Set the amount that the Glass Sacrificial Dagger gives per use");
         glassSacrificialDaggerHealth = config.getInt("glassSacrificialDaggerHealth", category, 2, 1, Integer.MAX_VALUE, "Set the amount of health the Glass Sacrificial Dagger takes per use");
         glassDaggerOfSacrificeLPMultiplier = config.getInt("glassDaggerOfSacrificeLPMultiplier", category, 2, 1, 100, "Set the amount of LP that the Glass Dagger of Sacrifice grants (multiply by the standard Dagger of Sacrifice)");
+        bloodInfusedWoodenToolsRepairUpdate = config.getInt("bloodInfusedWoodenToolsRepairUpdate", category, 80, 0, 1000, "Set the amount of ticks at which Blood Infused Wooden Tools repair at");
+        bloodInfusedWoodenToolsRepairCost = config.getInt("bloodInfusedWoodenToolsRepairCost", category, 20, 0, 1000, "Set the LP cost of which Blood Infused Wooden Tools repair at");
+        bloodInfusedIronToolsRepairUpdate = config.getInt("bloodInfusedIronToolsRepairUpdate", category, 40, 0, 1000, "Set the amount of ticks at which Blood Infused Iron Tools repair at");
+        bloodInfusedIronToolsRepairCost = config.getInt("bloodInfusedIronToolsRepairCost", category, 50, 0, 1000, "Set the LP cost of which Blood Infused Iron Tools repair at");
+        sigilEnderOpenCost = config.getInt("sigilEnderCost", category, 500, 0, 10000, "Set the LP cost of opening your Ender Chest with the Ender Sigil");
+        sigilEnderTeleportMultiplier = config.getInt("sigilEnderTeleportMultiplier", category, 100, 0, 10000, "Set the multiplier of the cost of using the Ender Sigil to teleport");
+
+        category = "Mod Configs";
+        config.addCustomCategoryComment(category, "Mod interaction configs");
+        config.setCategoryRequiresMcRestart(category, true);
+        baublesEnabled = config.getBoolean("baublesEnabled", category, true, "Toggle Baubles interactions");
+
+        sacrificeAmuletConversion = config.getInt("sacrificeAmuletConversion", category, 20, 0, 100, "Base conversion for the Sacrifice Amulet (damage dealt * sacrificeAmuletConversion)");
+        selfSacrificeAmuletConversion = config.getInt("selfSacrificeAmuletConversion", category, 2, 0, 100, "Base conversion for the Self Sacrifice Amulet (damage dealt * selfSacrificeAmuletConversion)");
 
         category = "Miscellaneous";
         config.addCustomCategoryComment(category, "Miscellaneous configs of magical sorts");

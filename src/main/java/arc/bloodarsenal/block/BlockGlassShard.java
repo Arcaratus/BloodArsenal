@@ -11,7 +11,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -21,7 +20,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -33,12 +31,9 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class BlockGlassShard extends Block implements IVariantProvider
 {
-    public static final PropertyInteger SIZE = PropertyInteger.create("size", 0, 4);
-
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
     public static final PropertyBool NORTH = PropertyBool.create("north");
@@ -48,10 +43,10 @@ public class BlockGlassShard extends Block implements IVariantProvider
 
     public BlockGlassShard(String name)
     {
-        super(Material.glass);
+        super(Material.GLASS);
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(0.75F);
         setSoundType(SoundType.GLASS);
 
@@ -166,7 +161,7 @@ public class BlockGlassShard extends Block implements IVariantProvider
     }
 
     @Override
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
     {
         EnumFacing facing = state.getValue(FACING);
 
@@ -182,12 +177,12 @@ public class BlockGlassShard extends Block implements IVariantProvider
     static
     {
         ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
-        builder.put(EnumFacing.DOWN, new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.375, 0.8125));
-        builder.put(EnumFacing.UP, new AxisAlignedBB(0.1875, 0.625, 0.1875, 0.8125, 1, 0.8125));
-        builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.1875, 0.1875, 0, 0.8125, 0.8125, 0.375));
-        builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.1875, 0.1875, 0.625, 0.8125, 0.8125, 1));
-        builder.put(EnumFacing.EAST, new AxisAlignedBB(0.625, 0.1875, 0.1875, 1, 0.8125, 0.8125));
-        builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0.1875, 0.1875, 0.375, 0.8125, 0.8125));
+        builder.put(EnumFacing.DOWN, new AxisAlignedBB(0.125, 0, 0.125, 0.875, 0.25, 0.875));
+        builder.put(EnumFacing.UP, new AxisAlignedBB(0.125, 0.75, 0.125, 0.875, 1, 0.875));
+        builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.125, 0.125, 0, 0.875, 0.875, 0.25));
+        builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.125, 0.125, 0.75, 0.875, 0.875, 1));
+        builder.put(EnumFacing.EAST, new AxisAlignedBB(0.75, 0.125, 0.125, 1, 0.875, 0.875));
+        builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0.125, 0.125, 0.25, 0.875, 0.875));
 
         BOUNDS = builder.build();
     }
@@ -233,23 +228,5 @@ public class BlockGlassShard extends Block implements IVariantProvider
         List<Pair<Integer, String>> ret = new ArrayList<>();
         ret.add(new ImmutablePair<>(0, "normal"));
         return ret;
-    }
-
-    private enum Corner implements IStringSerializable
-    {
-        NONE_UP,
-        NORTH_DOWN,
-        EAST_UP,
-        EAST_DOWN,
-        SOUTH_UP,
-        SOUTH_DOWN,
-        WEST_UP,
-        WEST_DOWN;
-
-        @Override
-        public String getName()
-        {
-            return this.toString().toLowerCase(Locale.US);
-        }
     }
 }

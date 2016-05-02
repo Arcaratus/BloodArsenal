@@ -19,7 +19,7 @@ public class BlockBloodTorch extends BlockTorch implements IVariantProvider
         super();
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
-        setCreativeTab(BloodArsenal.tabBloodArsenal);
+        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(0.0F);
         setLightLevel(1.0F);
         setTickRandomly(true);
