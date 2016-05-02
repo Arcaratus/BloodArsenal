@@ -4,6 +4,8 @@ import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
+import arc.bloodarsenal.registry.Constants;
+import arc.bloodarsenal.registry.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -97,8 +99,16 @@ public class ItemBloodInfusedTool extends ItemTool implements IVariantProvider
     @Override
     public List<Pair<Integer, String>> getVariants()
     {
-        List<Pair<Integer, String>> ret = new ArrayList<Pair<Integer, String>>();
-        ret.add(new ImmutablePair<Integer, String>(0, "normal"));
+        List<Pair<Integer, String>> ret = new ArrayList<>();
+        ret.add(new ImmutablePair<>(0, "normal"));
         return ret;
+    }
+
+    public class Wooden extends ItemBloodInfusedTool
+    {
+        public Wooden(String name, float damage, Set<Block> effectiveBlocks)
+        {
+            super(Constants.Item.WOODEN, ModItems.bloodInfusedWoodMaterial, name, damage, effectiveBlocks, 18, Constants.Item.WOODEN_REPAIR_UPDATE, Constants.Item.WOODEN_REPAIR_COST);
+        }
     }
 }

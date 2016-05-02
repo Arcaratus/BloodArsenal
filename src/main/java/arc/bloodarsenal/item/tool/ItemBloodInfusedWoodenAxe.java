@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.Set;
 
-public class ItemBloodInfusedWoodenAxe extends ItemBloodInfusedWoodenTool
+public class ItemBloodInfusedWoodenAxe extends ItemBloodInfusedTool.Wooden
 {
     private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.planks, Blocks.bookshelf, Blocks.log, Blocks.log2, Blocks.chest, Blocks.pumpkin, Blocks.lit_pumpkin, Blocks.melon_block, Blocks.ladder);
 

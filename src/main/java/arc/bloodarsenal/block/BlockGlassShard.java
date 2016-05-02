@@ -37,8 +37,6 @@ import java.util.Locale;
 
 public class BlockGlassShard extends Block implements IVariantProvider
 {
-    public static final PropertyInteger SIZE = PropertyInteger.create("size", 0, 4);
-
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
     public static final PropertyBool NORTH = PropertyBool.create("north");
