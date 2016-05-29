@@ -65,7 +65,7 @@ dependencies {
 	deobfCompile "com.wayoftime.bloodmagic:BloodMagic:${mc_version}-${bloodmagic_version}-ss"
 //    deobfCompile "info.amerifrance.guideapi:Guide-API:${mc_version}-${guideapi_version}"
 
-    compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}-dev"
+    deobfCompile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}:dev"
 //    compile name: "Thaumcraft", version: "${mc_version}-${thaumcraft_version}", ext: "jar"
     compile name: 'Baubles', version: "${baubles_version}", ext: 'jar'
 	
@@ -132,9 +132,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifact jar
-            artifact javadocJar
             artifact sourceJar
-            artifact apiJar
         }
     }
     repositories {
@@ -170,13 +168,15 @@ String getChangelogText() {
 }
 
 def curseRelations = {
+	requiredLibrary 'blood-magic'
     optionalLibrary 'just-enough-items-jei'
     optionalLibrary 'waila'
+	optionalLibrary 'baubles'
 }
 
 curseforge {
-    if (project.hasProperty('curse_key_WayofTime'))
-        apiKey = project.curse_key_WayofTime
+	if (project.hasProperty('curse_key_Arcaratus'))
+        apiKey = project.curse_key_Arcaratus
 
     project {
         id = "${curse_id}"
@@ -184,9 +184,7 @@ curseforge {
         releaseType = 'beta'
 
         relations curseRelations
-
-        addArtifact javadocJar
+		
         addArtifact sourceJar
-        addArtifact apiJar
     }
 }

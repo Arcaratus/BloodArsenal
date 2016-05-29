@@ -1,8 +1,6 @@
 package arc.bloodarsenal.compat.baubles;
 
-import WayofTime.bloodmagic.client.IVariantProvider;
 import arc.bloodarsenal.BloodArsenal;
-import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
@@ -15,13 +13,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ItemBauble extends Item implements IBauble, IVariantProvider
+public abstract class ItemBauble extends Item implements IBauble
 {
     public ItemBauble(String name)
     {
@@ -58,10 +51,6 @@ public class ItemBauble extends Item implements IBauble, IVariantProvider
         return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
     }
 
-    public BaubleType getBaubleType(ItemStack itemstack) {
-        return BaubleType.AMULET;
-    }
-
     public void onWornTick(ItemStack itemstack, EntityLivingBase player)
     {
     }
@@ -86,13 +75,5 @@ public class ItemBauble extends Item implements IBauble, IVariantProvider
     public boolean canUnequip(ItemStack itemstack, EntityLivingBase player)
     {
         return true;
-    }
-
-    @Override
-    public List<Pair<Integer, String>> getVariants()
-    {
-        List<Pair<Integer, String>> ret = new ArrayList<>();
-        ret.add(new ImmutablePair<>(0, "type=normal"));
-        return ret;
     }
 }

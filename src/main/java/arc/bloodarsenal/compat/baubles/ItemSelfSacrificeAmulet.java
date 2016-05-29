@@ -6,6 +6,7 @@ import WayofTime.bloodmagic.api.altar.IBloodAltar;
 import WayofTime.bloodmagic.api.iface.IItemLPContainer;
 import WayofTime.bloodmagic.api.util.helper.ItemHelper.LPContainer;
 import WayofTime.bloodmagic.api.util.helper.NBTHelper;
+import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.registry.ModItems;
@@ -33,7 +34,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemSelfSacrificeAmulet extends ItemBauble implements IAltarManipulator, IItemLPContainer
+public class ItemSelfSacrificeAmulet extends ItemBauble implements IAltarManipulator, IItemLPContainer, IVariantProvider
 {
     public final int CAPACITY = 10000; // Max LP storage
 

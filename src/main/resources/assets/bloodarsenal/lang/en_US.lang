@@ -1,29 +1,40 @@
 # Creative Tab
-itemGroup.BloodArsenal.creativeTab=Blood Arsenal
+itemGroup.BloodArsenal.creativeTab=§cBlood Arsenal
 
 # Items
 item.BloodArsenal.glassShard.name=Glass Shard
 item.BloodArsenal.bloodInfusedStick.name=Blood Infused Stick
 item.BloodArsenal.bloodBurnedString.name=Blood Burned String
+item.BloodArsenal.bloodInfusedGlowstoneDust.name=Blood Infused Glowstone Dust
+item.BloodArsenal.inertBloodInfusedIronIngot.name=Inert Blood-Iron Ingot
+item.BloodArsenal.bloodInfusedIronIngot.name=Blood Infused Iron Ingot
 item.BloodArsenal.bloodOrange.name=Blood Orange
+
 item.BloodArsenal.bloodInfusedWooden.pickaxe.name=Blood Infused Wooden Pickaxe
 item.BloodArsenal.bloodInfusedWooden.axe.name=Blood Infused Wooden Axe
 item.BloodArsenal.bloodInfusedWooden.shovel.name=Blood Infused Wooden Shovel
 item.BloodArsenal.bloodInfusedWooden.sword.name=Blood Infused Wooden Sword
-item.BloodArsenal.bloodInfusedGlowstoneDust.name=Blood Infused Glowstone Dust
-item.BloodArsenal.inertBloodInfusedIronIngot.name=Inert Blood-Iron Ingot
-item.BloodArsenal.bloodInfusedIronIngot.name=Blood Infused Iron Ingot
 item.BloodArsenal.bloodInfusedIron.pickaxe.name=Blood Infused Iron Pickaxe
 item.BloodArsenal.bloodInfusedIron.axe.name=Blood Infused Iron Axe
 item.BloodArsenal.bloodInfusedIron.shovel.name=Blood Infused Iron Shovel
 item.BloodArsenal.bloodInfusedIron.sword.name=Blood Infused Iron Sword
+
 item.BloodArsenal.glassSacrificialDagger.name=Glass Sacrificial Dagger
 item.BloodArsenal.glassDaggerOfSacrifice.name=Glass Dagger of Sacrifice
+
 item.BloodArsenal.sigil.ender.name=Ender Sigil
+
 item.BloodArsenal.gemSacrifice.name=Gem of Sacrifice
 item.BloodArsenal.gemSelfSacrifice.name=Gem of Self Sacrifice
+item.BloodArsenal.gemTartaric.name=Gem of Tartaric Will
+
 item.BloodArsenal.sacrificeAmulet.name=Amulet of Sacrifice
 item.BloodArsenal.selfSacrificeAmulet.name=Amulet of Self Sacrifice
+item.BloodArsenal.soulPendant.petty.name=Petty Soul Pendant
+item.BloodArsenal.soulPendant.lesser.name=Lesser Soul Pendant
+item.BloodArsenal.soulPendant.common.name=Common Soul Pendant
+item.BloodArsenal.soulPendant.greater.name=Greater Soul Pendant
+item.BloodArsenal.soulPendant.grand.name=Grand Soul Pendant
 
 # Blocks
 tile.BloodArsenal.bloodInfusedWoodenLog.name=Blood Infused Wooden Log
@@ -52,8 +63,14 @@ tooltip.BloodArsenal.glassSacrificialDagger.desc=Cutting edge
 tooltip.BloodArsenal.glassDaggerOfSacrifice.desc=Bleeding edge
 tooltip.BloodArsenal.sigil.ender.desc=Mini-portal through The End
 
-tooltip.BloodArsenal.sacrificeAmulet.desc=Collecting collateral
-tooltip.BloodArsenal.selfSacrificeAmulet.desc=Want not, waste not!
+tooltip.BloodArsenal.sacrificeAmulet.desc=Want not, waste not!
+tooltip.BloodArsenal.selfSacrificeAmulet.desc=Collecting collateral
+
+tooltip.BloodArsenal.soulPendant.petty=A pendant used to contain a little will
+tooltip.BloodArsenal.soulPendant.lesser=A pendant used to contain some will
+tooltip.BloodArsenal.soulPendant.common=A pendant used to contain more will
+tooltip.BloodArsenal.soulPendant.greater=A pendant used to contain a greater amount of will
+tooltip.BloodArsenal.soulPendant.grand=A pendant used to contain a large amount of will
 
 tooltip.BloodArsenal.stored=Stored: &c%d &7LP
 

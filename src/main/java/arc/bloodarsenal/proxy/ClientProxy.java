@@ -81,7 +81,11 @@ public class ClientProxy extends CommonProxy
             if (resourceLocation == null)
                 resourceLocation = new ResourceLocation(BloodArsenal.MOD_ID, "item/" + name);
             for (String variant : meshProvider.getVariants())
+            {
                 ModelLoader.registerItemVariants(item, new ModelResourceLocation(resourceLocation, variant));
+                System.out.println("VARI: " + variant);
+            }
+
         } else if (item instanceof IVariantProvider)
         {
             IVariantProvider variantProvider = (IVariantProvider) item;

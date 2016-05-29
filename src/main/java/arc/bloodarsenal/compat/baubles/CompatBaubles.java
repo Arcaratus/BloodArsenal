@@ -15,6 +15,7 @@ public class CompatBaubles implements ICompatibility
         {
             ModItems.sacrificeAmulet = ModItems.registerItem(new ItemSacrificeAmulet("sacrificeAmulet"));
             ModItems.selfSacrificeAmulet = ModItems.registerItem(new ItemSelfSacrificeAmulet("selfSacrificeAmulet"));
+            ModItems.soulPendant = ModItems.registerItem(new ItemSoulPendant("soulPendant"));
         }
 
         if (phase == InitializationPhase.INIT)

@@ -38,10 +38,12 @@ public class ModItems
     public static Item glassDaggerOfSacrifice;
     public static Item gemSacrifice;
     public static Item gemSelfSacrifice;
+    public static Item gemTartaric;
     public static Item sigilEnder;
 
     public static Item sacrificeAmulet;
     public static Item selfSacrificeAmulet;
+    public static Item soulPendant;
 
     public static Item.ToolMaterial bloodInfusedWoodMaterial = EnumHelper.addToolMaterial("BloodInfusedWoodMaterial", 1, 186, 5.5F, 1.0F, 13);
     public static Item.ToolMaterial bloodInfusedIronMaterial = EnumHelper.addToolMaterial("BloodInfusedIronMaterial", 3, 954, 7.25F, 2.7F, 21);
@@ -68,6 +70,7 @@ public class ModItems
         glassDaggerOfSacrifice = registerItem(new ItemGlassDaggerOfSacrifice("glassDaggerOfSacrifice"));
         gemSacrifice = registerItemUniquely(new ItemGem("sacrifice"));
         gemSelfSacrifice = registerItemUniquely(new ItemGem("selfSacrifice"));
+        gemTartaric = registerItemUniquely(new ItemGem("tartaric"));
         sigilEnder = registerItem(new ItemSigilEnder());
 
         addOreDictItems();
@@ -92,6 +95,7 @@ public class ModItems
             return item;
         }
 
+        System.out.println("REGISTRY: " + item.getRegistryName());
         String itemName = item.getRegistryName().toString().split(":")[1];
         if (!ConfigHandler.itemBlacklist.contains(itemName))
         {
@@ -112,6 +116,7 @@ public class ModItems
             return item;
         }
 
+        System.out.println("REGISTRY: " + item.getRegistryName());
         String itemName = item.getRegistryName().toString().split(":")[1];
         if (!ConfigHandler.itemBlacklist.contains(itemName))
         {
