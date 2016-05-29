@@ -1,13 +1,13 @@
-#Blood Arsenal
+#Blood Arsenal  [![Build Status](http://tehnut.info/jenkins/job/Blood%20Arsenal%202/job/1.9/badge/icon)](http://tehnut.info/jenkins/job/Blood%20Arsenal%202/job/1.9/)
 
 ###[Downloads](http://minecraft.curseforge.com/projects/blood-magic-addon-blood-arsenal/files)
 
 ##Information
 
-New tools based on Blood Magic!
+Addon based around Blood Magic!
 
 ##Links
-* Twitter: [@WayofTime](https://twitter.com/Arcaratus)
+* Twitter: [@Arcaratus](https://twitter.com/Arcaratus)
 * Wiki: Found at [FTBWiki](http://ftbwiki.org/Blood_Magic) --Not actually on the wiki yet
 * [Minecraft Forum Thread](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2231288-blood-magic-addon-blood-arsenal)
 * [Curseforge](http://minecraft.curseforge.com/projects/blood-magic-addon-blood-arsenal/)
@@ -24,27 +24,7 @@ New tools based on Blood Magic!
 
 ####IntelliJ IDEA extra steps
 
-1. Navigate to `File > Settings > Plugins > Browse repositories...`. Search for Lombok and install the plugin.
-2. Navigate to `File > Settings > Build, Execution, Deployment > Compiler > Annotation Processors`. Check `Enable annotation processing`. 
-
 [Setup video](https://www.youtube.com/watch?v=8VEdtQLuLO0&feature=youtu.be) by LexManos. For more information, refer to the [Forge Forums](http://www.minecraftforge.net/forum/index.php/topic,14048.0.html).
-
-
-##Developing Addons
-
-Add to your build.gradle:
-
-    repositories {
-      maven {
-        url "http://tehnut.info/maven/"
-      }
-    }
-
-    dependencies {
-      deobfCompile "com.wayoftime.bloodmagic:BloodMagic:<BLOODMAGIC-VERSION>"
-    }
-    
-`<BLOODMAGIC-VERSION>` can be found on CurseForge (or via the Maven itself), check the file name of the version you want.
 
 ##Custom Builds
 
@@ -54,13 +34,13 @@ Add to your build.gradle:
 
 1. Clone directly from this repository to your desktop.
 2. Navigate to the directory you cloned to. Open a command window there and run `gradlew build`
-3. Once it completes, your new build will be found at `../build/libs/BloodMagic-*.jar`. You can ignore the `deobf`, `sources`, and `javadoc` jars.
+3. Once it completes, your new build will be found at `../build/libs/BloodArsenal-*.jar`. You can ignore the `deobf`, `sources`, jars.
 
 ##License
 
 ![CCA4.0](https://licensebuttons.net/l/by/4.0/88x31.png)
 
-Blood Magic: AlchemicalWizardry by WayofTime is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+Blood Arsenal by Arcaratus is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
 ##Installation Instructions
 
@@ -71,7 +51,3 @@ This mod requires "Minecraft Forge" in order to operate. It is incredibly easy t
 2. Download the latest version of BloodMagic from [Curseforge](http://minecraft.curseforge.com/mc-mods/224791-blood-magic).
 
 3. Place the mod in the **mods** folder of your .minecraft. If you are unsure of where that is located, it is here: `../Users/you/AppData/roaming/.minecraft`.
-
-
-###Huge Disclaimer at the bottom of the page where nobody reads to
-This README.md was ripped straight off from [BloodMagic's GitHub](https://github.com/WayofTime/BloodMagic) page so if there's anything that talks about BLood Magic above there, I was just to lazy to change it. Cheers! :)
