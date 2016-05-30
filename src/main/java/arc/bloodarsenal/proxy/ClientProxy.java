@@ -83,7 +83,6 @@ public class ClientProxy extends CommonProxy
             for (String variant : meshProvider.getVariants())
             {
                 ModelLoader.registerItemVariants(item, new ModelResourceLocation(resourceLocation, variant));
-                System.out.println("VARI: " + variant);
             }
 
         } else if (item instanceof IVariantProvider)

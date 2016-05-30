@@ -68,7 +68,7 @@ public class ConfigHandler
         bloodInfusedIronToolsRepairUpdate = config.getInt("bloodInfusedIronToolsRepairUpdate", category, 40, 0, 1000, "Set the amount of ticks at which Blood Infused Iron Tools repair at");
         bloodInfusedIronToolsRepairCost = config.getInt("bloodInfusedIronToolsRepairCost", category, 50, 0, 1000, "Set the LP cost of which Blood Infused Iron Tools repair at");
         sigilEnderOpenCost = config.getInt("sigilEnderCost", category, 500, 0, 10000, "Set the LP cost of opening your Ender Chest with the Ender Sigil");
-        sigilEnderTeleportMultiplier = config.getInt("sigilEnderTeleportMultiplier", category, 100, 0, 10000, "Set the multiplier of the cost of using the Ender Sigil to teleport");
+        sigilEnderTeleportMultiplier = config.getInt("sigilEnderTeleportMultiplier", category, 200, 0, 10000, "Set the multiplier of the cost of using the Ender Sigil to teleport");
 
         category = "Mod Configs";
         config.addCustomCategoryComment(category, "Mod interaction configs");

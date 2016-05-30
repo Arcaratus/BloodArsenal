@@ -38,6 +38,8 @@ public class ModItems
     public static Item gemTartaric;
     public static Item sigilEnder;
 
+    public static Item reagentEnder;
+
     public static Item sacrificeAmulet;
     public static Item selfSacrificeAmulet;
     public static Item soulPendant;
@@ -69,6 +71,8 @@ public class ModItems
         gemTartaric = registerItemUniquely(new ItemGem("tartaric"));
         sigilEnder = registerItem(new ItemSigilEnder());
 
+        reagentEnder = registerItemUniquely(new ItemBloodArsenalBase("reagentEnder"));
+
         addOreDictItems();
     }
 
@@ -91,7 +95,6 @@ public class ModItems
             return item;
         }
 
-        System.out.println("REGISTRY: " + item.getRegistryName());
         String itemName = item.getRegistryName().toString().split(":")[1];
         if (!ConfigHandler.itemBlacklist.contains(itemName))
         {
@@ -112,7 +115,6 @@ public class ModItems
             return item;
         }
 
-        System.out.println("REGISTRY: " + item.getRegistryName());
         String itemName = item.getRegistryName().toString().split(":")[1];
         if (!ConfigHandler.itemBlacklist.contains(itemName))
         {
