@@ -9,6 +9,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -33,6 +37,18 @@ public class ItemBloodArsenalBase extends Item implements IVariantProvider
     }
 
     @Override
+    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+    {
+        if (player.getName().equals("Arcaratus") && stack.getItem() == ModItems.bloodInfusedStick && player.getHeldItemMainhand().stackSize == 1)
+        {
+            stack.setTagCompound(new NBTTagCompound());
+            stack.setStackDisplayName(TextHelper.getFormattedText("&r&cThe Living Stick"));
+            stack.getTagCompound().setBoolean("living", true);
+        }
+        return super.onItemRightClick(stack, world, player, hand);
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
@@ -54,6 +70,7 @@ public class ItemBloodArsenalBase extends Item implements IVariantProvider
     public EnumRarity getRarity(ItemStack stack)
     {
         if (stack.getItem() == ModItems.bloodInfusedGlowstoneDust || stack.getItem() == ModItems.bloodInfusedIronIngot) return EnumRarity.UNCOMMON;
-        else return super.getRarity(stack);
+
+        return super.getRarity(stack);
     }
 }

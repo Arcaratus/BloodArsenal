@@ -5,13 +5,10 @@ import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.item.ItemBloodArsenalBase;
 import arc.bloodarsenal.item.ItemBloodOrange;
 import arc.bloodarsenal.item.ItemGem;
+import arc.bloodarsenal.item.block.ItemBlockSpecialBloodArsenal;
 import arc.bloodarsenal.item.sigil.ItemSigilEnder;
 import arc.bloodarsenal.item.tool.*;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlockSpecial;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -52,8 +49,7 @@ public class ModItems
     {
         glassShard = registerItemUniquely(new ItemBloodArsenalBase("glassShard"));
         bloodInfusedStick = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedStick"));
-        bloodBurnedString = registerItemUniquely((new ItemBlockSpecial(ModBlocks.bloodBurnedString)).setUnlocalizedName("BloodArsenal.bloodBurnedString").setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL));
-        ModelLoader.setCustomModelResourceLocation(bloodBurnedString, 0, new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "item/BloodBurnedString"), "normal"));
+        bloodBurnedString = registerItemUniquely(new ItemBlockSpecialBloodArsenal("bloodBurnedString", ModBlocks.bloodBurnedString));
         bloodOrange = registerItem(new ItemBloodOrange("bloodOrange"));
         bloodInfusedWoodenPickaxe = registerItem(new ItemBloodInfusedWoodenPickaxe());
         bloodInfusedWoodenAxe = registerItem(new ItemBloodInfusedWoodenAxe());
