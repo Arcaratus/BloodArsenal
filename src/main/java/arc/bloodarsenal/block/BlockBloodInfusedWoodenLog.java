@@ -23,7 +23,7 @@ import java.util.List;
 
 public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProvider
 {
-    public static final PropertyEnum<EnumType> VARIANT = PropertyEnum.create("variant", EnumType.class, (apply) -> true);
+    public static final PropertyEnum<EnumType> VARIANT = PropertyEnum.create("variant", EnumType.class, apply -> true);
 
     public BlockBloodInfusedWoodenLog(String name)
     {

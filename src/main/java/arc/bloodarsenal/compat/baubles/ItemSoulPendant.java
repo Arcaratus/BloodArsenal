@@ -19,7 +19,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -38,7 +37,6 @@ import java.util.List;
 public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshProvider, IMultiWillTool
 {
     public static String[] names = { "petty", "lesser", "common", "greater", "grand" };
-    // LEFT 74, 69, 158, RIGHT 170 Sat 38
 
     public ItemSoulPendant(String name)
     {
@@ -59,12 +57,30 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
 
             ItemStack remainder = addDemonWill(player, stack);
 
-            if (remainder == null || ((IDemonWill) stack.getItem()).getWill(stack) < 0.0001 || PlayerDemonWillHandler.isDemonWillFull(EnumDemonWillType.DEFAULT, player))
+            if (remainder == null || ((IDemonWill) stack.getItem()).getWill(stack) < 0.0001 || isDemonWillFull(EnumDemonWillType.DEFAULT, player))
             {
                 stack.stackSize = 0;
                 event.setResult(Event.Result.ALLOW);
             }
         }
+    }
+
+    public static boolean isDemonWillFull(EnumDemonWillType type, EntityPlayer player)
+    {
+        ItemStack[] inventory = ArrayUtils.addAll(player.inventory.mainInventory, PlayerHandler.getPlayerBaubles(player).stackList);
+
+        boolean hasGem = false;
+        for (ItemStack stack : inventory)
+        {
+            if (stack != null && stack.getItem() instanceof IDemonWillGem)
+            {
+                hasGem = true;
+                if (((IDemonWillGem) stack.getItem()).getWill(type, stack) < ((IDemonWillGem) stack.getItem()).getMaxWill(type, stack))
+                    return false;
+            }
+        }
+
+        return hasGem;
     }
 
     /**
@@ -113,7 +129,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
         double filled = PlayerDemonWillHandler.addDemonWill(type, player, drain, stack);
         this.drainWill(type, stack, filled);
 
-        return ActionResult.newResult(EnumActionResult.PASS, stack);
+        return super.onItemRightClick(stack, world, player, hand);
     }
 
     @Override

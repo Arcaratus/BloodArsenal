@@ -1,0 +1,136 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "petty_default": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantPetty"
+        }
+      },
+      "lesser_default": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantLesser"
+        }
+      },
+      "common_default": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantCommon"
+        }
+      },
+      "greater_default": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantGreater"
+        }
+      },
+      "grand_default": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantGrand"
+        }
+      },
+      "petty_corrosive": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantPetty_corrosive"
+        }
+      },
+      "lesser_corrosive": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantLesser_corrosive"
+        }
+      },
+      "common_corrosive": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantCommon_corrosive"
+        }
+      },
+      "greater_corrosive": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantGreater_corrosive"
+        }
+      },
+      "grand_corrosive": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantGrand_corrosive"
+        }
+      },
+      "petty_vengeful": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantPetty_vengeful"
+        }
+      },
+      "lesser_vengeful": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantLesser_vengeful"
+        }
+      },
+      "common_vengeful": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantCommon_vengeful"
+        }
+      },
+      "greater_vengeful": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantGreater_vengeful"
+        }
+      },
+      "grand_vengeful": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantGrand_vengeful"
+        }
+      },
+      "petty_destructive": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantPetty_destructive"
+        }
+      },
+      "lesser_destructive": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantLesser_destructive"
+        }
+      },
+      "common_destructive": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantCommon_destructive"
+        }
+      },
+      "greater_destructive": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantGreater_destructive"
+        }
+      },
+      "grand_destructive": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantGrand_destructive"
+        }
+      },
+      "petty_steadfast": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantPetty_steadfast"
+        }
+      },
+      "lesser_steadfast": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantLesser_steadfast"
+        }
+      },
+      "common_steadfast": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantCommon_steadfast"
+        }
+      },
+      "greater_steadfast": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantGreater_steadfast"
+        }
+      },
+      "grand_steadfast": {
+        "textures": {
+          "layer0": "bloodarsenal:items/SoulPendantGrand_steadfast"
+        }
+      }
+    }
+  }
+}

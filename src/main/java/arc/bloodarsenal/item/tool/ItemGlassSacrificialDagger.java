@@ -122,7 +122,7 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
     @SideOnly(Side.CLIENT)
     public ItemMeshDefinition getMeshDefinition()
     {
-        return (stack -> new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "item/ItemGlassSacrificialDagger"), canUseForSacrifice(stack) ? "type=ceremonial" : "type=normal"));
+        return stack -> new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "item/ItemGlassSacrificialDagger"), canUseForSacrifice(stack) ? "type=ceremonial" : "type=normal");
     }
 
     @Override

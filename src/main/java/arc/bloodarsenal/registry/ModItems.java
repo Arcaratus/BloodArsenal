@@ -33,9 +33,12 @@ public class ModItems
     public static Item bloodInfusedIronSword;
     public static Item glassSacrificialDagger;
     public static Item glassDaggerOfSacrifice;
+    public static Item bloodInfusedShield;
+
     public static Item gemSacrifice;
     public static Item gemSelfSacrifice;
     public static Item gemTartaric;
+
     public static Item sigilEnder;
 
     public static Item reagentEnder;
@@ -66,9 +69,12 @@ public class ModItems
         bloodInfusedIronSword = registerItem(new ItemBloodInfusedIronSword());
         glassSacrificialDagger = registerItem(new ItemGlassSacrificialDagger("glassSacrificialDagger"));
         glassDaggerOfSacrifice = registerItem(new ItemGlassDaggerOfSacrifice("glassDaggerOfSacrifice"));
+//        bloodInfusedShield = registerItem(new ItemBloodInfusedShield("bloodInfusedShield"));
+
         gemSacrifice = registerItemUniquely(new ItemGem("sacrifice"));
         gemSelfSacrifice = registerItemUniquely(new ItemGem("selfSacrifice"));
         gemTartaric = registerItemUniquely(new ItemGem("tartaric"));
+
         sigilEnder = registerItem(new ItemSigilEnder());
 
         reagentEnder = registerItemUniquely(new ItemBloodArsenalBase("reagentEnder"));
