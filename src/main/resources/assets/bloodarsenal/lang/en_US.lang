@@ -23,9 +23,16 @@ item.BloodArsenal.bloodInfusedShield.name=Blood Infused Shield
 item.BloodArsenal.glassSacrificialDagger.name=Glass Sacrificial Dagger
 item.BloodArsenal.glassDaggerOfSacrifice.name=Glass Dagger of Sacrifice
 
+item.BloodArsenal.reagentSwimming.name=Swimming Reagent
 item.BloodArsenal.reagentEnder.name=Ender Reagent
+item.BloodArsenal.reagentLightning.name=Lightning Reagent
+item.BloodArsenal.reagentDivinity.name=Divinity Reagent
 
+item.BloodArsenal.sigil.swimming.name=Sigil of Swimming
 item.BloodArsenal.sigil.ender.name=Ender Sigil
+item.BloodArsenal.sigil.augmentedHolding.name=Sigil of Augmented Holding
+item.BloodArsenal.sigil.lightning.name=Lightning Sigil
+item.BloodArsenal.sigil.divinity.name=Sigil of Divinity
 
 item.BloodArsenal.gemSacrifice.name=Gem of Sacrifice
 item.BloodArsenal.gemSelfSacrifice.name=Gem of Self Sacrifice
@@ -64,7 +71,11 @@ tooltip.BloodArsenal.inertBloodInfusedIronIngot.desc=Not so lively...
 tooltip.BloodArsenal.bloodInfusedIronIngot.desc=Glowing with life
 tooltip.BloodArsenal.glassSacrificialDagger.desc=Cutting edge
 tooltip.BloodArsenal.glassDaggerOfSacrifice.desc=Bleeding edge
+
+tooltip.BloodArsenal.sigil.swimming.desc=Just keep swimming!
 tooltip.BloodArsenal.sigil.ender.desc=Mini-portal through The End
+tooltip.BloodArsenal.sigil.lightning.desc=&bLightning transformed
+tooltip.BloodArsenal.sigil.divinity.desc=&6&nUltimate Divinity
 
 tooltip.BloodArsenal.sacrificeAmulet.desc=Want not, waste not!
 tooltip.BloodArsenal.selfSacrificeAmulet.desc=Collecting collateral
@@ -76,7 +87,10 @@ tooltip.BloodArsenal.soulPendant.greater=A pendant used to contain a greater amo
 tooltip.BloodArsenal.soulPendant.grand=A pendant used to contain a large amount of will
 
 tooltip.BloodArsenal.stored=Stored: &c%d &7LP
+tooltip.BloodArsenal.level=Level: %d
 
 # Chat
 chat.BloodArsenal.damageSourceGlass=%s was pricked too much
 chat.BloodArsenal.damageSourceBleeding=%s ran out of life
+chat.BloodArsenal.setLevel=Set Level to: %d
+chat.BloodArsenal.tooWeak=You feel a bit too weak to do that...

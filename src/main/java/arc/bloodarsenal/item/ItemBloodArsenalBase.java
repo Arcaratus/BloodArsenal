@@ -70,6 +70,7 @@ public class ItemBloodArsenalBase extends Item implements IVariantProvider
     public EnumRarity getRarity(ItemStack stack)
     {
         if (stack.getItem() == ModItems.bloodInfusedGlowstoneDust || stack.getItem() == ModItems.bloodInfusedIronIngot) return EnumRarity.UNCOMMON;
+        if (stack.getItem() == ModItems.reagentDivinity) return EnumRarity.EPIC;
 
         return super.getRarity(stack);
     }

@@ -8,7 +8,9 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 
 import java.util.Random;
 
@@ -49,7 +51,7 @@ public class BlockBloodInfusedGlowstone extends BlockBloodArsenalBase implements
     }
 
     @Override
-    public EnumAltarComponent getType(int meta)
+    public EnumAltarComponent getType(World world, IBlockState state, BlockPos pos)
     {
         return EnumAltarComponent.GLOWSTONE;
     }

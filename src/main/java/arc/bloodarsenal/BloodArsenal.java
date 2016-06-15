@@ -1,6 +1,7 @@
 package arc.bloodarsenal;
 
 import WayofTime.bloodmagic.api.util.helper.LogHelper;
+import arc.bloodarsenal.client.gui.GuiHandler;
 import arc.bloodarsenal.compat.ICompatibility;
 import arc.bloodarsenal.proxy.CommonProxy;
 import arc.bloodarsenal.registry.*;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import java.io.File;
 import java.util.Locale;
@@ -87,6 +89,7 @@ public class BloodArsenal
     {
         ModRecipes.init();
         ModCompat.loadCompat(ICompatibility.InitializationPhase.INIT);
+        NetworkRegistry.INSTANCE.registerGuiHandler(BloodArsenal.INSTANCE, new GuiHandler());
 
         PROXY.init();
     }

@@ -1,10 +1,8 @@
 package arc.bloodarsenal.item.tool;
 
-import WayofTime.bloodmagic.client.IMeshProvider;
+import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.registry.ModBlocks;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumRarity;
@@ -16,11 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-
-public class ItemBloodInfusedShield extends ItemShield implements IMeshProvider
+public class ItemBloodInfusedShield extends ItemShield// implements IMeshProvider
 {
     public ItemBloodInfusedShield(String name)
     {
@@ -57,25 +51,30 @@ public class ItemBloodInfusedShield extends ItemShield implements IMeshProvider
         return EnumRarity.UNCOMMON;
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public ItemMeshDefinition getMeshDefinition()
-    {
-        return stack -> new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "item/ItemBloodInfusedShield"), "normal");
-    }
+//    @Override
+//    @SideOnly(Side.CLIENT)
+//    public ItemMeshDefinition getMeshDefinition()
+//    {
+//        return stack -> new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "ItemBloodInfusedShield"), "normal");
+//    }
 
     @Override
-    public List<String> getVariants()
+    public String getItemStackDisplayName(ItemStack stack)
     {
-        List<String> variants = new ArrayList<>();
-        variants.add("type=normal");
-        return variants;
+        return TextHelper.localize("item.BloodArsenal.bloodInfusedShield.name");
     }
 
-    @Nullable
-    @Override
-    public ResourceLocation getCustomLocation()
-    {
-        return null;
-    }
+//    @Override
+//    public List<String> getVariants()
+//    {
+//        List<String> variants = new ArrayList<>();
+//        variants.add("type=normal");
+//        return variants;
+//    }
+//
+//    @Override
+//    public ResourceLocation getCustomLocation()
+//    {
+//        return null;
+//    }
 }

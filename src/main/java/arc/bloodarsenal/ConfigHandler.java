@@ -25,8 +25,11 @@ public class ConfigHandler
     public static int bloodInfusedWoodenToolsRepairCost;
     public static int bloodInfusedIronToolsRepairUpdate;
     public static int bloodInfusedIronToolsRepairCost;
+    public static int sigilSwimmingCost;
     public static int sigilEnderOpenCost;
     public static int sigilEnderTeleportMultiplier;
+    public static int sigilLightningMultiplier;
+    public static int sigilDivinityCost;
 
     // Mod configs
     public static boolean baublesEnabled;
@@ -36,6 +39,7 @@ public class ConfigHandler
 
     // Miscellaneous
     public static boolean doGlassShardsDrop;
+    public static double rayTraceRange;
 
     public static void init(File file)
     {
@@ -67,8 +71,11 @@ public class ConfigHandler
         bloodInfusedWoodenToolsRepairCost = config.getInt("bloodInfusedWoodenToolsRepairCost", category, 20, 0, 1000, "Set the LP cost of which Blood Infused Wooden Tools repair at");
         bloodInfusedIronToolsRepairUpdate = config.getInt("bloodInfusedIronToolsRepairUpdate", category, 40, 0, 1000, "Set the amount of ticks at which Blood Infused Iron Tools repair at");
         bloodInfusedIronToolsRepairCost = config.getInt("bloodInfusedIronToolsRepairCost", category, 50, 0, 1000, "Set the LP cost of which Blood Infused Iron Tools repair at");
+        sigilSwimmingCost = config.getInt("sigilSwimmingCost", category, 100, 0, 10000, "Set the LP cost of the Sigil of Swimming");
         sigilEnderOpenCost = config.getInt("sigilEnderCost", category, 500, 0, 10000, "Set the LP cost of opening your Ender Chest with the Ender Sigil");
         sigilEnderTeleportMultiplier = config.getInt("sigilEnderTeleportMultiplier", category, 200, 0, 10000, "Set the multiplier of the cost of using the Ender Sigil to teleport");
+        sigilLightningMultiplier = config.getInt("sigilLightningMultiplier", category, 800, 0, 10000, "Set the multiplier per lighting bolt for the Lightning Sigil");
+        sigilDivinityCost = config.getInt("sigilDivinityCost", category, 100000, 0, Integer.MAX_VALUE, "Set the LP cost for the Sigil of Divinity");
 
         category = "Mod Configs";
         config.addCustomCategoryComment(category, "Mod interaction configs");
@@ -80,7 +87,8 @@ public class ConfigHandler
 
         category = "Miscellaneous";
         config.addCustomCategoryComment(category, "Miscellaneous configs of magical sorts");
-        doGlassShardsDrop = config.get(category, "doGlassShardsDrop", true, "Should be used when another mod adds in its own glass shards").getBoolean();
+        doGlassShardsDrop = config.getBoolean("doGlassShardsDrop", category, true, "Should be used when another mod adds in its own glass shards");
+        rayTraceRange = config.getFloat("rayTraceRange", category, 64F, 0F, Float.MAX_VALUE, "The range for anything that uses raytracing (Ender Sigil, Lightning Sigil, etc.)");
 
         config.save();
     }

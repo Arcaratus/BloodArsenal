@@ -32,9 +32,24 @@
           "layer0": "bloodarsenal:items/BloodInfusedIronIngot"
         }
       },
+	  "reagentswimming": {
+        "textures": {
+          "layer0": "bloodarsenal:items/ReagentSwimming"
+        }
+      },
 	  "reagentender": {
         "textures": {
           "layer0": "bloodarsenal:items/ReagentEnder"
+        }
+      },
+	  "reagentlightning": {
+        "textures": {
+          "layer0": "bloodarsenal:items/ReagentLightning"
+        }
+      },
+	  "reagentdivinity": {
+        "textures": {
+          "layer0": "bloodarsenal:items/ReagentDivinity"
         }
       }
     }

@@ -1,29 +1,31 @@
 package arc.bloodarsenal.item.sigil;
 
-import WayofTime.bloodmagic.api.impl.ItemSigil;
+import WayofTime.bloodmagic.api.impl.ItemSigilToggleable;
 import WayofTime.bloodmagic.api.util.helper.NBTHelper;
 import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
-import WayofTime.bloodmagic.client.IVariantProvider;
+import WayofTime.bloodmagic.client.IMeshProvider;
+import WayofTime.bloodmagic.util.Utils;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
+import arc.bloodarsenal.client.mesh.CustomMeshDefinitionActivatable;
 import com.google.common.base.Strings;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ItemSigilBase extends ItemSigil implements IVariantProvider
+public class ItemSigilBaseToggleable extends ItemSigilToggleable implements IMeshProvider
 {
     protected final String tooltipBase;
     private final String name;
 
-    public ItemSigilBase(String name, int lpUsed)
+    public ItemSigilBaseToggleable(String name, int lpUsed)
     {
         super(lpUsed);
 
@@ -32,11 +34,6 @@ public class ItemSigilBase extends ItemSigil implements IVariantProvider
 
         this.name = name;
         this.tooltipBase = "tooltip.BloodArsenal.sigil." + name + ".";
-    }
-
-    public ItemSigilBase(String name)
-    {
-        this(name, 0);
     }
 
     @Override
@@ -48,6 +45,8 @@ public class ItemSigilBase extends ItemSigil implements IVariantProvider
 
         NBTHelper.checkNBT(stack);
 
+        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic." + (getActivated(stack) ? "activated" : "deactivated")));
+
         if (!Strings.isNullOrEmpty(getOwnerName(stack)))
             tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.currentOwner", PlayerHelper.getUsernameFromStack(stack)));
 
@@ -55,10 +54,24 @@ public class ItemSigilBase extends ItemSigil implements IVariantProvider
     }
 
     @Override
-    public List<Pair<Integer, String>> getVariants()
+    @SideOnly(Side.CLIENT)
+    public ItemMeshDefinition getMeshDefinition()
     {
-        List<Pair<Integer, String>> ret = new ArrayList<>();
-        ret.add(new ImmutablePair<>(0, "type=normal"));
+        return new CustomMeshDefinitionActivatable("ItemSigil" + Utils.toFancyCasing(name));
+    }
+
+    @Override
+    public ResourceLocation getCustomLocation()
+    {
+        return null;
+    }
+
+    @Override
+    public List<String> getVariants()
+    {
+        List<String> ret = new ArrayList<>();
+        ret.add("active=false");
+        ret.add("active=true");
         return ret;
     }
 }
