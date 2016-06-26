@@ -1,0 +1,14 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "bloodarsenal:ItemBloodInfusedShield",
+    "transform": "forge:default-tool"
+  },
+  "variants": {
+	"type": {
+	  "normal": {
+		"model": "bloodarsenal:models/items/ItemBloodInfusedShield"
+	  }
+	} 
+  }
+}
