@@ -2,9 +2,9 @@ package arc.bloodarsenal.item.inventory;
 
 import WayofTime.bloodmagic.api.Constants;
 import WayofTime.bloodmagic.api.iface.ISigil;
-import WayofTime.bloodmagic.item.inventory.InventoryHolding;
 import WayofTime.bloodmagic.item.inventory.ItemInventory;
 import WayofTime.bloodmagic.item.sigil.ItemSigilHolding;
+import WayofTime.bloodmagic.util.Utils;
 import arc.bloodarsenal.item.sigil.ItemSigilAugmentedHolding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -33,14 +33,14 @@ public class InventoryAugmentedHolding extends ItemInventory
 
     public ItemStack findParentStack(EntityPlayer entityPlayer)
     {
-        if (InventoryHolding.hasUUID(masterStack))
+        if (Utils.hasUUID(masterStack))
         {
             UUID parentStackUUID = new UUID(masterStack.getTagCompound().getLong(Constants.NBT.MOST_SIG), masterStack.getTagCompound().getLong(Constants.NBT.LEAST_SIG));
             for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++)
             {
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
-                if (itemStack != null && InventoryHolding.hasUUID(itemStack))
+                if (itemStack != null && Utils.hasUUID(itemStack))
                 {
                     if (itemStack.getTagCompound().getLong(Constants.NBT.MOST_SIG) == parentStackUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(Constants.NBT.LEAST_SIG) == parentStackUUID.getLeastSignificantBits())
                     {

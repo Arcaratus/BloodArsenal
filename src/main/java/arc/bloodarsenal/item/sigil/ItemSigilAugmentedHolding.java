@@ -1,7 +1,7 @@
 package arc.bloodarsenal.item.sigil;
 
-import WayofTime.bloodmagic.item.inventory.InventoryHolding;
 import WayofTime.bloodmagic.item.sigil.ItemSigilHolding;
+import WayofTime.bloodmagic.util.Utils;
 import WayofTime.bloodmagic.util.handler.BMKeyBinding;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.registry.Constants;
@@ -22,7 +22,7 @@ public class ItemSigilAugmentedHolding extends ItemSigilHolding
     {
         if (stack == player.getHeldItemMainhand() && stack.getItem() instanceof ItemSigilHolding && key.equals(BMKeyBinding.Key.OPEN_SIGIL_HOLDING))
         {
-            InventoryHolding.setUUID(stack);
+            Utils.setUUID(stack);
             player.openGui(BloodArsenal.INSTANCE, Constants.Gui.SIGIL_AUGMENTED_HOLDING_GUI, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
     }

@@ -108,6 +108,7 @@ public class ModRecipes
         addForgeRecipe(new ItemStack(ModItems.inertBloodInfusedIronIngot), 256, 32, Items.IRON_INGOT, ModItems.bloodInfusedGlowstoneDust, ItemComponent.getStack(ItemComponent.REAGENT_BINDING), UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BloodMagicAPI.getLifeEssence()));
         addForgeRecipe(new ItemStack(ModItems.reagentSwimming), 100, 40, ItemComponent.getStack(ItemComponent.REAGENT_WATER), Items.PRISMARINE_SHARD, Items.GLASS_BOTTLE, Items.FISH);
         addForgeRecipe(new ItemStack(ModItems.reagentEnder), 2200, 800, ItemComponent.getStack(ItemComponent.REAGENT_TELEPOSITION), Items.ENDER_EYE, Blocks.ENDER_CHEST, Items.END_CRYSTAL);
+        addForgeRecipe(new ItemStack(ModItems.sigilAugmentedHolding), 2000, 600, ItemComponent.getStack(ItemComponent.REAGENT_HOLDING), getBMItem(Constants.BloodMagicItem.SIGIL_HOLDING), new ItemStack(Blocks.CHEST, 8), "leather");
         addForgeRecipe(new ItemStack(ModItems.reagentDivinity), 16384, 16384, new ItemStack(ModItems.reagentLightning, 32), new ItemStack(getBMBlock(Constants.BloodMagicBlock.CRYSTAL), 8), new ItemStack(Items.GOLDEN_APPLE, 4, 1), new ItemStack(Items.NETHER_STAR, 16));
     }
 
