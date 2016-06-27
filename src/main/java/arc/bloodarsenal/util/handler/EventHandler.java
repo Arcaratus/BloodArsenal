@@ -37,7 +37,7 @@ public class EventHandler
         if (ConfigHandler.doGlassShardsDrop && ModItems.glassShard != null)
         {
             Block block = event.getState().getBlock();
-            if (event.getDrops().isEmpty() && block == Blocks.GLASS && event.getHarvester().getHeldItemMainhand().getItem() == Items.FLINT)
+            if (event.getDrops().isEmpty() && block != null && block == Blocks.GLASS && event.getHarvester() != null && event.getHarvester().getHeldItemMainhand() != null && event.getHarvester().getHeldItemMainhand().getItem() == Items.FLINT)
             {
                 int quantity = MathHelper.clamp_int(1 + event.getWorld().rand.nextInt(2) + event.getWorld().rand.nextInt(event.getFortuneLevel() + 1), 0, 3);
 
@@ -56,7 +56,7 @@ public class EventHandler
         {
             EntityPlayer player = (EntityPlayer) event.getSource().getEntity();
 
-            if (player.getName().equals("Arcaratus") && player.getHeldItemMainhand().getItem() == ModItems.bloodInfusedStick && player.getHeldItemMainhand().hasTagCompound() && player.getHeldItemMainhand().getTagCompound().hasKey("living"))
+            if (player.getName().equals("Arcaratus") && player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == ModItems.bloodInfusedStick && player.getHeldItemMainhand().hasTagCompound() && player.getHeldItemMainhand().getTagCompound().hasKey("living"))
             {
                 event.getEntity().worldObj.addWeatherEffect(new EntityLightningBolt(event.getEntity().worldObj, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, false));
                 event.getEntityLiving().setHealth(0);

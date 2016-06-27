@@ -184,6 +184,7 @@ curseforge {
         releaseType = 'beta'
 
         relations curseRelations
+		addGameVersion '1.10'
 		
         addArtifact sourceJar
     }
