@@ -83,10 +83,10 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
             {
                 player.hurtResistantTime = 0;
                 player.attackEntityFrom(BloodArsenal.getDamageSourceGlass(), 0.001F);
-                player.setHealth(Math.max(player.getHealth() - ConfigHandler.glassSacrificialDaggerHealth, 0.0001f));
+                player.setHealth(Math.max(player.getHealth() - (ConfigHandler.glassSacrificialDaggerHealth + itemRand.nextInt(3)), 0.0001f));
 
-                if (itemRand.nextInt(4) == 3)
-                    player.addPotionEffect(new PotionEffect(ModPotions.bleeding, itemRand.nextInt(8) * 20, itemRand.nextInt(2)));
+                if (itemRand.nextBoolean())
+                    player.addPotionEffect(new PotionEffect(ModPotions.bleeding, 20 + (itemRand.nextInt(4) * 20), itemRand.nextInt(2)));
 
                 if (player.getHealth() <= 0.001f)
                 {

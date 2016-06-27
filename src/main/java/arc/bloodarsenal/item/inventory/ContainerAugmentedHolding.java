@@ -10,11 +10,11 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
+import static arc.bloodarsenal.registry.Constants.Misc.PLAYER_INVENTORY_COLUMNS;
+import static arc.bloodarsenal.registry.Constants.Misc.PLAYER_INVENTORY_ROWS;
+
 public class ContainerAugmentedHolding extends Container
 {
-    private final int PLAYER_INVENTORY_ROWS = 3;
-    private final int PLAYER_INVENTORY_COLUMNS = 9;
-
     private final EntityPlayer player;
     public final InventoryAugmentedHolding inventoryHolding;
 
@@ -33,7 +33,7 @@ public class ContainerAugmentedHolding extends Container
         {
             for (int columnIndex = 0; columnIndex < PLAYER_INVENTORY_COLUMNS; ++columnIndex)
             {
-                this.addSlotToContainer(new Slot(player.inventory, columnIndex + rowIndex * 9 + 9, 8 + columnIndex * 18, 41 + rowIndex * 18));
+                addSlotToContainer(new Slot(player.inventory, columnIndex + rowIndex * 9 + 9, 8 + columnIndex * 18, 41 + rowIndex * 18));
             }
         }
 
@@ -41,10 +41,10 @@ public class ContainerAugmentedHolding extends Container
         {
             if (actionBarIndex == currentSlotHeldIn)
             {
-                this.addSlotToContainer(new SlotDisabled(player.inventory, actionBarIndex, 8 + actionBarIndex * 18, 99));
+                addSlotToContainer(new SlotDisabled(player.inventory, actionBarIndex, 8 + actionBarIndex * 18, 99));
             } else
             {
-                this.addSlotToContainer(new Slot(player.inventory, actionBarIndex, 8 + actionBarIndex * 18, 99));
+                addSlotToContainer(new Slot(player.inventory, actionBarIndex, 8 + actionBarIndex * 18, 99));
             }
         }
     }

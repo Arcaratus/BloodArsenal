@@ -61,6 +61,7 @@ tile.BloodArsenal.bloodInfusedIronBlock.name=Blood Infused Iron Block
 tile.BloodArsenal.bloodInfusedGlowstone.name=Blood Infused Glowstone
 tile.BloodArsenal.glassShardBlock.name=Glass Shards
 tile.BloodArsenal.bloodBurnedString.name=Blood Burned String
+tile.BloodArsenal.altareAenigmatica.name=Altare Aenigmatica
 
 # Tooltips
 tooltip.BloodArsenal.glassShard.desc=Piercingly transparent
@@ -94,3 +95,17 @@ chat.BloodArsenal.damageSourceGlass=%s was pricked too much
 chat.BloodArsenal.damageSourceBleeding=%s ran out of life
 chat.BloodArsenal.setLevel=Set Level to: %d
 chat.BloodArsenal.tooWeak=You feel a bit too weak to do that...
+
+# Tinker's
+modifier.serrated.name=Serrated
+modifier.serrated.desc=§oCuts!§r\nMakes the target bleeed!
+modifier.serrated.extra=Severity: %s
+
+modifier.living.name=Living
+modifier.living.desc=§4Regenerative!§r\nHeals itself via the user's Soul Network
+
+material.bloodinfusedwood.name=Blood Infused Wood
+material.bloodinfusedwood.prefix=Blood Infused Wooden %s
+material.bloodinfusediron.name=Blood Infused Iron
+
+fluid.BloodArsenal.moltenBloodInfusedIron.name=Molten Blood Infused Iron

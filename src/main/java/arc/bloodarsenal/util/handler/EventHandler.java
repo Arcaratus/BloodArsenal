@@ -5,7 +5,11 @@ import WayofTime.bloodmagic.item.ItemComponent;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.registry.ModItems;
+import arc.bloodarsenal.util.DamageSourceBleeding;
+import arc.bloodarsenal.util.DamageSourceGlass;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,14 +17,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.Random;
 
 public class EventHandler
 {
@@ -44,6 +52,24 @@ public class EventHandler
                 event.getDrops().add(new ItemStack(ModItems.glassShard, quantity));
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onLivingDrops(LivingDropsEvent event)
+    {
+        EntityLivingBase attackedEntity = event.getEntityLiving();
+        DamageSource source = event.getSource();
+        Entity entity = source.getEntity();
+        Random random = new Random();
+
+        if (source instanceof DamageSourceGlass || source instanceof DamageSourceBleeding)
+        {
+            if (random.nextBoolean())
+                event.getDrops().clear();
+            else if (event.getDrops().size() > 0)
+                event.getDrops().remove(random.nextInt(event.getDrops().size()));
+        }
+
     }
 
     @SubscribeEvent

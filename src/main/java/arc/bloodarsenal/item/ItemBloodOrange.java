@@ -20,7 +20,7 @@ public class ItemBloodOrange extends ItemFood implements IVariantProvider
 {
     public ItemBloodOrange(String name)
     {
-        super(2, 1.0F, false);
+        super(4, 2.0F, false);
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);

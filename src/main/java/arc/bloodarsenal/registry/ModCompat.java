@@ -1,8 +1,9 @@
 package arc.bloodarsenal.registry;
 
-import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.compat.ICompatibility;
 import arc.bloodarsenal.compat.baubles.CompatBaubles;
+import arc.bloodarsenal.compat.guideapi.CompatGuideAPI;
+import arc.bloodarsenal.compat.tconstruct.CompatTConstruct;
 import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
@@ -13,7 +14,9 @@ public class ModCompat
 
     public static void registerModCompat()
     {
-        if (ConfigHandler.baublesEnabled) compatibilities.add(new CompatBaubles());
+        compatibilities.add(new CompatBaubles());
+        compatibilities.add(new CompatGuideAPI());
+        compatibilities.add(new CompatTConstruct());
     }
 
     public static void loadCompat(ICompatibility.InitializationPhase phase)

@@ -1,5 +1,6 @@
 package arc.bloodarsenal.block;
 
+import WayofTime.bloodmagic.api.util.helper.PlayerSacrificeHelper;
 import WayofTime.bloodmagic.client.IVariantProvider;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
@@ -205,7 +206,8 @@ public class BlockGlassShard extends Block implements IVariantProvider
                 damage += entityIn.fallDistance * 1.5 + 1;
             }
 
-            entityIn.attackEntityFrom(BloodArsenal.getDamageSourceGlass(), damage);
+            if (entityIn.attackEntityFrom(BloodArsenal.getDamageSourceGlass(), damage))
+                PlayerSacrificeHelper.findAndFillAltar(worldIn, (EntityLivingBase) entityIn, Math.round(damage * RANDOM.nextInt(101)), false);
             ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(ModPotions.bleeding, RANDOM.nextInt(100), 0));
         }
     }

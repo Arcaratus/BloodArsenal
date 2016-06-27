@@ -62,19 +62,19 @@ repositories {
 
 dependencies {
     deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
-	deobfCompile "com.wayoftime.bloodmagic:BloodMagic:${mc_version}-${bloodmagic_version}"
-//    deobfCompile "info.amerifrance.guideapi:Guide-API:${mc_version}-${guideapi_version}"
+	deobfCompile "com.wayoftime.bloodmagic:BloodMagic:1.9.4-${bloodmagic_version}"
+	deobfCompile "info.amerifrance.guideapi:Guide-API:1.9.4-${guideapi_version}"
 
-    deobfCompile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}"
+    deobfCompile "mcp.mobius.waila:Waila:${waila_version}_1.9.4"
 //    compile name: "Thaumcraft", version: "${mc_version}-${thaumcraft_version}", ext: "jar"
     compile name: 'Baubles', version: "${baubles_version}", ext: 'jar'
 	
-//	deobfCompile "slimeknights.mantle:Mantle:${mc_version}-${mantle_version}:deobf"
-//    deobfCompile "slimeknights:TConstruct:${mc_version}-${tconstruct_version}:deobf"
+	deobfCompile "slimeknights.mantle:Mantle:${mc_version}-${mantle_version}:deobf"
+    deobfCompile "slimeknights:TConstruct:${mc_version}-${tconstruct_version}:deobf"
 }
 
 minecraft {
-    version = "${mc_version}-${forge_version}"
+    version = "${mc_version}.2-${forge_version}"
     runDir = "run"
 
     replace "@VERSION@", project.version

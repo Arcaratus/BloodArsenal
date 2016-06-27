@@ -4,6 +4,7 @@ import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.block.*;
 import arc.bloodarsenal.item.block.ItemBlockBloodInfusedWoodenSlab;
+import arc.bloodarsenal.tile.TileAltareAenigmatica;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -24,6 +25,7 @@ public class ModBlocks
     public static Block bloodInfusedGlowstone;
     public static Block glassShardBlock;
     public static Block bloodBurnedString;
+    public static Block altareAenigmatica;
 
     public static void init()
     {
@@ -42,13 +44,14 @@ public class ModBlocks
         bloodInfusedGlowstone = registerBlock(new BlockBloodInfusedGlowstone("bloodInfusedGlowstone"));
         glassShardBlock = registerBlock(new BlockGlassShard("glassShardBlock"));
         bloodBurnedString = registerBlock(new BlockBloodBurnedString("bloodBurnedString"));
+        altareAenigmatica = registerBlock(new BlockAltareAenigmatica("altareAenigmatica"));
 
         initTiles();
     }
 
     public static void initTiles()
     {
-
+        GameRegistry.registerTileEntity(TileAltareAenigmatica.class, BloodArsenal.MOD_ID + ":" + TileAltareAenigmatica.class.getSimpleName());
     }
 
     public static void initSpecialRenders()

@@ -258,7 +258,10 @@ public class ItemSigilLightning extends ItemSigilBase
                                 world.addWeatherEffect(new EntityLightningBolt(world, x + 4, y, z - 7, false));
                                 world.addWeatherEffect(new EntityLightningBolt(world, x - 4, y, z + 7, false));
                                 world.addWeatherEffect(new EntityLightningBolt(world, x - 4, y, z - 7, false));
+                                break;
                         }
+
+                        NetworkHelper.syphonAndDamage(NetworkHelper.getSoulNetwork(player), player, cost);
                     }
                     else
                         ChatUtil.sendChat(player, TextHelper.localize("chat.BloodArsenal.tooWeak"));

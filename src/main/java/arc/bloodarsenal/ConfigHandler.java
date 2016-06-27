@@ -33,6 +33,8 @@ public class ConfigHandler
 
     // Mod configs
     public static boolean baublesEnabled;
+    public static boolean guideAPIEnabled;
+    public static boolean tconstructEnabled;
 
     public static int sacrificeAmuletConversion;
     public static int selfSacrificeAmuletConversion;
@@ -81,6 +83,8 @@ public class ConfigHandler
         config.addCustomCategoryComment(category, "Mod interaction configs");
         config.setCategoryRequiresMcRestart(category, true);
         baublesEnabled = config.getBoolean("baublesEnabled", category, true, "Toggle Baubles interactions");
+        guideAPIEnabled = config.getBoolean("guideAPIEnabled", category, true, "Toggle Guide-API interactions (the book)");
+        tconstructEnabled = config.getBoolean("tconstructEnabled", category, true, "Toggle Tinker's Construct interactions");
 
         sacrificeAmuletConversion = config.getInt("sacrificeAmuletConversion", category, 20, 0, 100, "Base conversion for the Sacrifice Amulet (damage dealt * sacrificeAmuletConversion)");
         selfSacrificeAmuletConversion = config.getInt("selfSacrificeAmuletConversion", category, 2, 0, 100, "Base conversion for the Self Sacrifice Amulet (damage dealt * selfSacrificeAmuletConversion)");
@@ -88,7 +92,7 @@ public class ConfigHandler
         category = "Miscellaneous";
         config.addCustomCategoryComment(category, "Miscellaneous configs of magical sorts");
         doGlassShardsDrop = config.getBoolean("doGlassShardsDrop", category, true, "Should be used when another mod adds in its own glass shards");
-        rayTraceRange = config.getFloat("rayTraceRange", category, 64F, 0F, Float.MAX_VALUE, "The range for anything that uses raytracing (Ender Sigil, Lightning Sigil, etc.)");
+        rayTraceRange = config.getFloat("rayTraceRange", category, 96F, 0F, Float.MAX_VALUE, "The range for anything that uses raytracing (Ender Sigil, Lightning Sigil, etc.)");
 
         config.save();
     }
