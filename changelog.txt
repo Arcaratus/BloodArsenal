@@ -1,4 +1,11 @@
 ------------------------------------------------------
+Version 2.0.0-6
+------------------------------------------------------
+- Update to latest Blood Magic
+- Implement Lightning Sigil, Sigil of Swimming, Sigil of Augmented Holding, and Sigil of Divinity
+- Probably fixed a few game-breaking bugs. Probably.
+
+------------------------------------------------------
 Version 2.0.0-5
 ------------------------------------------------------
 - Actually commit the resources!

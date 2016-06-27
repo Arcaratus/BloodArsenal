@@ -41,7 +41,7 @@ public class HUDElementAugmentedHolding extends HUDElement
 
         minecraft.getTextureManager().bindTexture(new ResourceLocation(BloodArsenal.MOD_ID, "textures/gui/widgets.png"));
         GlStateManager.color(1.0F, 1.0F, 1.0F);
-        ingameGui.drawTexturedModalRect(resolution.getScaledWidth() / 2 + 100 + getXOffset(), resolution.getScaledHeight() - 22 + getYOffset(), 0, 0, 102, 22);
+        ingameGui.drawTexturedModalRect(resolution.getScaledWidth() / 2 + 100 + getXOffset(), resolution.getScaledHeight() - 22 + getYOffset(), 0, 0, 181, 22);
         int currentSlot = ItemSigilHolding.getCurrentItemOrdinal(sigilHolding);
         ingameGui.drawTexturedModalRect(resolution.getScaledWidth() / 2 + 99 + (currentSlot * 20) + getXOffset(), resolution.getScaledHeight() - 23 + getYOffset(), 0, 22, 24, 24);
 

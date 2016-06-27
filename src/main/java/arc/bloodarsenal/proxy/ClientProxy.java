@@ -4,6 +4,7 @@ import WayofTime.bloodmagic.client.IMeshProvider;
 import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.InventoryRenderHelperV2;
 import arc.bloodarsenal.BloodArsenal;
+import arc.bloodarsenal.client.hud.HUDElementAugmentedHolding;
 import arc.bloodarsenal.registry.ModBlocks;
 import arc.bloodarsenal.registry.ModItems;
 import arc.bloodarsenal.util.IComplexVariantProvider;
@@ -46,7 +47,7 @@ public class ClientProxy extends CommonProxy
     @Override
     public void postInit()
     {
-
+        new HUDElementAugmentedHolding();
     }
 
     @Override
