@@ -10,6 +10,7 @@ import WayofTime.bloodmagic.api.registry.AltarRecipeRegistry;
 import WayofTime.bloodmagic.api.registry.OrbRegistry;
 import WayofTime.bloodmagic.api.registry.TartaricForgeRecipeRegistry;
 import WayofTime.bloodmagic.item.ItemComponent;
+import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.util.TartaricForgeSigilHoldingRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -48,6 +49,7 @@ public class ModRecipes
         addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenSlab, 6), "aaa", 'a', ModBlocks.bloodInfusedWoodenPlanks);
         addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenStairs, 4), "a  ", "aa ", "aaa", 'a', ModBlocks.bloodInfusedWoodenPlanks);
         addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenFence, 3), "aba", "aba", 'a', ModBlocks.bloodInfusedWoodenPlanks, 'b', ModItems.bloodInfusedStick);
+        addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenFenceGate), "aba", "aba", 'a', ModItems.bloodInfusedStick, 'b', ModBlocks.bloodInfusedWoodenPlanks);
         addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenPlanks), "a", "a", 'a',  ModBlocks.bloodInfusedWoodenSlab);
         addOreDictRecipe(new ItemStack(ModBlocks.bloodStainedGlassPane, 16), "aaa", "aaa", 'a', ModBlocks.bloodStainedGlass);
         addOreDictRecipe(new ItemStack(ModBlocks.glassShardBlock), "aaa", "aaa", "aaa", 'a', ModItems.glassShard);
@@ -55,6 +57,11 @@ public class ModRecipes
         addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedIronBlock), "aaa", "aaa", "aaa", 'a', ModItems.bloodInfusedIronIngot);
         addOreDictRecipe(new ItemStack(getBMBlock(Constants.BloodMagicBlock.BLOOD_RUNE), 4, 3), "aaa", "aba", "aaa", 'a', "stone", 'b', ModItems.gemSacrifice);
         addOreDictRecipe(new ItemStack(getBMBlock(Constants.BloodMagicBlock.BLOOD_RUNE), 4, 4), "aaa", "aba", "aaa", 'a', "stone", 'b', ModItems.gemSelfSacrifice);
+        addOreDictRecipe(new ItemStack(ModBlocks.slate), "aaa", "aaa", "aaa", 'a', getBMItem(Constants.BloodMagicItem.SLATE));
+        addOreDictRecipe(new ItemStack(ModBlocks.slate, 1, 1), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1));
+        addOreDictRecipe(new ItemStack(ModBlocks.slate, 1, 2), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 2));
+        addOreDictRecipe(new ItemStack(ModBlocks.slate, 1, 3), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 3));
+        addOreDictRecipe(new ItemStack(ModBlocks.slate, 1, 4), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 4));
 
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlass, 8), "aaa", "aba", "aaa", 'a', "blockGlass", 'b', weakOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlassPane, 8), "aaa", "aba", "aaa", 'a', "paneGlass", 'b', weakOrb);
@@ -74,12 +81,22 @@ public class ModRecipes
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.gemSacrifice), "aba", "cdc", "aea", 'a', "ingotGold", 'b', getBMItem(Constants.BloodMagicItem.DAGGER_OF_SACRIFICE), 'c', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.gemSelfSacrifice), "aba", "cdc", "aea", 'a', "dustGlowstone", 'b', getBMItem(Constants.BloodMagicItem.SACRIFICIAL_DAGGER), 'c', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.gemTartaric), "aba", "cdc", "efg", 'a', getBMItem(Constants.BloodMagicItem.SOUL_GEM), 'b', "ingotGold", 'c', "blockGlass", 'd', "gemDiamond", 'e', "blockRedstone", 'f', weakOrb, 'g', "blockLapis");
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.altareAenigmatica), "aba", "cdc", "efe", 'a', getBMItem(Constants.BloodMagicItem.BLOOD_SHARD), 'b', "gemEmerald", 'c', getBMBlock(Constants.BloodMagicBlock.INPUT_ROUTING_NODE), 'd', ItemComponent.getStack(ItemComponent.REAGENT_SIGHT), 'e', ModBlocks.bloodInfusedIronBlock, 'f', masterOrb);
+
+        //TODO IS TEMPORARY BUT WILL BE IMPLEMENTED FOR THOSE WHO WANT ACCESS TO TIER 6
+        if (ConfigHandler.crystalClusterEnabled)
+            addOreDictBloodOrbRecipe(new ItemStack(getBMBlock(Constants.BloodMagicBlock.CRYSTAL)), "aba", "cdc", "efe", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.ACTIVATION_CRYSTAL), 1, 1), 'b', "blockEmerald", 'c', "blockLapis", 'd', Blocks.BEACON, 'e', "blockDiamond", 'f', archmageOrb);
 
         //SHAPELESS
         addShapelessOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenPlanks, 2), ModBlocks.bloodInfusedWoodenLog);
         addShapelessOreDictRecipe(new ItemStack(Blocks.GLASS), ModBlocks.bloodStainedGlass);
         addShapelessOreDictRecipe(new ItemStack(Blocks.GLASS_PANE), ModBlocks.bloodStainedGlassPane);
         addShapelessOreDictRecipe(new ItemStack(ModItems.bloodInfusedIronIngot, 9), ModBlocks.bloodInfusedIronBlock);
+        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9), ModBlocks.slate);
+        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 1), new ItemStack(ModBlocks.slate, 1, 1));
+        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 2), new ItemStack(ModBlocks.slate, 1, 2));
+        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 3), new ItemStack(ModBlocks.slate, 1, 3));
+        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 4), new ItemStack(ModBlocks.slate, 1, 4));
 
         addShapelessBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlass), "blockGlass", weakOrb);
         addShapelessBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlassPane), "paneGlass", weakOrb);

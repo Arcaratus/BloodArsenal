@@ -1,25 +1,63 @@
 package arc.bloodarsenal.block;
 
 import WayofTime.bloodmagic.api.altar.IBloodAltar;
-import WayofTime.bloodmagic.api.iface.IBindable;
 import WayofTime.bloodmagic.api.orb.IBloodOrb;
+import WayofTime.bloodmagic.client.IVariantProvider;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.registry.Constants;
 import arc.bloodarsenal.tile.TileAltareAenigmatica;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
-public class BlockAltareAenigmatica extends BlockContainer
+import java.util.ArrayList;
+import java.util.List;
+
+public class BlockAltareAenigmatica extends BlockContainer implements IVariantProvider
 {
+    public static final PropertyDirection FACING = PropertyDirection.create("facing");
+
+    public static final PropertyBool NORTH = PropertyBool.create("north");
+    public static final PropertyBool EAST = PropertyBool.create("east");
+    public static final PropertyBool NORTHEAST = PropertyBool.create("northeast");
+    public static final PropertyBool NORTHWEST = PropertyBool.create("northwest");
+
+    private static final ImmutableMap<EnumFacing, AxisAlignedBB> BOUNDS;
+
+    static
+    {
+        ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
+        builder.put(EnumFacing.DOWN, new AxisAlignedBB(0, 0, 0, 1, 0.3125, 1));
+        builder.put(EnumFacing.UP, new AxisAlignedBB(0, 0.6875, 0, 1, 1, 1));
+        builder.put(EnumFacing.NORTH, new AxisAlignedBB(0, 0, 0, 1, 1, 0.3125));
+        builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0, 0, 0.6875, 1, 1, 1));
+        builder.put(EnumFacing.EAST, new AxisAlignedBB(0.6875, 0, 0, 1, 1, 1));
+        builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0, 0, 0.3125, 1, 1));
+
+        BOUNDS = builder.build();
+    }
+    
     public BlockAltareAenigmatica(String name)
     {
         super(Material.ROCK);
@@ -28,12 +66,15 @@ public class BlockAltareAenigmatica extends BlockContainer
         setHardness(2.0F);
         setResistance(5.0F);
         setHarvestLevel("pickaxe", 0);
+        setSoundType(SoundType.METAL);
+
+        this.setDefaultState(getBlockState().getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(NORTH, false).withProperty(EAST, false).withProperty(NORTHEAST, false).withProperty(NORTHWEST, false));
     }
 
     @Override
     public boolean eventReceived(IBlockState state, World worldIn, BlockPos pos, int id, int param)
     {
-        checkSidesForAltar(worldIn, pos);
+        checkFacingAltar(worldIn, pos);
         return super.eventReceived(state, worldIn, pos, id, param);
     }
 
@@ -49,9 +90,9 @@ public class BlockAltareAenigmatica extends BlockContainer
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof TileAltareAenigmatica)
         {
-            checkSidesForAltar(world, pos);
+            checkFacingAltar(world, pos);
             if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IBloodOrb)
-                return ((TileAltareAenigmatica) tile).setLinkedOrbOwner(((IBindable) player.getHeldItemMainhand().getItem()).getOwnerName(player.getHeldItemMainhand()));
+                return ((TileAltareAenigmatica) tile).setLinkedOrbOwner(player);
         }
 
         player.openGui(BloodArsenal.INSTANCE, Constants.Gui.ALTARE_AENIGMATICA_GUI, world, pos.getX(), pos.getY(), pos.getZ());
@@ -74,22 +115,130 @@ public class BlockAltareAenigmatica extends BlockContainer
     {
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof TileAltareAenigmatica)
-            checkSidesForAltar(world, pos);
+            checkFacingAltar(world, pos);
     }
 
-    private void checkSidesForAltar(IBlockAccess world, BlockPos pos)
+    private void checkFacingAltar(IBlockAccess world, BlockPos pos)
     {
         TileEntity tile = world.getTileEntity(pos);
 
         if (tile instanceof TileAltareAenigmatica)
         {
-            if (world.getTileEntity(pos.down()) instanceof IBloodAltar) ((TileAltareAenigmatica) tile).setAltarPos(pos.down());
-            else if (world.getTileEntity(pos.up()) instanceof IBloodAltar) ((TileAltareAenigmatica) tile).setAltarPos(pos.up());
-            else if (world.getTileEntity(pos.north()) instanceof IBloodAltar) ((TileAltareAenigmatica) tile).setAltarPos(pos.north());
-            else if (world.getTileEntity(pos.south()) instanceof IBloodAltar) ((TileAltareAenigmatica) tile).setAltarPos(pos.south());
-            else if (world.getTileEntity(pos.west()) instanceof IBloodAltar) ((TileAltareAenigmatica) tile).setAltarPos(pos.west());
-            else if (world.getTileEntity(pos.east()) instanceof IBloodAltar) ((TileAltareAenigmatica) tile).setAltarPos(pos.east());
+            BlockPos altarPos = pos.offset(world.getBlockState(pos).getValue(FACING).getOpposite());
+            if (world.getTileEntity(altarPos) instanceof IBloodAltar) ((TileAltareAenigmatica) tile).setAltarPos(altarPos);
             else ((TileAltareAenigmatica) tile).setAltarPos(BlockPos.ORIGIN);
         }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getBlockLayer()
+    {
+        return BlockRenderLayer.CUTOUT;
+    }
+
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state)
+    {
+        return EnumBlockRenderType.MODEL;
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState()
+    {
+        return new BlockStateContainer(this, FACING, NORTH, EAST, NORTHEAST, NORTHWEST);
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta)
+    {
+        if (meta >= EnumFacing.values().length)
+        {
+            meta = EnumFacing.DOWN.ordinal();
+        }
+
+        EnumFacing face = EnumFacing.values()[meta];
+
+        return this.getDefaultState().withProperty(FACING, face);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state)
+    {
+        return state.getValue(FACING).ordinal();
+    }
+
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    {
+        EnumFacing facing = state.getValue(FACING);
+
+        int off = -facing.ordinal() % 2;
+
+        EnumFacing face1 = EnumFacing.values()[(facing.ordinal() + 2) % 6];
+        EnumFacing face2 = EnumFacing.values()[(facing.ordinal() + 4 + off) % 6];
+
+        // North/East Connector
+        IBlockState north = worldIn.getBlockState(pos.offset(face1));
+        IBlockState east = worldIn.getBlockState(pos.offset(face2));
+
+        if (north.getBlock() == this && north.getValue(FACING) == facing)
+        {
+            state = state.withProperty(NORTH, true);
+        }
+        if (east.getBlock() == this && east.getValue(FACING) == facing)
+        {
+            state = state.withProperty(EAST, true);
+        }
+
+        // Diagonal connections
+        IBlockState northeast = worldIn.getBlockState(pos.offset(face1).offset(face2));
+        IBlockState northwest = worldIn.getBlockState(pos.offset(face1).offset(face2.getOpposite()));
+
+        if (northeast.getBlock() == this && northeast.getValue(FACING) == facing)
+        {
+            state = state.withProperty(NORTHEAST, true);
+        }
+        if (northwest.getBlock() == this && northwest.getValue(FACING) == facing)
+        {
+            state = state.withProperty(NORTHWEST, true);
+        }
+
+
+        return state;
+    }
+
+    @Override
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    {
+        EnumFacing enumfacing = facing.getOpposite();
+
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    {
+        return BOUNDS.get(state.getValue(FACING));
+    }
+
+    @Override
+    public boolean isOpaqueCube(IBlockState state)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state)
+    {
+        return false;
+    }
+
+    @Override
+    public List<Pair<Integer, String>> getVariants()
+    {
+        List<Pair<Integer, String>> ret = new ArrayList<>();
+        ret.add(new ImmutablePair<>(0, "normal"));
+        return ret;
     }
 }

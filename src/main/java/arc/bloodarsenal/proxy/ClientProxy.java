@@ -8,6 +8,7 @@ import arc.bloodarsenal.client.hud.HUDElementAugmentedHolding;
 import arc.bloodarsenal.registry.ModBlocks;
 import arc.bloodarsenal.registry.ModItems;
 import arc.bloodarsenal.util.IComplexVariantProvider;
+import arc.bloodarsenal.util.handler.ClientHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
@@ -15,6 +16,7 @@ import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class ClientProxy extends CommonProxy
@@ -36,6 +38,8 @@ public class ClientProxy extends CommonProxy
 
         ModItems.initSpecialRenders();
         ModBlocks.initSpecialRenders();
+
+        MinecraftForge.EVENT_BUS.register(new ClientHandler());
     }
 
     @Override

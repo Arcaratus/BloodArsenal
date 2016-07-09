@@ -1,8 +1,8 @@
 package arc.bloodarsenal.client.hud;
 
 import WayofTime.bloodmagic.client.hud.HUDElement;
-import WayofTime.bloodmagic.item.sigil.ItemSigilHolding;
 import arc.bloodarsenal.BloodArsenal;
+import arc.bloodarsenal.item.sigil.ItemSigilAugmentedHolding;
 import arc.bloodarsenal.registry.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -28,7 +28,7 @@ public class HUDElementAugmentedHolding extends HUDElement
     {
         ItemStack sigilHolding = minecraft.thePlayer.getHeldItemMainhand();
         // TODO - Clean this mess
-        // Check mainhand for Sigil of Holding
+        // Check mainhand for Sigil of Augmented Holding
         if (sigilHolding == null)
             return;
         if (!(sigilHolding.getItem() == ModItems.sigilAugmentedHolding))
@@ -42,11 +42,11 @@ public class HUDElementAugmentedHolding extends HUDElement
         minecraft.getTextureManager().bindTexture(new ResourceLocation(BloodArsenal.MOD_ID, "textures/gui/widgets.png"));
         GlStateManager.color(1.0F, 1.0F, 1.0F);
         ingameGui.drawTexturedModalRect(resolution.getScaledWidth() / 2 + 100 + getXOffset(), resolution.getScaledHeight() - 22 + getYOffset(), 0, 0, 180, 22);
-        int currentSlot = ItemSigilHolding.getCurrentItemOrdinal(sigilHolding);
+        int currentSlot = ItemSigilAugmentedHolding.getCurrentItemOrdinal(sigilHolding);
         ingameGui.drawTexturedModalRect(resolution.getScaledWidth() / 2 + 99 + (currentSlot * 20) + getXOffset(), resolution.getScaledHeight() - 23 + getYOffset(), 0, 22, 24, 24);
 
         RenderHelper.enableGUIStandardItemLighting();
-        ItemStack[] holdingInv = ItemSigilHolding.getInternalInventory(sigilHolding);
+        ItemStack[] holdingInv = ItemSigilAugmentedHolding.getInternalInventory(sigilHolding);
         int xOffset = 0;
         if (holdingInv != null)
         {

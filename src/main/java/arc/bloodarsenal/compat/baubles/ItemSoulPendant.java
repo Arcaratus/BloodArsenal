@@ -127,7 +127,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
         double drain = Math.min(this.getWill(type, stack), this.getMaxWill(type, stack) / 10);
 
         double filled = PlayerDemonWillHandler.addDemonWill(type, player, drain, stack);
-        this.drainWill(type, stack, filled);
+        this.drainWill(type, stack, filled, true);
 
         return super.onItemRightClick(stack, world, player, hand);
     }
@@ -270,7 +270,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     }
 
     @Override
-    public double drainWill(EnumDemonWillType type, ItemStack soulGemStack, double drainAmount)
+    public double drainWill(EnumDemonWillType type, ItemStack soulGemStack, double drainAmount, boolean doDrain)
     {
         EnumDemonWillType currentType = this.getCurrentType(soulGemStack);
         if (currentType != type)
@@ -345,7 +345,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     }
 
     @Override
-    public double fillWill(EnumDemonWillType type, ItemStack stack, double fillAmount)
+    public double fillWill(EnumDemonWillType type, ItemStack stack, double fillAmount, boolean doFill)
     {
         if (!type.equals(getCurrentType(stack)) && this.getWill(getCurrentType(stack), stack) > 0)
         {

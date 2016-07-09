@@ -4,6 +4,7 @@ import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.block.*;
 import arc.bloodarsenal.item.block.ItemBlockBloodInfusedWoodenSlab;
+import arc.bloodarsenal.item.block.ItemBlockSlate;
 import arc.bloodarsenal.tile.TileAltareAenigmatica;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModBlocks
 {
+    public static Block slate;
     public static Block bloodInfusedWoodenLog;
     public static Block bloodInfusedWoodenPlanks;
     public static Block bloodInfusedWoodenStairs;
@@ -29,6 +31,7 @@ public class ModBlocks
 
     public static void init()
     {
+        slate = registerBlock(new ItemBlockSlate(new BlockSlate("slate")));
         bloodInfusedWoodenLog = registerBlock(new BlockBloodInfusedWoodenLog("bloodInfusedWoodenLog"));
         bloodInfusedWoodenPlanks = registerBlock(new BlockBloodInfusedWoodenPlanks("bloodInfusedWoodenPlanks"));
         bloodInfusedWoodenStairs = registerBlock(new BlockBloodInfusedWoodenStairs("bloodInfusedWoodenStairs", bloodInfusedWoodenPlanks));

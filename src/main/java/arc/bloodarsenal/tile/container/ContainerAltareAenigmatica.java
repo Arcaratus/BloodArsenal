@@ -4,7 +4,6 @@ import WayofTime.bloodmagic.api.orb.IBloodOrb;
 import arc.bloodarsenal.tile.TileAltareAenigmatica;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -43,23 +42,6 @@ public class ContainerAltareAenigmatica extends Container
         {
             addSlotToContainer(new Slot(inventoryPlayer, actionBarIndex, 8 + actionBarIndex * 18, 139));
         }
-    }
-
-    @Override
-    public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player)
-    {
-        InventoryPlayer inventoryPlayer = player.inventory;
-
-        if (slotId < 6 && slotId >= 0)
-        {
-            Slot slot = this.getSlot(slotId);
-            if (!slot.getHasStack() && inventoryPlayer.getItemStack() == null)
-            {
-                ((TileAltareAenigmatica) tileAltareAenigmatica).toggleInputSlotAccessible(slotId);
-            }
-        }
-
-        return super.slotClick(slotId, dragType, clickTypeIn, player);
     }
 
     @Override

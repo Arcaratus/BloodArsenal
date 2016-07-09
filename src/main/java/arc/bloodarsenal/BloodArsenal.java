@@ -3,6 +3,7 @@ package arc.bloodarsenal;
 import WayofTime.bloodmagic.api.util.helper.LogHelper;
 import arc.bloodarsenal.client.gui.GuiHandler;
 import arc.bloodarsenal.compat.ICompatibility;
+import arc.bloodarsenal.network.BloodArsenalPacketHandler;
 import arc.bloodarsenal.proxy.CommonProxy;
 import arc.bloodarsenal.registry.*;
 import arc.bloodarsenal.util.DamageSourceBleeding;
@@ -87,6 +88,8 @@ public class BloodArsenal
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
+        BloodArsenalPacketHandler.init();
+
         ModRecipes.init();
         ModCompat.loadCompat(ICompatibility.InitializationPhase.INIT);
         NetworkRegistry.INSTANCE.registerGuiHandler(BloodArsenal.INSTANCE, new GuiHandler());

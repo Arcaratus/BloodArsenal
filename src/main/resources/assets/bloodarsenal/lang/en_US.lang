@@ -47,6 +47,11 @@ item.BloodArsenal.soulPendant.greater.name=Greater Soul Pendant
 item.BloodArsenal.soulPendant.grand.name=Grand Soul Pendant
 
 # Blocks
+tile.BloodArsenal.slate.blank.name=Blank Slate Block
+tile.BloodArsenal.slate.reinforced.name=Reinforced Slate Block
+tile.BloodArsenal.slate.imbued.name=Imbued Slate Block
+tile.BloodArsenal.slate.demonic.name=Demonic Slate Block
+tile.BloodArsenal.slate.ethereal.name=Ethereal Slate Block
 tile.BloodArsenal.bloodInfusedWoodenLog.name=Blood Infused Wooden Log
 tile.BloodArsenal.bloodInfusedWoodenPlanks.name=Blood Infused Wooden Planks
 tile.BloodArsenal.bloodInfusedWoodenStairs.name=Blood Infused Wooden Stairs
@@ -95,6 +100,8 @@ chat.BloodArsenal.damageSourceGlass=%s was pricked too much
 chat.BloodArsenal.damageSourceBleeding=%s ran out of life
 chat.BloodArsenal.setLevel=Set Level to: %d
 chat.BloodArsenal.tooWeak=You feel a bit too weak to do that...
+chat.BloodArsenal.setOwner=Set bound owner to: %s
+chat.BloodArsenal.alreadyOwner=You are already bound to this!
 
 # Tinker's
 modifier.serrated.name=Serrated

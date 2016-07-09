@@ -5,6 +5,7 @@ public class Constants
     public static class NBT
     {
         public static final String LEVEL = "Level";
+        public static final String LINKED_ORB_IN_ALTAR = "linkedOrbInAltar";
     }
 
     public static class Item

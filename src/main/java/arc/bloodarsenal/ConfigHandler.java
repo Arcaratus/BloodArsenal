@@ -16,6 +16,7 @@ public class ConfigHandler
 
     // Block configs
     public static float glassShardHealth;
+    public static int altareAenigmaticaMoveMultiplier;
 
     // Item configs
     public static int glassSacrificialDaggerLP;
@@ -42,6 +43,7 @@ public class ConfigHandler
     // Miscellaneous
     public static boolean doGlassShardsDrop;
     public static double rayTraceRange;
+    public static boolean crystalClusterEnabled;
 
     public static void init(File file)
     {
@@ -62,6 +64,7 @@ public class ConfigHandler
         category = "Block Configs";
         config.addCustomCategoryComment(category, "Specific block configs");
         glassShardHealth = config.getFloat("glassShardHealth", category, 2, 0, Float.MAX_VALUE, "Set the amount that the Glass Shards block deals when an entity touches it");
+        altareAenigmaticaMoveMultiplier = config.getInt("altareAenigmaticaMoveMultiplier", category, 50, 0, Integer.MAX_VALUE, "Set the multiplier (per item) of LP drained when the Altare Aenigmatica moves an item to the altar");
 
         category = "Item Configs";
         config.addCustomCategoryComment(category, "Specific item configs");
@@ -93,6 +96,7 @@ public class ConfigHandler
         config.addCustomCategoryComment(category, "Miscellaneous configs of magical sorts");
         doGlassShardsDrop = config.getBoolean("doGlassShardsDrop", category, true, "Should be used when another mod adds in its own glass shards");
         rayTraceRange = config.getFloat("rayTraceRange", category, 96F, 0F, Float.MAX_VALUE, "The range for anything that uses raytracing (Ender Sigil, Lightning Sigil, etc.)");
+        crystalClusterEnabled = config.getBoolean("crystalClusterEnabled", category, false, "Provides a temporary recipe for the Crystal Cluster blocks in vanilla Blood Magic for those who want access to Tier 6");
 
         config.save();
     }

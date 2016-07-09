@@ -42,6 +42,21 @@ public class BlockGlassShard extends Block implements IVariantProvider
     public static final PropertyBool NORTHEAST = PropertyBool.create("northeast");
     public static final PropertyBool NORTHWEST = PropertyBool.create("northwest");
 
+    private static final ImmutableMap<EnumFacing, AxisAlignedBB> BOUNDS;
+
+    static
+    {
+        ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
+        builder.put(EnumFacing.DOWN, new AxisAlignedBB(0.125, 0, 0.125, 0.875, 0.25, 0.875));
+        builder.put(EnumFacing.UP, new AxisAlignedBB(0.125, 0.75, 0.125, 0.875, 1, 0.875));
+        builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.125, 0.125, 0, 0.875, 0.875, 0.25));
+        builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.125, 0.125, 0.75, 0.875, 0.875, 1));
+        builder.put(EnumFacing.EAST, new AxisAlignedBB(0.75, 0.125, 0.125, 1, 0.875, 0.875));
+        builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0.125, 0.125, 0.25, 0.875, 0.875));
+
+        BOUNDS = builder.build();
+    }
+
     public BlockGlassShard(String name)
     {
         super(Material.GLASS);
@@ -171,21 +186,6 @@ public class BlockGlassShard extends Block implements IVariantProvider
             this.dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
-    }
-
-    private static final ImmutableMap<EnumFacing, AxisAlignedBB> BOUNDS;
-
-    static
-    {
-        ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
-        builder.put(EnumFacing.DOWN, new AxisAlignedBB(0.125, 0, 0.125, 0.875, 0.25, 0.875));
-        builder.put(EnumFacing.UP, new AxisAlignedBB(0.125, 0.75, 0.125, 0.875, 1, 0.875));
-        builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.125, 0.125, 0, 0.875, 0.875, 0.25));
-        builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.125, 0.125, 0.75, 0.875, 0.875, 1));
-        builder.put(EnumFacing.EAST, new AxisAlignedBB(0.75, 0.125, 0.125, 1, 0.875, 0.875));
-        builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0.125, 0.125, 0.25, 0.875, 0.875));
-
-        BOUNDS = builder.build();
     }
 
     @Override

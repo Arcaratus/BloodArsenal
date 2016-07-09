@@ -1,0 +1,37 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": { },
+    "model": "cube_all",
+    "uvlock": true
+  },
+  "variants": {
+    "type": {
+      "blank": {
+        "textures": {
+          "all": "bloodarsenal:blocks/BlockSlateBlank"
+        }
+      },
+      "reinforced": {
+        "textures": {
+          "all": "bloodarsenal:blocks/BlockSlateReinforced"
+        }
+      },
+      "imbued": {
+        "textures": {
+          "all": "bloodarsenal:blocks/BlockSlateImbued"
+        }
+      },
+      "demonic": {
+        "textures": {
+          "all": "bloodarsenal:blocks/BlockSlateDemonic"
+        }
+      },
+      "ethereal": {
+        "textures": {
+          "all": "bloodarsenal:blocks/BlockSlateEthereal"
+        }
+      }
+    }
+  }
+}

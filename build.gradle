@@ -74,7 +74,7 @@ dependencies {
 }
 
 minecraft {
-    version = "${mc_version}.2-${forge_version}"
+    version = "${mc_version}-${forge_version}"
     runDir = "run"
 
     replace "@VERSION@", project.version
@@ -185,6 +185,7 @@ curseforge {
 
         relations curseRelations
 		addGameVersion '1.10'
+		addGameVersion '1.10.2'
 		
         addArtifact sourceJar
     }

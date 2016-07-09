@@ -5,24 +5,29 @@ import WayofTime.bloodmagic.api.altar.IBloodAltar;
 import WayofTime.bloodmagic.api.iface.IBindable;
 import WayofTime.bloodmagic.api.orb.IBloodOrb;
 import WayofTime.bloodmagic.api.registry.AltarRecipeRegistry;
+import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.tile.TileInventory;
+import WayofTime.bloodmagic.util.ChatUtil;
+import WayofTime.bloodmagic.util.helper.TextHelper;
+import arc.bloodarsenal.ConfigHandler;
+import arc.bloodarsenal.block.BlockAltareAenigmatica;
+import com.google.common.base.Strings;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class TileAltareAenigmatica extends TileInventory implements //ISidedInventory,
-        ITickable
+public class TileAltareAenigmatica extends TileInventory implements ISidedInventory, ITickable
 {
     public static final int ORB_SLOT = 9;
 
-    public List<Integer> blockedSlots = new ArrayList<>();
     private BlockPos altarPos = BlockPos.ORIGIN;
 
     private String linkedOrbOwner = "";
@@ -36,118 +41,49 @@ public class TileAltareAenigmatica extends TileInventory implements //ISidedInve
     public void readFromNBT(NBTTagCompound tag)
     {
         super.readFromNBT(tag);
-//
-//        isSlave = tag.getBoolean("isSlave");
         altarPos = new BlockPos(tag.getInteger(Constants.NBT.X_COORD), tag.getInteger(Constants.NBT.Y_COORD), tag.getInteger(Constants.NBT.Z_COORD));
         linkedOrbOwner = tag.getString(Constants.NBT.OWNER_UUID);
-//        burnTime = tag.getInteger("burnTime");
-//        ticksRequired = tag.getInteger("ticksRequired");
-//
-//        blockedSlots.clear();
-//        int[] blockedSlotArray = tag.getIntArray("blockedSlots");
-//        for (int blocked : blockedSlotArray)
-//        {
-//            blockedSlots.add(blocked);
-//        }
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag)
     {
         super.writeToNBT(tag);
-
-//        tag.setBoolean("isSlave", isSlave);
         tag.setInteger(Constants.NBT.X_COORD, altarPos.getX());
         tag.setInteger(Constants.NBT.Y_COORD, altarPos.getY());
         tag.setInteger(Constants.NBT.Z_COORD, altarPos.getZ());
         tag.setString(Constants.NBT.OWNER_UUID, linkedOrbOwner);
-//
-//        tag.setInteger("burnTime", burnTime);
-//        tag.setInteger("ticksRequired", ticksRequired);
-//
-//        int[] blockedSlotArray = new int[blockedSlots.size()];
-//        for (int i = 0; i < blockedSlots.size(); i++)
-//        {
-//            blockedSlotArray[i] = blockedSlots.get(i);
-//        }
-//
-//        tag.setIntArray("blockedSlots", blockedSlotArray);
+
         return tag;
     }
 
-    public void toggleInputSlotAccessible(int slot)
+    @Override
+    public int[] getSlotsForFace(EnumFacing side)
     {
-        if (slot < 6 && slot >= 0)
+        IBlockState state = worldObj.getBlockState(pos);
+        if (state.getBlock() instanceof BlockAltareAenigmatica)
         {
-            if (blockedSlots.contains(slot))
+            BlockAltareAenigmatica aenigmatica = (BlockAltareAenigmatica) state.getBlock();
+            if (EnumFacing.values()[aenigmatica.getMetaFromState(state)] == side)
             {
-                blockedSlots.remove(slot);
-            } else
-            {
-                blockedSlots.add(slot);
+                return new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
             }
         }
+
+        return new int[]{};
     }
 
-//    @Override
-//    public int[] getSlotsForFace(EnumFacing side)
-//    {
-//        switch (side)
-//        {
-//            case DOWN:
-//                return new int[] { outputSlot };
-//            case UP:
-//                return new int[] { ORB_SLOT, toolSlot };
-//            default:
-//                return new int[] { 0, 1, 2, 3, 4, 5 };
-//        }
-//    }
-//
-//    @Override
-//    public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction)
-//    {
-//        switch (direction)
-//        {
-//            case DOWN:
-//                return index != outputSlot && index != ORB_SLOT && index != toolSlot;
-//            case UP:
-//                if (index == ORB_SLOT && stack != null && stack.getItem() instanceof IBloodOrb)
-//                {
-//                    return true;
-//                } else if (index == toolSlot)
-//                {
-//                    return false; //TODO:
-//                } else
-//                {
-//                    return true;
-//                }
-//            default:
-//                return getAccessibleInputSlots(direction).contains(index);
-//        }
-//    }
-//
-//    @Override
-//    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
-//    {
-//        switch (direction)
-//        {
-//            case DOWN:
-//                return index == outputSlot;
-//            case UP:
-//                if (index == ORB_SLOT && stack != null && stack.getItem() instanceof IBloodOrb)
-//                {
-//                    return true;
-//                } else if (index == toolSlot)
-//                {
-//                    return true; //TODO:
-//                } else
-//                {
-//                    return true;
-//                }
-//            default:
-//                return getAccessibleInputSlots(direction).contains(index);
-//        }
-//    }
+    @Override
+    public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction)
+    {
+        return true;
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
+    {
+        return true;
+    }
 
     @Override
     public void update()
@@ -159,76 +95,31 @@ public class TileAltareAenigmatica extends TileInventory implements //ISidedInve
             {
                 if (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN) instanceof InvWrapper)
                 {
+                    IBloodAltar altar = (IBloodAltar) tile;
                     ItemStack orbStack = getStackInSlot(ORB_SLOT);
-//                    if (orbStack != null && orbStack.getItem() instanceof IBloodOrb && orbStack.getItem() instanceof IBindable)
+                    IItemHandler altarInventory = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
+
+                    boolean inThis = checkOrb(orbStack);
+                    boolean inAltar = checkOrb(altarInventory.getStackInSlot(0));
+
+                    if (inThis)
                     {
-//                        IBloodOrb orb = (IBloodOrb) orbStack.getItem();
-//                        IBindable sameOrb = (IBindable) orb;
-
-//                        if (!Strings.isNullOrEmpty(sameOrb.getOwnerName(orbStack)) && sameOrb.getOwnerName(orbStack).equals(linkedOrbOwner))
-                        {
-                            IBloodAltar altar = (IBloodAltar) tile;
-                            InvWrapper altarInventory = (InvWrapper) tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
-                            InvWrapper thisInventory = (InvWrapper) getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
-                            int altarEssence = altar.getCurrentBlood();
-
-                            if (canInsertIntoAltar(altarInventory))
-                            {
-                                ItemStack stackInSlot = null;
-
-                                int slot = 0;
-                                for (int i = 0; i < ORB_SLOT; i++)
-                                {
-                                    if (getStackInSlot(i) != null)
-                                    {
-                                        stackInSlot = getStackInSlot(i);
-                                        slot = i;
-                                        break;
-                                    }
-                                }
-
-                                if (stackInSlot != null)
-                                {
-                                    for (AltarRecipeRegistry.AltarRecipe altarRecipe : AltarRecipeRegistry.getRecipes().values())
-                                    {
-                                        if (altarRecipe.doesRequiredItemMatch(stackInSlot, altar.getTier()))
-                                        {
-                                            if (checkOrb(altarInventory.getStackInSlot(0))) //Check for Blood Orb in Altar
-                                            {
-                                                if (((IBindable) altarInventory.getStackInSlot(0).getItem()).getOwnerName(altarInventory.getStackInSlot(0)).equals(linkedOrbOwner))
-                                                {
-                                                    thisInventory.setStackInSlot(ORB_SLOT, altarInventory.getStackInSlot(0).copy());
-                                                    altarInventory.setStackInSlot(0, null);
-                                                }
-                                            }
-
-                                            if (altarRecipe.getSyphon() * stackInSlot.stackSize <= altarEssence// && NetworkHelper.canSyphonFromContainer(orbStack, stackInSlot.stackSize * 200)
-                                                    )
-                                            {
-                                                altarInventory.insertItem(0, stackInSlot.copy(), false);
-                                                thisInventory.setStackInSlot(slot, null);
-//                                                NetworkHelper.syphonFromContainer(orbStack, stackInSlot.stackSize * 200);
-                                            }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    if (checkOrb(orbStack) && altarInventory.getStackInSlot(0) == null)
-                                    {
-                                        altarInventory.insertItem(0, orbStack.copy(), false);
-                                        thisInventory.setStackInSlot(ORB_SLOT, null);
-                                    }
-                                }
-                            }
-                        }
+                        manageAltar(altarInventory, orbStack, altar);
+                    }
+                    else if (inAltar)
+                    {
+                        manageAltar(altarInventory, altarInventory.getStackInSlot(0), altar);
                     }
                 }
             }
         }
     }
 
-    private boolean canInsertIntoAltar(InvWrapper altarInventory)
+    /**
+     * @param altarInventory - The Altar inventory
+     * @return - If the Aenigmatica can insert the recipe-item into the Altar
+     */
+    private boolean canInsertIntoAltar(IItemHandler altarInventory)
     {
         return altarInventory.getStackInSlot(0) == null || checkOrb(altarInventory.getStackInSlot(0));
     }
@@ -236,6 +127,68 @@ public class TileAltareAenigmatica extends TileInventory implements //ISidedInve
     private boolean checkOrb(ItemStack orbStack)
     {
         return orbStack != null && orbStack.getItem() instanceof IBloodOrb && orbStack.getItem() instanceof IBindable && ((IBindable) orbStack.getItem()).getOwnerName(orbStack).equals(linkedOrbOwner);
+    }
+
+    private void manageAltar(IItemHandler altarInventory, ItemStack orbStack, IBloodAltar altar)
+    {
+        IBloodOrb orb = (IBloodOrb) orbStack.getItem();
+        IBindable sameOrb = (IBindable) orb;
+
+        if (!Strings.isNullOrEmpty(sameOrb.getOwnerName(orbStack)))
+        {
+            if (canInsertIntoAltar(altarInventory))
+            {
+                ItemStack stackInSlot = null;
+
+                int slot = -1;
+                for (int i = 0; i < ORB_SLOT; i++)
+                {
+                    if (getStackInSlot(i) != null)
+                    {
+                        stackInSlot = getStackInSlot(i);
+                        slot = i;
+                        break;
+                    }
+                }
+
+                int altarEssence = altar.getCurrentBlood();
+
+                if (stackInSlot != null && slot > -1)
+                {
+                    AltarRecipeRegistry.AltarRecipe altarRecipe = AltarRecipeRegistry.getRecipeForInput(stackInSlot);
+                    if (altarRecipe != null && altarRecipe.doesRequiredItemMatch(stackInSlot, altar.getTier()))
+                    {
+                        if (checkOrb(altarInventory.getStackInSlot(0))) //Check for Blood Orb in Altar and remove if found
+                        {
+                            ItemStack copyStack = altarInventory.getStackInSlot(0).copy();
+                            altarInventory.extractItem(0, 1, false);
+                            setInventorySlotContents(ORB_SLOT, copyStack);
+                        }
+                        else if (altarRecipe.getSyphon() * stackInSlot.stackSize <= altarEssence && NetworkHelper.canSyphonFromContainer(orbStack, stackInSlot.stackSize * ConfigHandler.altareAenigmaticaMoveMultiplier)) //Move items into the Altar after checking LP levels
+                        {
+                            altarInventory.insertItem(0, stackInSlot.copy(), false);
+                            setInventorySlotContents(slot, null);
+                            NetworkHelper.syphonFromContainer(orbStack, stackInSlot.stackSize * ConfigHandler.altareAenigmaticaMoveMultiplier);
+                        }
+                    }
+                    else
+                    {
+                        shoveOrbIntoAltar(altarInventory, orbStack);
+                    }
+                }
+                else if (altarInventory.getStackInSlot(0) == null) //Put orb back in if possible
+                {
+                    shoveOrbIntoAltar(altarInventory, orbStack);
+                }
+            }
+        }
+    }
+
+    private void shoveOrbIntoAltar(IItemHandler altarInventory, ItemStack orbStack)
+    {
+        ItemStack copyStack = orbStack.copy();
+        setInventorySlotContents(ORB_SLOT, null);
+        altarInventory.insertItem(0, copyStack, false);
     }
 
     public BlockPos getAltarPos()
@@ -253,13 +206,19 @@ public class TileAltareAenigmatica extends TileInventory implements //ISidedInve
         return linkedOrbOwner;
     }
 
-    public boolean setLinkedOrbOwner(String linkedOrbOwner)
+    public boolean setLinkedOrbOwner(EntityPlayer player)
     {
-        if (this.linkedOrbOwner.equals(linkedOrbOwner))
+        String dontKnowWhatToCallThis = ((IBindable) player.getHeldItemMainhand().getItem()).getOwnerName(player.getHeldItemMainhand());
+        if (this.linkedOrbOwner.equals(dontKnowWhatToCallThis))
+        {
+            ChatUtil.sendNoSpamClient(TextHelper.localize("chat.BloodArsenal.alreadyOwner"));
             return false;
+        }
         else
-            this.linkedOrbOwner = linkedOrbOwner;
-
-        return true;
+        {
+            this.linkedOrbOwner = dontKnowWhatToCallThis;
+            ChatUtil.sendNoSpamClient(TextHelper.localize("chat.BloodArsenal.setOwner", player.getName()));
+            return true;
+        }
     }
 }
