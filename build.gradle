@@ -172,6 +172,8 @@ def curseRelations = {
     optionalLibrary 'just-enough-items-jei'
     optionalLibrary 'waila'
 	optionalLibrary 'baubles'
+	optionalLibrary 'guide-api'
+	optionalLibrary 'tinkers-construct'
 }
 
 curseforge {
