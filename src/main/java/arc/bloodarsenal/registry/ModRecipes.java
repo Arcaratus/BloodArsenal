@@ -85,7 +85,10 @@ public class ModRecipes
 
         //TODO IS TEMPORARY BUT WILL BE IMPLEMENTED FOR THOSE WHO WANT ACCESS TO TIER 6
         if (ConfigHandler.crystalClusterEnabled)
+        {
             addOreDictBloodOrbRecipe(new ItemStack(getBMBlock(Constants.BloodMagicBlock.CRYSTAL)), "aba", "cdc", "efe", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.ACTIVATION_CRYSTAL), 1, 1), 'b', "blockEmerald", 'c', "blockLapis", 'd', Blocks.BEACON, 'e', "blockDiamond", 'f', archmageOrb);
+            addOreDictBloodOrbRecipe(new ItemStack(getBMBlock(Constants.BloodMagicBlock.CRYSTAL), 4, 1), "aa", "aa", 'a', getBMBlock(Constants.BloodMagicBlock.CRYSTAL));
+        }
 
         //SHAPELESS
         addShapelessOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenPlanks, 2), ModBlocks.bloodInfusedWoodenLog);
