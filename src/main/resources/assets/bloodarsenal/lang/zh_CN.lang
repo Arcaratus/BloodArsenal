@@ -5,7 +5,7 @@ itemGroup.BloodArsenal.creativeTab=§4Blood Arsenal
 item.BloodArsenal.glassShard.name=玻璃碎片
 item.BloodArsenal.bloodInfusedStick.name=注血木棍
 item.BloodArsenal.bloodBurnedString.name=血灼之线
-item.BloodArsenal.bloodInfusedGlowstoneDust.name=注血萤石
+item.BloodArsenal.bloodInfusedGlowstoneDust.name=注血萤石粉
 item.BloodArsenal.inertBloodInfusedIronIngot.name=惰性注血铁锭
 item.BloodArsenal.bloodInfusedIronIngot.name=注血铁锭
 item.BloodArsenal.bloodOrange.name=血橙
@@ -81,7 +81,7 @@ tooltip.BloodArsenal.sigil.divinity.desc=&6&n终极神灵
 tooltip.BloodArsenal.sacrificeAmulet.desc=不想要, 不想浪费!
 tooltip.BloodArsenal.selfSacrificeAmulet.desc=聚集担保品
 
-tooltip.BloodArsenal.soulPendant.petty=用于存储微量意志的晶石
+tooltip.BloodArsenal.soulPendant.petty=用于存储微量意志的垂饰
 tooltip.BloodArsenal.soulPendant.lesser=用于存储少量意志的垂饰
 tooltip.BloodArsenal.soulPendant.common=用于存储更多意志的垂饰
 tooltip.BloodArsenal.soulPendant.greater=用于存储更多大量的垂饰
