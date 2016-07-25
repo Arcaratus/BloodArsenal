@@ -61,7 +61,7 @@ tile.BloodArsenal.bloodInfusedIronBlock.name=注血铁块
 tile.BloodArsenal.bloodInfusedGlowstone.name=注血萤石
 tile.BloodArsenal.glassShardBlock.name=玻璃碎堆
 tile.BloodArsenal.bloodBurnedString.name=血灼之线
-tile.BloodArsenal.altareAenigmatica.name=Altare Aenigmatica
+tile.BloodArsenal.altareAenigmatica.name=暗秘祭坛
 
 # Tooltips
 tooltip.BloodArsenal.glassShard.desc=尖锐的透明物
