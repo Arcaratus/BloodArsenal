@@ -1,5 +1,5 @@
 # Creative Tab
-itemGroup.BloodArsenal.creativeTab=§4Blood Arsenal
+itemGroup.BloodArsenal.creativeTab=§4血液兵工厂
 
 # Items
 item.BloodArsenal.glassShard.name=玻璃碎片
@@ -97,11 +97,11 @@ chat.BloodArsenal.setLevel=设置等级至: %d
 chat.BloodArsenal.tooWeak=你感到有点过于弱小无法完成...
 
 # Tinker's
-modifier.serrated.name=Serrated
+modifier.serrated.name=锯齿
 modifier.serrated.desc=§o切砍!§r\n使目标流血!
-modifier.serrated.extra=Severity: %s
+modifier.serrated.extra=严重程度: %s
 
-modifier.living.name=Living
+modifier.living.name=重生
 modifier.living.desc=§4重生!§r\n通过使用者的灵魂网络治愈它自身
 
 material.bloodinfusedwood.name=注血木
