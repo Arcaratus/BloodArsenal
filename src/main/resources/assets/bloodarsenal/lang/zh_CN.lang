@@ -1,11 +1,11 @@
 # Creative Tab
-itemGroup.BloodArsenal.creativeTab=§4Blood Arsenal
+itemGroup.BloodArsenal.creativeTab=§4血液兵工厂
 
 # Items
 item.BloodArsenal.glassShard.name=玻璃碎片
 item.BloodArsenal.bloodInfusedStick.name=注血木棍
 item.BloodArsenal.bloodBurnedString.name=血灼之线
-item.BloodArsenal.bloodInfusedGlowstoneDust.name=注血萤石
+item.BloodArsenal.bloodInfusedGlowstoneDust.name=注血萤石粉
 item.BloodArsenal.inertBloodInfusedIronIngot.name=惰性注血铁锭
 item.BloodArsenal.bloodInfusedIronIngot.name=注血铁锭
 item.BloodArsenal.bloodOrange.name=血橙
@@ -61,7 +61,7 @@ tile.BloodArsenal.bloodInfusedIronBlock.name=注血铁块
 tile.BloodArsenal.bloodInfusedGlowstone.name=注血萤石
 tile.BloodArsenal.glassShardBlock.name=玻璃碎堆
 tile.BloodArsenal.bloodBurnedString.name=血灼之线
-tile.BloodArsenal.altareAenigmatica.name=Altare Aenigmatica
+tile.BloodArsenal.altareAenigmatica.name=暗秘祭坛
 
 # Tooltips
 tooltip.BloodArsenal.glassShard.desc=尖锐的透明物
@@ -81,7 +81,7 @@ tooltip.BloodArsenal.sigil.divinity.desc=&6&n终极神灵
 tooltip.BloodArsenal.sacrificeAmulet.desc=不想要, 不想浪费!
 tooltip.BloodArsenal.selfSacrificeAmulet.desc=聚集担保品
 
-tooltip.BloodArsenal.soulPendant.petty=用于存储微量意志的晶石
+tooltip.BloodArsenal.soulPendant.petty=用于存储微量意志的垂饰
 tooltip.BloodArsenal.soulPendant.lesser=用于存储少量意志的垂饰
 tooltip.BloodArsenal.soulPendant.common=用于存储更多意志的垂饰
 tooltip.BloodArsenal.soulPendant.greater=用于存储更多大量的垂饰
@@ -97,11 +97,11 @@ chat.BloodArsenal.setLevel=设置等级至: %d
 chat.BloodArsenal.tooWeak=你感到有点过于弱小无法完成...
 
 # Tinker's
-modifier.serrated.name=Serrated
+modifier.serrated.name=锯齿
 modifier.serrated.desc=§o切砍!§r\n使目标流血!
-modifier.serrated.extra=Severity: %s
+modifier.serrated.extra=严重程度: %s
 
-modifier.living.name=Living
+modifier.living.name=重生
 modifier.living.desc=§4重生!§r\n通过使用者的灵魂网络治愈它自身
 
 material.bloodinfusedwood.name=注血木
