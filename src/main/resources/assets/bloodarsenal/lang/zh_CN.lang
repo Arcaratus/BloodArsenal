@@ -48,7 +48,7 @@ item.BloodArsenal.soulPendant.grand.name=[精致]灵魂垂饰
 
 # Blocks
 tile.BloodArsenal.slate.blank.name=空白石板
-tile.BloodArsenal.slate.reinforced.name=加强石板
+tile.BloodArsenal.slate.reinforced.name=强化石板
 tile.BloodArsenal.slate.imbued.name=灌输石板
 tile.BloodArsenal.slate.demonic.name=恶魔石板
 tile.BloodArsenal.slate.ethereal.name=悬幽石板
