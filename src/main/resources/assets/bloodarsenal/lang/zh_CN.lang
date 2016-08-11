@@ -47,6 +47,11 @@ item.BloodArsenal.soulPendant.greater.name=[较大]灵魂垂饰
 item.BloodArsenal.soulPendant.grand.name=[精致]灵魂垂饰
 
 # Blocks
+tile.BloodArsenal.slate.blank.name=空白石板
+tile.BloodArsenal.slate.reinforced.name=强化石板
+tile.BloodArsenal.slate.imbued.name=灌输石板
+tile.BloodArsenal.slate.demonic.name=恶魔石板
+tile.BloodArsenal.slate.ethereal.name=悬幽石板
 tile.BloodArsenal.bloodInfusedWoodenLog.name=注血木护腿
 tile.BloodArsenal.bloodInfusedWoodenPlanks.name=注血木板
 tile.BloodArsenal.bloodInfusedWoodenStairs.name=注血木楼梯
@@ -95,6 +100,8 @@ chat.BloodArsenal.damageSourceGlass=%s 刺伤过多
 chat.BloodArsenal.damageSourceBleeding=%s 耗尽了生命
 chat.BloodArsenal.setLevel=设置等级至: %d
 chat.BloodArsenal.tooWeak=你感到有点过于弱小无法完成...
+chat.BloodArsenal.setOwner=绑定拥有者为: %s
+chat.BloodArsenal.alreadyOwner=你已经为这个绑定过了!
 
 # Tinker's
 modifier.serrated.name=锯齿
