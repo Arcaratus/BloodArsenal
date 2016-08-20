@@ -1,7 +1,6 @@
 package arc.bloodarsenal.item.sigil;
 
 import WayofTime.bloodmagic.api.impl.ItemSigilToggleable;
-import WayofTime.bloodmagic.api.util.helper.NBTHelper;
 import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.client.IMeshProvider;
 import WayofTime.bloodmagic.util.Utils;
@@ -43,7 +42,8 @@ public class ItemSigilBaseToggleable extends ItemSigilToggleable implements IMes
         if (TextHelper.canTranslate(tooltipBase + "desc"))
             tooltip.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect(tooltipBase + "desc"))));
 
-        NBTHelper.checkNBT(stack);
+        if (!stack.hasTagCompound())
+            return;
 
         tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic." + (getActivated(stack) ? "activated" : "deactivated")));
 

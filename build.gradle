@@ -63,7 +63,7 @@ repositories {
 dependencies {
     deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
 	deobfCompile "com.wayoftime.bloodmagic:BloodMagic:1.9.4-${bloodmagic_version}"
-	deobfCompile "info.amerifrance.guideapi:Guide-API:1.9.4-${guideapi_version}"
+	deobfCompile "info.amerifrance.guideapi:Guide-API:${mc_version}-${guideapi_version}"
 
     deobfCompile "mcp.mobius.waila:Waila:${waila_version}_1.9.4"
 //    compile name: "Thaumcraft", version: "${mc_version}-${thaumcraft_version}", ext: "jar"

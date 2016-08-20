@@ -22,7 +22,7 @@ public class TraitLiving extends AbstractTraitLeveled
     @Override
     public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected)
     {
-        if (!world.isRemote && entity instanceof EntityPlayer && random.nextBoolean())
+        if (!world.isRemote && tool.isItemDamaged() && entity instanceof EntityPlayer && random.nextBoolean())
         {
             ModifierNBT data = new ModifierNBT(TinkerUtil.getModifierTag(tool, name));
             int time = 0;

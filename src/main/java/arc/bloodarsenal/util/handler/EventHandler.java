@@ -45,7 +45,7 @@ public class EventHandler
         if (ConfigHandler.doGlassShardsDrop && ModItems.glassShard != null)
         {
             Block block = event.getState().getBlock();
-            if (event.getDrops().isEmpty() && block != null && block == Blocks.GLASS && event.getHarvester() != null && event.getHarvester().getHeldItemMainhand() != null && event.getHarvester().getHeldItemMainhand().getItem() == Items.FLINT)
+            if (block != null && block == Blocks.GLASS && event.getHarvester() != null && event.getDrops() != null && event.getDrops().isEmpty() && event.getHarvester().getHeldItemMainhand() != null && event.getHarvester().getHeldItemMainhand().getItem() == Items.FLINT)
             {
                 int quantity = MathHelper.clamp_int(1 + event.getWorld().rand.nextInt(2) + event.getWorld().rand.nextInt(event.getFortuneLevel() + 1), 0, 3);
 

@@ -97,6 +97,9 @@ public class ItemBloodInfusedTool extends ItemTool implements IVariantProvider
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
+        if (!stack.hasTagCompound())
+            return;
+
         if (I18n.hasKey(tooltipBase + "desc"))
             tooltip.add(TextHelper.localizeEffect(tooltipBase + "desc"));
 

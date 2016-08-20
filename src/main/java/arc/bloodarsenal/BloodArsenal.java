@@ -15,6 +15,7 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLModIdMappingEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -103,5 +104,11 @@ public class BloodArsenal
         ModCompat.loadCompat(ICompatibility.InitializationPhase.POST_INIT);
 
         PROXY.postInit();
+    }
+
+    @Mod.EventHandler
+    public void modMapping(FMLModIdMappingEvent event)
+    {
+        ModCompat.loadCompat(ICompatibility.InitializationPhase.MAPPING);
     }
 }

@@ -111,7 +111,9 @@ public class ItemSelfSacrificeAmulet extends ItemBauble implements IAltarManipul
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean advanced)
     {
-        stack = NBTHelper.checkNBT(stack);
+        if (!stack.hasTagCompound())
+            return;
+
         list.add(TextHelper.localize("tooltip.BloodArsenal.sacrificeAmulet.desc"));
         list.add(TextHelper.localizeEffect("tooltip.BloodArsenal.stored", getStoredLP(stack)));
 

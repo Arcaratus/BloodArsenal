@@ -1,4 +1,11 @@
 ------------------------------------------------------
+Version 2.0.1-12
+------------------------------------------------------
+- Fixed some minor bugs
+- Updated to the latest Blood Magic
+- Updated some things that needed to be updated
+
+------------------------------------------------------
 Version 2.0.1-11
 ------------------------------------------------------
 - Added in Slate blocks (textures are temporary)
