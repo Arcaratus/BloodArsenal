@@ -2,7 +2,7 @@ package arc.bloodarsenal.registry;
 
 import arc.bloodarsenal.compat.ICompatibility;
 import arc.bloodarsenal.compat.baubles.CompatBaubles;
-import arc.bloodarsenal.compat.guideapi.CompatGuideAPI;
+import arc.bloodarsenal.compat.guideapi.CompatGuide;
 import arc.bloodarsenal.compat.tconstruct.CompatTConstruct;
 import net.minecraftforge.fml.common.Loader;
 
@@ -15,7 +15,7 @@ public class ModCompat
     public static void registerModCompat()
     {
         compatibilities.add(new CompatBaubles());
-        compatibilities.add(new CompatGuideAPI());
+        compatibilities.add(new CompatGuide());
         compatibilities.add(new CompatTConstruct());
     }
 

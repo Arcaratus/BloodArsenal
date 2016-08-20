@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class CompatGuideAPI implements ICompatibility
+public class CompatGuide implements ICompatibility
 {
     @Override
     public void loadCompatibility(InitializationPhase phase)
