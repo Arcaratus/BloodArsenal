@@ -40,15 +40,15 @@ public class HandlerTConstruct
     public static void init()
     {
         modSerrated = new ModifierSerrated();
-        modSerrated.addItem(ModItems.glassShard, 1, 1);
+        modSerrated.addItem(ModItems.GLASS_SHARD, 1, 1);
 
         traitLiving1 = new TraitLiving(1);
         traitLiving2 = new TraitLiving(2);
 
         materialBloodInfusedWood = new Material("bloodInfusedWood", 0x7B1D0C);
         materialBloodInfusedWood.addTrait(traitLiving1);
-        materialBloodInfusedWood.addItem(new ItemStack(ModBlocks.bloodInfusedWoodenPlanks), 1, Material.VALUE_Ingot);
-        materialBloodInfusedWood.setRepresentativeItem(ModBlocks.bloodInfusedWoodenPlanks);
+        materialBloodInfusedWood.addItem(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS), 1, Material.VALUE_Ingot);
+        materialBloodInfusedWood.setRepresentativeItem(ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
         materialBloodInfusedWood.setCraftable(true);
 
         TinkerRegistry.addMaterial(materialBloodInfusedWood);
@@ -59,8 +59,8 @@ public class HandlerTConstruct
 
         materialBloodInfusedIron = new Material("bloodInfusedIron", 0xA93027);
         materialBloodInfusedIron.addTrait(traitLiving2);
-        materialBloodInfusedIron.addItem(ModItems.bloodInfusedIronIngot, 1, Material.VALUE_Ingot);
-        materialBloodInfusedIron.setRepresentativeItem(ModItems.bloodInfusedIronIngot);
+        materialBloodInfusedIron.addItem(ModItems.BLOOD_INFUSED_IRON_INGOT, 1, Material.VALUE_Ingot);
+        materialBloodInfusedIron.setRepresentativeItem(ModItems.BLOOD_INFUSED_IRON_INGOT);
 
 
         TinkerRegistry.addMaterial(materialBloodInfusedIron);

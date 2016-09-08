@@ -118,7 +118,7 @@ public class ItemBloodInfusedTool extends ItemTool implements IVariantProvider
     {
         public Wooden(String name, float damage, Set<Block> effectiveBlocks)
         {
-            super(Constants.Item.WOODEN, ModItems.bloodInfusedWoodMaterial, name, damage, effectiveBlocks, 18, ConfigHandler.bloodInfusedWoodenToolsRepairUpdate, ConfigHandler.bloodInfusedWoodenToolsRepairCost);
+            super(Constants.Item.WOODEN, ModItems.BLOOD_INFUSED_WOOD, name, damage, effectiveBlocks, 18, ConfigHandler.bloodInfusedWoodenToolsRepairUpdate, ConfigHandler.bloodInfusedWoodenToolsRepairCost);
         }
     }
 
@@ -126,7 +126,7 @@ public class ItemBloodInfusedTool extends ItemTool implements IVariantProvider
     {
         public Iron(String name, float damage, Set<Block> effectiveBlocks)
         {
-            super(Constants.Item.IRON, ModItems.bloodInfusedIronMaterial, name, damage, effectiveBlocks, 18, ConfigHandler.bloodInfusedWoodenToolsRepairUpdate, ConfigHandler.bloodInfusedWoodenToolsRepairCost);
+            super(Constants.Item.IRON, ModItems.BLOOD_INFUSED_IRON, name, damage, effectiveBlocks, 18, ConfigHandler.bloodInfusedWoodenToolsRepairUpdate, ConfigHandler.bloodInfusedWoodenToolsRepairCost);
         }
 
         @Override

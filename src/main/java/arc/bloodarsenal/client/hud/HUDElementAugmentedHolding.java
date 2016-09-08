@@ -31,10 +31,10 @@ public class HUDElementAugmentedHolding extends HUDElement
         // Check mainhand for Sigil of Augmented Holding
         if (sigilHolding == null)
             return;
-        if (!(sigilHolding.getItem() == ModItems.sigilAugmentedHolding))
+        if (!(sigilHolding.getItem() == ModItems.SIGIL_AUGMENTED_HOLDING))
             sigilHolding = minecraft.thePlayer.getHeldItemOffhand();
         // Check offhand for Sigil of Holding
-        if (sigilHolding == null || !(sigilHolding.getItem() == ModItems.sigilAugmentedHolding))
+        if (sigilHolding == null || !(sigilHolding.getItem() == ModItems.SIGIL_AUGMENTED_HOLDING))
             return;
 
         Gui ingameGui = minecraft.ingameGUI;

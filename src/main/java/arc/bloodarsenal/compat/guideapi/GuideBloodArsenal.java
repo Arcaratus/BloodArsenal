@@ -35,7 +35,7 @@ public class GuideBloodArsenal
     public static void initCategories()
     {
         String keyBase = "guide.BloodArsenal.category.";
-        guideBook.addCategory(new CategoryItemStack(CategoryLifebringer.buildCategory(), keyBase + "lifebringer", new ItemStack(ModItems.bloodInfusedIronIngot)));
+        guideBook.addCategory(new CategoryItemStack(CategoryLifebringer.buildCategory(), keyBase + "lifebringer", new ItemStack(ModItems.BLOOD_INFUSED_IRON_INGOT)));
     }
 
     public static void initJEIBlacklist()

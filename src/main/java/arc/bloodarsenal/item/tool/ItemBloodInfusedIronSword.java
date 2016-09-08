@@ -29,7 +29,7 @@ public class ItemBloodInfusedIronSword extends ItemSword implements IVariantProv
 {
     public ItemBloodInfusedIronSword()
     {
-        super(ModItems.bloodInfusedIronMaterial);
+        super(ModItems.BLOOD_INFUSED_IRON);
 
         setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedIron.sword");
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);

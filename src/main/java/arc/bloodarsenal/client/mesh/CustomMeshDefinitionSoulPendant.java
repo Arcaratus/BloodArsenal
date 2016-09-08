@@ -2,8 +2,8 @@ package arc.bloodarsenal.client.mesh;
 
 import WayofTime.bloodmagic.api.soul.EnumDemonWillType;
 import arc.bloodarsenal.BloodArsenal;
+import arc.bloodarsenal.compat.baubles.CompatBaubles;
 import arc.bloodarsenal.compat.baubles.ItemSoulPendant;
-import arc.bloodarsenal.registry.ModItems;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class CustomMeshDefinitionSoulPendant implements ItemMeshDefinition
     @Override
     public ModelResourceLocation getModelLocation(ItemStack stack)
     {
-        if (stack != null && stack.getItem() == ModItems.soulPendant)
+        if (stack != null && stack.getItem() == CompatBaubles.SOUL_PENDANT)
         {
             EnumDemonWillType type = ((ItemSoulPendant) stack.getItem()).getCurrentType(stack);
             return new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "item/" + name), "type=" + ItemSoulPendant.names[stack.getItemDamage()] + "_" + type.getName().toLowerCase());

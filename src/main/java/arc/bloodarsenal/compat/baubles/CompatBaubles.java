@@ -8,11 +8,16 @@ import arc.bloodarsenal.compat.ICompatibility;
 import arc.bloodarsenal.registry.ModItems;
 import arc.bloodarsenal.registry.ModRecipes;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
 
 public class CompatBaubles implements ICompatibility
 {
+    public static Item SACRIFICE_AMULET;
+    public static Item SELF_SACRIFICE_AMULET;
+    public static Item SOUL_PENDANT;
+
     @Override
     public void loadCompatibility(InitializationPhase phase)
     {
@@ -25,14 +30,14 @@ public class CompatBaubles implements ICompatibility
             }
             case INIT:
             {
-                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(ModItems.sacrificeAmulet), "aaa", "aba", "caa", 'a', ModItems.bloodBurnedString, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.orbApprentice), 'c', ModItems.gemSacrifice);
-                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(ModItems.selfSacrificeAmulet), "aaa", "aba", "caa", 'a', ModItems.bloodBurnedString, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.orbApprentice), 'c', ModItems.gemSelfSacrifice);
-                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(ModItems.soulPendant), "aaa", "aba", "aca", 'a', ModItems.bloodBurnedString, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.orbWeak), 'c', ModItems.gemTartaric);
+                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(SACRIFICE_AMULET), "aaa", "aba", "caa", 'a', ModItems.BLOOD_BURNED_STRING, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_APPRENTICE), 'c', ModItems.GEM_SACRIFICE);
+                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(SELF_SACRIFICE_AMULET), "aaa", "aba", "caa", 'a', ModItems.BLOOD_BURNED_STRING, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_APPRENTICE), 'c', ModItems.GEM_SELF_SACRIFICE);
+                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(SOUL_PENDANT), "aaa", "aba", "aca", 'a', ModItems.BLOOD_BURNED_STRING, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_WEAK), 'c', ModItems.GEM_TARTARIC);
 
-                ModRecipes.addForgeRecipe(new ItemStack(ModItems.soulPendant, 1, 1), 60, 40, new ItemStack(ModItems.soulPendant), ModItems.gemTartaric, "blockRedstone", "blockLapis");
-                ModRecipes.addForgeRecipe(new ItemStack(ModItems.soulPendant, 1, 2), 240, 100, new ItemStack(ModItems.soulPendant, 1, 1), ModItems.gemTartaric, "blockGold", new ItemStack(ModRecipes.getBMItem(Constants.BloodMagicItem.SLATE), 1, 2));
-                ModRecipes.addForgeRecipe(new ItemStack(ModItems.soulPendant, 1, 3), 1000, 200, new ItemStack(ModItems.soulPendant, 1, 2), new ItemStack(ModRecipes.getBMItem(Constants.BloodMagicItem.SLATE), 1, 3), ModRecipes.getBMItem(Constants.BloodMagicItem.BLOOD_SHARD), ItemDemonCrystal.getStack(ItemDemonCrystal.CRYSTAL_DEFAULT));
-                ModRecipes.addForgeRecipe(new ItemStack(ModItems.soulPendant, 1, 4), 4000, 1000, new ItemStack(ModItems.soulPendant, 1, 3), Items.NETHER_STAR);
+                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 1), 60, 40, new ItemStack(SOUL_PENDANT), ModItems.GEM_TARTARIC, "blockRedstone", "blockLapis");
+                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 2), 240, 100, new ItemStack(SOUL_PENDANT, 1, 1), ModItems.GEM_TARTARIC, "blockGold", new ItemStack(ModRecipes.getBMItem(Constants.BloodMagicItem.SLATE), 1, 2));
+                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 3), 1000, 200, new ItemStack(SOUL_PENDANT, 1, 2), new ItemStack(ModRecipes.getBMItem(Constants.BloodMagicItem.SLATE), 1, 3), ModRecipes.getBMItem(Constants.BloodMagicItem.BLOOD_SHARD), ItemDemonCrystal.getStack(ItemDemonCrystal.CRYSTAL_DEFAULT));
+                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 4), 4000, 1000, new ItemStack(SOUL_PENDANT, 1, 3), Items.NETHER_STAR);
                 break;
             }
         }
@@ -51,10 +56,10 @@ public class CompatBaubles implements ICompatibility
     }
 
     @Optional.Method(modid = "Baubles")
-    private void doItems()
+    private static void doItems()
     {
-        ModItems.sacrificeAmulet = ModItems.registerItem(new ItemSacrificeAmulet("sacrificeAmulet"));
-        ModItems.selfSacrificeAmulet = ModItems.registerItem(new ItemSelfSacrificeAmulet("selfSacrificeAmulet"));
-        ModItems.soulPendant = ModItems.registerItem(new ItemSoulPendant("soulPendant"));
+        SACRIFICE_AMULET = ModItems.registerItem(new ItemSacrificeAmulet("sacrificeAmulet"));
+        SELF_SACRIFICE_AMULET = ModItems.registerItem(new ItemSelfSacrificeAmulet("selfSacrificeAmulet"));
+        SOUL_PENDANT = ModItems.registerItem(new ItemSoulPendant("soulPendant"));
     }
 }

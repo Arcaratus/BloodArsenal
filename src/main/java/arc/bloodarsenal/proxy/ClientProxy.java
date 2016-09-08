@@ -5,6 +5,8 @@ import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.InventoryRenderHelperV2;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.client.hud.HUDElementAugmentedHolding;
+import arc.bloodarsenal.client.render.entity.SentientProjectileFactory;
+import arc.bloodarsenal.entity.projectile.EntitySummonedSword;
 import arc.bloodarsenal.registry.ModBlocks;
 import arc.bloodarsenal.registry.ModItems;
 import arc.bloodarsenal.util.IComplexVariantProvider;
@@ -17,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class ClientProxy extends CommonProxy
@@ -40,6 +43,12 @@ public class ClientProxy extends CommonProxy
         ModBlocks.initSpecialRenders();
 
         MinecraftForge.EVENT_BUS.register(new ClientHandler());
+    }
+
+    @Override
+    public void registerRenderers()
+    {
+        RenderingRegistry.registerEntityRenderingHandler(EntitySummonedSword.class, new SentientProjectileFactory());
     }
 
     @Override

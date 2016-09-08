@@ -39,7 +39,7 @@ public class ItemBloodArsenalBase extends Item implements IVariantProvider
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
     {
-        if (player.getName().equals("Arcaratus") && stack.getItem() == ModItems.bloodInfusedStick && player.getHeldItemMainhand().stackSize == 1)
+        if (player.getName().equals("Arcaratus") && stack.getItem() == ModItems.BLOOD_INFUSED_STICK && player.getHeldItemMainhand().stackSize == 1)
         {
             stack.setTagCompound(new NBTTagCompound());
             stack.setStackDisplayName(TextHelper.getFormattedText("&r&cThe Living Stick"));
@@ -69,8 +69,8 @@ public class ItemBloodArsenalBase extends Item implements IVariantProvider
     @Override
     public EnumRarity getRarity(ItemStack stack)
     {
-        if (stack.getItem() == ModItems.bloodInfusedGlowstoneDust || stack.getItem() == ModItems.bloodInfusedIronIngot) return EnumRarity.UNCOMMON;
-        if (stack.getItem() == ModItems.reagentDivinity) return EnumRarity.EPIC;
+        if (stack.getItem() == ModItems.BLOOD_INFUSED_GLOWSTONE_DUST || stack.getItem() == ModItems.BLOOD_INFUSED_IRON_INGOT) return EnumRarity.UNCOMMON;
+        if (stack.getItem() == ModItems.REAGENT_DIVINITY) return EnumRarity.EPIC;
 
         return super.getRarity(stack);
     }

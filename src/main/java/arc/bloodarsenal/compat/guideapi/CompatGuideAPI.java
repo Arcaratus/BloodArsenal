@@ -2,6 +2,7 @@ package arc.bloodarsenal.compat.guideapi;
 
 import WayofTime.bloodmagic.api.BloodMagicAPI;
 import WayofTime.bloodmagic.api.registry.OrbRegistry;
+import WayofTime.bloodmagic.registry.ModItems;
 import amerifrance.guideapi.api.GuideAPI;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.compat.ICompatibility;
@@ -36,7 +37,7 @@ public class CompatGuideAPI implements ICompatibility
             }
             case INIT:
             {
-                guideRecipe = new ShapelessOreRecipe(GuideAPI.getStackFromBook(GuideBloodArsenal.guideBook), Items.BOOK, Items.FLINT_AND_STEEL, OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.orbWeak), UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BloodMagicAPI.getLifeEssence()));
+                guideRecipe = new ShapelessOreRecipe(GuideAPI.getStackFromBook(GuideBloodArsenal.guideBook), Items.BOOK, Items.FLINT_AND_STEEL, OrbRegistry.getOrbStack(ModItems.ORB_WEAK), UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BloodMagicAPI.getLifeEssence()));
                 break;
             }
             case POST_INIT:

@@ -53,13 +53,13 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
     @Nullable
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return ModItems.bloodBurnedString;
+        return ModItems.BLOOD_BURNED_STRING;
     }
 
     @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return new ItemStack(ModItems.bloodBurnedString);
+        return new ItemStack(ModItems.BLOOD_BURNED_STRING);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
                 BlockPos blockpos = pos.offset(enumfacing, i);
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-                if (iblockstate.getBlock() != ModBlocks.bloodBurnedString)
+                if (iblockstate.getBlock() != ModBlocks.BLOOD_BURNED_STRING)
                 {
                     break;
                 }
@@ -152,7 +152,7 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
 
     private static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, EnumFacing direction)
     {
-        return worldIn.getBlockState(pos.offset(direction)).getBlock() == ModBlocks.bloodBurnedString;
+        return worldIn.getBlockState(pos.offset(direction)).getBlock() == ModBlocks.BLOOD_BURNED_STRING;
     }
 
     @Override

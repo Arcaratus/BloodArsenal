@@ -11,7 +11,6 @@ import WayofTime.bloodmagic.api.registry.OrbRegistry;
 import WayofTime.bloodmagic.api.registry.TartaricForgeRecipeRegistry;
 import WayofTime.bloodmagic.item.ItemComponent;
 import arc.bloodarsenal.ConfigHandler;
-import arc.bloodarsenal.util.TartaricForgeSigilHoldingRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -37,51 +36,51 @@ public class ModRecipes
 
     public static void addCraftingRecipes()
     {
-        ItemStack weakOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.orbWeak);
-        ItemStack apprenticeOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.orbApprentice);
-        ItemStack magicianOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.orbMagician);
-        ItemStack masterOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.orbMaster);
-        ItemStack archmageOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.orbArchmage);
-        ItemStack transcendentOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.orbTranscendent);
+        ItemStack weakOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_WEAK);
+        ItemStack apprenticeOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_APPRENTICE);
+        ItemStack magicianOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_MAGICIAN);
+        ItemStack masterOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_MASTER);
+        ItemStack archmageOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_ARCHMAGE);
+        ItemStack transcendentOrb = OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_TRANSCENDENT);
 
         //SHAPED
-        addOreDictRecipe(new ItemStack(ModItems.bloodInfusedStick, 2), "a", "a", 'a', ModBlocks.bloodInfusedWoodenPlanks);
-        addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenSlab, 6), "aaa", 'a', ModBlocks.bloodInfusedWoodenPlanks);
-        addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenStairs, 4), "a  ", "aa ", "aaa", 'a', ModBlocks.bloodInfusedWoodenPlanks);
-        addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenFence, 3), "aba", "aba", 'a', ModBlocks.bloodInfusedWoodenPlanks, 'b', ModItems.bloodInfusedStick);
-        addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenFenceGate), "aba", "aba", 'a', ModItems.bloodInfusedStick, 'b', ModBlocks.bloodInfusedWoodenPlanks);
-        addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenPlanks), "a", "a", 'a',  ModBlocks.bloodInfusedWoodenSlab);
-        addOreDictRecipe(new ItemStack(ModBlocks.bloodStainedGlassPane, 16), "aaa", "aaa", 'a', ModBlocks.bloodStainedGlass);
-        addOreDictRecipe(new ItemStack(ModBlocks.glassShardBlock), "aaa", "aaa", "aaa", 'a', ModItems.glassShard);
-        addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedGlowstone), "aa", "aa", 'a', ModItems.bloodInfusedGlowstoneDust);
-        addOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedIronBlock), "aaa", "aaa", "aaa", 'a', ModItems.bloodInfusedIronIngot);
-        addOreDictRecipe(new ItemStack(getBMBlock(Constants.BloodMagicBlock.BLOOD_RUNE), 4, 3), "aaa", "aba", "aaa", 'a', "stone", 'b', ModItems.gemSacrifice);
-        addOreDictRecipe(new ItemStack(getBMBlock(Constants.BloodMagicBlock.BLOOD_RUNE), 4, 4), "aaa", "aba", "aaa", 'a', "stone", 'b', ModItems.gemSelfSacrifice);
-        addOreDictRecipe(new ItemStack(ModBlocks.slate), "aaa", "aaa", "aaa", 'a', getBMItem(Constants.BloodMagicItem.SLATE));
-        addOreDictRecipe(new ItemStack(ModBlocks.slate, 1, 1), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1));
-        addOreDictRecipe(new ItemStack(ModBlocks.slate, 1, 2), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 2));
-        addOreDictRecipe(new ItemStack(ModBlocks.slate, 1, 3), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 3));
-        addOreDictRecipe(new ItemStack(ModBlocks.slate, 1, 4), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 4));
+        addOreDictRecipe(new ItemStack(ModItems.BLOOD_INFUSED_STICK, 2), "a", "a", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
+        addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_SLAB, 6), "aaa", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
+        addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_STAIRS, 4), "a  ", "aa ", "aaa", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
+        addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_FENCE, 3), "aba", "aba", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS, 'b', ModItems.BLOOD_INFUSED_STICK);
+        addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_FENCE_GATE), "aba", "aba", 'a', ModItems.BLOOD_INFUSED_STICK, 'b', ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
+        addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS), "a", "a", 'a',  ModBlocks.BLOOD_INFUSED_WOODEN_SLAB);
+        addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_STAINED_GLASS_PANE, 16), "aaa", "aaa", 'a', ModBlocks.BLOOD_STAINED_GLASS);
+        addOreDictRecipe(new ItemStack(ModBlocks.GLASS_SHARD_BLOCK), "aaa", "aaa", "aaa", 'a', "shardGlass");
+        addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_GLOWSTONE), "aa", "aa", 'a', ModItems.BLOOD_INFUSED_GLOWSTONE_DUST);
+        addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_IRON_BLOCK), "aaa", "aaa", "aaa", 'a', ModItems.BLOOD_INFUSED_IRON_INGOT);
+        addOreDictRecipe(new ItemStack(getBMBlock(Constants.BloodMagicBlock.BLOOD_RUNE), 4, 3), "aaa", "aba", "aaa", 'a', "stone", 'b', ModItems.GEM_SACRIFICE);
+        addOreDictRecipe(new ItemStack(getBMBlock(Constants.BloodMagicBlock.BLOOD_RUNE), 4, 4), "aaa", "aba", "aaa", 'a', "stone", 'b', ModItems.GEM_SELF_SACRIFICE);
+        addOreDictRecipe(new ItemStack(ModBlocks.SLATE), "aaa", "aaa", "aaa", 'a', getBMItem(Constants.BloodMagicItem.SLATE));
+        addOreDictRecipe(new ItemStack(ModBlocks.SLATE, 1, 1), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1));
+        addOreDictRecipe(new ItemStack(ModBlocks.SLATE, 1, 2), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 2));
+        addOreDictRecipe(new ItemStack(ModBlocks.SLATE, 1, 3), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 3));
+        addOreDictRecipe(new ItemStack(ModBlocks.SLATE, 1, 4), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 4));
 
-        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlass, 8), "aaa", "aba", "aaa", 'a', "blockGlass", 'b', weakOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlassPane, 8), "aaa", "aba", "aaa", 'a', "paneGlass", 'b', weakOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.glassSacrificialDagger), "aaa", "aba", "aca", 'a', "glassShard", 'b', getBMItem(Constants.BloodMagicItem.SACRIFICIAL_DAGGER), 'c', apprenticeOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.glassDaggerOfSacrifice), "aaa", "aba", "aca", 'a', "glassShard", 'b', getBMItem(Constants.BloodMagicItem.DAGGER_OF_SACRIFICE), 'c', apprenticeOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedWoodenPickaxe), "aaa", " c ", " b ", 'a', ModBlocks.bloodInfusedWoodenLog, 'b', apprenticeOrb, 'c', ModItems.bloodInfusedStick);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedWoodenAxe), "aa ", "ac ", " b ", 'a', ModBlocks.bloodInfusedWoodenLog, 'b', apprenticeOrb, 'c', ModItems.bloodInfusedStick);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedWoodenAxe), " aa", " ca", " b ", 'a', ModBlocks.bloodInfusedWoodenLog, 'b', apprenticeOrb, 'c', ModItems.bloodInfusedStick);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedWoodenShovel), " a ", " c ", " b ", 'a', ModBlocks.bloodInfusedWoodenLog, 'b', apprenticeOrb, 'c', ModItems.bloodInfusedStick);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedWoodenSword), " a ", " a ", "cbc", 'a', ModBlocks.bloodInfusedWoodenLog, 'b', apprenticeOrb, 'c', ModItems.bloodInfusedStick);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedIronPickaxe), "aaa", "bcb", "bdb", 'a', ModItems.bloodInfusedIronIngot, 'b', ModItems.bloodInfusedStick, 'c', ModItems.bloodInfusedWoodenPickaxe, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedIronAxe), "aab", "acb", "bdb", 'a', ModItems.bloodInfusedIronIngot, 'b', ModItems.bloodInfusedStick, 'c', ModItems.bloodInfusedWoodenAxe, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedIronAxe), "baa", "bca", "bdb", 'a', ModItems.bloodInfusedIronIngot, 'b', ModItems.bloodInfusedStick, 'c', ModItems.bloodInfusedWoodenAxe, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedIronShovel), " a ", "bcb", "bdb", 'a', ModItems.bloodInfusedIronIngot, 'b', ModItems.bloodInfusedStick, 'c', ModItems.bloodInfusedWoodenShovel, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodInfusedIronSword), "ada", "aca", " b ", 'a', ModItems.bloodInfusedIronIngot, 'b', ModItems.bloodInfusedStick, 'c', ModItems.bloodInfusedWoodenSword, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.bloodBurnedString, 7), "aaa", "aba", "aca", 'a', Items.STRING, 'b', Items.FLINT_AND_STEEL, 'c', weakOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.gemSacrifice), "aba", "cdc", "aea", 'a', "ingotGold", 'b', getBMItem(Constants.BloodMagicItem.DAGGER_OF_SACRIFICE), 'c', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.gemSelfSacrifice), "aba", "cdc", "aea", 'a', "dustGlowstone", 'b', getBMItem(Constants.BloodMagicItem.SACRIFICIAL_DAGGER), 'c', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(ModItems.gemTartaric), "aba", "cdc", "efg", 'a', getBMItem(Constants.BloodMagicItem.SOUL_GEM), 'b', "ingotGold", 'c', "blockGlass", 'd', "gemDiamond", 'e', "blockRedstone", 'f', weakOrb, 'g', "blockLapis");
-        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.altareAenigmatica), "aba", "cdc", "efe", 'a', getBMItem(Constants.BloodMagicItem.BLOOD_SHARD), 'b', "gemEmerald", 'c', getBMBlock(Constants.BloodMagicBlock.INPUT_ROUTING_NODE), 'd', ItemComponent.getStack(ItemComponent.REAGENT_SIGHT), 'e', ModBlocks.bloodInfusedIronBlock, 'f', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.BLOOD_STAINED_GLASS, 8), "aaa", "aba", "aaa", 'a', "blockGlass", 'b', weakOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.BLOOD_STAINED_GLASS_PANE, 8), "aaa", "aba", "aaa", 'a', "paneGlass", 'b', weakOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.GLASS_SACRIFICIAL_DAGGER), "aaa", "aba", "aca", 'a', "shardGlass", 'b', getBMItem(Constants.BloodMagicItem.SACRIFICIAL_DAGGER), 'c', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.GLASS_DAGGER_OF_SACRIFICE), "aaa", "aba", "aca", 'a', "shardGlass", 'b', getBMItem(Constants.BloodMagicItem.DAGGER_OF_SACRIFICE), 'c', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_INFUSED_WOODEN_PICKAXE), "aaa", " c ", " b ", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', ModItems.BLOOD_INFUSED_STICK);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_INFUSED_WOODEN_AXE), "aa ", "ac ", " b ", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', ModItems.BLOOD_INFUSED_STICK);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_INFUSED_WOODEN_AXE), " aa", " ca", " b ", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', ModItems.BLOOD_INFUSED_STICK);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_INFUSED_WOODEN_SHOVEL), " a ", " c ", " b ", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', ModItems.BLOOD_INFUSED_STICK);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_INFUSED_WOODEN_SWORD), " a ", " a ", "cbc", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', ModItems.BLOOD_INFUSED_STICK);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_INFUSED_IRON_PICKAXE), "aaa", "bcb", "bdb", 'a', ModItems.BLOOD_INFUSED_IRON_INGOT, 'b', ModItems.BLOOD_INFUSED_STICK, 'c', ModItems.BLOOD_INFUSED_WOODEN_PICKAXE, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_INFUSED_IRON_AXE), "aab", "acb", "bdb", 'a', ModItems.BLOOD_INFUSED_IRON_INGOT, 'b', ModItems.BLOOD_INFUSED_STICK, 'c', ModItems.BLOOD_INFUSED_WOODEN_AXE, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_INFUSED_IRON_AXE), "baa", "bca", "bdb", 'a', ModItems.BLOOD_INFUSED_IRON_INGOT, 'b', ModItems.BLOOD_INFUSED_STICK, 'c', ModItems.BLOOD_INFUSED_WOODEN_AXE, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_INFUSED_IRON_SHOVEL), " a ", "bcb", "bdb", 'a', ModItems.BLOOD_INFUSED_IRON_INGOT, 'b', ModItems.BLOOD_INFUSED_STICK, 'c', ModItems.BLOOD_INFUSED_WOODEN_SHOVEL, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_INFUSED_IRON_SWORD), "ada", "aca", " b ", 'a', ModItems.BLOOD_INFUSED_IRON_INGOT, 'b', ModItems.BLOOD_INFUSED_STICK, 'c', ModItems.BLOOD_INFUSED_WOODEN_SWORD, 'd', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_BURNED_STRING, 7), "aaa", "aba", "aca", 'a', Items.STRING, 'b', Items.FLINT_AND_STEEL, 'c', weakOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.GEM_SACRIFICE), "aba", "cdc", "aea", 'a', "ingotGold", 'b', getBMItem(Constants.BloodMagicItem.DAGGER_OF_SACRIFICE), 'c', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.GEM_SELF_SACRIFICE), "aba", "cdc", "aea", 'a', "dustGlowstone", 'b', getBMItem(Constants.BloodMagicItem.SACRIFICIAL_DAGGER), 'c', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.GEM_TARTARIC), "aba", "cdc", "efg", 'a', getBMItem(Constants.BloodMagicItem.SOUL_GEM), 'b', "ingotGold", 'c', "blockGlass", 'd', "gemDiamond", 'e', "blockRedstone", 'f', weakOrb, 'g', "blockLapis");
+        addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.ALTARE_AENIGMATICA), "aba", "cdc", "efe", 'a', getBMItem(Constants.BloodMagicItem.BLOOD_SHARD), 'b', "gemEmerald", 'c', getBMBlock(Constants.BloodMagicBlock.INPUT_ROUTING_NODE), 'd', ItemComponent.getStack(ItemComponent.REAGENT_SIGHT), 'e', ModBlocks.BLOOD_INFUSED_IRON_BLOCK, 'f', masterOrb);
 
         //TODO IS TEMPORARY BUT WILL BE IMPLEMENTED FOR THOSE WHO WANT ACCESS TO TIER 6
         if (ConfigHandler.crystalClusterEnabled)
@@ -91,18 +90,18 @@ public class ModRecipes
         }
 
         //SHAPELESS
-        addShapelessOreDictRecipe(new ItemStack(ModBlocks.bloodInfusedWoodenPlanks, 2), ModBlocks.bloodInfusedWoodenLog);
-        addShapelessOreDictRecipe(new ItemStack(Blocks.GLASS), ModBlocks.bloodStainedGlass);
-        addShapelessOreDictRecipe(new ItemStack(Blocks.GLASS_PANE), ModBlocks.bloodStainedGlassPane);
-        addShapelessOreDictRecipe(new ItemStack(ModItems.bloodInfusedIronIngot, 9), ModBlocks.bloodInfusedIronBlock);
-        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9), ModBlocks.slate);
-        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 1), new ItemStack(ModBlocks.slate, 1, 1));
-        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 2), new ItemStack(ModBlocks.slate, 1, 2));
-        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 3), new ItemStack(ModBlocks.slate, 1, 3));
-        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 4), new ItemStack(ModBlocks.slate, 1, 4));
+        addShapelessOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS, 2), ModBlocks.BLOOD_INFUSED_WOODEN_LOG);
+        addShapelessOreDictRecipe(new ItemStack(Blocks.GLASS), ModBlocks.BLOOD_STAINED_GLASS);
+        addShapelessOreDictRecipe(new ItemStack(Blocks.GLASS_PANE), ModBlocks.BLOOD_STAINED_GLASS_PANE);
+        addShapelessOreDictRecipe(new ItemStack(ModItems.BLOOD_INFUSED_IRON_INGOT, 9), ModBlocks.BLOOD_INFUSED_IRON_BLOCK);
+        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9), ModBlocks.SLATE);
+        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 1), new ItemStack(ModBlocks.SLATE, 1, 1));
+        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 2), new ItemStack(ModBlocks.SLATE, 1, 2));
+        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 3), new ItemStack(ModBlocks.SLATE, 1, 3));
+        addShapelessOreDictRecipe(new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 9, 4), new ItemStack(ModBlocks.SLATE, 1, 4));
 
-        addShapelessBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlass), "blockGlass", weakOrb);
-        addShapelessBloodOrbRecipe(new ItemStack(ModBlocks.bloodStainedGlassPane), "paneGlass", weakOrb);
+        addShapelessBloodOrbRecipe(new ItemStack(ModBlocks.BLOOD_STAINED_GLASS), "blockGlass", weakOrb);
+        addShapelessBloodOrbRecipe(new ItemStack(ModBlocks.BLOOD_STAINED_GLASS_PANE), "paneGlass", weakOrb);
     }
 
     public static void addAltarRecipes()
@@ -110,12 +109,12 @@ public class ModRecipes
         //ONE
 
         //TWO
-        addAltarRecipe("logWood", new ItemStack(ModBlocks.bloodInfusedWoodenLog), EnumAltarTier.TWO, 5000, 5, 5);
-        addAltarRecipe(new ItemStack(Items.DYE, 1, 14), new ItemStack(ModItems.bloodOrange), EnumAltarTier.TWO, 500, 10, 10);
+        addAltarRecipe("logWood", new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_LOG), EnumAltarTier.TWO, 5000, 5, 5);
+        addAltarRecipe(new ItemStack(Items.DYE, 1, 14), new ItemStack(ModItems.BLOOD_ORANGE), EnumAltarTier.TWO, 500, 10, 10);
 
         //THREE
-        addAltarRecipe("dustGlowstone", new ItemStack(ModItems.bloodInfusedGlowstoneDust), EnumAltarTier.THREE, 2500, 5, 5);
-        addAltarRecipe(new ItemStack(ModItems.inertBloodInfusedIronIngot), new ItemStack(ModItems.bloodInfusedIronIngot), EnumAltarTier.THREE, 10000, 5, 5);
+        addAltarRecipe("dustGlowstone", new ItemStack(ModItems.BLOOD_INFUSED_GLOWSTONE_DUST), EnumAltarTier.THREE, 2500, 5, 5);
+        addAltarRecipe(new ItemStack(ModItems.INERT_BLOOD_INFUSED_IRON_INGOT), new ItemStack(ModItems.BLOOD_INFUSED_IRON_INGOT), EnumAltarTier.THREE, 10000, 5, 5);
 
         //FOUR
 
@@ -126,20 +125,20 @@ public class ModRecipes
 
     public static void addHellfireForgeRecipes()
     {
-        addForgeRecipe(new ItemStack(ModItems.inertBloodInfusedIronIngot), 256, 32, Items.IRON_INGOT, ModItems.bloodInfusedGlowstoneDust, ItemComponent.getStack(ItemComponent.REAGENT_BINDING), UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BloodMagicAPI.getLifeEssence()));
-        addForgeRecipe(new ItemStack(ModItems.reagentSwimming), 100, 40, ItemComponent.getStack(ItemComponent.REAGENT_WATER), Items.PRISMARINE_SHARD, Items.GLASS_BOTTLE, Items.FISH);
-        addForgeRecipe(new ItemStack(ModItems.reagentEnder), 2200, 800, ItemComponent.getStack(ItemComponent.REAGENT_TELEPOSITION), Items.ENDER_EYE, Blocks.ENDER_CHEST, Items.END_CRYSTAL);
-//        addForgeRecipe(new ItemStack(ModItems.sigilAugmentedHolding), 2000, 600, ItemComponent.getStack(ItemComponent.REAGENT_HOLDING), getBMItem(Constants.BloodMagicItem.SIGIL_HOLDING), new ItemStack(Blocks.CHEST, 8), "leather");
-        TartaricForgeRecipeRegistry.registerRecipe(new TartaricForgeSigilHoldingRecipe(new ItemStack(ModItems.sigilAugmentedHolding), 2000, 600, ItemComponent.getStack(ItemComponent.REAGENT_HOLDING), new ItemStack(getBMItem(Constants.BloodMagicItem.SIGIL_HOLDING)), new ItemStack(Blocks.CHEST, 8), "leather"));
-        addForgeRecipe(new ItemStack(ModItems.reagentDivinity), 16384, 16384, new ItemStack(ModItems.reagentLightning, 32), new ItemStack(getBMBlock(Constants.BloodMagicBlock.CRYSTAL), 8), new ItemStack(Items.GOLDEN_APPLE, 4, 1), new ItemStack(Items.NETHER_STAR, 16));
+        addForgeRecipe(new ItemStack(ModItems.INERT_BLOOD_INFUSED_IRON_INGOT), 256, 32, Items.IRON_INGOT, ModItems.BLOOD_INFUSED_GLOWSTONE_DUST, ItemComponent.getStack(ItemComponent.REAGENT_BINDING), UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BloodMagicAPI.getLifeEssence()));
+        addForgeRecipe(new ItemStack(ModItems.REAGENT_SWIMMING), 100, 40, ItemComponent.getStack(ItemComponent.REAGENT_WATER), Items.PRISMARINE_SHARD, Items.GLASS_BOTTLE, Items.FISH);
+        addForgeRecipe(new ItemStack(ModItems.REAGENT_ENDER), 2200, 800, ItemComponent.getStack(ItemComponent.REAGENT_TELEPOSITION), Items.ENDER_EYE, Blocks.ENDER_CHEST, Items.END_CRYSTAL);
+//        addForgeRecipe(new ItemStack(ModItems.SIGIL_AUGMENTED_HOLDING), 2000, 600, ItemComponent.getStack(ItemComponent.REAGENT_HOLDING), getBMItem(Constants.BloodMagicItem.SIGIL_HOLDING), new ItemStack(Blocks.CHEST, 8), "leather");
+        addForgeRecipe(new ItemStack(ModItems.SIGIL_AUGMENTED_HOLDING), 2000, 600, ItemComponent.getStack(ItemComponent.REAGENT_HOLDING), new ItemStack(getBMItem(Constants.BloodMagicItem.SIGIL_HOLDING)), new ItemStack(Blocks.CHEST, 8), "leather");
+        addForgeRecipe(new ItemStack(ModItems.REAGENT_DIVINITY), 16384, 16384, new ItemStack(ModItems.REAGENT_LIGHTNING, 32), new ItemStack(getBMBlock(Constants.BloodMagicBlock.CRYSTAL), 8), new ItemStack(Items.GOLDEN_APPLE, 4, 1), new ItemStack(Items.NETHER_STAR, 16));
     }
 
     public static void addAlchemyArrayRecipes()
     {
-        AlchemyArrayRecipeRegistry.registerCraftingRecipe(new ItemStack(ModItems.reagentSwimming), new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1), new ItemStack(ModItems.sigilSwimming));
-        AlchemyArrayRecipeRegistry.registerCraftingRecipe(new ItemStack(ModItems.reagentEnder), new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 3), new ItemStack(ModItems.sigilEnder));
-        AlchemyArrayRecipeRegistry.registerCraftingRecipe(new ItemStack(ModItems.reagentLightning), new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 3), new ItemStack(ModItems.sigilLightning));
-        AlchemyArrayRecipeRegistry.registerCraftingRecipe(new ItemStack(ModItems.reagentDivinity), new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 4), new ItemStack(ModItems.sigilDivinity));
+        AlchemyArrayRecipeRegistry.registerCraftingRecipe(new ItemStack(ModItems.REAGENT_SWIMMING), new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1), new ItemStack(ModItems.SIGIL_SWIMMING));
+        AlchemyArrayRecipeRegistry.registerCraftingRecipe(new ItemStack(ModItems.REAGENT_ENDER), new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 3), new ItemStack(ModItems.SIGIL_ENDER));
+        AlchemyArrayRecipeRegistry.registerCraftingRecipe(new ItemStack(ModItems.REAGENT_LIGHTNING), new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 3), new ItemStack(ModItems.SIGIL_LIGHTNING));
+        AlchemyArrayRecipeRegistry.registerCraftingRecipe(new ItemStack(ModItems.REAGENT_DIVINITY), new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 4), new ItemStack(ModItems.SIGIL_DIVINITY));
     }
 
     public static void addOreDictRecipe(ItemStack output, Object... recipe)

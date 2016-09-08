@@ -73,7 +73,7 @@ public class BlockGlassShard extends Block implements IVariantProvider
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
     {
         List<ItemStack> list = new ArrayList<>();
-        list.add(new ItemStack(ModItems.glassShard, RANDOM.nextInt(6)));
+        list.add(new ItemStack(ModItems.GLASS_SHARD, RANDOM.nextInt(6)));
 
         return list;
     }

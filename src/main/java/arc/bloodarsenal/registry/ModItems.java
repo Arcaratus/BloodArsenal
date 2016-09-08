@@ -22,98 +22,92 @@ import org.apache.commons.lang3.text.WordUtils;
 
 public class ModItems
 {
-    public static Item glassShard;
-    public static Item bloodInfusedStick;
-    public static Item bloodBurnedString;
-    public static Item bloodOrange;
-    public static Item bloodInfusedWoodenPickaxe;
-    public static Item bloodInfusedWoodenAxe;
-    public static Item bloodInfusedWoodenShovel;
-    public static Item bloodInfusedWoodenSword;
-    public static Item bloodInfusedGlowstoneDust;
-    public static Item inertBloodInfusedIronIngot;
-    public static Item bloodInfusedIronIngot;
-    public static Item bloodInfusedIronPickaxe;
-    public static Item bloodInfusedIronAxe;
-    public static Item bloodInfusedIronShovel;
-    public static Item bloodInfusedIronSword;
-    public static Item glassSacrificialDagger;
-    public static Item glassDaggerOfSacrifice;
-    public static Item bloodInfusedShield;
+    public static final Item GLASS_SHARD;
+    public static final Item BLOOD_INFUSED_STICK;
+    public static final Item BLOOD_BURNED_STRING;
+    public static final Item BLOOD_ORANGE;
+    public static final Item BLOOD_INFUSED_WOODEN_PICKAXE;
+    public static final Item BLOOD_INFUSED_WOODEN_AXE;
+    public static final Item BLOOD_INFUSED_WOODEN_SHOVEL;
+    public static final Item BLOOD_INFUSED_WOODEN_SWORD;
+    public static final Item BLOOD_INFUSED_GLOWSTONE_DUST;
+    public static final Item INERT_BLOOD_INFUSED_IRON_INGOT;
+    public static final Item BLOOD_INFUSED_IRON_INGOT;
+    public static final Item BLOOD_INFUSED_IRON_PICKAXE;
+    public static final Item BLOOD_INFUSED_IRON_AXE;
+    public static final Item BLOOD_INFUSED_IRON_SHOVEL;
+    public static final Item BLOOD_INFUSED_IRON_SWORD;
+    public static final Item GLASS_SACRIFICIAL_DAGGER;
+    public static final Item GLASS_DAGGER_OF_SACRIFICE;
 
-    public static Item gemSacrifice;
-    public static Item gemSelfSacrifice;
-    public static Item gemTartaric;
+    public static final Item GEM_SACRIFICE;
+    public static final Item GEM_SELF_SACRIFICE;
+    public static final Item GEM_TARTARIC;
 
-    public static Item sigilSwimming;
-    public static Item sigilEnder;
-    public static Item sigilAugmentedHolding;
-    public static Item sigilLightning;
-    public static Item sigilDivinity;
+    public static final Item SIGIL_SWIMMING;
+    public static final Item SIGIL_ENDER;
+    public static final Item SIGIL_AUGMENTED_HOLDING;
+    public static final Item SIGIL_LIGHTNING;
+    public static final Item SIGIL_DIVINITY;
+    public static final Item SIGIL_SENTIENCE;
 
-    public static Item reagentSwimming;
-    public static Item reagentEnder;
-    public static Item reagentLightning;
-    public static Item reagentDivinity;
+    public static final Item REAGENT_SWIMMING;
+    public static final Item REAGENT_ENDER;
+    public static final Item REAGENT_LIGHTNING;
+    public static final Item REAGENT_DIVINITY;
 
-    public static Item sacrificeAmulet;
-    public static Item selfSacrificeAmulet;
-    public static Item soulPendant;
+    public static final Item.ToolMaterial BLOOD_INFUSED_WOOD = EnumHelper.addToolMaterial("BloodInfusedWoodMaterial", 1, 186, 5.5F, 1.0F, 13);
+    public static final Item.ToolMaterial BLOOD_INFUSED_IRON = EnumHelper.addToolMaterial("BloodInfusedIronMaterial", 3, 954, 7.25F, 2.7F, 21);
 
-    public static Item.ToolMaterial bloodInfusedWoodMaterial = EnumHelper.addToolMaterial("BloodInfusedWoodMaterial", 1, 186, 5.5F, 1.0F, 13);
-    public static Item.ToolMaterial bloodInfusedIronMaterial = EnumHelper.addToolMaterial("BloodInfusedIronMaterial", 3, 954, 7.25F, 2.7F, 21);
-
-    public static void init()
+    static
     {
-        glassShard = registerItemUniquely(new ItemBloodArsenalBase("glassShard"));
-        bloodInfusedStick = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedStick"));
-        bloodBurnedString = registerItemUniquely(new ItemBlockSpecialBloodArsenal("bloodBurnedString", ModBlocks.bloodBurnedString));
-        bloodOrange = registerItem(new ItemBloodOrange("bloodOrange"));
-        bloodInfusedWoodenPickaxe = registerItem(new ItemBloodInfusedWoodenPickaxe());
-        bloodInfusedWoodenAxe = registerItem(new ItemBloodInfusedWoodenAxe());
-        bloodInfusedWoodenShovel = registerItem(new ItemBloodInfusedWoodenShovel());
-        bloodInfusedWoodenSword = registerItem(new ItemBloodInfusedWoodenSword());
-        bloodInfusedGlowstoneDust = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedGlowstoneDust"));
-        inertBloodInfusedIronIngot = registerItemUniquely(new ItemBloodArsenalBase("inertBloodInfusedIronIngot"));
-        bloodInfusedIronIngot = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedIronIngot"));
-        bloodInfusedIronPickaxe = registerItem(new ItemBloodInfusedIronPickaxe());
-        bloodInfusedIronAxe = registerItem(new ItemBloodInfusedIronAxe());
-        bloodInfusedIronShovel = registerItem(new ItemBloodInfusedIronShovel());
-        bloodInfusedIronSword = registerItem(new ItemBloodInfusedIronSword());
-        glassSacrificialDagger = registerItem(new ItemGlassSacrificialDagger("glassSacrificialDagger"));
-        glassDaggerOfSacrifice = registerItem(new ItemGlassDaggerOfSacrifice("glassDaggerOfSacrifice"));
-//        bloodInfusedShield = registerItem(new ItemBloodInfusedShield("bloodInfusedShield"));
+        GLASS_SHARD = registerItemUniquely(new ItemBloodArsenalBase("glassShard"));
+        BLOOD_INFUSED_STICK = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedStick"));
+        BLOOD_BURNED_STRING = registerItemUniquely(new ItemBlockSpecialBloodArsenal("bloodBurnedString", ModBlocks.BLOOD_BURNED_STRING));
+        BLOOD_ORANGE = registerItem(new ItemBloodOrange("bloodOrange"));
+        BLOOD_INFUSED_WOODEN_PICKAXE = registerItem(new ItemBloodInfusedWoodenPickaxe());
+        BLOOD_INFUSED_WOODEN_AXE = registerItem(new ItemBloodInfusedWoodenAxe());
+        BLOOD_INFUSED_WOODEN_SHOVEL = registerItem(new ItemBloodInfusedWoodenShovel());
+        BLOOD_INFUSED_WOODEN_SWORD = registerItem(new ItemBloodInfusedWoodenSword());
+        BLOOD_INFUSED_GLOWSTONE_DUST = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedGlowstoneDust"));
+        INERT_BLOOD_INFUSED_IRON_INGOT = registerItemUniquely(new ItemBloodArsenalBase("inertBloodInfusedIronIngot"));
+        BLOOD_INFUSED_IRON_INGOT = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedIronIngot"));
+        BLOOD_INFUSED_IRON_PICKAXE = registerItem(new ItemBloodInfusedIronPickaxe());
+        BLOOD_INFUSED_IRON_AXE = registerItem(new ItemBloodInfusedIronAxe());
+        BLOOD_INFUSED_IRON_SHOVEL = registerItem(new ItemBloodInfusedIronShovel());
+        BLOOD_INFUSED_IRON_SWORD = registerItem(new ItemBloodInfusedIronSword());
+        GLASS_SACRIFICIAL_DAGGER = registerItem(new ItemGlassSacrificialDagger("glassSacrificialDagger"));
+        GLASS_DAGGER_OF_SACRIFICE = registerItem(new ItemGlassDaggerOfSacrifice("glassDaggerOfSacrifice"));
 
-        gemSacrifice = registerItemUniquely(new ItemGem("sacrifice"));
-        gemSelfSacrifice = registerItemUniquely(new ItemGem("selfSacrifice"));
-        gemTartaric = registerItemUniquely(new ItemGem("tartaric"));
+        GEM_SACRIFICE = registerItemUniquely(new ItemGem("sacrifice"));
+        GEM_SELF_SACRIFICE = registerItemUniquely(new ItemGem("selfSacrifice"));
+        GEM_TARTARIC = registerItemUniquely(new ItemGem("tartaric"));
 
-        sigilSwimming = registerItem(new ItemSigilSwimming());
-        sigilEnder = registerItem(new ItemSigilEnder());
-        sigilAugmentedHolding = registerItem(new ItemSigilAugmentedHolding());
-        sigilLightning = registerItem(new ItemSigilLightning());
-        sigilDivinity = registerItem(new ItemSigilDivinity());
+        SIGIL_SWIMMING = registerItem(new ItemSigilSwimming());
+        SIGIL_ENDER = registerItem(new ItemSigilEnder());
+        SIGIL_AUGMENTED_HOLDING = registerItem(new ItemSigilAugmentedHolding());
+        SIGIL_LIGHTNING = registerItem(new ItemSigilLightning());
+        SIGIL_DIVINITY = registerItem(new ItemSigilDivinity());
+        SIGIL_SENTIENCE = registerItem(new ItemSigilSentient());
 
-        reagentSwimming = registerItemUniquely(new ItemBloodArsenalBase("reagentSwimming"));
-        reagentEnder = registerItemUniquely(new ItemBloodArsenalBase("reagentEnder"));
-        reagentLightning = registerItemUniquely(new ItemBloodArsenalBase("reagentLightning"));
-        reagentDivinity = registerItemUniquely(new ItemBloodArsenalBase("reagentDivinity"));
-
-        addOreDictItems();
+        REAGENT_SWIMMING = registerItemUniquely(new ItemBloodArsenalBase("reagentSwimming"));
+        REAGENT_ENDER = registerItemUniquely(new ItemBloodArsenalBase("reagentEnder"));
+        REAGENT_LIGHTNING = registerItemUniquely(new ItemBloodArsenalBase("reagentLightning"));
+        REAGENT_DIVINITY = registerItemUniquely(new ItemBloodArsenalBase("reagentDivinity"));
     }
 
     public static void addOreDictItems()
     {
-        OreDictionary.registerOre("glassShard", glassShard);
+        OreDictionary.registerOre("shardGlass", GLASS_SHARD);
     }
 
     @SideOnly(Side.CLIENT)
     public static void initSpecialRenders()
     {
         final ResourceLocation holdingLoc = new ResourceLocation("bloodarsenal", "item/ItemSigilAugmentedHolding");
-        ModelLoader.setCustomMeshDefinition(sigilAugmentedHolding, stack -> stack.hasTagCompound() && stack.getTagCompound().hasKey(Constants.NBT.COLOR) ? new ModelResourceLocation(holdingLoc, "type=color") : new ModelResourceLocation(holdingLoc, "type=normal"));
-        ModelLoader.registerItemVariants(sigilAugmentedHolding, new ModelResourceLocation(holdingLoc, "type=normal"));
-        ModelLoader.registerItemVariants(sigilAugmentedHolding, new ModelResourceLocation(holdingLoc, "type=color"));
+        ModelLoader.setCustomMeshDefinition(SIGIL_AUGMENTED_HOLDING, stack -> stack.hasTagCompound() && stack.getTagCompound().hasKey(Constants.NBT.COLOR) ? new ModelResourceLocation(holdingLoc, "type=color") : new ModelResourceLocation(holdingLoc, "type=normal"));
+        ModelLoader.registerItemVariants(SIGIL_AUGMENTED_HOLDING, new ModelResourceLocation(holdingLoc, "type=normal"));
+        ModelLoader.registerItemVariants(SIGIL_AUGMENTED_HOLDING, new ModelResourceLocation(holdingLoc, "type=color"));
     }
 
     public static Item registerItem(Item item)

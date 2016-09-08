@@ -73,13 +73,13 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(ModBlocks.bloodInfusedWoodenSlab);
+        return Item.getItemFromBlock(ModBlocks.BLOOD_INFUSED_WOODEN_SLAB);
     }
 
     @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return new ItemStack(ModBlocks.bloodInfusedWoodenSlab);
+        return new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_SLAB);
     }
 
     @Override

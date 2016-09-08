@@ -3,8 +3,8 @@ package arc.bloodarsenal.item.sigil;
 import WayofTime.bloodmagic.api.iface.IAltarReader;
 import WayofTime.bloodmagic.api.iface.IBindable;
 import WayofTime.bloodmagic.api.util.helper.NBTHelper;
-import WayofTime.bloodmagic.client.IKeybindable;
-import WayofTime.bloodmagic.client.KeyBindingBloodMagic;
+import WayofTime.bloodmagic.client.key.IKeybindable;
+import WayofTime.bloodmagic.client.key.KeyBindings;
 import WayofTime.bloodmagic.util.Utils;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
@@ -39,9 +39,9 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
     }
 
     @Override
-    public void onKeyPressed(ItemStack stack, EntityPlayer player, KeyBindingBloodMagic.KeyBindings key, boolean showInChat)
+    public void onKeyPressed(ItemStack stack, EntityPlayer player, KeyBindings key, boolean showInChat)
     {
-        if (stack == player.getHeldItemMainhand() && stack.getItem() instanceof ItemSigilAugmentedHolding && key.equals(KeyBindingBloodMagic.KeyBindings.OPEN_HOLDING))
+        if (stack == player.getHeldItemMainhand() && stack.getItem() instanceof ItemSigilAugmentedHolding && key.equals(KeyBindings.OPEN_HOLDING))
         {
             Utils.setUUID(stack);
             player.openGui(BloodArsenal.INSTANCE, Constants.Gui.SIGIL_AUGMENTED_HOLDING_GUI, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
@@ -70,7 +70,7 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
         super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.sigil.holding.press", KeyBindingBloodMagic.KeyBindings.OPEN_HOLDING.getKey().getDisplayName()));
+        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.sigil.holding.press", KeyBindings.OPEN_HOLDING.getKey().getDisplayName()));
 
         if (!stack.hasTagCompound())
             return;

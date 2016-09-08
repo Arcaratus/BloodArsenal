@@ -41,7 +41,7 @@ public class BlockBloodInfusedGlowstone extends BlockBloodArsenalBase implements
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return ModItems.bloodInfusedGlowstoneDust;
+        return ModItems.BLOOD_INFUSED_GLOWSTONE_DUST;
     }
 
     @Override

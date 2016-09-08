@@ -38,17 +38,17 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound tag)
+    public void deserialize(NBTTagCompound tag)
     {
-        super.readFromNBT(tag);
+        super.deserialize(tag);
         altarPos = new BlockPos(tag.getInteger(Constants.NBT.X_COORD), tag.getInteger(Constants.NBT.Y_COORD), tag.getInteger(Constants.NBT.Z_COORD));
         linkedOrbOwner = tag.getString(Constants.NBT.OWNER_UUID);
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound tag)
+    public NBTTagCompound serialize(NBTTagCompound tag)
     {
-        super.writeToNBT(tag);
+        super.serialize(tag);
         tag.setInteger(Constants.NBT.X_COORD, altarPos.getX());
         tag.setInteger(Constants.NBT.Y_COORD, altarPos.getY());
         tag.setInteger(Constants.NBT.Z_COORD, altarPos.getZ());

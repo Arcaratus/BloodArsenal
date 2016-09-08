@@ -10,7 +10,6 @@ import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.ConfigHandler;
-import arc.bloodarsenal.registry.ModItems;
 import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
@@ -48,7 +47,7 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
     @SubscribeEvent
     public void onEntityHurt(LivingHurtEvent event)
     {
-        if (ModItems.sacrificeAmulet == null || event.getEntity().worldObj.isRemote)
+        if (CompatBaubles.SACRIFICE_AMULET == null || event.getEntity().worldObj.isRemote)
             return;
 
         if (event.getSource().getEntity() instanceof EntityPlayer && !PlayerHelper.isFakePlayer((EntityPlayer) event.getSource().getEntity()))
@@ -104,7 +103,7 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
         if (!stack.hasTagCompound())
             return;
 
-        list.add(TextHelper.localize("tooltip.BloodArsenal.selfSacrificeAmulet.desc"));
+        list.add(TextHelper.localize("tooltip.BloodArsenal.SELF_SACRIFICE_AMULET.desc"));
         list.add(TextHelper.localizeEffect("tooltip.BloodArsenal.stored", getStoredLP(stack)));
 
         super.addInformation(stack, player, list, advanced);

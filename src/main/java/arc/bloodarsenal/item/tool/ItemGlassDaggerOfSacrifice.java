@@ -70,7 +70,7 @@ public class ItemGlassDaggerOfSacrifice extends ItemDaggerOfSacrifice
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean advanced)
     {
-        list.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.BloodArsenal.glassDaggerOfSacrifice.desc"))));
+        list.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.BloodArsenal.GLASS_DAGGER_OF_SACRIFICE.desc"))));
     }
 
     @Override

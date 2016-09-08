@@ -12,44 +12,41 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModBlocks
 {
-    public static Block slate;
-    public static Block bloodInfusedWoodenLog;
-    public static Block bloodInfusedWoodenPlanks;
-    public static Block bloodInfusedWoodenStairs;
-    public static Block bloodInfusedWoodenDoubleSlab;
-    public static Block bloodInfusedWoodenSlab;
-    public static Block bloodInfusedWoodenFence;
-    public static Block bloodInfusedWoodenFenceGate;
-    public static Block bloodStainedGlass;
-    public static Block bloodStainedGlassPane;
-    public static Block bloodTorch;
-    public static Block bloodInfusedIronBlock;
-    public static Block bloodInfusedGlowstone;
-    public static Block glassShardBlock;
-    public static Block bloodBurnedString;
-    public static Block altareAenigmatica;
+    public static final Block SLATE;
+    public static final Block BLOOD_INFUSED_WOODEN_LOG;
+    public static final Block BLOOD_INFUSED_WOODEN_PLANKS;
+    public static final Block BLOOD_INFUSED_WOODEN_STAIRS;
+    public static final Block BLOOD_INFUSED_WOODEN_DOUBLE_SLAB;
+    public static final Block BLOOD_INFUSED_WOODEN_SLAB;
+    public static final Block BLOOD_INFUSED_WOODEN_FENCE;
+    public static final Block BLOOD_INFUSED_WOODEN_FENCE_GATE;
+    public static final Block BLOOD_STAINED_GLASS;
+    public static final Block BLOOD_STAINED_GLASS_PANE;
+    public static final Block BLOOD_TORCH;
+    public static final Block BLOOD_INFUSED_IRON_BLOCK;
+    public static final Block BLOOD_INFUSED_GLOWSTONE;
+    public static final Block GLASS_SHARD_BLOCK;
+    public static final Block BLOOD_BURNED_STRING;
+    public static final Block ALTARE_AENIGMATICA;
 
-    public static void init()
+    static
     {
-        slate = registerBlock(new ItemBlockSlate(new BlockSlate("slate")));
-        bloodInfusedWoodenLog = registerBlock(new BlockBloodInfusedWoodenLog("bloodInfusedWoodenLog"));
-        bloodInfusedWoodenPlanks = registerBlock(new BlockBloodInfusedWoodenPlanks("bloodInfusedWoodenPlanks"));
-        bloodInfusedWoodenStairs = registerBlock(new BlockBloodInfusedWoodenStairs("bloodInfusedWoodenStairs", bloodInfusedWoodenPlanks));
-        bloodInfusedWoodenDoubleSlab = registerBlock(new BlockBloodInfusedWoodenSlab.BlockBloodInfusedWoodenDoubleSlab().setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedWoodenDoubleSlab").setCreativeTab(null));
-        bloodInfusedWoodenSlab = new BlockBloodInfusedWoodenSlab.BlockBloodInfusedWoodenHalfSlab().setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedWoodenHalfSlab");
-        bloodInfusedWoodenSlab = registerBlock(new ItemBlockBloodInfusedWoodenSlab("bloodInfusedWoodenSlab"));
-        bloodInfusedWoodenFence = registerBlock(new BlockBloodInfusedWoodenFence("bloodInfusedWoodenFence"));
-        bloodInfusedWoodenFenceGate = registerBlock(new BlockBloodInfusedWoodenFenceGate("bloodInfusedWoodenFenceGate"));
-        bloodStainedGlass = registerBlock(new BlockBloodStainedGlass("bloodStainedGlass"));
-        bloodStainedGlassPane = registerBlock(new BlockBloodStainedGlassPane("bloodStainedGlassPane"));
-        bloodTorch = registerBlock(new BlockBloodTorch("bloodTorch"));
-        bloodInfusedIronBlock = registerBlock(new BlockBloodInfusedIron("bloodInfusedIronBlock"));
-        bloodInfusedGlowstone = registerBlock(new BlockBloodInfusedGlowstone("bloodInfusedGlowstone"));
-        glassShardBlock = registerBlock(new BlockGlassShard("glassShardBlock"));
-        bloodBurnedString = registerBlock(new BlockBloodBurnedString("bloodBurnedString"));
-        altareAenigmatica = registerBlock(new BlockAltareAenigmatica("altareAenigmatica"));
-
-        initTiles();
+        SLATE = registerBlock(new ItemBlockSlate(new BlockSlate("slate")));
+        BLOOD_INFUSED_WOODEN_LOG = registerBlock(new BlockBloodInfusedWoodenLog("bloodInfusedWoodenLog"));
+        BLOOD_INFUSED_WOODEN_PLANKS = registerBlock(new BlockBloodInfusedWoodenPlanks("bloodInfusedWoodenPlanks"));
+        BLOOD_INFUSED_WOODEN_STAIRS = registerBlock(new BlockBloodInfusedWoodenStairs("bloodInfusedWoodenStairs", BLOOD_INFUSED_WOODEN_PLANKS));
+        BLOOD_INFUSED_WOODEN_DOUBLE_SLAB = registerBlock(new BlockBloodInfusedWoodenSlab.BlockBloodInfusedWoodenDoubleSlab().setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfusedWoodenDoubleSlab"));
+        BLOOD_INFUSED_WOODEN_SLAB = registerBlock(new ItemBlockBloodInfusedWoodenSlab("bloodInfusedWoodenSlab"));
+        BLOOD_INFUSED_WOODEN_FENCE = registerBlock(new BlockBloodInfusedWoodenFence("bloodInfusedWoodenFence"));
+        BLOOD_INFUSED_WOODEN_FENCE_GATE = registerBlock(new BlockBloodInfusedWoodenFenceGate("bloodInfusedWoodenFenceGate"));
+        BLOOD_STAINED_GLASS = registerBlock(new BlockBloodStainedGlass("bloodStainedGlass"));
+        BLOOD_STAINED_GLASS_PANE = registerBlock(new BlockBloodStainedGlassPane("bloodStainedGlassPane"));
+        BLOOD_TORCH = registerBlock(new BlockBloodTorch("bloodTorch"));
+        BLOOD_INFUSED_IRON_BLOCK = registerBlock(new BlockBloodInfusedIron("bloodInfusedIronBlock"));
+        BLOOD_INFUSED_GLOWSTONE = registerBlock(new BlockBloodInfusedGlowstone("bloodInfusedGlowstone"));
+        GLASS_SHARD_BLOCK = registerBlock(new BlockGlassShard("glassShardBlock"));
+        BLOOD_BURNED_STRING = registerBlock(new BlockBloodBurnedString("bloodBurnedString"));
+        ALTARE_AENIGMATICA = registerBlock(new BlockAltareAenigmatica("altareAenigmatica"));
     }
 
     public static void initTiles()

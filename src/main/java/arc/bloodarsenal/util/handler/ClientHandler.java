@@ -50,5 +50,8 @@ public class ClientHandler
 
         ItemSigilAugmentedHolding.cycleToNextSigil(stack, mode);
         BloodArsenalPacketHandler.INSTANCE.sendToServer(new SigilAugmentedHoldingPacketProcessor(player.inventory.currentItem, mode));
+        ItemStack newStack = ItemSigilAugmentedHolding.getItemStackInSlot(stack, ItemSigilAugmentedHolding.getCurrentItemOrdinal(stack));
+        if (newStack != null)
+            Minecraft.getMinecraft().ingameGUI.setRecordPlaying(newStack.getDisplayName(), false);
     }
 }

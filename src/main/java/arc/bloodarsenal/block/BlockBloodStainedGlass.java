@@ -44,7 +44,7 @@ public class BlockBloodStainedGlass extends BlockBreakable implements IVariantPr
         IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
         Block block = iblockstate.getBlock();
 
-        if (this == ModBlocks.bloodStainedGlass)
+        if (this == ModBlocks.BLOOD_STAINED_GLASS)
         {
             if (blockState != iblockstate)
             {
