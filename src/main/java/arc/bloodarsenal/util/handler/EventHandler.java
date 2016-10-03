@@ -4,12 +4,11 @@ import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.item.ItemComponent;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
+import arc.bloodarsenal.item.tool.ItemFalseSwipeStick;
 import arc.bloodarsenal.registry.ModItems;
 import arc.bloodarsenal.util.DamageSourceBleeding;
 import arc.bloodarsenal.util.DamageSourceGlass;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -57,9 +56,7 @@ public class EventHandler
     @SubscribeEvent
     public void onLivingDrops(LivingDropsEvent event)
     {
-        EntityLivingBase attackedEntity = event.getEntityLiving();
         DamageSource source = event.getSource();
-        Entity entity = source.getEntity();
         Random random = new Random();
 
         if (source instanceof DamageSourceGlass || source instanceof DamageSourceBleeding)
@@ -72,10 +69,10 @@ public class EventHandler
 
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onHurt(LivingHurtEvent event)
     {
-        if (event.getEntity().worldObj.isRemote || ModItems.BLOOD_INFUSED_STICK == null || event.getSource().getEntity() == event.getEntity())
+        if (event.getEntity().worldObj.isRemote ||  event.getSource().getEntity() == event.getEntity())
             return;
 
         if (event.getSource().getEntity() instanceof EntityPlayer && !PlayerHelper.isFakePlayer((EntityPlayer) event.getSource().getEntity()))
@@ -86,6 +83,17 @@ public class EventHandler
             {
                 event.getEntity().worldObj.addWeatherEffect(new EntityLightningBolt(event.getEntity().worldObj, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, false));
                 event.getEntityLiving().setHealth(0);
+            }
+
+            if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ItemFalseSwipeStick)
+            {
+                float wouldBeHealth = event.getEntityLiving().getHealth() - event.getAmount();
+
+                if (wouldBeHealth <= 0)
+                {
+                    event.getEntityLiving().setHealth(1);
+                    event.setCanceled(true);
+                }
             }
         }
     }

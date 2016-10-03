@@ -1,4 +1,14 @@
 ------------------------------------------------------
+Version 2.0.1-13
+------------------------------------------------------
+- Updated to the latest Blood Magic
+- Culled unused files
+- Fixed some bugs with crashes
+- Added the Sigil of Sentience
+- Added the False Swipe Stick
+- Fixed around with the Blood Burned String
+
+------------------------------------------------------
 Version 2.0.1-12
 ------------------------------------------------------
 - Fixed some minor bugs

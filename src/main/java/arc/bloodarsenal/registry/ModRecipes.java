@@ -81,6 +81,7 @@ public class ModRecipes
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.GEM_SELF_SACRIFICE), "aba", "cdc", "aea", 'a', "dustGlowstone", 'b', getBMItem(Constants.BloodMagicItem.SACRIFICIAL_DAGGER), 'c', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.GEM_TARTARIC), "aba", "cdc", "efg", 'a', getBMItem(Constants.BloodMagicItem.SOUL_GEM), 'b', "ingotGold", 'c', "blockGlass", 'd', "gemDiamond", 'e', "blockRedstone", 'f', weakOrb, 'g', "blockLapis");
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.ALTARE_AENIGMATICA), "aba", "cdc", "efe", 'a', getBMItem(Constants.BloodMagicItem.BLOOD_SHARD), 'b', "gemEmerald", 'c', getBMBlock(Constants.BloodMagicBlock.INPUT_ROUTING_NODE), 'd', ItemComponent.getStack(ItemComponent.REAGENT_SIGHT), 'e', ModBlocks.BLOOD_INFUSED_IRON_BLOCK, 'f', masterOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.FALSE_SWIPE_STICK), "aba", "cdc", "efe", 'a', "stone", 'b', UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BloodMagicAPI.getLifeEssence()), 'c', ModItems.BLOOD_INFUSED_WOODEN_SWORD, 'd', ModItems.BLOOD_INFUSED_STICK, 'e', ModItems.BLOOD_INFUSED_GLOWSTONE_DUST, 'f', magicianOrb);
 
         //TODO IS TEMPORARY BUT WILL BE IMPLEMENTED FOR THOSE WHO WANT ACCESS TO TIER 6
         if (ConfigHandler.crystalClusterEnabled)
@@ -131,6 +132,8 @@ public class ModRecipes
 //        addForgeRecipe(new ItemStack(ModItems.SIGIL_AUGMENTED_HOLDING), 2000, 600, ItemComponent.getStack(ItemComponent.REAGENT_HOLDING), getBMItem(Constants.BloodMagicItem.SIGIL_HOLDING), new ItemStack(Blocks.CHEST, 8), "leather");
         addForgeRecipe(new ItemStack(ModItems.SIGIL_AUGMENTED_HOLDING), 2000, 600, ItemComponent.getStack(ItemComponent.REAGENT_HOLDING), new ItemStack(getBMItem(Constants.BloodMagicItem.SIGIL_HOLDING)), new ItemStack(Blocks.CHEST, 8), "leather");
         addForgeRecipe(new ItemStack(ModItems.REAGENT_DIVINITY), 16384, 16384, new ItemStack(ModItems.REAGENT_LIGHTNING, 32), new ItemStack(getBMBlock(Constants.BloodMagicBlock.CRYSTAL), 8), new ItemStack(Items.GOLDEN_APPLE, 4, 1), new ItemStack(Items.NETHER_STAR, 16));
+
+        addForgeRecipe(new ItemStack(ModItems.SIGIL_SENTIENCE), 8192, 4096, new ItemStack(getBMItem(Constants.BloodMagicItem.SOUL_GEM), 1, 3), getBMItem(Constants.BloodMagicItem.SIGIL_BLOOD_LIGHT), ModItems.GEM_TARTARIC, getBMItem(Constants.BloodMagicItem.SIGIL_AIR));
     }
 
     public static void addAlchemyArrayRecipes()

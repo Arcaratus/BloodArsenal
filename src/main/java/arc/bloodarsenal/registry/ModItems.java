@@ -26,6 +26,8 @@ public class ModItems
     public static final Item BLOOD_INFUSED_STICK;
     public static final Item BLOOD_BURNED_STRING;
     public static final Item BLOOD_ORANGE;
+    public static final Item FALSE_SWIPE_STICK;
+
     public static final Item BLOOD_INFUSED_WOODEN_PICKAXE;
     public static final Item BLOOD_INFUSED_WOODEN_AXE;
     public static final Item BLOOD_INFUSED_WOODEN_SHOVEL;
@@ -37,6 +39,7 @@ public class ModItems
     public static final Item BLOOD_INFUSED_IRON_AXE;
     public static final Item BLOOD_INFUSED_IRON_SHOVEL;
     public static final Item BLOOD_INFUSED_IRON_SWORD;
+
     public static final Item GLASS_SACRIFICIAL_DAGGER;
     public static final Item GLASS_DAGGER_OF_SACRIFICE;
 
@@ -65,6 +68,8 @@ public class ModItems
         BLOOD_INFUSED_STICK = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedStick"));
         BLOOD_BURNED_STRING = registerItemUniquely(new ItemBlockSpecialBloodArsenal("bloodBurnedString", ModBlocks.BLOOD_BURNED_STRING));
         BLOOD_ORANGE = registerItem(new ItemBloodOrange("bloodOrange"));
+        FALSE_SWIPE_STICK = registerItem(new ItemFalseSwipeStick("falseSwipeStick"));
+
         BLOOD_INFUSED_WOODEN_PICKAXE = registerItem(new ItemBloodInfusedWoodenPickaxe());
         BLOOD_INFUSED_WOODEN_AXE = registerItem(new ItemBloodInfusedWoodenAxe());
         BLOOD_INFUSED_WOODEN_SHOVEL = registerItem(new ItemBloodInfusedWoodenShovel());
@@ -76,6 +81,7 @@ public class ModItems
         BLOOD_INFUSED_IRON_AXE = registerItem(new ItemBloodInfusedIronAxe());
         BLOOD_INFUSED_IRON_SHOVEL = registerItem(new ItemBloodInfusedIronShovel());
         BLOOD_INFUSED_IRON_SWORD = registerItem(new ItemBloodInfusedIronSword());
+
         GLASS_SACRIFICIAL_DAGGER = registerItem(new ItemGlassSacrificialDagger("glassSacrificialDagger"));
         GLASS_DAGGER_OF_SACRIFICE = registerItem(new ItemGlassDaggerOfSacrifice("glassDaggerOfSacrifice"));
 
@@ -88,7 +94,7 @@ public class ModItems
         SIGIL_AUGMENTED_HOLDING = registerItem(new ItemSigilAugmentedHolding());
         SIGIL_LIGHTNING = registerItem(new ItemSigilLightning());
         SIGIL_DIVINITY = registerItem(new ItemSigilDivinity());
-        SIGIL_SENTIENCE = registerItem(new ItemSigilSentient());
+        SIGIL_SENTIENCE = registerItem(new ItemSigilSentience());
 
         REAGENT_SWIMMING = registerItemUniquely(new ItemBloodArsenalBase("reagentSwimming"));
         REAGENT_ENDER = registerItemUniquely(new ItemBloodArsenalBase("reagentEnder"));

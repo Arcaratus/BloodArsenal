@@ -102,7 +102,9 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
                 this.updateState(worldIn, pos);
             }
 
-            entityIn.setFire(1);
+            Random rand = new Random();
+            if (rand.nextBoolean() && rand.nextInt(1000) == 4)
+                entityIn.setFire(3);
         }
     }
 

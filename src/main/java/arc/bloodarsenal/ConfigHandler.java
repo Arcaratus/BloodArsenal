@@ -31,6 +31,7 @@ public class ConfigHandler
     public static int sigilEnderTeleportMultiplier;
     public static int sigilLightningMultiplier;
     public static int sigilDivinityCost;
+    public static int sigilSentienceBaseCost;
 
     // Mod configs
     public static boolean baublesEnabled;
@@ -53,6 +54,9 @@ public class ConfigHandler
 
     public static void syncConfig()
     {
+        final int ONE_K = 1000;
+        final int TEN_K = 10000;
+
         String category;
 
         category = "Item/Block Blacklisting";
@@ -72,15 +76,16 @@ public class ConfigHandler
         glassSacrificialDaggerLP = config.getInt("glassSacrificialDaggerLP", category, 500, 0, Integer.MAX_VALUE, "Set the amount that the Glass Sacrificial Dagger gives per use");
         glassSacrificialDaggerHealth = config.getInt("glassSacrificialDaggerHealth", category, 2, 1, Integer.MAX_VALUE, "Set the amount of health the Glass Sacrificial Dagger takes per use");
         glassDaggerOfSacrificeLPMultiplier = config.getInt("glassDaggerOfSacrificeLPMultiplier", category, 2, 1, 100, "Set the amount of LP that the Glass Dagger of Sacrifice grants (multiply by the standard Dagger of Sacrifice)");
-        bloodInfusedWoodenToolsRepairUpdate = config.getInt("bloodInfusedWoodenToolsRepairUpdate", category, 80, 0, 1000, "Set the amount of ticks at which Blood Infused Wooden Tools repair at");
-        bloodInfusedWoodenToolsRepairCost = config.getInt("bloodInfusedWoodenToolsRepairCost", category, 20, 0, 1000, "Set the LP cost of which Blood Infused Wooden Tools repair at");
-        bloodInfusedIronToolsRepairUpdate = config.getInt("bloodInfusedIronToolsRepairUpdate", category, 40, 0, 1000, "Set the amount of ticks at which Blood Infused Iron Tools repair at");
-        bloodInfusedIronToolsRepairCost = config.getInt("bloodInfusedIronToolsRepairCost", category, 50, 0, 1000, "Set the LP cost of which Blood Infused Iron Tools repair at");
-        sigilSwimmingCost = config.getInt("sigilSwimmingCost", category, 100, 0, 10000, "Set the LP cost of the Sigil of Swimming");
-        sigilEnderOpenCost = config.getInt("sigilEnderCost", category, 500, 0, 10000, "Set the LP cost of opening your Ender Chest with the Ender Sigil");
-        sigilEnderTeleportMultiplier = config.getInt("sigilEnderTeleportMultiplier", category, 200, 0, 10000, "Set the multiplier of the cost of using the Ender Sigil to teleport");
-        sigilLightningMultiplier = config.getInt("sigilLightningMultiplier", category, 800, 0, 10000, "Set the multiplier per lighting bolt for the Lightning Sigil");
-        sigilDivinityCost = config.getInt("sigilDivinityCost", category, 100000, 0, Integer.MAX_VALUE, "Set the LP cost for the Sigil of Divinity");
+        bloodInfusedWoodenToolsRepairUpdate = config.getInt("bloodInfusedWoodenToolsRepairUpdate", category, 80, 0, ONE_K, "Set the amount of ticks at which Blood Infused Wooden Tools repair at");
+        bloodInfusedWoodenToolsRepairCost = config.getInt("bloodInfusedWoodenToolsRepairCost", category, 20, 0, ONE_K, "Set the LP cost of which Blood Infused Wooden Tools repair at");
+        bloodInfusedIronToolsRepairUpdate = config.getInt("bloodInfusedIronToolsRepairUpdate", category, 40, 0, ONE_K, "Set the amount of ticks at which Blood Infused Iron Tools repair at");
+        bloodInfusedIronToolsRepairCost = config.getInt("bloodInfusedIronToolsRepairCost", category, 50, 0, ONE_K, "Set the LP cost of which Blood Infused Iron Tools repair at");
+        sigilSwimmingCost = config.getInt("sigilSwimmingCost", category, 100, 0, TEN_K, "Set the LP cost of the Sigil of Swimming");
+        sigilEnderOpenCost = config.getInt("sigilEnderCost", category, 500, 0, TEN_K, "Set the LP cost of opening your Ender Chest with the Ender Sigil");
+        sigilEnderTeleportMultiplier = config.getInt("sigilEnderTeleportMultiplier", category, 200, 0, TEN_K, "Set the multiplier of the cost of using the Ender Sigil to teleport");
+        sigilLightningMultiplier = config.getInt("sigilLightningMultiplier", category, 800, 0, TEN_K, "Set the multiplier per lighting bolt for the Lightning Sigil");
+        sigilDivinityCost = config.getInt("sigilDivinityCost", category, TEN_K * 10, 0, Integer.MAX_VALUE, "Set the LP cost for the Sigil of Divinity");
+        sigilSentienceBaseCost = config.getInt("sigilSentienceBaseCost", category, ONE_K, 0, TEN_K, "Set the base LP cost when the Sigil of Sentience is used");
 
         category = "Mod Configs";
         config.addCustomCategoryComment(category, "Mod interaction configs");

@@ -18,6 +18,8 @@ import javax.annotation.Nullable;
 
 public class HUDElementAugmentedHolding extends HUDElement
 {
+    private final ResourceLocation texture = new ResourceLocation(BloodArsenal.MOD_ID, "textures/gui/widgets.png");
+
     public HUDElementAugmentedHolding()
     {
         super(0, 0, RenderGameOverlayEvent.ElementType.HOTBAR);
@@ -39,7 +41,7 @@ public class HUDElementAugmentedHolding extends HUDElement
 
         Gui ingameGui = minecraft.ingameGUI;
 
-        minecraft.getTextureManager().bindTexture(new ResourceLocation(BloodArsenal.MOD_ID, "textures/gui/widgets.png"));
+        minecraft.getTextureManager().bindTexture(texture);
         GlStateManager.color(1.0F, 1.0F, 1.0F);
         ingameGui.drawTexturedModalRect(resolution.getScaledWidth() / 2 + 100 + getXOffset(), resolution.getScaledHeight() - 22 + getYOffset(), 0, 0, 180, 22);
         int currentSlot = ItemSigilAugmentedHolding.getCurrentItemOrdinal(sigilHolding);

@@ -6,6 +6,11 @@ public class Constants
     {
         public static final String LEVEL = "Level";
         public static final String LINKED_ORB_IN_ALTAR = "linkedOrbInAltar";
+
+        public static final String PROJECTILE_TICKS_IN_AIR = "projectileTicksInAir";
+        public static final String PROJECTILE_MAX_TICKS_IN_AIR = "projectileMaxTicksInAir";
+
+        public static final String DELAY = "delay";
     }
 
     public static class Item

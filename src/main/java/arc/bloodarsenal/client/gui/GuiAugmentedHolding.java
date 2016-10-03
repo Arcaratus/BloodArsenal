@@ -16,6 +16,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiAugmentedHolding extends GuiContainer
 {
+    private final ResourceLocation texture = new ResourceLocation(BloodArsenal.MOD_ID, "textures/gui/SigilAugmentedHolding.png");
+
     private EntityPlayer player;
 
     public GuiAugmentedHolding(EntityPlayer player, InventoryAugmentedHolding inventoryHolding)
@@ -38,7 +40,6 @@ public class GuiAugmentedHolding extends GuiContainer
     {
         //draw your Gui here, only thing you need to change is the path
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        ResourceLocation texture = new ResourceLocation(BloodArsenal.MOD_ID, "textures/gui/SigilAugmentedHolding.png");
         this.mc.getTextureManager().bindTexture(texture);
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;

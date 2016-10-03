@@ -9,6 +9,7 @@ item.BloodArsenal.bloodInfusedGlowstoneDust.name=Blood Infused Glowstone Dust
 item.BloodArsenal.inertBloodInfusedIronIngot.name=Inert Blood-Iron Ingot
 item.BloodArsenal.bloodInfusedIronIngot.name=Blood Infused Iron Ingot
 item.BloodArsenal.bloodOrange.name=Blood Orange
+item.BloodArsenal.falseSwipeStick.name=False Swipe Stick
 
 item.BloodArsenal.bloodInfusedWooden.pickaxe.name=Blood Infused Wooden Pickaxe
 item.BloodArsenal.bloodInfusedWooden.axe.name=Blood Infused Wooden Axe
@@ -33,7 +34,7 @@ item.BloodArsenal.sigil.ender.name=Ender Sigil
 item.BloodArsenal.sigil.augmentedHolding.name=Sigil of Augmented Holding
 item.BloodArsenal.sigil.lightning.name=Lightning Sigil
 item.BloodArsenal.sigil.divinity.name=Sigil of Divinity
-item.BloodArsenal.sigil.sentient.name=Sigil of Sentience
+item.BloodArsenal.sigil.sentience.name=Sigil of Sentience
 
 item.BloodArsenal.gemSacrifice.name=Gem of Sacrifice
 item.BloodArsenal.gemSelfSacrifice.name=Gem of Self Sacrifice
@@ -69,6 +70,9 @@ tile.BloodArsenal.glassShardBlock.name=Glass Shards
 tile.BloodArsenal.bloodBurnedString.name=Blood Burned String
 tile.BloodArsenal.altareAenigmatica.name=Altare Aenigmatica
 
+# Entities
+entity.BloodArsenal.SummonedTool.name=Summoned Tool
+
 # Tooltips
 tooltip.BloodArsenal.glassShard.desc=Piercingly transparent
 tooltip.BloodArsenal.bloodInfusedStick.desc=A stick imbued with life!
@@ -78,11 +82,13 @@ tooltip.BloodArsenal.inertBloodInfusedIronIngot.desc=Not so lively...
 tooltip.BloodArsenal.bloodInfusedIronIngot.desc=Glowing with life
 tooltip.BloodArsenal.glassSacrificialDagger.desc=Cutting edge
 tooltip.BloodArsenal.glassDaggerOfSacrifice.desc=Bleeding edge
+tooltip.BloodArsenal.falseSwipeStick.desc=Gotcha!!!
 
 tooltip.BloodArsenal.sigil.swimming.desc=Just keep swimming!
 tooltip.BloodArsenal.sigil.ender.desc=Mini-portal through The End
 tooltip.BloodArsenal.sigil.lightning.desc=&bLightning transformed
 tooltip.BloodArsenal.sigil.divinity.desc=&6&nUltimate Divinity
+tooltip.BloodArsenal.sigil.sentience.desc=Sentient tools!
 
 tooltip.BloodArsenal.sacrificeAmulet.desc=Want not, waste not!
 tooltip.BloodArsenal.selfSacrificeAmulet.desc=Collecting collateral

@@ -5,8 +5,8 @@ import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.InventoryRenderHelperV2;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.client.hud.HUDElementAugmentedHolding;
-import arc.bloodarsenal.client.render.entity.SentientProjectileFactory;
-import arc.bloodarsenal.entity.projectile.EntitySummonedSword;
+import arc.bloodarsenal.client.render.entity.SentientToolFactory;
+import arc.bloodarsenal.entity.projectile.EntitySummonedTool;
 import arc.bloodarsenal.registry.ModBlocks;
 import arc.bloodarsenal.registry.ModItems;
 import arc.bloodarsenal.util.IComplexVariantProvider;
@@ -48,7 +48,7 @@ public class ClientProxy extends CommonProxy
     @Override
     public void registerRenderers()
     {
-        RenderingRegistry.registerEntityRenderingHandler(EntitySummonedSword.class, new SentientProjectileFactory());
+        RenderingRegistry.registerEntityRenderingHandler(EntitySummonedTool.class, new SentientToolFactory());
     }
 
     @Override
