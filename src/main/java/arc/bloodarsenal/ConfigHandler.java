@@ -40,6 +40,7 @@ public class ConfigHandler
 
     public static int sacrificeAmuletConversion;
     public static int selfSacrificeAmuletConversion;
+    public static float ringOfVampirismHealthSyphon;
 
     // Miscellaneous
     public static boolean doGlassShardsDrop;
@@ -94,8 +95,9 @@ public class ConfigHandler
         guideAPIEnabled = config.getBoolean("guideAPIEnabled", category, true, "Toggle Guide-API interactions (the book)");
         tconstructEnabled = config.getBoolean("tconstructEnabled", category, true, "Toggle Tinker's Construct interactions");
 
-        sacrificeAmuletConversion = config.getInt("sacrificeAmuletConversion", category, 20, 0, 100, "Base conversion for the Sacrifice Amulet (damage dealt * sacrificeAmuletConversion)");
-        selfSacrificeAmuletConversion = config.getInt("selfSacrificeAmuletConversion", category, 2, 0, 100, "Base conversion for the Self Sacrifice Amulet (damage dealt * selfSacrificeAmuletConversion)");
+        sacrificeAmuletConversion = config.getInt("sacrificeAmuletConversion", category, 20, 0, 100, "Base conversion for the Sacrifice Amulet (damageDealt * sacrificeAmuletConversion)");
+        selfSacrificeAmuletConversion = config.getInt("selfSacrificeAmuletConversion", category, 2, 0, 100, "Base conversion for the Self Sacrifice Amulet (damageDealt * selfSacrificeAmuletConversion)");
+        ringOfVampirismHealthSyphon = config.getFloat("ringOfVampirismHealthSyphon", category, 0.5F, 0, 1, "Fraction for the damage -> health syphoning from the Ring of Vampirism (damageDealt * ringOfVampirismHealthSyphon)");
 
         category = "Miscellaneous";
         config.addCustomCategoryComment(category, "Miscellaneous configs of magical sorts");

@@ -9,9 +9,7 @@ import arc.bloodarsenal.registry.*;
 import arc.bloodarsenal.util.DamageSourceBleeding;
 import arc.bloodarsenal.util.DamageSourceGlass;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -41,14 +39,12 @@ public class BloodArsenal
         @Override
         public Item getTabIconItem()
         {
-            return Items.BAKED_POTATO;
+            return ModItems.BLOOD_ORANGE;
         }
     };
 
     private LogHelper logger = new LogHelper(BloodArsenal.MOD_ID);
     private File configDir;
-
-    private static boolean isDev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
     public LogHelper getLogger()
     {
@@ -58,10 +54,7 @@ public class BloodArsenal
     {
         return this.configDir;
     }
-    public static boolean isDev()
-    {
-        return isDev;
-    }
+
     public static DamageSourceGlass getDamageSourceGlass()
     {
         return new DamageSourceGlass();

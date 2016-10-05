@@ -11,8 +11,6 @@ import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.ConfigHandler;
 import baubles.api.BaubleType;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -37,7 +35,7 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
 
     public ItemSacrificeAmulet(String name)
     {
-        super(name);
+        super(name, BaubleType.AMULET);
 
         setHasSubtypes(true);
 
@@ -47,25 +45,25 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
     @SubscribeEvent
     public void onEntityHurt(LivingHurtEvent event)
     {
-        if (CompatBaubles.SACRIFICE_AMULET == null || event.getEntity().worldObj.isRemote)
+        if (CompatBaubles.SACRIFICE_AMULET == null || event.getEntity().getEntityWorld().isRemote)
             return;
 
         if (event.getSource().getEntity() instanceof EntityPlayer && !PlayerHelper.isFakePlayer((EntityPlayer) event.getSource().getEntity()))
         {
             EntityPlayer player = (EntityPlayer) event.getSource().getEntity();
 
-            InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
+            ItemStack baubleStack = BaubleUtils.getBaubleStackInPlayer(player, this);
 
-            if (baubles.getStackInSlot(0) != null && baubles.getStackInSlot(0).getItem() instanceof ItemSacrificeAmulet)
+            if (baubleStack != null && baubleStack.getItem() instanceof ItemSacrificeAmulet)
             {
-                ItemSacrificeAmulet amulet = (ItemSacrificeAmulet) baubles.getStackInSlot(0).getItem();
+                ItemSacrificeAmulet amulet = (ItemSacrificeAmulet) baubleStack.getItem();
 
-                boolean shouldSyphon = amulet.getStoredLP(baubles.getStackInSlot(0)) < amulet.CAPACITY;
+                boolean shouldSyphon = amulet.getStoredLP(baubleStack) < amulet.CAPACITY;
                 float damageDone = event.getEntityLiving().getHealth() < event.getAmount() ? event.getAmount() - event.getEntityLiving().getHealth() : event.getAmount();
                 int totalLP = Math.round(damageDone * ConfigHandler.sacrificeAmuletConversion);
 
                 if (shouldSyphon)
-                    LPContainer.addLPToItem(baubles.getStackInSlot(0), totalLP, amulet.CAPACITY);
+                    LPContainer.addLPToItem(baubleStack, totalLP, amulet.CAPACITY);
             }
         }
     }
@@ -103,16 +101,13 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
         if (!stack.hasTagCompound())
             return;
 
-        list.add(TextHelper.localize("tooltip.BloodArsenal.SELF_SACRIFICE_AMULET.desc"));
+        list.add(TextHelper.localize("tooltip.BloodArsenal.selfSacrificeAmulet.desc"));
         list.add(TextHelper.localizeEffect("tooltip.BloodArsenal.stored", getStoredLP(stack)));
 
         super.addInformation(stack, player, list, advanced);
     }
 
-    public BaubleType getBaubleType(ItemStack itemstack) {
-        return BaubleType.AMULET;
-    }
-
+    @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase player)
     {
         if (getStoredLP(itemstack) > CAPACITY)

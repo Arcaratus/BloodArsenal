@@ -8,12 +8,15 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class ModPotions
 {
-    public static Potion bleeding;
+    public static final Potion BLEEDING;
+
+    static
+    {
+        BLEEDING = registerPotion("Bleeding", new ResourceLocation("BLEEDING"), true, 0xFF0000, 1, 0);
+    }
 
     public static void init()
     {
-        bleeding = registerPotion("Bleeding", new ResourceLocation("bleeding"), true, 0xFF0000, 1, 0);
-
         MinecraftForge.EVENT_BUS.register(new PotionEventHandlers());
     }
 

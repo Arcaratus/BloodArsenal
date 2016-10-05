@@ -6,13 +6,11 @@ import WayofTime.bloodmagic.api.util.helper.PlayerSacrificeHelper;
 import WayofTime.bloodmagic.item.ItemDaggerOfSacrifice;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
-import arc.bloodarsenal.registry.ModPotions;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundCategory;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -61,16 +59,13 @@ public class ItemGlassDaggerOfSacrifice extends ItemDaggerOfSacrifice
             target.onDeath(BloodMagicAPI.getDamageSource());
         }
 
-        if (!target.isDead)
-            target.addPotionEffect(new PotionEffect(ModPotions.bleeding, itemRand.nextInt(8) * 20));
-
         return false;
     }
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean advanced)
     {
-        list.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.BloodArsenal.GLASS_DAGGER_OF_SACRIFICE.desc"))));
+        list.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.BloodArsenal.glassDaggerOfSacrifice.desc"))));
     }
 
     @Override

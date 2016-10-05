@@ -54,7 +54,7 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean advanced)
     {
-        list.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.BloodArsenal.GLASS_SACRIFICIAL_DAGGER.desc"))));
+        list.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.BloodArsenal.glassSacrificialDagger.desc"))));
     }
 
     @Override
@@ -86,7 +86,7 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
                 player.setHealth(Math.max(player.getHealth() - (ConfigHandler.glassSacrificialDaggerHealth + itemRand.nextInt(3)), 0.0001f));
 
                 if (itemRand.nextBoolean())
-                    player.addPotionEffect(new PotionEffect(ModPotions.bleeding, 20 + (itemRand.nextInt(4) * 20), itemRand.nextInt(2)));
+                    player.addPotionEffect(new PotionEffect(ModPotions.BLEEDING, 20 + (itemRand.nextInt(4) * 20), itemRand.nextInt(2)));
 
                 if (player.getHealth() <= 0.001f)
                 {

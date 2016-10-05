@@ -26,7 +26,7 @@ public class ModifierSerrated extends ModifierTrait
             if (target.getHealth() > 0.01)
             {
                 ModifierNBT data = new ModifierNBT(TinkerUtil.getModifierTag(tool, getModifierIdentifier()));
-                target.addPotionEffect(new PotionEffect(ModPotions.bleeding, 20 + (random.nextInt((data.level) * 2) * 20), data.level));
+                target.addPotionEffect(new PotionEffect(ModPotions.BLEEDING, 20 + (random.nextInt((data.level) * 2) * 20), data.level));
             }
         }
     }

@@ -1,12 +1,13 @@
 package arc.bloodarsenal.compat.baubles;
 
 import arc.bloodarsenal.BloodArsenal;
+import baubles.api.BaubleType;
+import baubles.api.BaublesApi;
 import baubles.api.IBauble;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -16,13 +17,17 @@ import net.minecraft.world.World;
 
 public abstract class ItemBauble extends Item implements IBauble
 {
-    public ItemBauble(String name)
+    private final BaubleType baubleType;
+
+    public ItemBauble(String name, BaubleType baubleType)
     {
         super();
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setMaxStackSize(1);
+
+        this.baubleType = baubleType;
     }
 
     @Override
@@ -30,7 +35,7 @@ public abstract class ItemBauble extends Item implements IBauble
     {
         if (!world.isRemote)
         {
-            InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
+            IInventory baubles = BaublesApi.getBaubles(player);
 
             for (int i = 0; i < baubles.getSizeInventory(); ++i)
             {
@@ -39,7 +44,7 @@ public abstract class ItemBauble extends Item implements IBauble
                     baubles.setInventorySlotContents(i, itemStack.copy());
                     if (!player.capabilities.isCreativeMode)
                     {
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                     }
 
                     this.onEquipped(itemStack, player);
@@ -51,10 +56,18 @@ public abstract class ItemBauble extends Item implements IBauble
         return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
     }
 
+    @Override
+    public BaubleType getBaubleType(ItemStack itemstack)
+    {
+        return baubleType;
+    }
+
+    @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase player)
     {
     }
 
+    @Override
     public void onEquipped(ItemStack itemstack, EntityLivingBase player)
     {
         if (!player.worldObj.isRemote)
@@ -63,15 +76,18 @@ public abstract class ItemBauble extends Item implements IBauble
         }
     }
 
+    @Override
     public void onUnequipped(ItemStack itemstack, EntityLivingBase player)
     {
     }
 
+    @Override
     public boolean canEquip(ItemStack itemstack, EntityLivingBase player)
     {
         return true;
     }
 
+    @Override
     public boolean canUnequip(ItemStack itemstack, EntityLivingBase player)
     {
         return true;

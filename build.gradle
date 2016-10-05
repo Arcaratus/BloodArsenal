@@ -56,7 +56,7 @@ repositories {
     }
     ivy {
         name "Baubles"
-        artifactPattern "https://dl.dropboxusercontent.com/u/47135879/[module]-1.9.4-[revision]-deobf.[ext]"
+        artifactPattern "https://dl.dropboxusercontent.com/u/47135879/[module]-1.10.2-[revision]-deobf.[ext]"
     }
 }
 

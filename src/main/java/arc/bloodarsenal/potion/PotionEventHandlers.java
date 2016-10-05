@@ -18,9 +18,9 @@ public class PotionEventHandlers
     {
         EntityLivingBase entityLiving = event.getEntityLiving();
 
-        if (entityLiving.isPotionActive(ModPotions.bleeding))
+        if (entityLiving.isPotionActive(ModPotions.BLEEDING))
         {
-            int amplifier = entityLiving.getActivePotionEffect(ModPotions.bleeding).getAmplifier();
+            int amplifier = entityLiving.getActivePotionEffect(ModPotions.BLEEDING).getAmplifier();
             int damage = (rand.nextInt(3) * (amplifier + 1) + rand.nextInt(2));
 
 //            entityLiving.addPotionEffect(new PotionEffect(Potion.getPotionById(), duration, 1));

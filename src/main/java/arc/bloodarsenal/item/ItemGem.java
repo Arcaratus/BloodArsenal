@@ -53,6 +53,6 @@ public class ItemGem extends Item implements IVariantProvider
     @Override
     public EnumRarity getRarity(ItemStack stack)
     {
-        return EnumRarity.RARE;
+        return EnumRarity.UNCOMMON;
     }
 }

@@ -11,10 +11,11 @@ import WayofTime.bloodmagic.client.IMeshProvider;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.client.mesh.CustomMeshDefinitionSoulPendant;
 import baubles.api.BaubleType;
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,11 +29,12 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.ArrayUtils;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshProvider, IMultiWillTool
 {
@@ -40,7 +42,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
 
     public ItemSoulPendant(String name)
     {
-        super(name);
+        super(name, BaubleType.AMULET);
 
         setHasSubtypes(true);
 
@@ -67,7 +69,14 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
 
     public static boolean isDemonWillFull(EnumDemonWillType type, EntityPlayer player)
     {
-        ItemStack[] inventory = ArrayUtils.addAll(player.inventory.mainInventory, PlayerHandler.getPlayerBaubles(player).stackList);
+        List<ItemStack> inventory = new ArrayList<>();
+
+        IInventory baubles = BaublesApi.getBaubles(player);
+        ItemStack[] baubleStack = new ItemStack[baubles.getSizeInventory()];
+        for (int i = 0; i < baubleStack.length; i++)
+            baubleStack[i] = baubles.getStackInSlot(i);
+
+        inventory.addAll(Arrays.asList(baubleStack));
 
         boolean hasGem = false;
         for (ItemStack stack : inventory)
@@ -99,7 +108,14 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
         if (willStack == null)
             return null;
 
-        ItemStack[] inventory = ArrayUtils.addAll(player.inventory.mainInventory, PlayerHandler.getPlayerBaubles(player).stackList);
+        List<ItemStack> inventory = new ArrayList<>();
+
+        IInventory baubles = BaublesApi.getBaubles(player);
+        ItemStack[] baubleStack = new ItemStack[baubles.getSizeInventory()];
+        for (int i = 0; i < baubleStack.length; i++)
+            baubleStack[i] = baubles.getStackInSlot(i);
+
+        inventory.addAll(Arrays.asList(baubleStack));
 
         for (ItemStack stack : inventory)
         {
@@ -160,10 +176,6 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
         }
 
         return ret;
-    }
-
-    public BaubleType getBaubleType(ItemStack itemstack) {
-        return BaubleType.AMULET;
     }
 
     @Override
@@ -325,7 +337,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
             return EnumDemonWillType.DEFAULT;
         }
 
-        return EnumDemonWillType.valueOf(tag.getString(Constants.NBT.WILL_TYPE));
+        return EnumDemonWillType.valueOf(tag.getString(Constants.NBT.WILL_TYPE).toUpperCase(Locale.ENGLISH));
     }
 
     public void setCurrentType(EnumDemonWillType type, ItemStack soulGemStack)

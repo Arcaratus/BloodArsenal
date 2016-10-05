@@ -20,7 +20,7 @@ public class EntitySummonedTool extends EntityThrowable implements IThrowableEnt
 {
     public EntityPlayer player;
     protected int ticksInAir = 0;
-    protected int maxTicksInAir = 20;
+    protected int maxTicksInAir = 16;
     protected int delay = 10;
 
     private ItemStack stack;
@@ -85,7 +85,6 @@ public class EntitySummonedTool extends EntityThrowable implements IThrowableEnt
 
         if ((getStack() != null && !ItemStack.areItemsEqualIgnoreDurability(getStack(), player.getHeldItemMainhand())) || this.ticksExisted > (this.maxTicksInAir + delay))
         {
-            System.out.println("HELO");
             setDead();
         }
     }

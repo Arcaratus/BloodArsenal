@@ -4,6 +4,7 @@ import WayofTime.bloodmagic.api.Constants;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.item.ItemBloodArsenalBase;
+import arc.bloodarsenal.item.ItemBloodDiamond;
 import arc.bloodarsenal.item.ItemBloodOrange;
 import arc.bloodarsenal.item.ItemGem;
 import arc.bloodarsenal.item.block.ItemBlockSpecialBloodArsenal;
@@ -27,6 +28,7 @@ public class ModItems
     public static final Item BLOOD_BURNED_STRING;
     public static final Item BLOOD_ORANGE;
     public static final Item FALSE_SWIPE_STICK;
+    public static final Item BLOOD_DIAMOND;
 
     public static final Item BLOOD_INFUSED_WOODEN_PICKAXE;
     public static final Item BLOOD_INFUSED_WOODEN_AXE;
@@ -42,6 +44,7 @@ public class ModItems
 
     public static final Item GLASS_SACRIFICIAL_DAGGER;
     public static final Item GLASS_DAGGER_OF_SACRIFICE;
+    public static final Item STYGIAN_DAGGER;
 
     public static final Item GEM_SACRIFICE;
     public static final Item GEM_SELF_SACRIFICE;
@@ -69,6 +72,7 @@ public class ModItems
         BLOOD_BURNED_STRING = registerItemUniquely(new ItemBlockSpecialBloodArsenal("bloodBurnedString", ModBlocks.BLOOD_BURNED_STRING));
         BLOOD_ORANGE = registerItem(new ItemBloodOrange("bloodOrange"));
         FALSE_SWIPE_STICK = registerItem(new ItemFalseSwipeStick("falseSwipeStick"));
+        BLOOD_DIAMOND = registerItem(new ItemBloodDiamond("bloodDiamond"));
 
         BLOOD_INFUSED_WOODEN_PICKAXE = registerItem(new ItemBloodInfusedWoodenPickaxe());
         BLOOD_INFUSED_WOODEN_AXE = registerItem(new ItemBloodInfusedWoodenAxe());
@@ -84,6 +88,7 @@ public class ModItems
 
         GLASS_SACRIFICIAL_DAGGER = registerItem(new ItemGlassSacrificialDagger("glassSacrificialDagger"));
         GLASS_DAGGER_OF_SACRIFICE = registerItem(new ItemGlassDaggerOfSacrifice("glassDaggerOfSacrifice"));
+        STYGIAN_DAGGER = registerItem(new ItemStygianDagger("stygianDagger"));
 
         GEM_SACRIFICE = registerItemUniquely(new ItemGem("sacrifice"));
         GEM_SELF_SACRIFICE = registerItemUniquely(new ItemGem("selfSacrifice"));

@@ -49,7 +49,7 @@ public class ModRecipes
         addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_STAIRS, 4), "a  ", "aa ", "aaa", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
         addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_FENCE, 3), "aba", "aba", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS, 'b', ModItems.BLOOD_INFUSED_STICK);
         addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_FENCE_GATE), "aba", "aba", 'a', ModItems.BLOOD_INFUSED_STICK, 'b', ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
-        addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS), "a", "a", 'a',  ModBlocks.BLOOD_INFUSED_WOODEN_SLAB);
+        addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS), "a", "a", 'a', ModBlocks.BLOOD_INFUSED_WOODEN_SLAB);
         addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_STAINED_GLASS_PANE, 16), "aaa", "aaa", 'a', ModBlocks.BLOOD_STAINED_GLASS);
         addOreDictRecipe(new ItemStack(ModBlocks.GLASS_SHARD_BLOCK), "aaa", "aaa", "aaa", 'a', "shardGlass");
         addOreDictRecipe(new ItemStack(ModBlocks.BLOOD_INFUSED_GLOWSTONE), "aa", "aa", 'a', ModItems.BLOOD_INFUSED_GLOWSTONE_DUST);
@@ -61,6 +61,9 @@ public class ModRecipes
         addOreDictRecipe(new ItemStack(ModBlocks.SLATE, 1, 2), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 2));
         addOreDictRecipe(new ItemStack(ModBlocks.SLATE, 1, 3), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 3));
         addOreDictRecipe(new ItemStack(ModBlocks.SLATE, 1, 4), "aaa", "aaa", "aaa", 'a', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 4));
+        addOreDictRecipe(new ItemStack(ModItems.STYGIAN_DAGGER), "aaa", "aba", "cdc", 'a', "shardGlass", 'b', ModItems.GLASS_DAGGER_OF_SACRIFICE, 'c', ModItems.BLOOD_INFUSED_IRON_INGOT, 'd', ModItems.BLOOD_DIAMOND);
+        addOreDictRecipe(new ItemStack(ModItems.STYGIAN_DAGGER, 1, 1), "eae", "aba", "cdc", 'a', "shardGlass", 'b', ModItems.STYGIAN_DAGGER, 'c', ModItems.BLOOD_INFUSED_IRON_INGOT, 'd', ModItems.BLOOD_DIAMOND, 'e', ModBlocks.GLASS_SHARD_BLOCK);
+        addOreDictRecipe(new ItemStack(ModItems.STYGIAN_DAGGER, 1, 2), "aaa", "aba", "cdc", 'a', ModBlocks.GLASS_SHARD_BLOCK, 'b', new ItemStack(ModItems.STYGIAN_DAGGER, 1, 1), 'c', ModBlocks.BLOOD_INFUSED_IRON_BLOCK, 'd', ModItems.BLOOD_DIAMOND);
 
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.BLOOD_STAINED_GLASS, 8), "aaa", "aba", "aaa", 'a', "blockGlass", 'b', weakOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.BLOOD_STAINED_GLASS_PANE, 8), "aaa", "aba", "aaa", 'a', "paneGlass", 'b', weakOrb);
@@ -82,6 +85,7 @@ public class ModRecipes
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.GEM_TARTARIC), "aba", "cdc", "efg", 'a', getBMItem(Constants.BloodMagicItem.SOUL_GEM), 'b', "ingotGold", 'c', "blockGlass", 'd', "gemDiamond", 'e', "blockRedstone", 'f', weakOrb, 'g', "blockLapis");
         addOreDictBloodOrbRecipe(new ItemStack(ModBlocks.ALTARE_AENIGMATICA), "aba", "cdc", "efe", 'a', getBMItem(Constants.BloodMagicItem.BLOOD_SHARD), 'b', "gemEmerald", 'c', getBMBlock(Constants.BloodMagicBlock.INPUT_ROUTING_NODE), 'd', ItemComponent.getStack(ItemComponent.REAGENT_SIGHT), 'e', ModBlocks.BLOOD_INFUSED_IRON_BLOCK, 'f', masterOrb);
         addOreDictBloodOrbRecipe(new ItemStack(ModItems.FALSE_SWIPE_STICK), "aba", "cdc", "efe", 'a', "stone", 'b', UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BloodMagicAPI.getLifeEssence()), 'c', ModItems.BLOOD_INFUSED_WOODEN_SWORD, 'd', ModItems.BLOOD_INFUSED_STICK, 'e', ModItems.BLOOD_INFUSED_GLOWSTONE_DUST, 'f', magicianOrb);
+        addOreDictBloodOrbRecipe(new ItemStack(ModItems.BLOOD_DIAMOND, 1, 1), "aba", "cdc", "efe", 'a', ModBlocks.BLOOD_INFUSED_GLOWSTONE, 'b', new ItemStack(getBMItem(Constants.BloodMagicItem.SLATE), 1, 4), 'c', new ItemStack(getBMItem(Constants.BloodMagicItem.ACTIVATION_CRYSTAL), 1, 1), 'd', ModItems.BLOOD_DIAMOND, 'e', ModBlocks.BLOOD_INFUSED_IRON_BLOCK, 'f', archmageOrb);
 
         //TODO IS TEMPORARY BUT WILL BE IMPLEMENTED FOR THOSE WHO WANT ACCESS TO TIER 6
         if (ConfigHandler.crystalClusterEnabled)
@@ -122,6 +126,7 @@ public class ModRecipes
         //FIVE
 
         //SIX
+        addAltarRecipe(new ItemStack(ModItems.BLOOD_DIAMOND, 1, 1), new ItemStack(ModItems.BLOOD_DIAMOND, 1, 2), EnumAltarTier.SIX, 500000, 25, 25);
     }
 
     public static void addHellfireForgeRecipes()
@@ -132,6 +137,7 @@ public class ModRecipes
 //        addForgeRecipe(new ItemStack(ModItems.SIGIL_AUGMENTED_HOLDING), 2000, 600, ItemComponent.getStack(ItemComponent.REAGENT_HOLDING), getBMItem(Constants.BloodMagicItem.SIGIL_HOLDING), new ItemStack(Blocks.CHEST, 8), "leather");
         addForgeRecipe(new ItemStack(ModItems.SIGIL_AUGMENTED_HOLDING), 2000, 600, ItemComponent.getStack(ItemComponent.REAGENT_HOLDING), new ItemStack(getBMItem(Constants.BloodMagicItem.SIGIL_HOLDING)), new ItemStack(Blocks.CHEST, 8), "leather");
         addForgeRecipe(new ItemStack(ModItems.REAGENT_DIVINITY), 16384, 16384, new ItemStack(ModItems.REAGENT_LIGHTNING, 32), new ItemStack(getBMBlock(Constants.BloodMagicBlock.CRYSTAL), 8), new ItemStack(Items.GOLDEN_APPLE, 4, 1), new ItemStack(Items.NETHER_STAR, 16));
+        addForgeRecipe(new ItemStack(ModItems.BLOOD_DIAMOND), 1024, 512, Items.DIAMOND, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BloodMagicAPI.getLifeEssence()), Items.DRAGON_BREATH, getBMItem(Constants.BloodMagicItem.LAVA_CRYSTAL));
 
         addForgeRecipe(new ItemStack(ModItems.SIGIL_SENTIENCE), 8192, 4096, new ItemStack(getBMItem(Constants.BloodMagicItem.SOUL_GEM), 1, 3), getBMItem(Constants.BloodMagicItem.SIGIL_BLOOD_LIGHT), ModItems.GEM_TARTARIC, getBMItem(Constants.BloodMagicItem.SIGIL_AIR));
     }

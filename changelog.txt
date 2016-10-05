@@ -1,4 +1,13 @@
 ------------------------------------------------------
+Version 2.0.1-14
+------------------------------------------------------
+- Updated to the latest Baubles
+- Updated to the latest Blood Magic
+- Added the Blood Diamond
+- Added the Ring of Vampirism and the Stygian Dagger
+- Fixed some bugs with the Sigil of Sentience
+
+------------------------------------------------------
 Version 2.0.1-13
 ------------------------------------------------------
 - Updated to the latest Blood Magic

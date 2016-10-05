@@ -35,6 +35,8 @@ public class ItemSigilSentience extends ItemSigilBase
                 if (!player.capabilities.isCreativeMode)
                 {
                     toolStack.damageItem(2, player);
+                    if (toolStack.getItemDamage() <= 0)
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                     player.inventory.setInventorySlotContents(player.inventory.currentItem, toolStack);
                 }
 

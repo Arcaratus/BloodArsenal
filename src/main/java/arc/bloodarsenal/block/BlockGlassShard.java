@@ -208,7 +208,7 @@ public class BlockGlassShard extends Block implements IVariantProvider
 
             if (entityIn.attackEntityFrom(BloodArsenal.getDamageSourceGlass(), damage))
                 PlayerSacrificeHelper.findAndFillAltar(worldIn, (EntityLivingBase) entityIn, Math.round(damage * RANDOM.nextInt(101)), false);
-            ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(ModPotions.bleeding, RANDOM.nextInt(100), 0));
+            ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(ModPotions.BLEEDING, RANDOM.nextInt(100), 0));
         }
     }
 

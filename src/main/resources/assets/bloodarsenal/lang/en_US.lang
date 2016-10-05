@@ -10,6 +10,10 @@ item.BloodArsenal.inertBloodInfusedIronIngot.name=Inert Blood-Iron Ingot
 item.BloodArsenal.bloodInfusedIronIngot.name=Blood Infused Iron Ingot
 item.BloodArsenal.bloodOrange.name=Blood Orange
 item.BloodArsenal.falseSwipeStick.name=False Swipe Stick
+item.BloodArsenal.bloodDiamond.normal.name=Blood Diamond
+item.BloodArsenal.bloodDiamond.inert.name=Inert Blood Diamond
+item.BloodArsenal.bloodDiamond.infused.name=Blood Infused Diamond
+item.BloodArsenal.bloodDiamond.bound.name=Bound Blood Infused Diamond
 
 item.BloodArsenal.bloodInfusedWooden.pickaxe.name=Blood Infused Wooden Pickaxe
 item.BloodArsenal.bloodInfusedWooden.axe.name=Blood Infused Wooden Axe
@@ -23,6 +27,7 @@ item.BloodArsenal.bloodInfusedShield.name=Blood Infused Shield
 
 item.BloodArsenal.glassSacrificialDagger.name=Glass Sacrificial Dagger
 item.BloodArsenal.glassDaggerOfSacrifice.name=Glass Dagger of Sacrifice
+item.BloodArsenal.stygianDagger.name=Stygian Dagger
 
 item.BloodArsenal.reagentSwimming.name=Swimming Reagent
 item.BloodArsenal.reagentEnder.name=Ender Reagent
@@ -47,6 +52,7 @@ item.BloodArsenal.soulPendant.lesser.name=Lesser Soul Pendant
 item.BloodArsenal.soulPendant.common.name=Common Soul Pendant
 item.BloodArsenal.soulPendant.greater.name=Greater Soul Pendant
 item.BloodArsenal.soulPendant.grand.name=Grand Soul Pendant
+item.BloodArsenal.ringOfVampirism.name=Ring of Vampirism
 
 # Blocks
 tile.BloodArsenal.slate.blank.name=Blank Slate Block
@@ -83,6 +89,11 @@ tooltip.BloodArsenal.bloodInfusedIronIngot.desc=Glowing with life
 tooltip.BloodArsenal.glassSacrificialDagger.desc=Cutting edge
 tooltip.BloodArsenal.glassDaggerOfSacrifice.desc=Bleeding edge
 tooltip.BloodArsenal.falseSwipeStick.desc=Gotcha!!!
+tooltip.BloodArsenal.bloodDiamond.normal.desc=Glimmering red
+tooltip.BloodArsenal.bloodDiamond.inert.desc=Hollow with potential...
+tooltip.BloodArsenal.bloodDiamond.infused.desc=Pulsating with life
+tooltip.BloodArsenal.bloodDiamond.bound.desc=Bound with life!
+tooltip.BloodArsenal.stygianDagger.desc=Bleeding from the Styx
 
 tooltip.BloodArsenal.sigil.swimming.desc=Just keep swimming!
 tooltip.BloodArsenal.sigil.ender.desc=Mini-portal through The End
@@ -98,6 +109,7 @@ tooltip.BloodArsenal.soulPendant.lesser=A pendant used to contain some will
 tooltip.BloodArsenal.soulPendant.common=A pendant used to contain more will
 tooltip.BloodArsenal.soulPendant.greater=A pendant used to contain a greater amount of will
 tooltip.BloodArsenal.soulPendant.grand=A pendant used to contain a large amount of will
+tooltip.BloodArsenal.ringOfVampirism.desc=Feeding off of blood!
 
 tooltip.BloodArsenal.stored=Stored: &c%d &7LP
 tooltip.BloodArsenal.level=Level: %d
