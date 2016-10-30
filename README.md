@@ -1,4 +1,4 @@
-#Blood Arsenal  [![Build Status](http://tehnut.info/jenkins/job/BloodArsenal/job/1.9/badge/icon)](http://tehnut.info/jenkins/job/Blood%20Arsenal%202/job/1.9/)
+#Blood Arsenal  [![](http://cf.way2muchnoise.eu/full_blood-arsenal_downloads.svg)](https://minecraft.curseforge.com/projects/blood-arsenal)
 
 ###[Downloads](http://minecraft.curseforge.com/projects/blood-magic-addon-blood-arsenal/files)
 
