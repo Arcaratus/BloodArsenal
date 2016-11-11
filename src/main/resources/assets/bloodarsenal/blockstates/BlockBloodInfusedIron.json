@@ -8,7 +8,7 @@
   "variants": {
     "normal": [{
       "textures": {
-        "all": "bloodarsenal:blocks/BloodInfusedIron"
+        "all": "bloodarsenal:blocks/blood_infused_iron"
       }
     }]
   }

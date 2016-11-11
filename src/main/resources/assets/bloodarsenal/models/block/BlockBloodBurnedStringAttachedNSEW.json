@@ -1,8 +1,8 @@
 {
   "ambientocclusion": false,
     "textures": {
-        "particle": "bloodarsenal:blocks/BlockBloodBurnedString",
-        "texture": "bloodarsenal:blocks/BlockBloodBurnedString"
+        "particle": "bloodarsenal:blocks/blood_burned_string",
+        "texture": "bloodarsenal:blocks/blood_burned_string"
     },
     "elements": [
         {   "from": [ 7.75, 1.5, 0 ],

@@ -1,6 +1,6 @@
 {
   "parent": "block/pane_noside_alt",
   "textures": {
-	"pane": "bloodarsenal:blocks/BloodStainedGlass"
+	"pane": "bloodarsenal:blocks/blood_stained_glass"
   }
 }

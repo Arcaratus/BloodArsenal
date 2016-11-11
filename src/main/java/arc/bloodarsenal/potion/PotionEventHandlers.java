@@ -24,7 +24,7 @@ public class PotionEventHandlers
             int damage = (rand.nextInt(3) * (amplifier + 1) + rand.nextInt(2));
 
 //            entityLiving.addPotionEffect(new PotionEffect(Potion.getPotionById(), duration, 1));
-            if (entityLiving.worldObj.getWorldTime() % (36 / (amplifier + 1)) == 0)
+            if (entityLiving.getEntityWorld().getWorldTime() % (36 / (amplifier + 1)) == 0)
             {
                 entityLiving.attackEntityFrom(BloodArsenal.getDamageSourceBleeding(), damage);
                 entityLiving.hurtResistantTime = Math.min(entityLiving.hurtResistantTime, 36 / (amplifier + 1));

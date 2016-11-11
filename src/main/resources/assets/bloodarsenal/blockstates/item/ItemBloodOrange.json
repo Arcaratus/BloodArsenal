@@ -7,7 +7,7 @@
   "variants": {
     "normal": [{
   	  "textures": {
-  	    "layer0": "bloodarsenal:items/BloodOrange"
+  	    "layer0": "bloodarsenal:items/blood_orange"
   	  }
     }]
   }

@@ -8,11 +8,13 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
+import static arc.bloodarsenal.registry.Constants.Item.AXE_EFFECTIVE_ON;
+
 public class ItemBloodInfusedIronAxe extends ItemBloodInfusedTool.Iron
 {
     public ItemBloodInfusedIronAxe()
     {
-        super("axe", 4.2F, AXE_EFFECTIVE_ON);
+        super("axe", 4.6F, AXE_EFFECTIVE_ON);
     }
 
     @Override
@@ -27,8 +29,8 @@ public class ItemBloodInfusedIronAxe extends ItemBloodInfusedTool.Iron
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 4.2, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -4.2, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 4.2, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -4.2, 0));
         }
         return multimap;
     }

@@ -6,9 +6,8 @@ import arc.bloodarsenal.BloodArsenal;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -38,7 +37,7 @@ public class ItemBloodDiamond extends Item implements IVariantProvider
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item id, CreativeTabs creativeTab, List<ItemStack> list)
+    public void getSubItems(Item id, CreativeTabs creativeTab, NonNullList<ItemStack> list)
     {
         for (int i = 0; i < names.length; i++)
             list.add(new ItemStack(id, 1, i));
@@ -48,8 +47,8 @@ public class ItemBloodDiamond extends Item implements IVariantProvider
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
-        if (I18n.hasKey("tooltip.BloodArsenal.bloodDiamond." + names[stack.getItemDamage()] + ".desc"))
-            tooltip.add(TextHelper.localizeEffect("tooltip.BloodArsenal.bloodDiamond." + names[stack.getItemDamage()] +".desc"));
+        if (I18n.hasKey("tooltip.bloodarsenal.bloodDiamond." + names[stack.getItemDamage()] + ".desc"))
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.bloodDiamond." + names[stack.getItemDamage()] +".desc"));
 
         super.addInformation(stack, player, tooltip, advanced);
     }

@@ -1,5 +1,5 @@
 {
-  "parent": "bloodarsenal:block/BlockBloodInfusedWoodenLog",
+  "parent": "bloodarsenal:block/blockbloodinfusedwoodenlog",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

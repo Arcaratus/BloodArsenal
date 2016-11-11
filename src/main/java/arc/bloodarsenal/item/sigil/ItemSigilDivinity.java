@@ -1,5 +1,6 @@
 package arc.bloodarsenal.item.sigil;
 
+import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.util.BloodArsenalUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +25,9 @@ public class ItemSigilDivinity extends ItemSigilBaseToggleable
     @Override
     public void onSigilUpdate(ItemStack stack, World world, EntityPlayer player, int itemSlot, boolean isSelected)
     {
+        if (PlayerHelper.isFakePlayer(player))
+            return;
+
         player.fallDistance = 0;
         player.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 2, 4, true, false));
         player.setHealth(player.getMaxHealth());

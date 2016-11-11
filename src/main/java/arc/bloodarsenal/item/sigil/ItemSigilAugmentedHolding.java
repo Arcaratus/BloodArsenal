@@ -3,22 +3,21 @@ package arc.bloodarsenal.item.sigil;
 import WayofTime.bloodmagic.api.iface.IAltarReader;
 import WayofTime.bloodmagic.api.iface.IBindable;
 import WayofTime.bloodmagic.api.util.helper.NBTHelper;
+import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.client.key.IKeybindable;
 import WayofTime.bloodmagic.client.key.KeyBindings;
 import WayofTime.bloodmagic.util.Utils;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.registry.Constants;
+import arc.bloodarsenal.util.BloodArsenalUtils;
 import com.google.common.base.Strings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -31,7 +30,7 @@ import java.util.List;
 
 public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybindable, IAltarReader
 {
-    public static final int inventorySize = 9;
+    public static final int INVENTORY_SIZE = 9;
 
     public ItemSigilAugmentedHolding()
     {
@@ -44,25 +43,22 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
         if (stack == player.getHeldItemMainhand() && stack.getItem() instanceof ItemSigilAugmentedHolding && key.equals(KeyBindings.OPEN_HOLDING))
         {
             Utils.setUUID(stack);
-            player.openGui(BloodArsenal.INSTANCE, Constants.Gui.SIGIL_AUGMENTED_HOLDING_GUI, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+            player.openGui(BloodArsenal.INSTANCE, Constants.Gui.SIGIL_AUGMENTED_HOLDING_GUI, player.getEntityWorld(), (int) player.posX, (int) player.posY, (int) player.posZ);
         }
     }
 
     @Override
     public String getHighlightTip(ItemStack stack, String displayName)
     {
-        ItemStack[] inv = getInternalInventory(stack);
-
-        if (inv == null)
-            return displayName;
+        List<ItemStack> inv = getInternalInventory(stack);
 
         int currentSlot = getCurrentItemOrdinal(stack);
-        ItemStack item = inv[currentSlot];
+        ItemStack item = inv.get(currentSlot);
 
-        if (item == null)
+        if (item.isEmpty())
             return displayName;
         else
-            return TextHelper.localizeEffect("item.BloodMagic.sigil.holding.display", displayName, item.getDisplayName());
+            return TextHelper.localizeEffect("item.bloodmagic.sigil.holding.display", displayName, item.getDisplayName());
     }
 
     @Override
@@ -70,99 +66,96 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
         super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.sigil.holding.press", KeyBindings.OPEN_HOLDING.getKey().getDisplayName()));
+        tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.sigil.holding.press", KeyBindings.OPEN_HOLDING.getKey().getDisplayName()));
 
         if (!stack.hasTagCompound())
             return;
 
-        ItemStack[] inv = getInternalInventory(stack);
-
-        if (inv == null)
-            return;
+        List<ItemStack> inv = getInternalInventory(stack);
 
         int currentSlot = getCurrentItemOrdinal(stack);
-        ItemStack item = inv[currentSlot];
+        ItemStack item = inv.get(currentSlot);
 
-        for (int i = 0; i < inventorySize; i++)
+        for (int i = 0; i < INVENTORY_SIZE; i++)
         {
-            if (inv[i] != null)
-                if (item != null && inv[i] == item)
-                    tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.sigil.holding.sigilInSlot", i + 1, "&o&n" + inv[i].getDisplayName()));
+            ItemStack invStack = inv.get(i);
+            if (!invStack.isEmpty())
+                if (!item.isEmpty() && invStack == item)
+                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.sigil.holding.sigilInSlot", i + 1, "&o&n" + invStack.getDisplayName()));
                 else
-                    tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.sigil.holding.sigilInSlot", i + 1, inv[i].getDisplayName()));
+                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.sigil.holding.sigilInSlot", i + 1, invStack.getDisplayName()));
         }
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
+        ItemStack stack = player.getHeldItem(hand);
+        if (PlayerHelper.isFakePlayer(player))
+            return EnumActionResult.FAIL;
+
         int currentSlot = getCurrentItemOrdinal(stack);
-        ItemStack[] inv = getInternalInventory(stack);
+        List<ItemStack> inv = getInternalInventory(stack);
 
-        if (inv == null)
+        ItemStack itemUsing = inv.get(currentSlot);
+
+        if (itemUsing.isEmpty() || Strings.isNullOrEmpty(((IBindable) itemUsing.getItem()).getOwnerUUID(itemUsing)))
             return EnumActionResult.PASS;
 
-        ItemStack itemUsing = inv[currentSlot];
-
-        if (itemUsing == null || Strings.isNullOrEmpty(((IBindable) itemUsing.getItem()).getOwnerUUID(itemUsing)))
-            return EnumActionResult.PASS;
-
-        EnumActionResult result = itemUsing.getItem().onItemUse(itemUsing, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        EnumActionResult result = itemUsing.getItem().onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         saveInventory(stack, inv);
 
         return result;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
+        ItemStack stack = player.getHeldItem(hand);
+        if (PlayerHelper.isFakePlayer(player))
+            return ActionResult.newResult(EnumActionResult.FAIL, stack);
+
         int currentSlot = getCurrentItemOrdinal(stack);
-        ItemStack[] inv = getInternalInventory(stack);
+        List<ItemStack> inv = getInternalInventory(stack);
+        ItemStack itemUsing = inv.get(currentSlot);
 
-        if (inv == null)
+        if (itemUsing.isEmpty() || Strings.isNullOrEmpty(((IBindable) itemUsing.getItem()).getOwnerUUID(itemUsing)))
             return ActionResult.newResult(EnumActionResult.PASS, stack);
 
-        ItemStack itemUsing = inv[currentSlot];
-
-        if (itemUsing == null || Strings.isNullOrEmpty(((IBindable) itemUsing.getItem()).getOwnerUUID(itemUsing)))
-            return ActionResult.newResult(EnumActionResult.PASS, stack);
-
-        itemUsing.getItem().onItemRightClick(itemUsing, world, player, hand);
+        itemUsing.getItem().onItemRightClick(world, player, hand);
 
         saveInventory(stack, inv);
 
         return ActionResult.newResult(EnumActionResult.PASS, stack);
     }
 
-    public void saveInventory(ItemStack itemStack, ItemStack[] inventory)
+    public void saveInventory(ItemStack itemStack, List<ItemStack> inventory)
     {
         NBTTagCompound itemTag = itemStack.getTagCompound();
 
         if (itemTag == null)
-        {
             itemStack.setTagCompound(new NBTTagCompound());
-        }
 
         NBTTagList itemList = new NBTTagList();
 
-        for (int i = 0; i < inventorySize; i++)
+        for (int i = 0; i < INVENTORY_SIZE; i++)
         {
-            if (inventory[i] != null)
+            if (!inventory.get(i).isEmpty())
             {
                 NBTTagCompound tag = new NBTTagCompound();
-                tag.setByte(WayofTime.bloodmagic.api.Constants.NBT.SLOT, (byte) i);
-                inventory[i].writeToNBT(tag);
+                tag.setByte(Constants.NBT.SLOT, (byte) i);
+                inventory.get(i).writeToNBT(tag);
                 itemList.appendTag(tag);
             }
         }
 
-        itemTag.setTag(WayofTime.bloodmagic.api.Constants.NBT.ITEMS, itemList);
+        itemTag.setTag(Constants.NBT.ITEMS, itemList);
     }
 
     @Override
     public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, boolean isSelected)
     {
-        if (itemStack.getTagCompound() != null)
+        if (!itemStack.hasTagCompound())
         {
             this.tickInternalInventory(itemStack, world, entity, itemSlot, isSelected);
         }
@@ -170,54 +163,26 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
 
     public void tickInternalInventory(ItemStack itemStack, World world, Entity entity, int itemSlot, boolean isSelected)
     {
-        ItemStack[] inv = getInternalInventory(itemStack);
+        List<ItemStack> inv = getInternalInventory(itemStack);
 
-        if (inv == null)
+        for (int i = 0; i < INVENTORY_SIZE; i++)
         {
-            return;
-        }
-
-        for (int i = 0; i < inventorySize; i++)
-        {
-            if (inv[i] == null)
+            ItemStack stack = inv.get(i);
+            if (stack.isEmpty())
             {
                 continue;
             }
 
-            inv[i].getItem().onUpdate(inv[i], world, entity, itemSlot, isSelected);
+            stack.getItem().onUpdate(stack, world, entity, itemSlot, isSelected);
         }
     }
 
-    public static int next(int mode)
+    private static void initModeTag(ItemStack stack)
     {
-        int index = mode + 1;
-
-        if (index >= inventorySize)
+        if (!stack.hasTagCompound())
         {
-            index = 0;
-        }
-
-        return index;
-    }
-
-    public static int prev(int mode)
-    {
-        int index = mode - 1;
-
-        if (index < 0)
-        {
-            index = inventorySize;
-        }
-
-        return index;
-    }
-
-    private static void initModeTag(ItemStack itemStack)
-    {
-        if (itemStack.getTagCompound() == null)
-        {
-            itemStack = NBTHelper.checkNBT(itemStack);
-            itemStack.getTagCompound().setInteger(WayofTime.bloodmagic.api.Constants.NBT.CURRENT_SIGIL, inventorySize);
+            NBTHelper.checkNBT(stack);
+            stack.getTagCompound().setInteger(Constants.NBT.CURRENT_SIGIL, INVENTORY_SIZE);
         }
     }
 
@@ -225,14 +190,14 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
     {
         if (itemStack.getItem() instanceof ItemSigilAugmentedHolding)
         {
-            ItemStack[] itemStacks = getInternalInventory(itemStack);
-            if (itemStacks != null)
-                return itemStacks[slot == 5 ? 4 : slot];
+            List<ItemStack> itemStacks = getInternalInventory(itemStack);
+            if (!itemStacks.isEmpty())
+                return itemStacks.get(slot == INVENTORY_SIZE ? INVENTORY_SIZE - 1 : slot);
             else
-                return null;
+                return ItemStack.EMPTY;
         }
 
-        return null;
+        return ItemStack.EMPTY;
     }
 
     public static int getCurrentItemOrdinal(ItemStack itemStack)
@@ -240,41 +205,41 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
         if (itemStack.getItem() instanceof ItemSigilAugmentedHolding)
         {
             initModeTag(itemStack);
-            int currentSigil = itemStack.getTagCompound().getInteger(WayofTime.bloodmagic.api.Constants.NBT.CURRENT_SIGIL);
-            currentSigil = MathHelper.clamp_int(currentSigil, 0, inventorySize - 1);
+            int currentSigil = itemStack.getTagCompound().getInteger(Constants.NBT.CURRENT_SIGIL);
+            currentSigil = MathHelper.clamp(currentSigil, 0, INVENTORY_SIZE - 1);
             return currentSigil;
         }
 
         return 0;
     }
 
-    public static ItemStack[] getInternalInventory(ItemStack itemStack)
+    public static List<ItemStack> getInternalInventory(ItemStack stack)
     {
-        initModeTag(itemStack);
-        NBTTagCompound tagCompound = itemStack.getTagCompound();
+        initModeTag(stack);
+        NBTTagCompound tagCompound = stack.getTagCompound();
 
         if (tagCompound == null)
         {
-            return null;
+            return NonNullList.withSize(INVENTORY_SIZE, ItemStack.EMPTY);
         }
 
-        NBTTagList tagList = tagCompound.getTagList(WayofTime.bloodmagic.api.Constants.NBT.ITEMS, 10);
+        NBTTagList tagList = tagCompound.getTagList(Constants.NBT.ITEMS, 10);
 
-        if (tagList == null)
+        if (tagList.hasNoTags())
         {
-            return null;
+            return NonNullList.withSize(INVENTORY_SIZE, ItemStack.EMPTY);
         }
 
-        ItemStack[] inv = new ItemStack[inventorySize];
+        List<ItemStack> inv = NonNullList.withSize(INVENTORY_SIZE, ItemStack.EMPTY);
 
         for (int i = 0; i < tagList.tagCount(); i++)
         {
             NBTTagCompound data = tagList.getCompoundTagAt(i);
-            byte j = data.getByte(WayofTime.bloodmagic.api.Constants.NBT.SLOT);
+            byte j = data.getByte(Constants.NBT.SLOT);
 
-            if (j >= 0 && j < inv.length)
+            if (j >= 0 && j < inv.size())
             {
-                inv[j] = ItemStack.loadItemStackFromNBT(data);
+                inv.set(j, new ItemStack(data));
             }
         }
 
@@ -292,32 +257,33 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
             {
                 int currentIndex = getCurrentItemOrdinal(itemStack);
                 ItemStack currentItemStack = getItemStackInSlot(itemStack, currentIndex);
-                if (currentItemStack == null)
+                if (currentItemStack.isEmpty())
                     return;
                 if (mode < 0)
                 {
-                    index = next(currentIndex);
+                    index = BloodArsenalUtils.next(currentIndex, INVENTORY_SIZE);
                     currentItemStack = getItemStackInSlot(itemStack, index);
 
-                    while (currentItemStack == null)
+                    while (currentItemStack.isEmpty())
                     {
-                        index = next(index);
+                        index = BloodArsenalUtils.next(currentIndex, INVENTORY_SIZE);
                         currentItemStack = getItemStackInSlot(itemStack, index);
                     }
-                } else
+                }
+                else
                 {
-                    index = prev(currentIndex);
+                    index = BloodArsenalUtils.prev(currentIndex, INVENTORY_SIZE);
                     currentItemStack = getItemStackInSlot(itemStack, index);
 
-                    while (currentItemStack == null)
+                    while (currentItemStack.isEmpty())
                     {
-                        index = prev(index);
+                        index = BloodArsenalUtils.prev(currentIndex, INVENTORY_SIZE);
                         currentItemStack = getItemStackInSlot(itemStack, index);
                     }
                 }
             }
 
-            itemStack.getTagCompound().setInteger(WayofTime.bloodmagic.api.Constants.NBT.CURRENT_SIGIL, index);
+            itemStack.getTagCompound().setInteger(Constants.NBT.CURRENT_SIGIL, index);
         }
     }
 

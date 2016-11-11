@@ -1,0 +1,17 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "top": "bloodarsenal:blocks/stasis_plate_top",
+      "side": "bloodarsenal:blocks/stasis_plate_side",
+      "down": "bloodarsenal:blocks/stasis_plate_bottom"
+    },
+
+    "model": "bloodarsenal:blockstasisplate",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [{
+    }]
+  }
+}

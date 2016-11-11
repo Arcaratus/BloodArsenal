@@ -13,11 +13,9 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
+import net.minecraft.item.*;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -41,7 +39,7 @@ public class ItemStygianDagger extends ItemSword implements IVariantProvider
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item id, CreativeTabs creativeTab, List<ItemStack> list)
+    public void getSubItems(Item id, CreativeTabs creativeTab, NonNullList<ItemStack> list)
     {
         for (int i = 0; i < 3; i++)
             list.add(new ItemStack(id, 1, i));
@@ -57,10 +55,10 @@ public class ItemStygianDagger extends ItemSword implements IVariantProvider
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
-        if (I18n.hasKey("tooltip.BloodArsenal.stygianDagger.desc"))
-            tooltip.add(TextHelper.localizeEffect("tooltip.BloodArsenal.stygianDagger.desc"));
+        if (I18n.hasKey("tooltip.bloodarsenal.stygianDagger.desc"))
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.stygianDagger.desc"));
 
-        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.currentTier", stack.getItemDamage() + 1));
+        tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentTier", stack.getItemDamage() + 1));
     }
 
     @Override
@@ -73,7 +71,7 @@ public class ItemStygianDagger extends ItemSword implements IVariantProvider
                 int tier = stack.getItemDamage() + 1;
                 target.addPotionEffect(new PotionEffect(ModPotions.BLEEDING, itemRand.nextInt(tier * 3) * 20, tier));
 
-                NetworkHelper.syphonAndDamage(NetworkHelper.getSoulNetwork((EntityPlayer) attacker), (EntityPlayer) attacker, tier * 500 * itemRand.nextInt(tier + 1));
+                NetworkHelper.getSoulNetwork((EntityPlayer) attacker).syphonAndDamage((EntityPlayer) attacker, tier * 500 * itemRand.nextInt(tier + 1));
             }
         }
 
@@ -98,8 +96,8 @@ public class ItemStygianDagger extends ItemSword implements IVariantProvider
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", 0, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", 0, 0));
         }
         return multimap;
     }

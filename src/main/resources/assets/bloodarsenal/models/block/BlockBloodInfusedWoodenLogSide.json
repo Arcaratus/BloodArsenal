@@ -1,7 +1,0 @@
-{
-  "parent": "block/column_side",
-  "textures": {
-	 "end": "bloodarsenal:blocks/BloodInfusedWoodenLogTop",
-	 "side": "bloodarsenal:blocks/BloodInfusedWoodenLog"
-  }
-}

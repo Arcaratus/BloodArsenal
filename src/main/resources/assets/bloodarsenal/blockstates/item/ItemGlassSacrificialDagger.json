@@ -8,12 +8,12 @@
     "type": {
 	  "normal": {
 	    "textures": {
-		  "layer0": "bloodarsenal:items/GlassSacrificialDagger"
+		  "layer0": "bloodarsenal:items/glass_sacrificial_dagger"
 	    }
       },
 	  "ceremonial": {
 	    "textures": {
-		  "layer0": "bloodarsenal:items/CeremonialGlassSacrificialDagger"
+		  "layer0": "bloodarsenal:items/ceremonial_glass_sacrificial_dagger"
 	    }
 	  }
 	}

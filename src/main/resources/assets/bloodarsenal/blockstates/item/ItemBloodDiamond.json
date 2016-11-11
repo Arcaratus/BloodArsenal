@@ -8,22 +8,22 @@
     "type": {
       "normal": {
         "textures": {
-          "layer0": "bloodarsenal:items/BloodDiamond"
+          "layer0": "bloodarsenal:items/blood_diamond"
         }
       },
       "inert": {
         "textures": {
-          "layer0": "bloodarsenal:items/BloodDiamond_inert"
+          "layer0": "bloodarsenal:items/blood_diamond_inert"
         }
       },
 	  "infused": {
 		"textures": {
-		  "layer0": "bloodarsenal:items/BloodDiamond_infused"
+		  "layer0": "bloodarsenal:items/blood_diamond_infused"
 		}
 	  },
 	  "bound": {
 		"textures": {
-		  "layer0": "bloodarsenal:items/BloodDiamond_bound"
+		  "layer0": "bloodarsenal:items/blood_diamond_bound"
 		}
 	  }
     }

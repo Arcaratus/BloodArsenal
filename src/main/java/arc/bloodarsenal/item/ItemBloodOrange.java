@@ -32,7 +32,7 @@ public class ItemBloodOrange extends ItemFood implements IVariantProvider
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
-        tooltip.add(TextHelper.localizeEffect("tooltip.BloodArsenal.bloodOrange.desc"));
+        tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.bloodOrange.desc"));
 
         super.addInformation(stack, player, tooltip, advanced);
     }

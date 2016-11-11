@@ -1,10 +1,10 @@
 {
   "variants": {
 	"normal": { 
-		"model": "bloodarsenal:BlockBloodInfusedWoodenPlanks" 
+		"model": "bloodarsenal:blockbloodinfusedwoodenplanks" 
 	},
 	"variant=blood_infused": {
-		"model": "bloodarsenal:BlockBloodInfusedWoodenPlanks"
+		"model": "bloodarsenal:blockbloodinfusedwoodenplanks"
 	}
   }
 }

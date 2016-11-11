@@ -15,9 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ItemSigilBaseToggleable extends ItemSigilToggleable implements IMeshProvider
 {
@@ -32,7 +30,7 @@ public class ItemSigilBaseToggleable extends ItemSigilToggleable implements IMes
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 
         this.name = name;
-        this.tooltipBase = "tooltip.BloodArsenal.sigil." + name + ".";
+        this.tooltipBase = "tooltip.bloodarsenal.sigil." + name + ".";
     }
 
     @Override
@@ -45,10 +43,10 @@ public class ItemSigilBaseToggleable extends ItemSigilToggleable implements IMes
         if (!stack.hasTagCompound())
             return;
 
-        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic." + (getActivated(stack) ? "activated" : "deactivated")));
+        tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic." + (getActivated(stack) ? "activated" : "deactivated")));
 
         if (!Strings.isNullOrEmpty(getOwnerName(stack)))
-            tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.currentOwner", PlayerHelper.getUsernameFromStack(stack)));
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentOwner", PlayerHelper.getUsernameFromStack(stack)));
 
         super.addInformation(stack, player, tooltip, advanced);
     }

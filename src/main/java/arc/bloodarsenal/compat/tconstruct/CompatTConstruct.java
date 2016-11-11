@@ -23,6 +23,11 @@ public class CompatTConstruct implements ICompatibility
             {
                 HandlerTConstruct.init();
             }
+
+            case POST_INIT:
+            {
+                HandlerTConstruct.postInit();
+            }
         }
     }
 

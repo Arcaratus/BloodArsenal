@@ -3,9 +3,7 @@ package arc.bloodarsenal.network;
 import arc.bloodarsenal.item.sigil.ItemSigilAugmentedHolding;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
 
 public class SigilAugmentedHoldingPacketProcessor implements IMessage, IMessageHandler<SigilAugmentedHoldingPacketProcessor, IMessage>
 {
@@ -39,17 +37,13 @@ public class SigilAugmentedHoldingPacketProcessor implements IMessage, IMessageH
     @Override
     public IMessage onMessage(SigilAugmentedHoldingPacketProcessor message, MessageContext ctx)
     {
-        ItemStack itemStack = null;
+        ItemStack itemStack = ItemStack.EMPTY;
 
-        if (message.slot > -1 && message.slot < 9)
-        {
-            itemStack = ctx.getServerHandler().playerEntity.inventory.getStackInSlot(message.slot);
-        }
+        if (message.slot > -1 && message.slot < ItemSigilAugmentedHolding.INVENTORY_SIZE)
+            itemStack = ctx.getServerHandler().player.inventory.getStackInSlot(message.slot);
 
-        if (itemStack != null)
-        {
+        if (!itemStack.isEmpty())
             ItemSigilAugmentedHolding.cycleToNextSigil(itemStack, message.mode);
-        }
 
         return null;
     }

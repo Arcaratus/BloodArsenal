@@ -5,9 +5,7 @@ import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.text.WordUtils;
@@ -29,7 +27,7 @@ public class ItemGem extends Item implements IVariantProvider
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 
         this.name = name;
-        this.tooltipBase = "tooltip.BloodArsenal.gem" + WordUtils.capitalize(name) + ".";
+        this.tooltipBase = "tooltip.bloodarsenal.gem" + WordUtils.capitalize(name) + ".";
     }
 
     @Override

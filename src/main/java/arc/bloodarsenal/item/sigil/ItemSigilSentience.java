@@ -1,6 +1,7 @@
 package arc.bloodarsenal.item.sigil;
 
 import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.entity.projectile.EntitySummonedTool;
 import arc.bloodarsenal.util.BloodArsenalUtils;
@@ -8,12 +9,8 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public class ItemSigilSentience extends ItemSigilBase
@@ -24,26 +21,30 @@ public class ItemSigilSentience extends ItemSigilBase
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
+        ItemStack stack = player.getHeldItem(hand);
+        if (PlayerHelper.isFakePlayer(player))
+            return ActionResult.newResult(EnumActionResult.FAIL, stack);
+
         if (hand.equals(EnumHand.OFF_HAND))
         {
-            ItemStack heldStack = player.getHeldItemMainhand();
-            if (heldStack != null && (heldStack.getItem() instanceof ItemSword || heldStack.getItem() instanceof ItemTool))
+            ItemStack heldStack = player.getHeldItemMainhand().copy();
+            if (!heldStack.isEmpty() && (heldStack.getItem() instanceof ItemSword || heldStack.getItem() instanceof ItemTool))
             {
-                ItemStack toolStack = heldStack.copy();
-                if (!player.capabilities.isCreativeMode)
-                {
-                    toolStack.damageItem(2, player);
-                    if (toolStack.getItemDamage() <= 0)
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem, toolStack);
-                }
-
                 EntitySummonedTool summonedTool = new EntitySummonedTool(world, player, heldStack);
                 player.getCooldownTracker().setCooldown(this, 20);
 
-                world.spawnEntityInWorld(summonedTool);
+                world.spawnEntity(summonedTool);
+
+                if (!player.capabilities.isCreativeMode)
+                {
+                    heldStack.damageItem(2, player);
+                    if (heldStack.getItemDamage() <= 0)
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
+
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, heldStack);
+                }
 
                 if (!world.isRemote)
                     syphonCosts(player, heldStack);
@@ -77,13 +78,12 @@ public class ItemSigilSentience extends ItemSigilBase
         }
 
         // HANDLE THE ENCHANTMENTS
-        int lvl;
         for (Enchantment enchantment : EnchantmentHelper.getEnchantments(summonedTool).keySet())
         {
-            lvl = EnchantmentHelper.getEnchantmentLevel(enchantment, summonedTool);
+            int lvl = EnchantmentHelper.getEnchantmentLevel(enchantment, summonedTool);
             cost += 200 * lvl;
         }
 
-        NetworkHelper.syphonAndDamage(NetworkHelper.getSoulNetwork(player), player, (int) cost);
+        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) cost);
     }
 }

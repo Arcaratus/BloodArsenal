@@ -1,16 +1,15 @@
 package arc.bloodarsenal.tile;
 
-import WayofTime.bloodmagic.api.Constants;
 import WayofTime.bloodmagic.api.altar.IBloodAltar;
 import WayofTime.bloodmagic.api.iface.IBindable;
 import WayofTime.bloodmagic.api.orb.IBloodOrb;
 import WayofTime.bloodmagic.api.registry.AltarRecipeRegistry;
 import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
-import WayofTime.bloodmagic.tile.TileInventory;
 import WayofTime.bloodmagic.util.ChatUtil;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.block.BlockAltareAenigmatica;
+import arc.bloodarsenal.registry.Constants;
 import com.google.common.base.Strings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,7 +59,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
     @Override
     public int[] getSlotsForFace(EnumFacing side)
     {
-        IBlockState state = worldObj.getBlockState(pos);
+        IBlockState state = getWorld().getBlockState(pos);
         if (state.getBlock() instanceof BlockAltareAenigmatica)
         {
             BlockAltareAenigmatica aenigmatica = (BlockAltareAenigmatica) state.getBlock();
@@ -88,9 +87,9 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
     @Override
     public void update()
     {
-        if (altarPos != null && altarPos != BlockPos.ORIGIN)
+        if (altarPos != BlockPos.ORIGIN)
         {
-            TileInventory tile = (TileInventory) worldObj.getTileEntity(altarPos);
+            TileInventory tile = (TileInventory) getWorld().getTileEntity(altarPos);
             if (tile instanceof IBloodAltar)
             {
                 if (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN) instanceof InvWrapper)
@@ -103,13 +102,9 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
                     boolean inAltar = checkOrb(altarInventory.getStackInSlot(0));
 
                     if (inThis)
-                    {
                         manageAltar(altarInventory, orbStack, altar);
-                    }
                     else if (inAltar)
-                    {
                         manageAltar(altarInventory, altarInventory.getStackInSlot(0), altar);
-                    }
                 }
             }
         }
@@ -121,12 +116,12 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
      */
     private boolean canInsertIntoAltar(IItemHandler altarInventory)
     {
-        return altarInventory.getStackInSlot(0) == null || checkOrb(altarInventory.getStackInSlot(0));
+        return altarInventory.getStackInSlot(0).isEmpty() || checkOrb(altarInventory.getStackInSlot(0));
     }
 
     private boolean checkOrb(ItemStack orbStack)
     {
-        return orbStack != null && orbStack.getItem() instanceof IBloodOrb && orbStack.getItem() instanceof IBindable && ((IBindable) orbStack.getItem()).getOwnerName(orbStack).equals(linkedOrbOwner);
+        return orbStack.getItem() instanceof IBloodOrb && orbStack.getItem() instanceof IBindable && ((IBindable) orbStack.getItem()).getOwnerName(orbStack).equals(linkedOrbOwner);
     }
 
     private void manageAltar(IItemHandler altarInventory, ItemStack orbStack, IBloodAltar altar)
@@ -138,12 +133,12 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
         {
             if (canInsertIntoAltar(altarInventory))
             {
-                ItemStack stackInSlot = null;
+                ItemStack stackInSlot = ItemStack.EMPTY;
 
                 int slot = -1;
                 for (int i = 0; i < ORB_SLOT; i++)
                 {
-                    if (getStackInSlot(i) != null)
+                    if (!getStackInSlot(i).isEmpty())
                     {
                         stackInSlot = getStackInSlot(i);
                         slot = i;
@@ -153,7 +148,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
 
                 int altarEssence = altar.getCurrentBlood();
 
-                if (stackInSlot != null && slot > -1)
+                if (!stackInSlot.isEmpty() && slot > -1)
                 {
                     AltarRecipeRegistry.AltarRecipe altarRecipe = AltarRecipeRegistry.getRecipeForInput(stackInSlot);
                     if (altarRecipe != null && altarRecipe.doesRequiredItemMatch(stackInSlot, altar.getTier()))
@@ -164,11 +159,11 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
                             altarInventory.extractItem(0, 1, false);
                             setInventorySlotContents(ORB_SLOT, copyStack);
                         }
-                        else if (altarRecipe.getSyphon() * stackInSlot.stackSize <= altarEssence && NetworkHelper.canSyphonFromContainer(orbStack, stackInSlot.stackSize * ConfigHandler.altareAenigmaticaMoveMultiplier)) //Move items into the Altar after checking LP levels
+                        else if (altarRecipe.getSyphon() * stackInSlot.getCount() <= altarEssence && NetworkHelper.canSyphonFromContainer(orbStack, stackInSlot.getCount() * ConfigHandler.altareAenigmaticaMoveMultiplier)) //Move items into the Altar after checking LP levels
                         {
                             altarInventory.insertItem(0, stackInSlot.copy(), false);
-                            setInventorySlotContents(slot, null);
-                            NetworkHelper.syphonFromContainer(orbStack, stackInSlot.stackSize * ConfigHandler.altareAenigmaticaMoveMultiplier);
+                            setInventorySlotContents(slot, ItemStack.EMPTY);
+                            NetworkHelper.syphonFromContainer(orbStack, stackInSlot.getCount() * ConfigHandler.altareAenigmaticaMoveMultiplier);
                         }
                     }
                     else
@@ -176,7 +171,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
                         shoveOrbIntoAltar(altarInventory, orbStack);
                     }
                 }
-                else if (altarInventory.getStackInSlot(0) == null) //Put orb back in if possible
+                else if (altarInventory.getStackInSlot(0).isEmpty()) //Put orb back in if possible
                 {
                     shoveOrbIntoAltar(altarInventory, orbStack);
                 }
@@ -187,7 +182,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
     private void shoveOrbIntoAltar(IItemHandler altarInventory, ItemStack orbStack)
     {
         ItemStack copyStack = orbStack.copy();
-        setInventorySlotContents(ORB_SLOT, null);
+        setInventorySlotContents(ORB_SLOT, ItemStack.EMPTY);
         altarInventory.insertItem(0, copyStack, false);
     }
 
@@ -199,11 +194,6 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
     public void setAltarPos(BlockPos pos)
     {
         this.altarPos = pos;
-    }
-
-    public String getLinkedOrbOwner()
-    {
-        return linkedOrbOwner;
     }
 
     public boolean setLinkedOrbOwner(EntityPlayer player)

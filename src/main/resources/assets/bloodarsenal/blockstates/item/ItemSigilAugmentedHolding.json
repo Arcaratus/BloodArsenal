@@ -8,13 +8,13 @@
     "type": {
       "normal": {
         "textures": {
-          "layer0": "bloodarsenal:items/SigilOfAugmentedHolding"
+          "layer0": "bloodarsenal:items/sigil_of_augmented_holding"
         }
       },
       "color": {
         "textures": {
-          "layer0": "bloodarsenal:items/SigilOfAugmentedHolding",
-		  "layer1": "bloodmagic:items/SigilOverlay"
+          "layer0": "bloodarsenal:items/sigil_of_augmented_holding",
+		  "layer1": "bloodmagic:items/sigiloverlay"
         }
       }
     }

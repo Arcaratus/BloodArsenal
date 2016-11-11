@@ -6,9 +6,7 @@ import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.registry.ModItems;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
@@ -17,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,19 +32,21 @@ public class ItemBloodArsenalBase extends Item implements IVariantProvider
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 
         this.name = name;
-        this.tooltipBase = "tooltip.BloodArsenal." + name + ".";
+        this.tooltipBase = "tooltip.bloodarsenal." + name + ".";
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
-        if (player.getName().equals("Arcaratus") && stack.getItem() == ModItems.BLOOD_INFUSED_STICK && player.getHeldItemMainhand().stackSize == 1)
+        ItemStack stack = player.getHeldItem(hand);
+        if (player.getName().equals("Arcaratus") && stack.getItem() == ModItems.BLOOD_INFUSED_STICK && stack.getCount() == 1)
         {
             stack.setTagCompound(new NBTTagCompound());
             stack.setStackDisplayName(TextHelper.getFormattedText("&r&cThe Living Stick"));
             stack.getTagCompound().setBoolean("living", true);
         }
-        return super.onItemRightClick(stack, world, player, hand);
+
+        return super.onItemRightClick(world, player, hand);
     }
 
     @Override
@@ -54,6 +55,20 @@ public class ItemBloodArsenalBase extends Item implements IVariantProvider
     {
         if (I18n.hasKey(tooltipBase + "desc"))
             tooltip.add(TextHelper.localizeEffect(tooltipBase + "desc"));
+
+        {
+            if (stack.getItem() == ModItems.GLASS_SHARD)
+                if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+                    tooltip.add(TextHelper.localizeEffect(tooltipBase + "info"));
+                else
+                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.holdShift"));
+            else if (stack.getItem() == ModItems.REAGENT_LIGHTNING)
+                if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+                    for (int i = 0; i < 8; i++)
+                        tooltip.add(TextHelper.localizeEffect(tooltipBase + "info" + i));
+                else
+                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.holdShift"));
+        }
 
         super.addInformation(stack, player, tooltip, advanced);
     }

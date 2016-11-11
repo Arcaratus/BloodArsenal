@@ -1,7 +1,7 @@
 {
   "variants": {
-	"normal": { "model": "bloodarsenal:BlockBloodInfusedWoodenHalfSlab" },
-    "half=bottom,variant=blood_infused": { "model": "bloodarsenal:BlockBloodInfusedWoodenHalfSlab" },
-    "half=top,variant=blood_infused": { "model": "bloodarsenal:BlockBloodInfusedWoodenUpperSlab" }
+	"normal": { "model": "bloodarsenal:blockbloodinfusedwoodenhalfslab" },
+    "half=bottom,variant=blood_infused": { "model": "bloodarsenal:blockbloodinfusedwoodenhalfslab" },
+    "half=top,variant=blood_infused": { "model": "bloodarsenal:blockbloodinfusedwoodenupperslab" }
   }
 }

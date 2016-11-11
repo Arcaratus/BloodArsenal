@@ -7,7 +7,7 @@
   "variants": {
     "normal": [{
 	  "textures": {
-		"layer0": "bloodarsenal:items/BloodInfusedWoodenShovel"
+		"layer0": "bloodarsenal:items/blood_infused_wooden_shovel"
 	  }
     }]
   }

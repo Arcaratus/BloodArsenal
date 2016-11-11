@@ -1,11 +1,11 @@
 package arc.bloodarsenal.item.inventory;
 
-import WayofTime.bloodmagic.api.Constants;
 import WayofTime.bloodmagic.api.iface.ISigil;
 import WayofTime.bloodmagic.item.inventory.ItemInventory;
 import WayofTime.bloodmagic.item.sigil.ItemSigilHolding;
 import WayofTime.bloodmagic.util.Utils;
 import arc.bloodarsenal.item.sigil.ItemSigilAugmentedHolding;
+import arc.bloodarsenal.registry.Constants;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,14 +18,14 @@ public class InventoryAugmentedHolding extends ItemInventory
 
     public InventoryAugmentedHolding(ItemStack itemStack)
     {
-        super(itemStack, ItemSigilAugmentedHolding.inventorySize, "SigilOfAugmentedHolding");
+        super(itemStack, ItemSigilAugmentedHolding.INVENTORY_SIZE, "SigilOfAugmentedHolding");
     }
 
     public void onGuiSaved(EntityPlayer entityPlayer)
     {
         masterStack = findParentStack(entityPlayer);
 
-        if (masterStack != null)
+        if (!masterStack.isEmpty())
         {
             save();
         }
@@ -40,7 +40,7 @@ public class InventoryAugmentedHolding extends ItemInventory
             {
                 ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
-                if (itemStack != null && Utils.hasUUID(itemStack))
+                if (!itemStack.isEmpty() && Utils.hasUUID(itemStack))
                 {
                     if (itemStack.getTagCompound().getLong(Constants.NBT.MOST_SIG) == parentStackUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(Constants.NBT.LEAST_SIG) == parentStackUUID.getLeastSignificantBits())
                     {
@@ -50,7 +50,7 @@ public class InventoryAugmentedHolding extends ItemInventory
             }
         }
 
-        return null;
+        return ItemStack.EMPTY;
     }
 
     public void save()
@@ -73,7 +73,7 @@ public class InventoryAugmentedHolding extends ItemInventory
     @Override
     public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack)
     {
-        return itemStack.getItem() instanceof ISigil && !(itemStack.getItem() instanceof ItemSigilHolding);
+        return itemStack.getItem() instanceof ISigil && !(itemStack.getItem() instanceof ItemSigilHolding || itemStack.getItem() instanceof ItemSigilAugmentedHolding);
     }
 
     @Override

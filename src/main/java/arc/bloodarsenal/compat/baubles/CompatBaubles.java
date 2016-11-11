@@ -48,7 +48,7 @@ public class CompatBaubles implements ICompatibility
     @Override
     public String getModId()
     {
-        return "Baubles";
+        return "baubles";
     }
 
     @Override
@@ -57,7 +57,7 @@ public class CompatBaubles implements ICompatibility
         return ConfigHandler.baublesEnabled;
     }
 
-    @Optional.Method(modid = "Baubles")
+    @Optional.Method(modid = "baubles")
     private static void doItems()
     {
         SACRIFICE_AMULET = ModItems.registerItem(new ItemSacrificeAmulet("sacrificeAmulet"));

@@ -8,7 +8,7 @@
     "type": {
       "normal": {
         "textures": {
-          "layer0": "bloodarsenal:items/SelfSacrificeAmulet"
+          "layer0": "bloodarsenal:items/self_sacrifice_amulet"
         }
       }
     }
