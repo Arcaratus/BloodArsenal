@@ -114,6 +114,11 @@ tooltip.BloodArsenal.ringOfVampirism.desc=Feeding off of blood!
 tooltip.BloodArsenal.stored=Stored: &c%d &7LP
 tooltip.BloodArsenal.level=Level: %d
 
+# Ritual
+ritual.BloodArsenal.infusionRitual=Infusion de Sanguine
+
+ritual.BloodArsenal.imperfect.lightning=Imperfect Lightning Ritual
+
 # Chat
 chat.BloodArsenal.damageSourceGlass=%s was pricked too much
 chat.BloodArsenal.damageSourceBleeding=%s ran out of life
@@ -134,4 +139,4 @@ material.bloodinfusedwood.name=Blood Infused Wood
 material.bloodinfusedwood.prefix=Blood Infused Wooden %s
 material.bloodinfusediron.name=Blood Infused Iron
 
-fluid.BloodArsenal.moltenBloodInfusedIron.name=Molten Blood Infused Iron
+fluid.tconstruct.molten_blood_infused_iron.name=Molten Blood Infused Iron

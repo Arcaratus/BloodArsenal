@@ -5,6 +5,7 @@ import arc.bloodarsenal.util.handler.EventHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
 
 public class CommonProxy
 {
@@ -42,5 +43,9 @@ public class CommonProxy
     public void tryHandleItemModel(Item item, String name)
     {
         // NO-OP
+    }
+
+    public void registerFluidModels(Fluid fluid)
+    {
     }
 }

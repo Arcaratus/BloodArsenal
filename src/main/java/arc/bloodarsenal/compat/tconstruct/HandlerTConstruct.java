@@ -4,14 +4,17 @@ import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.registry.ModBlocks;
 import arc.bloodarsenal.registry.ModItems;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import slimeknights.tconstruct.TinkerIntegration;
 import slimeknights.tconstruct.common.ModelRegisterUtil;
+import slimeknights.tconstruct.library.MaterialIntegration;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.fluid.FluidMolten;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
@@ -21,8 +24,11 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
-import slimeknights.tconstruct.shared.TinkerFluids;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.BlockMolten;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class HandlerTConstruct
 {
@@ -36,7 +42,9 @@ public class HandlerTConstruct
     public static AbstractTrait traitLiving1;
     public static AbstractTrait traitLiving2;
 
-    public static void init()
+    private static List<MaterialIntegration> integrations = new ArrayList<>();
+
+    public static void preInit()
     {
         modSerrated = new ModifierSerrated();
         modSerrated.addItem(ModItems.GLASS_SHARD, 1, 1);
@@ -61,33 +69,44 @@ public class HandlerTConstruct
         materialBloodInfusedIron.addItem(ModItems.BLOOD_INFUSED_IRON_INGOT, 1, Material.VALUE_Ingot);
         materialBloodInfusedIron.setRepresentativeItem(ModItems.BLOOD_INFUSED_IRON_INGOT);
 
-
-        TinkerRegistry.addMaterial(materialBloodInfusedIron);
         TinkerRegistry.addMaterialStats(materialBloodInfusedIron,
                 new HeadMaterialStats(568, 7.3F, 4.9F, HarvestLevels.DIAMOND),
                 new HandleMaterialStats(1.7F, 72),
                 new ExtraMaterialStats(49));
 
-        moltenBloodInfusedIron = new FluidMolten(materialBloodInfusedIron.getIdentifier(), materialBloodInfusedIron.materialTextColor
-//                0xd55b5b
-        );
+        moltenBloodInfusedIron = new FluidMolten(materialBloodInfusedIron.getIdentifier(), materialBloodInfusedIron.materialTextColor, new ResourceLocation("tconstruct:blocks/fluids/molten_metal"), new ResourceLocation("tconstruct:blocks/fluids/molten_metal_flow"));
         moltenBloodInfusedIron.setTemperature(910);
         moltenBloodInfusedIron.setRarity(EnumRarity.UNCOMMON);
-        moltenBloodInfusedIron.setUnlocalizedName(BloodArsenal.MOD_ID + ".moltenBloodInfusedIron");
+        moltenBloodInfusedIron.setUnlocalizedName(Util.prefix("molten_blood_infused_iron"));
+        moltenBloodInfusedIron.setLuminosity(11);
+        moltenBloodInfusedIron.setDensity(2000);
 
         FluidRegistry.registerFluid(moltenBloodInfusedIron);
-
-        TinkerIntegration.integrate(materialBloodInfusedIron, moltenBloodInfusedIron, "BloodInfusedIron");
-
         if (!FluidRegistry.getBucketFluids().contains(moltenBloodInfusedIron))
             FluidRegistry.addBucketForFluid(moltenBloodInfusedIron);
 
+        BlockMolten moltenBloodInfusedIronBlock = new BlockMolten(moltenBloodInfusedIron);
+        moltenBloodInfusedIronBlock.setUnlocalizedName("molten_" + moltenBloodInfusedIron.getName());
+        moltenBloodInfusedIronBlock.setRegistryName(BloodArsenal.MOD_ID.toLowerCase(Locale.ENGLISH), "molten_" + moltenBloodInfusedIron.getName());
+
+        GameRegistry.register(moltenBloodInfusedIronBlock);
+        GameRegistry.register(new ItemBlock(moltenBloodInfusedIronBlock).setRegistryName(moltenBloodInfusedIronBlock.getRegistryName()));
+
+        BloodArsenal.PROXY.registerFluidModels(moltenBloodInfusedIron);
+
         materialBloodInfusedIron.setCastable(true);
         materialBloodInfusedIron.setFluid(moltenBloodInfusedIron);
+        materialBloodInfusedIron.addItemIngot("ingotBloodInfusedIron");
 
-        TinkerFluids.registerMoltenBlock(moltenBloodInfusedIron);
-        TinkerFluids.proxy.registerFluidModels(moltenBloodInfusedIron);
-        TinkerSmeltery.registerToolpartMeltingCasting(materialBloodInfusedIron);
+        MaterialIntegration integration = new MaterialIntegration(materialBloodInfusedIron, moltenBloodInfusedIron, "BloodInfusedIron");
+        integration.integrate();
+        integrations.add(integration);
+    }
+
+    public static void init()
+    {
+        for (MaterialIntegration integration : integrations)
+            integration.integrateRecipes();
     }
 
     @SideOnly(Side.CLIENT)
@@ -97,6 +116,6 @@ public class HandlerTConstruct
 
         materialBloodInfusedWood.setRenderInfo(new MaterialRenderInfo.MultiColor(0x6C1E12, 0x7A1E0E, 0x982E1A));
 
-        materialBloodInfusedIron.setRenderInfo(new MaterialRenderInfo.Metal(0xA93027, 0F, 0.1F, 0F));
+        materialBloodInfusedIron.setRenderInfo(new MaterialRenderInfo.Metal(0xBA5952, 0F, 0.1F, 0F));
     }
 }

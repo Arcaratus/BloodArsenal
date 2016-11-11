@@ -71,9 +71,11 @@ public class BloodArsenal
         ConfigHandler.init(new File(getConfigDir(), "BloodArsenal.cfg"));
 
         ModBlocks.initTiles();
+        ModBlocks.addOreDictBlocks();
         ModItems.addOreDictItems();
         ModPotions.init();
         ModEntities.init();
+        ModRituals.안녕하세요(); // just cuz
         ModCompat.registerModCompat();
         ModCompat.loadCompat(ICompatibility.InitializationPhase.PRE_INIT);
 

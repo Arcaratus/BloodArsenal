@@ -33,6 +33,12 @@ public class ConfigHandler
     public static int sigilDivinityCost;
     public static int sigilSentienceBaseCost;
 
+    // Rituals
+    public static boolean infusionRitual;
+
+    // Imperfect Rituals
+    public static boolean imperfectLightning;
+
     // Mod configs
     public static boolean baublesEnabled;
     public static boolean guideAPIEnabled;
@@ -87,6 +93,14 @@ public class ConfigHandler
         sigilLightningMultiplier = config.getInt("sigilLightningMultiplier", category, 800, 0, TEN_K, "Set the multiplier per lighting bolt for the Lightning Sigil");
         sigilDivinityCost = config.getInt("sigilDivinityCost", category, TEN_K * 10, 0, Integer.MAX_VALUE, "Set the LP cost for the Sigil of Divinity");
         sigilSentienceBaseCost = config.getInt("sigilSentienceBaseCost", category, ONE_K, 0, TEN_K, "Set the base LP cost when the Sigil of Sentience is used");
+
+        category = "Rituals";
+        config.addCustomCategoryComment(category, "Ritual configs");
+        config.setCategoryRequiresMcRestart(category, true);
+        infusionRitual = config.getBoolean("infusionRitual", category, true, "Enable the Infusion de Sanguine?");
+
+        category = "Rituals.Imperfect";
+        imperfectLightning = config.getBoolean("imperfectLightning", category, true, "Enable the Imperfect Lightning Ritual?");
 
         category = "Mod Configs";
         config.addCustomCategoryComment(category, "Mod interaction configs");

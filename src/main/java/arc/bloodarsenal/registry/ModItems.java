@@ -110,6 +110,7 @@ public class ModItems
     public static void addOreDictItems()
     {
         OreDictionary.registerOre("shardGlass", GLASS_SHARD);
+        OreDictionary.registerOre("ingotBloodInfusedIron", BLOOD_INFUSED_IRON_INGOT);
     }
 
     @SideOnly(Side.CLIENT)

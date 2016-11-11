@@ -14,9 +14,14 @@ public class CompatTConstruct implements ICompatibility
         {
             case PRE_INIT:
             {
-                HandlerTConstruct.init();
+                HandlerTConstruct.preInit();
                 if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
                     HandlerTConstruct.initRender();
+            }
+
+            case INIT:
+            {
+                HandlerTConstruct.init();
             }
         }
     }

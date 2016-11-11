@@ -9,6 +9,7 @@ import arc.bloodarsenal.tile.TileAltareAenigmatica;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ModBlocks
 {
@@ -49,14 +50,14 @@ public class ModBlocks
         ALTARE_AENIGMATICA = registerBlock(new BlockAltareAenigmatica("altareAenigmatica"));
     }
 
+    public static void addOreDictBlocks()
+    {
+        OreDictionary.registerOre("blockBloodInfusedIron", BLOOD_INFUSED_IRON_BLOCK);
+    }
+
     public static void initTiles()
     {
         GameRegistry.registerTileEntity(TileAltareAenigmatica.class, BloodArsenal.MOD_ID + ":" + TileAltareAenigmatica.class.getSimpleName());
-    }
-
-    public static void initSpecialRenders()
-    {
-
     }
 
     public static Block registerBlock(Block block, String name)
