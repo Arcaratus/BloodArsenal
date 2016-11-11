@@ -13,9 +13,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
+import net.minecraft.item.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -64,8 +62,8 @@ public class ItemBloodInfusedIronSword extends ItemSword implements IVariantProv
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
-        if (I18n.hasKey("tooltip.BloodArsenal.bloodInfusedIron.sword.desc"))
-            tooltip.add(TextHelper.localizeEffect("tooltip.BloodArsenal.bloodInfusedIron.sword.desc"));
+        if (I18n.hasKey("tooltip.bloodarsenal.bloodInfusedIron.sword.desc"))
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.bloodInfusedIron.sword.desc"));
 
         super.addInformation(stack, player, tooltip, advanced);
     }
@@ -76,8 +74,8 @@ public class ItemBloodInfusedIronSword extends ItemSword implements IVariantProv
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 8, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -3, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 8, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -3, 0));
         }
         return multimap;
     }

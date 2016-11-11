@@ -4,9 +4,7 @@ import WayofTime.bloodmagic.api.orb.IBloodOrb;
 import arc.bloodarsenal.tile.TileAltareAenigmatica;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 
 import static arc.bloodarsenal.registry.Constants.Misc.PLAYER_INVENTORY_COLUMNS;
@@ -47,7 +45,7 @@ public class ContainerAltareAenigmatica extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        ItemStack itemstack = null;
+        ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -61,31 +59,31 @@ public class ContainerAltareAenigmatica extends Container
                 {
                     if (!this.mergeItemStack(itemstack1, TileAltareAenigmatica.ORB_SLOT, TileAltareAenigmatica.ORB_SLOT + 1, false)) //TODO: Add alchemy tools to list
                     {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
                 } else if (!this.mergeItemStack(itemstack1, 0, TileAltareAenigmatica.ORB_SLOT, false))
                 {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             } else if (!this.mergeItemStack(itemstack1, TileAltareAenigmatica.ORB_SLOT + 1, TileAltareAenigmatica.ORB_SLOT + 37, false))
             {
-                return null;
+                return ItemStack.EMPTY;
             }
 
-            if (itemstack1.stackSize == 0)
+            if (itemstack1.getCount() == 0)
             {
-                slot.putStack(null);
+                slot.putStack(ItemStack.EMPTY);
             } else
             {
                 slot.onSlotChanged();
             }
 
-            if (itemstack1.stackSize == itemstack.stackSize)
+            if (itemstack1.getCount() == itemstack.getCount())
             {
-                return null;
+                return ItemStack.EMPTY;
             }
 
-            slot.onPickupFromSlot(playerIn, itemstack1);
+            slot.onTake(playerIn, itemstack1);
         }
 
         return itemstack;
@@ -94,7 +92,7 @@ public class ContainerAltareAenigmatica extends Container
     @Override
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.tileAltareAenigmatica.isUseableByPlayer(playerIn);
+        return this.tileAltareAenigmatica.isUsableByPlayer(playerIn);
     }
 
     private class SlotOrb extends Slot

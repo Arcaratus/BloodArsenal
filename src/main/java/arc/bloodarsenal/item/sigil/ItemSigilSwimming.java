@@ -6,8 +6,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -21,11 +19,6 @@ public class ItemSigilSwimming extends ItemSigilBaseToggleable
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    @Override
-    public void onSigilUpdate(ItemStack stack, World worldIn, EntityPlayer player, int itemSlot, boolean isSelected)
-    {
-    }
-
     @SubscribeEvent
     public void onEntityUpdate(LivingEvent.LivingUpdateEvent event)
     {
@@ -37,7 +30,7 @@ public class ItemSigilSwimming extends ItemSigilBaseToggleable
             {
                 player.setAir(300);
 
-                if (player.worldObj.isRemote)
+                if (player.getEntityWorld().isRemote)
                     GlStateManager.setFogDensity(0.01F);
 
                 player.motionX *= 1.2D;

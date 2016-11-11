@@ -4,9 +4,7 @@ import WayofTime.bloodmagic.api.iface.ISigil;
 import WayofTime.bloodmagic.item.sigil.ItemSigilHolding;
 import arc.bloodarsenal.item.sigil.ItemSigilAugmentedHolding;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -24,7 +22,7 @@ public class ContainerAugmentedHolding extends Container
         this.inventoryHolding = inventoryHolding;
         int currentSlotHeldIn = player.inventory.currentItem;
 
-        for (int columnIndex = 0; columnIndex < ItemSigilAugmentedHolding.inventorySize; ++columnIndex)
+        for (int columnIndex = 0; columnIndex < ItemSigilAugmentedHolding.INVENTORY_SIZE; ++columnIndex)
         {
             this.addSlotToContainer(new SlotHolding(this, inventoryHolding, player, columnIndex, 8 + columnIndex * 18, 17));
         }
@@ -60,7 +58,7 @@ public class ContainerAugmentedHolding extends Container
     {
         super.onContainerClosed(entityPlayer);
 
-        if (!entityPlayer.worldObj.isRemote)
+        if (!entityPlayer.getEntityWorld().isRemote)
         {
             saveInventory(entityPlayer);
         }
@@ -71,7 +69,7 @@ public class ContainerAugmentedHolding extends Container
     {
         super.detectAndSendChanges();
 
-        if (!player.worldObj.isRemote)
+        if (!player.getEntityWorld().isRemote)
         {
             saveInventory(player);
         }
@@ -80,8 +78,8 @@ public class ContainerAugmentedHolding extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex)
     {
-        ItemStack stack = null;
-        Slot slotObject = (Slot) inventorySlots.get(slotIndex);
+        ItemStack stack = ItemStack.EMPTY;
+        Slot slotObject = inventorySlots.get(slotIndex);
         int slots = inventorySlots.size();
 
         if (slotObject != null && slotObject.getHasStack())
@@ -95,40 +93,40 @@ public class ContainerAugmentedHolding extends Container
                 {
                     if (!this.mergeItemStack(stackInSlot, ItemSigilHolding.inventorySize, slots, false))
                     {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
                 } else if (!this.mergeItemStack(stackInSlot, 0, ItemSigilHolding.inventorySize, false))
                 {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
-            } else if (stack.getItem() instanceof ItemSigilHolding)
+            } else if (stack.getItem() instanceof ItemSigilHolding || stack.getItem() instanceof ItemSigilAugmentedHolding)
             {
                 if (slotIndex < ItemSigilHolding.inventorySize + (PLAYER_INVENTORY_ROWS * PLAYER_INVENTORY_COLUMNS))
                 {
                     if (!this.mergeItemStack(stackInSlot, ItemSigilHolding.inventorySize + (PLAYER_INVENTORY_ROWS * PLAYER_INVENTORY_COLUMNS), inventorySlots.size(), false))
                     {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
                 } else if (!this.mergeItemStack(stackInSlot, ItemSigilHolding.inventorySize, ItemSigilHolding.inventorySize + (PLAYER_INVENTORY_ROWS * PLAYER_INVENTORY_COLUMNS), false))
                 {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             }
 
-            if (stackInSlot.stackSize == 0)
+            if (stackInSlot.getCount() == 0)
             {
-                slotObject.putStack(null);
+                slotObject.putStack(ItemStack.EMPTY);
             } else
             {
                 slotObject.onSlotChanged();
             }
 
-            if (stackInSlot.stackSize == stack.stackSize)
+            if (stackInSlot.getCount() == stack.getCount())
             {
-                return null;
+                return ItemStack.EMPTY;
             }
 
-            slotObject.onPickupFromSlot(player, stackInSlot);
+            slotObject.onTake(player, stackInSlot);
         }
 
         return stack;
@@ -165,7 +163,7 @@ public class ContainerAugmentedHolding extends Container
         @Override
         public boolean isItemValid(ItemStack itemStack)
         {
-            return itemStack.getItem() instanceof ISigil && !(itemStack.getItem() instanceof ItemSigilHolding);
+            return itemStack.getItem() instanceof ISigil && !(itemStack.getItem() instanceof ItemSigilHolding || itemStack.getItem() instanceof ItemSigilAugmentedHolding);
         }
     }
 

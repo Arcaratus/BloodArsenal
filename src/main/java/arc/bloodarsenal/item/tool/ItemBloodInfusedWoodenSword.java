@@ -57,8 +57,8 @@ public class ItemBloodInfusedWoodenSword extends ItemSword implements IVariantPr
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
-        if (I18n.hasKey("tooltip.BloodArsenal.bloodInfusedWooden.sword.desc"))
-            tooltip.add(TextHelper.localizeEffect("tooltip.BloodArsenal.bloodInfusedWooden.sword.desc"));
+        if (I18n.hasKey("tooltip.bloodarsenal.bloodInfusedWooden.sword.desc"))
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.bloodInfusedWooden.sword.desc"));
 
         super.addInformation(stack, player, tooltip, advanced);
     }
@@ -69,8 +69,8 @@ public class ItemBloodInfusedWoodenSword extends ItemSword implements IVariantPr
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 5.5, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -3, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 5.5, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -3, 0));
         }
         return multimap;
     }

@@ -10,9 +10,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -23,9 +21,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class BlockBloodBurnedString extends BlockTripWire implements IComplexVariantProvider
 {
@@ -72,10 +68,10 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
         worldIn.setBlockState(pos, state, 3);
-        this.notifyHook(worldIn, pos, state);
+        this.notifyHook(worldIn, pos);
     }
 
-    private void notifyHook(World worldIn, BlockPos pos, IBlockState state)
+    private void notifyHook(World worldIn, BlockPos pos)
     {
         for (EnumFacing enumfacing : new EnumFacing[]{EnumFacing.SOUTH, EnumFacing.WEST})
         {
@@ -125,7 +121,7 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
         IBlockState iblockstate = worldIn.getBlockState(pos);
         boolean flag = iblockstate.getValue(POWERED);
         boolean flag1 = false;
-        List<? extends Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity((Entity) null, iblockstate.getBoundingBox(worldIn, pos).offset(pos));
+        List<? extends Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(null, iblockstate.getBoundingBox(worldIn, pos).offset(pos));
 
         if (!list.isEmpty())
         {
@@ -143,7 +139,7 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
         {
             iblockstate = iblockstate.withProperty(POWERED, flag1);
             worldIn.setBlockState(pos, iblockstate, 3);
-            this.notifyHook(worldIn, pos, iblockstate);
+            this.notifyHook(worldIn, pos);
         }
 
         if (flag1)

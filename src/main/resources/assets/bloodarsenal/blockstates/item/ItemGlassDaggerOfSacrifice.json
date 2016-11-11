@@ -7,7 +7,7 @@
   "variants": {
     "normal": [{
 	  "textures": {
-		"layer0": "bloodarsenal:items/GlassDaggerOfSacrifice"
+		"layer0": "bloodarsenal:items/glass_dagger_of_sacrifice"
 	  }
     }]
   }

@@ -1,18 +1,14 @@
 package arc.bloodarsenal.item.sigil;
 
-import WayofTime.bloodmagic.api.Constants;
-import WayofTime.bloodmagic.api.util.helper.NBTHelper;
-import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.api.util.helper.*;
 import arc.bloodarsenal.ConfigHandler;
+import arc.bloodarsenal.registry.Constants;
 import arc.bloodarsenal.util.BloodArsenalUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -32,13 +28,16 @@ public class ItemSigilEnder extends ItemSigilBase
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
-        stack = NBTHelper.checkNBT(stack);
+        ItemStack stack = NBTHelper.checkNBT(player.getHeldItem(hand));
+        if (PlayerHelper.isFakePlayer(player))
+            return ActionResult.newResult(EnumActionResult.FAIL, stack);
+
         RayTraceResult mop = BloodArsenalUtils.rayTrace(world, player, false);
 
         if (getCooldownRemainder(stack) > 0)
-            return super.onItemRightClick(stack, world, player, hand);
+            return super.onItemRightClick(world, player, hand);
 
         if (player.isSneaking() && mop != null && mop.typeOfHit == RayTraceResult.Type.BLOCK)
         {
@@ -46,7 +45,7 @@ public class ItemSigilEnder extends ItemSigilBase
 
             double distance = player.getPosition().getDistance(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-            if (NetworkHelper.syphonAndDamage(NetworkHelper.getSoulNetwork(player), player, (int) distance * ConfigHandler.sigilEnderTeleportMultiplier) || player.capabilities.isCreativeMode)
+            if (NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) distance * ConfigHandler.sigilEnderTeleportMultiplier) || player.capabilities.isCreativeMode)
             {
                 world.spawnParticle(EnumParticleTypes.PORTAL, player.posX + (world.rand.nextDouble() - 0.5D) * (double) player.width, player.posY + world.rand.nextDouble() * (double) player.height - 0.25D, player.posZ + (world.rand.nextDouble() - 0.5D) * (double) player.width,  (itemRand.nextDouble() - 0.5D) * 2.0D, -itemRand.nextDouble(), (itemRand.nextDouble() - 0.5D) * 2.0D, new int[0]);
                 world.playSound(player, player.prevPosX, player.prevPosY, player.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
@@ -62,12 +61,12 @@ public class ItemSigilEnder extends ItemSigilBase
             player.displayGUIChest(player.getInventoryEnderChest());
 
             if (!world.isRemote)
-                NetworkHelper.syphonAndDamage(NetworkHelper.getSoulNetwork(player), player, getLpUsed());
+                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, getLpUsed());
 
             resetCooldown(stack);
         }
 
-        return super.onItemRightClick(stack, world, player, hand);
+        return super.onItemRightClick(world, player, hand);
     }
 
     public int getCooldownRemainder(ItemStack stack)

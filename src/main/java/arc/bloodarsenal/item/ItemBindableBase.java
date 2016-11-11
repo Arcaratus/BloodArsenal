@@ -1,11 +1,11 @@
 package arc.bloodarsenal.item;
 
-import WayofTime.bloodmagic.api.Constants;
 import WayofTime.bloodmagic.api.impl.ItemBindable;
 import WayofTime.bloodmagic.api.util.helper.NBTHelper;
 import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
+import arc.bloodarsenal.registry.Constants;
 import com.google.common.base.Strings;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,7 +28,7 @@ public class ItemBindableBase extends ItemBindable
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 
         this.name = name;
-        this.tooltipBase = "tooltip.BloodArsenal." + name + ".";
+        this.tooltipBase = "tooltip.bloodarsenal." + name + ".";
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ItemBindableBase extends ItemBindable
         NBTHelper.checkNBT(stack);
 
         if (!Strings.isNullOrEmpty(stack.getTagCompound().getString(Constants.NBT.OWNER_UUID)))
-            tooltip.add(TextHelper.localizeEffect("tooltip.BloodArsenal.currentOwner", PlayerHelper.getUsernameFromStack(stack)));
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.currentOwner", PlayerHelper.getUsernameFromStack(stack)));
 
         super.addInformation(stack, player, tooltip, advanced);
     }

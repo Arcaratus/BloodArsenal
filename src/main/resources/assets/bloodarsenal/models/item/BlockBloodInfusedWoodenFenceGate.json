@@ -1,5 +1,5 @@
 {
-  "parent": "bloodarsenal:block/BlockBloodInfusedWoodenFenceGateClosed",
+  "parent": "bloodarsenal:block/blockbloodinfusedwoodenfencegateclosed",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -90, 170 ],

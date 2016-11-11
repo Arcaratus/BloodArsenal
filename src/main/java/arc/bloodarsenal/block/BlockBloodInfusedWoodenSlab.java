@@ -15,6 +15,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -22,9 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements IVariantProvider
 {
@@ -47,7 +46,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
             iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
         }
 
-        this.setDefaultState(iblockstate.withProperty(VARIANT, BlockBloodInfusedWoodenLog.EnumType.BLOODINFUSED));
+        this.setDefaultState(iblockstate.withProperty(VARIANT, BlockBloodInfusedWoodenLog.EnumType.BLOOD_INFUSED));
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }
 
@@ -59,7 +58,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list)
     {
         list.add(new ItemStack(itemIn, 1, 0));
     }
@@ -97,7 +96,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
     @Override
     public Comparable<?> getTypeForItem(ItemStack stack)
     {
-        return BlockBloodInfusedWoodenLog.EnumType.BLOODINFUSED;
+        return BlockBloodInfusedWoodenLog.EnumType.BLOOD_INFUSED;
     }
 
     @Override

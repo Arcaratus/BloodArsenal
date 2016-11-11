@@ -1,20 +1,9 @@
 {
   "variants": {
-	"normal": {
-		"model": "bloodarsenal:BlockBloodInfusedWoodenLog"
-	},
-	"axis=y,variant=blood_infused": {
-		"model": "bloodarsenal:BlockBloodInfusedWoodenLog"	
-	},
-	"axis=z,variant=blood_infused": {
-		"model": "bloodarsenal:BlockBloodInfusedWoodenLogSide"
-	},
-	"axis=x,variant=blood_infused": {
-		"model": "bloodarsenal:BlockBloodInfusedWoodenLogSide",
-		"y": 90
-	},
-	"axis=none,variant=blood_infused": {
-		"model": "bloodarsenal:BlockBloodInfusedWoodenLogBark"
-	}
+	"normal": { "model": "bloodarsenal:blockbloodinfusedwoodenlog" },
+	"axis=y,variant=blood_infused": { "model": "bloodarsenal:blockbloodinfusedwoodenlog" },
+	"axis=z,variant=blood_infused": { "model": "bloodarsenal:blockbloodinfusedwoodenlog", "x": 90 },
+	"axis=x,variant=blood_infused": { "model": "bloodarsenal:blockbloodinfusedwoodenlog", "x": 90, "y": 90 },
+	"axis=none,variant=blood_infused": {"model": "bloodarsenal:blockbloodinfusedwoodenlogbark"}
   }
 }

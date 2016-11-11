@@ -1,14 +1,11 @@
 package arc.bloodarsenal.registry;
 
-import WayofTime.bloodmagic.api.Constants;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
-import arc.bloodarsenal.item.ItemBloodArsenalBase;
-import arc.bloodarsenal.item.ItemBloodDiamond;
-import arc.bloodarsenal.item.ItemBloodOrange;
-import arc.bloodarsenal.item.ItemGem;
+import arc.bloodarsenal.item.*;
 import arc.bloodarsenal.item.block.ItemBlockSpecialBloodArsenal;
 import arc.bloodarsenal.item.sigil.*;
+import arc.bloodarsenal.item.stasis.*;
 import arc.bloodarsenal.item.tool.*;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -27,12 +24,12 @@ public class ModItems
     public static final Item BLOOD_INFUSED_STICK;
     public static final Item BLOOD_BURNED_STRING;
     public static final Item BLOOD_ORANGE;
-    public static final Item FALSE_SWIPE_STICK;
     public static final Item BLOOD_DIAMOND;
-
     public static final Item BLOOD_INFUSED_WOODEN_PICKAXE;
+
     public static final Item BLOOD_INFUSED_WOODEN_AXE;
     public static final Item BLOOD_INFUSED_WOODEN_SHOVEL;
+    public static final Item BLOOD_INFUSED_WOODEN_SICKLE;
     public static final Item BLOOD_INFUSED_WOODEN_SWORD;
     public static final Item BLOOD_INFUSED_GLOWSTONE_DUST;
     public static final Item INERT_BLOOD_INFUSED_IRON_INGOT;
@@ -40,30 +37,43 @@ public class ModItems
     public static final Item BLOOD_INFUSED_IRON_PICKAXE;
     public static final Item BLOOD_INFUSED_IRON_AXE;
     public static final Item BLOOD_INFUSED_IRON_SHOVEL;
+    public static final Item BLOOD_INFUSED_IRON_SICKLE;
     public static final Item BLOOD_INFUSED_IRON_SWORD;
-
     public static final Item GLASS_SACRIFICIAL_DAGGER;
+
     public static final Item GLASS_DAGGER_OF_SACRIFICE;
     public static final Item STYGIAN_DAGGER;
-
     public static final Item GEM_SACRIFICE;
+
     public static final Item GEM_SELF_SACRIFICE;
     public static final Item GEM_TARTARIC;
-
     public static final Item SIGIL_SWIMMING;
+
     public static final Item SIGIL_ENDER;
     public static final Item SIGIL_AUGMENTED_HOLDING;
     public static final Item SIGIL_LIGHTNING;
     public static final Item SIGIL_DIVINITY;
     public static final Item SIGIL_SENTIENCE;
-
     public static final Item REAGENT_SWIMMING;
+
     public static final Item REAGENT_ENDER;
     public static final Item REAGENT_LIGHTNING;
     public static final Item REAGENT_DIVINITY;
 
+    public static final Item BOUND_STICK;
+    public static final Item BOUND_SICKLE;
+
+    public static final Item STASIS_PLATE;
+    public static final Item STASIS_PICKAXE;
+    public static final Item STASIS_AXE;
+    public static final Item STASIS_SHOVEL;
+    public static final Item STASIS_SWORD;
+
+    public static final Item MODIFIER_TOME;
+
     public static final Item.ToolMaterial BLOOD_INFUSED_WOOD = EnumHelper.addToolMaterial("BloodInfusedWoodMaterial", 1, 186, 5.5F, 1.0F, 13);
     public static final Item.ToolMaterial BLOOD_INFUSED_IRON = EnumHelper.addToolMaterial("BloodInfusedIronMaterial", 3, 954, 7.25F, 2.7F, 21);
+    public static final Item.ToolMaterial STASIS = EnumHelper.addToolMaterial("Stasis", 4, 0, 9F, 4.2F, 0);
 
     static
     {
@@ -71,12 +81,12 @@ public class ModItems
         BLOOD_INFUSED_STICK = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedStick"));
         BLOOD_BURNED_STRING = registerItemUniquely(new ItemBlockSpecialBloodArsenal("bloodBurnedString", ModBlocks.BLOOD_BURNED_STRING));
         BLOOD_ORANGE = registerItem(new ItemBloodOrange("bloodOrange"));
-        FALSE_SWIPE_STICK = registerItem(new ItemFalseSwipeStick("falseSwipeStick"));
         BLOOD_DIAMOND = registerItem(new ItemBloodDiamond("bloodDiamond"));
 
         BLOOD_INFUSED_WOODEN_PICKAXE = registerItem(new ItemBloodInfusedWoodenPickaxe());
         BLOOD_INFUSED_WOODEN_AXE = registerItem(new ItemBloodInfusedWoodenAxe());
         BLOOD_INFUSED_WOODEN_SHOVEL = registerItem(new ItemBloodInfusedWoodenShovel());
+        BLOOD_INFUSED_WOODEN_SICKLE = registerItem(new ItemBloodInfusedWoodenSickle());
         BLOOD_INFUSED_WOODEN_SWORD = registerItem(new ItemBloodInfusedWoodenSword());
         BLOOD_INFUSED_GLOWSTONE_DUST = registerItemUniquely(new ItemBloodArsenalBase("bloodInfusedGlowstoneDust"));
         INERT_BLOOD_INFUSED_IRON_INGOT = registerItemUniquely(new ItemBloodArsenalBase("inertBloodInfusedIronIngot"));
@@ -84,6 +94,7 @@ public class ModItems
         BLOOD_INFUSED_IRON_PICKAXE = registerItem(new ItemBloodInfusedIronPickaxe());
         BLOOD_INFUSED_IRON_AXE = registerItem(new ItemBloodInfusedIronAxe());
         BLOOD_INFUSED_IRON_SHOVEL = registerItem(new ItemBloodInfusedIronShovel());
+        BLOOD_INFUSED_IRON_SICKLE = registerItem(new ItemBloodInfusedIronSickle());
         BLOOD_INFUSED_IRON_SWORD = registerItem(new ItemBloodInfusedIronSword());
 
         GLASS_SACRIFICIAL_DAGGER = registerItem(new ItemGlassSacrificialDagger("glassSacrificialDagger"));
@@ -105,6 +116,17 @@ public class ModItems
         REAGENT_ENDER = registerItemUniquely(new ItemBloodArsenalBase("reagentEnder"));
         REAGENT_LIGHTNING = registerItemUniquely(new ItemBloodArsenalBase("reagentLightning"));
         REAGENT_DIVINITY = registerItemUniquely(new ItemBloodArsenalBase("reagentDivinity"));
+
+        BOUND_STICK = registerItem(new ItemBoundStick("boundStick"));
+        BOUND_SICKLE = registerItem(new ItemBoundSickle());
+
+        STASIS_PLATE = registerItemUniquely(new ItemBloodArsenalBase("stasisPlate"));
+        STASIS_PICKAXE = registerItem(new ItemStasisPickaxe());
+        STASIS_AXE = registerItem(new ItemStasisAxe());
+        STASIS_SHOVEL = registerItem(new ItemStasisShovel());
+        STASIS_SWORD = registerItem(new ItemStasisSword());
+
+        MODIFIER_TOME = registerItem(new ItemModifierTome("modifierTome"));
     }
 
     public static void addOreDictItems()

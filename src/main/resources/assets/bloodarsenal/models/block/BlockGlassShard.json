@@ -1,6 +1,5 @@
 {
     "parent": "block/block",
-	"ambientocclusion": false,
     "display": {
         "gui": {
             "rotation": [ 30, 225, 0 ],
@@ -25,10 +24,6 @@
     {
         "from": [ 2, 0, 2 ],
         "to":   [ 3, 6, 2 ],
-		"rotation": { "origin": [ 2.5, 3, 2 ], "axis": "y", "angle": 45 },
-		"rotation": { "origin": [ 2.5, 3, 2 ], "axis": "z", "angle": 22.5 },
-		"rotation": { "origin": [ 2.5, 3, 2 ], "axis": "x", "angle": -22.5 },
-		"shade": false,
         "faces": {
             "up":    { "uv": [0, 0, 2, 2], "texture": "#all", "cullface": "up" },
             "down":  { "uv": [2, 0, 4, 2], "texture": "#all", "cullface": "down" },

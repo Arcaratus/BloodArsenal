@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-	"layer0": "bloodarsenal:blocks/BloodStainedGlass"
+	"layer0": "bloodarsenal:blocks/blood_stained_glass"
   }
 }

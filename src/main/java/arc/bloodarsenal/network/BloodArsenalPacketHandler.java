@@ -15,6 +15,7 @@ public class BloodArsenalPacketHandler
     public static void init()
     {
         INSTANCE.registerMessage(SigilAugmentedHoldingPacketProcessor.class, SigilAugmentedHoldingPacketProcessor.class, 0, Side.SERVER);
+        INSTANCE.registerMessage(ProfilablePacketProcessor.class, ProfilablePacketProcessor.class, 1, Side.SERVER);
     }
 
     public static void sendToAllAround(IMessage message, TileEntity te, int range)

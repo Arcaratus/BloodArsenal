@@ -1,4 +1,41 @@
 ------------------------------------------------------
+Version 2.1.0-19
+------------------------------------------------------
+- Fix Ritual Diviner bug involving the Sound of the Cleansing Soul
+- Remove redundant Blood Diamond recipe
+
+------------------------------------------------------
+Version 2.1.0-18
+------------------------------------------------------
+- Update to Minecraft 1.11.2
+- Update to latest Blood Magic version
+- Added Imperfect Enchantment Reset Ritual
+- Added Imperfect Ice Ritual
+- Added Imperfect Snow Ritual
+- Fixed Tile Entities
+- Fixed the Altare Aenigmatica
+- Fixed losing items on death bug
+- Added the Stasis Plate
+- Added the Stasis Tools and Modifier system
+- Added the Infusion de Sanguine crafting system
+- Added the Bound Sickle and other sickles back
+- Removed the False-Swipe Stick and added the Bound Stick instead
+- Fixed Lightning Reagent crafting (I think)
+- Hanzo and Doomfist?
+- Added more memes
+- Did some things with other things
+- Update and fix compatibility with JEI
+- Added useful tooltips and JEI stuffs
+- Update and fix compatibility with Baubles
+- Fixed the Soul Pendant
+- Update and fix (?) compatibility with Tinker's Construct
+- Utilized Java 8 in many regards clearing out pointless code
+- Capitalized and finalized all Item and Block fields in keeping with Minecraft conventions
+- Lowercased all resources in keeping with Minecraft conventions
+- Removed all those dumbass package-info.java files
+- Cleaned up lots of code
+
+------------------------------------------------------
 Version 2.0.1-17
 ------------------------------------------------------
 - Have the actual textures in the mod >.<

@@ -8,7 +8,7 @@
   "variants": {
     "normal": [{
       "textures": {
-        "all": "bloodarsenal:blocks/BloodStainedGlass"
+        "all": "bloodarsenal:blocks/blood_stained_glass"
       }
     }]
   }

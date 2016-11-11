@@ -8,7 +8,7 @@
 	"type": {
 	  "normal": {
 		"textures": {
-		  "layer0": "bloodarsenal:items/SigilEnder"
+		  "layer0": "bloodarsenal:items/sigil_ender"
 		}
 	  }
 	} 

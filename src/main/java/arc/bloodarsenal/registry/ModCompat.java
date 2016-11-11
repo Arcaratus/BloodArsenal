@@ -2,8 +2,8 @@ package arc.bloodarsenal.registry;
 
 import arc.bloodarsenal.compat.ICompatibility;
 import arc.bloodarsenal.compat.baubles.CompatBaubles;
-import arc.bloodarsenal.compat.guideapi.CompatGuideAPI;
 import arc.bloodarsenal.compat.tconstruct.CompatTConstruct;
+import arc.bloodarsenal.compat.waila.CompatWaila;
 import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class ModCompat
     public static void registerModCompat()
     {
         compatibilities.add(new CompatBaubles());
-        compatibilities.add(new CompatGuideAPI());
+        compatibilities.add(new CompatWaila());
         compatibilities.add(new CompatTConstruct());
     }
 

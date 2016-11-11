@@ -1,7 +1,7 @@
 {
   "parent": "block/pane_post",
   "textures": {
-	"edge": "bloodarsenal:blocks/BloodStainedGlassPaneTop",
-	"pane": "bloodarsenal:blocks/BloodStainedGlass"
+	"edge": "bloodarsenal:blocks/blood_stained_glass_pane_top",
+	"pane": "bloodarsenal:blocks/blood_stained_glass"
   }
 }

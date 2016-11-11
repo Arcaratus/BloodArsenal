@@ -13,9 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ItemSigilBase extends ItemSigil implements IVariantProvider
 {
@@ -30,7 +28,7 @@ public class ItemSigilBase extends ItemSigil implements IVariantProvider
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 
         this.name = name;
-        this.tooltipBase = "tooltip.BloodArsenal.sigil." + name + ".";
+        this.tooltipBase = "tooltip.bloodarsenal.sigil." + name + ".";
     }
 
     public ItemSigilBase(String name)
@@ -49,7 +47,7 @@ public class ItemSigilBase extends ItemSigil implements IVariantProvider
             return;
 
         if (!Strings.isNullOrEmpty(getOwnerName(stack)))
-            tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.currentOwner", PlayerHelper.getUsernameFromStack(stack)));
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentOwner", PlayerHelper.getUsernameFromStack(stack)));
 
         super.addInformation(stack, player, tooltip, advanced);
     }

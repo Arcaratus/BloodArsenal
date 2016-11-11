@@ -8,12 +8,12 @@
 	"active": {
       "false": {
         "textures": {
-          "layer0": "bloodarsenal:items/SigilDivinity_deactivated"
+          "layer0": "bloodarsenal:items/sigil_divinity_deactivated"
         }
       },
       "true": {
         "textures": {
-          "layer0": "bloodarsenal:items/SigilDivinity_activated"
+          "layer0": "bloodarsenal:items/sigil_divinity_activated"
         }
       }
     }

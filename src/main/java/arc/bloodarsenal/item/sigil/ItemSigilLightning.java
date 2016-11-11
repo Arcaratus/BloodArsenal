@@ -1,6 +1,7 @@
 package arc.bloodarsenal.item.sigil;
 
 import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.util.ChatUtil;
 import WayofTime.bloodmagic.util.helper.NumeralHelper;
 import WayofTime.bloodmagic.util.helper.TextHelper;
@@ -11,8 +12,7 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -30,8 +30,12 @@ public class ItemSigilLightning extends ItemSigilBase
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
+        ItemStack stack = player.getHeldItem(hand);
+        if (PlayerHelper.isFakePlayer(player))
+            return ActionResult.newResult(EnumActionResult.FAIL, stack);
+
         if (!world.isRemote)
         {
             if (player.isSneaking())
@@ -42,8 +46,8 @@ public class ItemSigilLightning extends ItemSigilBase
                     stack.getTagCompound().setInteger(Constants.NBT.LEVEL, stack.getTagCompound().getInteger(Constants.NBT.LEVEL) + 1);
 
                 level = stack.getTagCompound().getInteger(Constants.NBT.LEVEL);
-                ChatUtil.sendNoSpam(player, TextHelper.localizeEffect("chat.BloodArsenal.setLevel", NumeralHelper.toRoman(stack.getTagCompound().getInteger(Constants.NBT.LEVEL) + 1)));
-                return super.onItemRightClick(stack, world, player, hand);
+                ChatUtil.sendNoSpam(player, TextHelper.localizeEffect("chat.bloodarsenal.setLevel", NumeralHelper.toRoman(stack.getTagCompound().getInteger(Constants.NBT.LEVEL) + 1)));
+                return super.onItemRightClick(world, player, hand);
             }
             else if (!isUnusable(stack))
             {
@@ -261,15 +265,15 @@ public class ItemSigilLightning extends ItemSigilBase
                                 break;
                         }
 
-                        NetworkHelper.syphonAndDamage(NetworkHelper.getSoulNetwork(player), player, cost);
+                        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, cost);
                     }
                     else
-                        ChatUtil.sendChat(player, TextHelper.localize("chat.BloodArsenal.tooWeak"));
+                        ChatUtil.sendChat(player, TextHelper.localize("chat.bloodarsenal.tooWeak"));
                 }
             }
         }
 
-        return super.onItemRightClick(stack, world, player, hand);
+        return super.onItemRightClick(world, player, hand);
     }
 
     public int getLevel()
@@ -282,7 +286,7 @@ public class ItemSigilLightning extends ItemSigilBase
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
         super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add(TextHelper.localize("tooltip.BloodArsenal.level", NumeralHelper.toRoman(getLevel() + 1)));
+        tooltip.add(TextHelper.localize("tooltip.bloodarsenal.level", NumeralHelper.toRoman(getLevel() + 1)));
     }
 
     @Override

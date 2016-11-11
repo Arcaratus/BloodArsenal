@@ -8,7 +8,7 @@
     "type": {
       "normal": {
         "textures": {
-          "layer0": "bloodarsenal:items/RingOfVampirism"
+          "layer0": "bloodarsenal:items/ring_of_vampirism"
         }
       }
     }

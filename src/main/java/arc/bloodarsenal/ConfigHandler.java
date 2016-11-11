@@ -38,6 +38,9 @@ public class ConfigHandler
 
     // Imperfect Rituals
     public static boolean imperfectLightning;
+    public static boolean imperfectEnchantReset;
+    public static boolean imperfectIce;
+    public static boolean imperfectSnow;
 
     // Mod configs
     public static boolean baublesEnabled;
@@ -101,6 +104,9 @@ public class ConfigHandler
 
         category = "Rituals.Imperfect";
         imperfectLightning = config.getBoolean("imperfectLightning", category, true, "Enable the Imperfect Lightning Ritual?");
+        imperfectEnchantReset = config.getBoolean("imperfectEnchantReset", category, true, "Enable the Imperfect Enchantment Reset Ritual?");
+        imperfectIce = config.getBoolean("imperfectIce", category, true, "Enable the Imperfect Ice Ritual?");
+        imperfectSnow = config.getBoolean("imperfectSnow", category, true, "Enable the Imperfect Snow Ritual?");
 
         category = "Mod Configs";
         config.addCustomCategoryComment(category, "Mod interaction configs");

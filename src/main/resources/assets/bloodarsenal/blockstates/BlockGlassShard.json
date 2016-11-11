@@ -1,12 +1,12 @@
 {
-  "forge_marker": 1,
-  "defaults": {
+    "forge_marker": 1,
+    "defaults": {
         "textures": {
-            "all": "bloodarsenal:blocks/BlockGlassShard"
+            "all": "bloodarsenal:blocks/glass_shard"
         },
-        "model": "bloodarsenal:BlockGlassShard"
+        "model": "bloodarsenal:blockglassshard"
     },
-	"variants": {
+    "variants": {
         "facing": {
             "up": { "x": 180, "y": 0 },
             "down": {},
@@ -16,25 +16,26 @@
             "north":  { "transform": { "rotation": {"x": 90}, "post-rotation": {"y": 90}}}
         },
         "north": {
-            "true": { "submodel": { "stick_north": { "model": "bloodarsenal:BlockGlassShardPiece", "transform": { "translation": [ 0, 0, -0.5 ] } } } },
+            "true": { "submodel": { "stick_north": { "model": "bloodarsenal:blockglassshardpiece", "transform": { "translation": [ 0, 0, -0.5 ] } } } },
             "false": {}
         },
         "east": {
-            "true": { "submodel": { "stick_east": { "model": "bloodarsenal:BlockGlassShardPiece", "transform": { "translation": [ -0.5, 0, 0 ] } } } },
+            "true": { "submodel": { "stick_east": { "model": "bloodarsenal:blockglassshardpiece", "transform": { "translation": [ -0.5, 0, 0 ] } } } },
             "false": {}
         },
         "northeast": {
-            "true": { "submodel": { "stick_northeast": { "model": "bloodarsenal:BlockGlassShardPiece", "transform": { "translation": [ -0.5, 0, -0.5 ] } } } },
+            "true": { "submodel": { "stick_northeast": { "model": "bloodarsenal:blockglassshardpiece", "transform": { "translation": [ -0.5, 0, -0.5 ] } } } },
             "false": {}
         },
         "northwest": {
-            "true": { "submodel": { "stick_northwest": { "model": "bloodarsenal:BlockGlassShardPiece", "transform": { "translation": [ 0.5, 0, -0.5 ] } } } },
+            "true": { "submodel": { "stick_northwest": { "model": "bloodarsenal:blockglassshardpiece", "transform": { "translation": [ 0.5, 0, -0.5 ] } } } },
             "false": {}
         },
         "normal": [{
-			"textures": {
-				"all": "bloodarsenal:blocks/BlockGlassShard"
-			}
-		}]
+            "textures": {
+                "all": "bloodarsenal:blocks/glass_shard"
+            },
+            "model": "bloodarsenal:blockglassshard"
+        }]
     }
 }

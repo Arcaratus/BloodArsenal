@@ -4,7 +4,7 @@ import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.item.ItemComponent;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
-import arc.bloodarsenal.item.tool.ItemFalseSwipeStick;
+import arc.bloodarsenal.item.tool.ItemBoundStick;
 import arc.bloodarsenal.registry.ModItems;
 import arc.bloodarsenal.util.DamageSourceBleeding;
 import arc.bloodarsenal.util.DamageSourceGlass;
@@ -44,9 +44,9 @@ public class EventHandler
         if (ConfigHandler.doGlassShardsDrop && ModItems.GLASS_SHARD != null)
         {
             Block block = event.getState().getBlock();
-            if (block != null && block == Blocks.GLASS && event.getHarvester() != null && event.getDrops() != null && event.getDrops().isEmpty() && event.getHarvester().getHeldItemMainhand() != null && event.getHarvester().getHeldItemMainhand().getItem() == Items.FLINT)
+            if (block == Blocks.GLASS && event.getHarvester() != null && event.getDrops() != null && event.getDrops().isEmpty() && event.getHarvester().getHeldItemMainhand().getItem() == Items.FLINT)
             {
-                int quantity = MathHelper.clamp_int(1 + event.getWorld().rand.nextInt(2) + event.getWorld().rand.nextInt(event.getFortuneLevel() + 1), 0, 3);
+                int quantity = MathHelper.clamp(1 + event.getWorld().rand.nextInt(2) + event.getWorld().rand.nextInt(event.getFortuneLevel() + 1), 0, 3);
 
                 event.getDrops().add(new ItemStack(ModItems.GLASS_SHARD, quantity));
             }
@@ -66,26 +66,25 @@ public class EventHandler
             else if (event.getDrops().size() > 0)
                 event.getDrops().remove(random.nextInt(event.getDrops().size()));
         }
-
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onHurt(LivingHurtEvent event)
     {
-        if (event.getEntity().worldObj.isRemote ||  event.getSource().getEntity() == event.getEntity())
+        if (event.getEntity().getEntityWorld().isRemote ||  event.getSource().getEntity() == event.getEntity())
             return;
 
         if (event.getSource().getEntity() instanceof EntityPlayer && !PlayerHelper.isFakePlayer((EntityPlayer) event.getSource().getEntity()))
         {
             EntityPlayer player = (EntityPlayer) event.getSource().getEntity();
 
-            if (player.getName().equals("Arcaratus") && player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == ModItems.BLOOD_INFUSED_STICK && player.getHeldItemMainhand().hasTagCompound() && player.getHeldItemMainhand().getTagCompound().hasKey("living"))
+            if (player.getName().equals("Arcaratus") && player.getHeldItemMainhand().getItem() == ModItems.BLOOD_INFUSED_STICK && player.getHeldItemMainhand().hasTagCompound() && player.getHeldItemMainhand().getTagCompound().hasKey("living"))
             {
-                event.getEntity().worldObj.addWeatherEffect(new EntityLightningBolt(event.getEntity().worldObj, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, false));
+                event.getEntity().getEntityWorld().addWeatherEffect(new EntityLightningBolt(event.getEntity().getEntityWorld(), event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, false));
                 event.getEntityLiving().setHealth(0);
             }
 
-            if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ItemFalseSwipeStick)
+            if (player.getHeldItemMainhand().getItem() instanceof ItemBoundStick)
             {
                 float wouldBeHealth = event.getEntityLiving().getHealth() - event.getAmount();
 
@@ -101,8 +100,8 @@ public class EventHandler
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onLightningStrike(EntityStruckByLightningEvent event)
     {
-        World world = event.getLightning().worldObj;
-        if (world.isRemote || event.getEntity() == null)
+        World world = event.getLightning().getEntityWorld();
+        if (world.isRemote)
             return;
 
         if (event.getEntity() instanceof EntityItem)
@@ -112,17 +111,24 @@ public class EventHandler
             if (itemStack.getItem() == ItemComponent.getStack(ItemComponent.REAGENT_BINDING).getItem())
             {
                 ItemStack glowstone, redstone, gunpowder, iron, gold;
-                glowstone = redstone = gunpowder = iron = gold = null;
-                for (EntityItem item : world.getEntitiesWithinAABB(EntityItem.class, entityItem.getEntityBoundingBox()))
-                    if (item != null && item.getEntityItem().getItem() == Item.getItemFromBlock(Blocks.GLOWSTONE)) glowstone = item.getEntityItem();
-                    else if (item != null && item.getEntityItem().getItem() == Item.getItemFromBlock(Blocks.REDSTONE_BLOCK)) redstone = item.getEntityItem();
-                    else if (item != null && item.getEntityItem().getItem() == Items.GUNPOWDER) gunpowder = item.getEntityItem();
-                    else if (item != null && item.getEntityItem().getItem() == Item.getItemFromBlock(Blocks.IRON_BLOCK)) iron = item.getEntityItem();
-                    else if (item != null && item.getEntityItem().getItem() == Item.getItemFromBlock(Blocks.GOLD_BLOCK)) gold = item.getEntityItem();
+                glowstone = redstone = gunpowder = iron = gold = ItemStack.EMPTY;
+                for (EntityItem item : world.getEntitiesWithinAABB(EntityItem.class, entityItem.getEntityBoundingBox().expandXyz(1)))
+                    if (!item.getEntityItem().isEmpty() && item.getEntityItem().getItem() == Item.getItemFromBlock(Blocks.GLOWSTONE)) glowstone = item.getEntityItem();
+                    else if (!item.getEntityItem().isEmpty() && item.getEntityItem().getItem() == Item.getItemFromBlock(Blocks.REDSTONE_BLOCK)) redstone = item.getEntityItem();
+                    else if (!item.getEntityItem().isEmpty() && item.getEntityItem().getItem() == Items.GUNPOWDER) gunpowder = item.getEntityItem();
+                    else if (!item.getEntityItem().isEmpty() && item.getEntityItem().getItem() == Item.getItemFromBlock(Blocks.IRON_BLOCK)) iron = item.getEntityItem();
+                    else if (!item.getEntityItem().isEmpty() && item.getEntityItem().getItem() == Item.getItemFromBlock(Blocks.GOLD_BLOCK)) gold = item.getEntityItem();
 
-                if (glowstone != null && redstone != null && gunpowder != null && iron != null && gold != null)
-                    world.spawnEntityInWorld(new EntityItem(world, entityItem.posX, entityItem.posY + 0.5, entityItem.posZ, new ItemStack(ModItems.REAGENT_LIGHTNING)));
+                if (!glowstone.isEmpty() && !redstone.isEmpty() && !gunpowder.isEmpty() && !iron.isEmpty() && !gold.isEmpty())
+                {
+                    EntityItem entItem = new EntityItem(world, entityItem.posX + 0.5, entityItem.posY + 0.5, entityItem.posZ + 0.5, new ItemStack(ModItems.REAGENT_LIGHTNING));
+                    entItem.setDefaultPickupDelay();
+                    entItem.setNoDespawn();
+                    world.spawnEntity(entItem);
+                }
             }
+            else if (itemStack.getItem() == ModItems.REAGENT_LIGHTNING)
+                event.setCanceled(true);
         }
     }
 }

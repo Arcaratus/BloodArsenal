@@ -2,9 +2,9 @@
 {
   "modid": "BloodArsenal",
   "name": "Blood Arsenal",
-  "description": "Blood-themed addon for Blood Magic",
-  "version": "2.0.1-17",
-  "mcversion": "1.10.2",
+  "description": "Does anyone actually read this",
+  "version": "2.1.0-18",
+  "mcversion": "1.11.2",
   "url": "",
   "updateUrl": "",
   "authorList": [ "Arcaratus" ],

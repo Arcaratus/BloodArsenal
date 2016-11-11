@@ -32,12 +32,14 @@ public class RenderSentientTool extends Render<EntitySummonedTool>
         GlStateManager.scale(1F, 1F, 1F);
         GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
-        this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        this.renderItem.renderItem(entity.getStack(), ItemCameraTransforms.TransformType.GROUND);
+        bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        renderItem.renderItem(entity.getStack(), ItemCameraTransforms.TransformType.GROUND);
         GlStateManager.disableRescaleNormal();
+        GlStateManager.disableBlend();
         GlStateManager.popMatrix();
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntitySummonedTool entity)
     {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
