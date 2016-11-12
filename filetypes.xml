@@ -11,8 +11,9 @@
     </extensionMap>
     <setting name="fileTypeChangedCounter" value="3" />
   </component>
-  <component name="FileTypeManager" version="16">
+  <component name="FileTypeManager" version="17">
     <extensionMap>
+      <mapping pattern="BlockStasisPlate" type="JSON" />
       <mapping ext="lang" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
