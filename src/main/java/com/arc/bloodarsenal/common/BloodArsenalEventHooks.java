@@ -24,6 +24,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.common.util.FakePlayer;
 
 import java.util.Random;
 
@@ -208,7 +209,7 @@ public class BloodArsenalEventHooks
             EntityPlayer player = event.harvester;
             Random random = new Random();
 
-            if (player != null && player instanceof EntityPlayerMP)
+            if (player != null && player instanceof EntityPlayerMP && !(player instanceof FakePlayer))
             {
                 if (!event.world.isRemote && !event.isSilkTouching)
                 {
