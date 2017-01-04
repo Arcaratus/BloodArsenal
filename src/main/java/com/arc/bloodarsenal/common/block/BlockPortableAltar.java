@@ -1,12 +1,8 @@
 package com.arc.bloodarsenal.common.block;
 
-import WayofTime.alchemicalWizardry.ModItems;
-import WayofTime.alchemicalWizardry.api.items.IAltarManipulator;
-import WayofTime.alchemicalWizardry.common.items.EnergyBattery;
-import WayofTime.alchemicalWizardry.common.items.sigil.SigilOfHolding;
-import com.arc.bloodarsenal.common.tileentity.TilePortableAltar;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -22,9 +18,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import WayofTime.alchemicalWizardry.ModItems;
+import WayofTime.alchemicalWizardry.api.items.IAltarManipulator;
+import WayofTime.alchemicalWizardry.common.items.EnergyBattery;
+import WayofTime.alchemicalWizardry.common.items.sigil.holding.SigilOfHolding;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.arc.bloodarsenal.common.tileentity.TilePortableAltar;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockPortableAltar extends BlockContainer
 {
@@ -145,7 +147,7 @@ public class BlockPortableAltar extends BlockContainer
             }
             else if (playerItem.getItem().equals(ModItems.sigilOfHolding))
             {
-                ItemStack item = ((SigilOfHolding) playerItem.getItem()).getCurrentItem(playerItem);
+                ItemStack item = ((SigilOfHolding) playerItem.getItem()).getCurrentSigil(playerItem);
 
                 if (item != null && item.getItem().equals(ModItems.divinationSigil))
                 {

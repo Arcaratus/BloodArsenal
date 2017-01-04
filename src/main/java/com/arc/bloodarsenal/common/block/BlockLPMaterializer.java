@@ -1,11 +1,7 @@
 package com.arc.bloodarsenal.common.block;
 
-import WayofTime.alchemicalWizardry.ModItems;
-import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
-import WayofTime.alchemicalWizardry.common.items.sigil.SigilOfHolding;
-import com.arc.bloodarsenal.common.tileentity.TileLPMaterializer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -21,8 +17,14 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import WayofTime.alchemicalWizardry.ModItems;
+import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
+import WayofTime.alchemicalWizardry.common.items.sigil.holding.SigilOfHolding;
 
-import java.util.Random;
+import com.arc.bloodarsenal.common.tileentity.TileLPMaterializer;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockLPMaterializer extends BlockContainer
 {
@@ -103,7 +105,7 @@ public class BlockLPMaterializer extends BlockContainer
             }
             else if (playerItem.getItem().equals(ModItems.sigilOfHolding))
             {
-                ItemStack item = ((SigilOfHolding) playerItem.getItem()).getCurrentItem(playerItem);
+                ItemStack item = ((SigilOfHolding) playerItem.getItem()).getCurrentSigil(playerItem);
 
                 if (item != null && item.getItem().equals(ModItems.divinationSigil))
                 {

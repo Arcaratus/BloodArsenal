@@ -1,12 +1,10 @@
 package com.arc.bloodarsenal.common.block;
 
-import WayofTime.alchemicalWizardry.ModItems;
-import WayofTime.alchemicalWizardry.common.items.sigil.SigilOfHolding;
-import com.arc.bloodarsenal.common.tileentity.TileLifeInfuser;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -16,8 +14,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import WayofTime.alchemicalWizardry.ModItems;
+import WayofTime.alchemicalWizardry.common.items.sigil.holding.SigilOfHolding;
 
-import java.util.Random;
+import com.arc.bloodarsenal.common.tileentity.TileLifeInfuser;
 
 public class BlockLifeInfuser extends BlockContainer
 {
@@ -60,7 +60,7 @@ public class BlockLifeInfuser extends BlockContainer
             }
             else if (playerItem.getItem().equals(ModItems.sigilOfHolding))
             {
-                ItemStack item = ((SigilOfHolding) playerItem.getItem()).getCurrentItem(playerItem);
+                ItemStack item = ((SigilOfHolding) playerItem.getItem()).getCurrentSigil(playerItem);
 
                 if (item != null && item.getItem().equals(ModItems.divinationSigil))
                 {
