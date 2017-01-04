@@ -9,12 +9,18 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-		classpath 'org.ajoberstar:gradle-git:0.10.1'
+        classpath 'org.ajoberstar:gradle-git:0.10.1'
+        classpath "de.undercouch:gradle-download-task:3.1.2"
     }
 }
+
+import de.undercouch.gradle.tasks.download.Download
 
 apply plugin: 'forge'
 
@@ -38,21 +44,29 @@ if (new File(projectDir, '.git').exists()) {
 }
 
 repositories {
-	maven { //Tinker's and Mantle
+    maven { //Tinker's and Mantle
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
-	}
-	maven { // the repo from which to get NEI and stuff
-		name 'CB Repo'
-		url "http://chickenbones.net/maven/"
-	}
-	maven { //WAILA
+    }
+    maven { // the repo from which to get NEI and stuff
+        name 'CB Repo'
+        url "http://chickenbones.net/maven/"
+    }
+    maven { //WAILA
         name "ProfMobius Maven FS"
         url "http://mobiusstrip.eu/maven"
     }
-	maven {
+    maven {
         name "ForgeFS"
         url 'http://files.minecraftforge.net/maven'
+    }
+    maven {
+    	name 'TehNut Repo'
+    	url 'http://tehnut.info/maven/'
+    }
+    maven {
+        name 'rx14'
+        url 'http://mvn.rx14.co.uk/local/'
     }
 }
 
@@ -60,25 +74,28 @@ minecraft {
     version = config.forge_version + "-" + config.mc_version
     runDir = "eclipse"
 	
-	replaceIn "BloodArsenal.java"
-	replace "@VERSION@", config.mod_version + "-" + config.build_number
+    replaceIn "BloodArsenal.java"
+    replace "@VERSION@", config.mod_version + "-" + config.build_number
 }
 
 dependencies {
-	compile "codechicken:CodeChickenLib:" + config.mc_version + "-" + config.ccLib_version + ":dev"
+    compile "codechicken:CodeChickenLib:" + config.mc_version + "-" + config.ccLib_version + ":dev"
     compile "codechicken:CodeChickenCore:" + config.mc_version + "-" + config.ccc_version + ":dev"
     compile "codechicken:NotEnoughItems:" + config.mc_version + "-" + config.nei_version + ":dev"
-	compile "codechicken:ForgeMultipart:" + config.mc_version + "-" + config.forgeMultipart_version + ":dev"
-	compile "mcp.mobius.waila:Waila:" + config.waila_version + "_" + config.mc_version + ":dev"
+    compile "codechicken:ForgeMultipart:" + config.mc_version + "-" + config.forgeMultipart_version + ":dev"
+    compile "mcp.mobius.waila:Waila:" + config.waila_version + "_" + config.mc_version + ":dev"
     compile "mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf"
     compile "tconstruct:TConstruct:" + config.mc_version + "-" + config.tconstruct_version + ":deobf"
+    compile "info.amerifrance.guideapi:Guide-API:" + config.mc_version + "-" + config.guideapi_version + ":deobf"
+    compile 'com.azanor.baubles:Baubles:1.7.10-1.0.1.10:deobf'
+    compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 processResources
 {
-	inputs.property "version", project.version
+    inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-	
+
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.info'
         include '**/*.properties'
@@ -88,17 +105,42 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
         exclude '**/*.properties'
-		exclude '**/*.db'
+        exclude '**/*.db'
     } 
 }
+
+task getThaumcraft(type: Download) {
+    onlyIf {
+        !file("libs/Thaumcraft-deobf-1.7.10-4.2.3.5.jar").exists()
+    }
+    src 'https://dl.dropboxusercontent.com/u/47135879/Thaumcraft-deobf-1.7.10-4.2.3.5.jar'
+    dest file("libs/Thaumcraft-deobf-1.7.10-4.2.3.5.jar")
+    mustRunAfter "deobfBinJar"
+    mustRunAfter "repackMinecraft"
+}
+
+task getBloodMagic(type: Download, dependsOn: "getThaumcraft") {
+    onlyIf {
+        !file("libs/BloodMagic-1.7.10-1.3.3-17-deobf.jar").exists()
+    }
+    src 'https://dl.dropboxusercontent.com/u/3065898/BloodMagic-1.7.10-1.3.3-17-deobf.jar'
+    dest file("libs/BloodMagic-1.7.10-1.3.3-17-deobf.jar")
+    mustRunAfter "deobfBinJar"
+    mustRunAfter "repackMinecraft"
+}
+
+tasks.setupCIWorkspace.dependsOn getBloodMagic
+tasks.setupDevWorkspace.dependsOn getBloodMagic
+tasks.setupDecompWorkspace.dependsOn getBloodMagic
+tasks.compileJava.dependsOn getBloodMagic
 
 task deobfJar(type: Jar) {
     from(sourceSets.main.output)
     classifier = 'deobf'     
 
-tasks.build.dependsOn deobfJar
+    tasks.build.dependsOn deobfJar
 
-tasks.withType(JavaCompile) { task ->
-    task.options.encoding = 'UTF-8'
-}    
+    tasks.withType(JavaCompile) { task ->
+        task.options.encoding = 'UTF-8'
+    }    
 }
