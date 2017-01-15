@@ -64,28 +64,25 @@ public class BloodArsenalEventHooks
                     }
                 }
 
-                // ThaumicTinkerer extends Thaumcraft's Fakeplayer, which extends EntityPlayer instead
-                // of Forge's FakePlayer class. That's why the Tinkerer's table crashes here.
-                // With this sanity check any crashes related to that problem should be gone
-//                if (GameRegistry.findItem(BloodArsenal.MODID, "glass_helmet") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_chestplate") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_leggings") != null && GameRegistry.findItem(BloodArsenal.MODID, "glass_boots") != null && entityAttacked instanceof EntityPlayerMP)
+                if (entityAttacked instanceof EntityPlayerMP && !(entityAttacked instanceof FakePlayer))
                 {
-                    EntityPlayerMP player = (EntityPlayerMP) entityAttacked;
-    
-                    if (player.inventory.armorInventory != null)
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            ItemStack armorStack = player.inventory.armorInventory[3 - i];
-    
-                            if (armorStack != null && armorStack.getItem() instanceof GlassArmor)
-                            {
-                                if (entityAttacking instanceof EntityLivingBase)
-                                {
-                                    ((EntityLivingBase) entityAttacking).addPotionEffect(new PotionEffect(BloodArsenalConfig.bleedingID, rand.nextInt(3) * 20, rand.nextInt(1)));
-                                }
-                            }
-                        }
-                    }
+	                EntityPlayerMP player = (EntityPlayerMP) entityAttacked;
+	
+	                if (player.inventory.armorInventory != null)
+	                {
+	                    for (int i = 0; i < 4; i++)
+	                    {
+	                        ItemStack armorStack = player.inventory.armorInventory[3 - i];
+	
+	                        if (armorStack != null && armorStack.getItem() instanceof GlassArmor)
+	                        {
+	                            if (entityAttacking instanceof EntityLivingBase)
+	                            {
+	                                ((EntityLivingBase) entityAttacking).addPotionEffect(new PotionEffect(BloodArsenalConfig.bleedingID, rand.nextInt(3) * 20, rand.nextInt(1)));
+	                            }
+	                        }
+	                    }
+	                }
                 }
             }
         }
@@ -98,6 +95,9 @@ public class BloodArsenalEventHooks
 
         if (entityLiving != null)
         {
+        	if (entityLiving instanceof FakePlayer)
+        		return;
+        		
             if (entityLiving.isPotionActive(BloodArsenal.bleeding))
             {
                 int amplifier = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getAmplifier();
@@ -187,7 +187,7 @@ public class BloodArsenalEventHooks
 
         if (entityLiving != null)
         {
-            if (entityLiving instanceof EntityPlayer)
+            if (entityLiving instanceof EntityPlayer && !(entityLiving instanceof FakePlayer))
             {
                 if (entityLiving.isPotionActive(BloodArsenal.swimming))
                 {
