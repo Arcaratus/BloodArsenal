@@ -1,8 +1,8 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="Project and Libraries" />
-    <option name="defaultScopeName" value="Project and Libraries" />
+    <option name="customScope" value="Directory '[BloodArsenal] - ...\src\main\java\arc\bloodarsenal'" />
+    <option name="defaultScopeName" value="Directory '[BloodArsenal] - ...\src\main\java\arc\bloodarsenal'" />
     <option name="WITH_SUBDIRECTORIES" value="false" />
-    <option name="SEARCH_SCOPE" value="Project and Libraries" />
+    <option name="SEARCH_SCOPE" value="Directory '[BloodArsenal] - ...\src\main\java\arc\bloodarsenal'" />
   </component>
 </application>
