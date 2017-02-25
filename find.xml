@@ -1,7 +1,9 @@
 <application>
   <component name="FindSettings">
+    <option name="caseSensitive" value="true" />
     <option name="customScope" value="Directory '[BloodArsenal] - ...\src\main\java\arc\bloodarsenal'" />
     <option name="defaultScopeName" value="Directory '[BloodArsenal] - ...\src\main\java\arc\bloodarsenal'" />
+    <option name="CASE_SENSITIVE_SEARCH" value="true" />
     <option name="WITH_SUBDIRECTORIES" value="false" />
     <option name="SEARCH_SCOPE" value="Directory '[BloodArsenal] - ...\src\main\java\arc\bloodarsenal'" />
   </component>
