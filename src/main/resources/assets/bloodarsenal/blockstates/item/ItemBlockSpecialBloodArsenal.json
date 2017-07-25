@@ -8,7 +8,7 @@
     "type": {
       "bloodburnedstring": {
         "textures": {
-		  "layer0": "bloodarsenal:items/BloodBurnedString"
+		  "layer0": "bloodarsenal:items/blood_burned_string"
 	    }
       }
     }

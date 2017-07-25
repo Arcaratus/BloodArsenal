@@ -19,7 +19,7 @@ public class BaubleUtils
         for (int i = 0; i < baublesInventory.getSizeInventory(); i++)
         {
             bauble = baublesInventory.getStackInSlot(i);
-            if (bauble != null && bauble.getItem() == baubleThing)
+            if (bauble.getItem() == baubleThing)
                 return bauble;
         }
 

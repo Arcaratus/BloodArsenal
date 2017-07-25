@@ -6,9 +6,11 @@ import WayofTime.bloodmagic.util.helper.InventoryRenderHelperV2;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.client.hud.HUDElementAugmentedHolding;
 import arc.bloodarsenal.client.mesh.FluidStateMapper;
-import arc.bloodarsenal.client.render.entity.SentientToolFactory;
+import arc.bloodarsenal.client.render.block.RenderStasisPlate;
+import arc.bloodarsenal.client.render.entity.RenderSentientTool;
 import arc.bloodarsenal.entity.projectile.EntitySummonedTool;
 import arc.bloodarsenal.registry.ModItems;
+import arc.bloodarsenal.tile.TileStasisPlate;
 import arc.bloodarsenal.util.IComplexVariantProvider;
 import arc.bloodarsenal.util.handler.ClientHandler;
 import net.minecraft.block.Block;
@@ -20,6 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -42,13 +45,15 @@ public class ClientProxy extends CommonProxy
 
         ModItems.initSpecialRenders();
 
+        ClientRegistry.bindTileEntitySpecialRenderer(TileStasisPlate.class, new RenderStasisPlate());
+
         MinecraftForge.EVENT_BUS.register(new ClientHandler());
     }
 
     @Override
     public void registerRenderers()
     {
-        RenderingRegistry.registerEntityRenderingHandler(EntitySummonedTool.class, new SentientToolFactory());
+        RenderingRegistry.registerEntityRenderingHandler(EntitySummonedTool.class, RenderSentientTool::new);
     }
 
     @Override

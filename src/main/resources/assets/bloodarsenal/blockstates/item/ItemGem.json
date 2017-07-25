@@ -8,17 +8,17 @@
     "type": {
       "sacrifice": {
         "textures": {
-          "layer0": "bloodarsenal:items/GemSacrifice"
+          "layer0": "bloodarsenal:items/gem_sacrifice"
         }
       },
       "selfsacrifice": {
         "textures": {
-          "layer0": "bloodarsenal:items/GemSelfSacrifice"
+          "layer0": "bloodarsenal:items/gem_self_sacrifice"
         }
       },
 	  "tartaric": {
 		"textures": {
-		  "layer0": "bloodarsenal:items/GemTartaric"
+		  "layer0": "bloodarsenal:items/gem_tartaric"
 		}
 	  }
     }

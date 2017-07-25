@@ -1,18 +1,15 @@
 package arc.bloodarsenal.compat.baubles;
 
+import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import arc.bloodarsenal.BloodArsenal;
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
-import baubles.api.IBauble;
+import baubles.api.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public abstract class ItemBauble extends Item implements IBauble
@@ -33,27 +30,31 @@ public abstract class ItemBauble extends Item implements IBauble
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand)
     {
+        ItemStack stack = player.getHeldItem(hand);
+        if (PlayerHelper.isFakePlayer(player))
+            return super.onItemRightClick(itemStack, world, player, hand);
+
         if (!world.isRemote)
         {
             IInventory baubles = BaublesApi.getBaubles(player);
 
             for (int i = 0; i < baubles.getSizeInventory(); ++i)
             {
-                if (baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, itemStack))
+                if (baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, stack))
                 {
-                    baubles.setInventorySlotContents(i, itemStack.copy());
+                    baubles.setInventorySlotContents(i, stack.copy());
                     if (!player.capabilities.isCreativeMode)
                     {
                         player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                     }
 
-                    this.onEquipped(itemStack, player);
+                    this.onEquipped(stack, player);
                     break;
                 }
             }
         }
 
-        return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
+        return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
     }
 
     @Override
@@ -70,7 +71,7 @@ public abstract class ItemBauble extends Item implements IBauble
     @Override
     public void onEquipped(ItemStack itemstack, EntityLivingBase player)
     {
-        if (!player.worldObj.isRemote)
+        if (!player.getEntityWorld().isRemote)
         {
             player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.1F, 1.3F);
         }

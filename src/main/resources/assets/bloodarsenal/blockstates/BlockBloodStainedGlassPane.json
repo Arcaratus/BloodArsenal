@@ -1,29 +1,29 @@
 {
   "multipart": [
-    {   "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPanePost" }},
+    {   "apply": { "model": "bloodarsenal:blockbloodstainedglasspanepost" }},
     {   "when": { "north": true },
-        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneSide" }
+        "apply": { "model": "bloodarsenal:blockbloodstainedglasspaneside" }
     },
     {   "when": { "east": true },
-        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneSide", "y": 90 }
+        "apply": { "model": "bloodarsenal:blockbloodstainedglasspaneside", "y": 90 }
     },
     {   "when": { "south": true },
-        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneSideAlt" }
+        "apply": { "model": "bloodarsenal:blockbloodstainedglasspanesidealt" }
     },
     {   "when": { "west": true },
-        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneSideAlt", "y": 90 }
+        "apply": { "model": "bloodarsenal:blockbloodstainedglasspanesidealt", "y": 90 }
     },
     {   "when": { "north": false },
-        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneNoSide" }
+        "apply": { "model": "bloodarsenal:blockbloodstainedglasspanenoside" }
     },
     {   "when": { "east": false },
-        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneNoSideAlt" }
+        "apply": { "model": "bloodarsenal:blockbloodstainedglasspanenosidealt" }
     },
     {   "when": { "south": false },
-        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneNoSideAlt", "y": 90 }
+        "apply": { "model": "bloodarsenal:blockbloodstainedglasspanenosidealt", "y": 90 }
     },
     {   "when": { "west": false },
-        "apply": { "model": "bloodarsenal:BlockBloodStainedGlassPaneNoSide", "y": 270 }
+        "apply": { "model": "bloodarsenal:blockbloodstainedglasspanenoside", "y": 270 }
     }
   ]
 }

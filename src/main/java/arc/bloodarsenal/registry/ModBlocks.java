@@ -6,8 +6,10 @@ import arc.bloodarsenal.block.*;
 import arc.bloodarsenal.item.block.ItemBlockBloodInfusedWoodenSlab;
 import arc.bloodarsenal.item.block.ItemBlockSlate;
 import arc.bloodarsenal.tile.TileAltareAenigmatica;
+import arc.bloodarsenal.tile.TileStasisPlate;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -29,6 +31,7 @@ public class ModBlocks
     public static final Block GLASS_SHARD_BLOCK;
     public static final Block BLOOD_BURNED_STRING;
     public static final Block ALTARE_AENIGMATICA;
+    public static final Block STASIS_PLATE;
 
     static
     {
@@ -48,6 +51,7 @@ public class ModBlocks
         GLASS_SHARD_BLOCK = registerBlock(new BlockGlassShard("glassShardBlock"));
         BLOOD_BURNED_STRING = registerBlock(new BlockBloodBurnedString("bloodBurnedString"));
         ALTARE_AENIGMATICA = registerBlock(new BlockAltareAenigmatica("altareAenigmatica"));
+        STASIS_PLATE = registerBlock(new BlockStasisPlate("stasisPlate"));
     }
 
     public static void addOreDictBlocks()
@@ -57,7 +61,8 @@ public class ModBlocks
 
     public static void initTiles()
     {
-        GameRegistry.registerTileEntity(TileAltareAenigmatica.class, BloodArsenal.MOD_ID + ":" + TileAltareAenigmatica.class.getSimpleName());
+        registerTile(TileAltareAenigmatica.class);
+        registerTile(TileStasisPlate.class);
     }
 
     public static Block registerBlock(Block block, String name)
@@ -111,5 +116,10 @@ public class ModBlocks
         }
 
         return block;
+    }
+
+    public static void registerTile(Class<? extends TileEntity> tile)
+    {
+        GameRegistry.registerTileEntity(tile, BloodArsenal.MOD_ID + ":" + tile.getSimpleName());
     }
 }

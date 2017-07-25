@@ -18,9 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -66,7 +64,7 @@ public class BlockGlassShard extends Block implements IVariantProvider
         setHardness(0.75F);
         setSoundType(SoundType.GLASS);
 
-        this.setDefaultState(getBlockState().getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(NORTH, false).withProperty(EAST, false).withProperty(NORTHEAST, false).withProperty(NORTHWEST, false));
+        setDefaultState(getBlockState().getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(NORTH, false).withProperty(EAST, false).withProperty(NORTHEAST, false).withProperty(NORTHWEST, false));
     }
 
     @Override
@@ -113,7 +111,7 @@ public class BlockGlassShard extends Block implements IVariantProvider
 
         EnumFacing face = EnumFacing.values()[meta];
 
-        return this.getDefaultState().withProperty(FACING, face);
+        return getDefaultState().withProperty(FACING, face);
     }
 
     @Override
@@ -163,11 +161,11 @@ public class BlockGlassShard extends Block implements IVariantProvider
     }
 
     @Override
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         EnumFacing enumfacing = facing.getOpposite();
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return getDefaultState().withProperty(FACING, enumfacing);
     }
 
     @Override
@@ -183,7 +181,7 @@ public class BlockGlassShard extends Block implements IVariantProvider
 
         if (!worldIn.isSideSolid(pos.offset(facing), facing.getOpposite(), true))
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
+            dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }

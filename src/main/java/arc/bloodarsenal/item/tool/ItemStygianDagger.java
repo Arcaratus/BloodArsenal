@@ -13,10 +13,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
+import net.minecraft.item.*;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -57,10 +54,10 @@ public class ItemStygianDagger extends ItemSword implements IVariantProvider
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
-        if (I18n.hasKey("tooltip.BloodArsenal.stygianDagger.desc"))
-            tooltip.add(TextHelper.localizeEffect("tooltip.BloodArsenal.stygianDagger.desc"));
+        if (I18n.hasKey("tooltip.bloodarsenal.stygianDagger.desc"))
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.stygianDagger.desc"));
 
-        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.currentTier", stack.getItemDamage() + 1));
+        tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentTier", stack.getItemDamage() + 1));
     }
 
     @Override
@@ -73,7 +70,7 @@ public class ItemStygianDagger extends ItemSword implements IVariantProvider
                 int tier = stack.getItemDamage() + 1;
                 target.addPotionEffect(new PotionEffect(ModPotions.BLEEDING, itemRand.nextInt(tier * 3) * 20, tier));
 
-                NetworkHelper.syphonAndDamage(NetworkHelper.getSoulNetwork((EntityPlayer) attacker), (EntityPlayer) attacker, tier * 500 * itemRand.nextInt(tier + 1));
+                NetworkHelper.getSoulNetwork((EntityPlayer) attacker).syphonAndDamage((EntityPlayer) attacker, tier * 500 * itemRand.nextInt(tier + 1));
             }
         }
 

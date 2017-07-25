@@ -1,5 +1,6 @@
 package arc.bloodarsenal.item.tool;
 
+import WayofTime.bloodmagic.api.altar.IBloodAltar;
 import WayofTime.bloodmagic.api.event.SacrificeKnifeUsedEvent;
 import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.api.util.helper.PlayerSacrificeHelper;
@@ -16,15 +17,15 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
 {
@@ -54,16 +55,15 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean advanced)
     {
-        list.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.BloodArsenal.glassSacrificialDagger.desc"))));
+        list.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.bloodarsenal.glassSacrificialDagger.desc"))));
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand)
     {
-        Item dummyItem = new Item();
-
+        ItemStack stack = player.getHeldItem(hand);
         if (PlayerHelper.isFakePlayer(player))
-            return dummyItem.onItemRightClick(stack, world, player, hand);
+            return super.onItemRightClick(itemStack, world, player, hand);
 
         if (this.canUseForSacrifice(stack))
         {
@@ -73,11 +73,20 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
 
         int lpAdded = ConfigHandler.glassSacrificialDaggerLP;
 
+        RayTraceResult rayTrace = rayTrace(world, player, false);
+        if (rayTrace != null && rayTrace.typeOfHit == RayTraceResult.Type.BLOCK)
+        {
+            TileEntity tile = world.getTileEntity(rayTrace.getBlockPos());
+
+            if (tile != null && tile instanceof IBloodAltar && stack.getItemDamage() == 1)
+                lpAdded = ((IBloodAltar) tile).getCapacity();
+        }
+
         if (!player.capabilities.isCreativeMode)
         {
             SacrificeKnifeUsedEvent evt = new SacrificeKnifeUsedEvent(player, true, true, 2, lpAdded);
             if (MinecraftForge.EVENT_BUS.post(evt))
-                return dummyItem.onItemRightClick(stack, world, player, hand);
+                return super.onItemRightClick(itemStack, world, player, hand);
 
             if (evt.shouldDrainHealth)
             {
@@ -96,7 +105,7 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
             }
 
             if (!evt.shouldFillAltar)
-                return dummyItem.onItemRightClick(stack, world, player, hand);
+                return super.onItemRightClick(itemStack, world, player, hand);
 
             lpAdded = evt.lpAdded;
         }
@@ -110,12 +119,12 @@ public class ItemGlassSacrificialDagger extends ItemSacrificialDagger
             world.spawnParticle(EnumParticleTypes.REDSTONE, posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0, 0, 0);
 
         if (!world.isRemote && PlayerHelper.isFakePlayer(player))
-            return dummyItem.onItemRightClick(stack, world, player, hand);
+            return super.onItemRightClick(itemStack, world, player, hand);
 
         // TODO - Check if SoulFray is active
         PlayerSacrificeHelper.findAndFillAltar(world, player, lpAdded, false);
 
-        return dummyItem.onItemRightClick(stack, world, player, hand);
+        return super.onItemRightClick(itemStack, world, player, hand);
     }
 
     @Override

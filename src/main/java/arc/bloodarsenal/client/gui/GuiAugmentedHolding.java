@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiAugmentedHolding extends GuiContainer
 {
-    private final ResourceLocation texture = new ResourceLocation(BloodArsenal.MOD_ID, "textures/gui/SigilAugmentedHolding.png");
+    private final ResourceLocation texture = new ResourceLocation(BloodArsenal.MOD_ID, "textures/gui/sigil_augmented_holding.png");
 
     private EntityPlayer player;
 
@@ -32,7 +32,7 @@ public class GuiAugmentedHolding extends GuiContainer
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         //the parameters for drawString are: string, x, y, color
-        fontRendererObj.drawString(TextHelper.localize("item.BloodArsenal.sigil.augmentedHolding.name"), 28, 4, 4210752);
+        fontRendererObj.drawString(TextHelper.localize("item.bloodarsenal.sigil.augmentedHolding.name"), 28, 4, 4210752);
     }
 
     @Override
@@ -44,10 +44,11 @@ public class GuiAugmentedHolding extends GuiContainer
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-        if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == ModItems.SIGIL_AUGMENTED_HOLDING)
+        if (player.getHeldItemMainhand().getItem() == ModItems.SIGIL_AUGMENTED_HOLDING)
         {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(5 + x + 18 * ItemSigilHolding.getCurrentItemOrdinal(player.getHeldItemMainhand()), y + 14, 0, 123, 22, 22);
+            int ordinal = ItemSigilHolding.getCurrentItemOrdinal(player.getHeldItemMainhand());
+            this.drawTexturedModalRect(5 + x + 18 * ordinal - (int) (0.5 * ordinal), y + 14, 0, 123, 22, 22);
         }
     }
 }

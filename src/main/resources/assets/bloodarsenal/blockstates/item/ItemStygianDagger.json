@@ -7,7 +7,7 @@
   "variants": {
     "normal": [{
 	  "textures": {
-		"layer0": "bloodarsenal:items/StygianDagger"
+		"layer0": "bloodarsenal:items/stygian_dagger"
 	  }
     }]
   }

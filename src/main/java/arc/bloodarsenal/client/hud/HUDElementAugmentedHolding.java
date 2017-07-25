@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
-import javax.annotation.Nullable;
+import java.util.List;
 
 public class HUDElementAugmentedHolding extends HUDElement
 {
@@ -48,7 +48,7 @@ public class HUDElementAugmentedHolding extends HUDElement
         ingameGui.drawTexturedModalRect(resolution.getScaledWidth() / 2 + 99 + (currentSlot * 20) + getXOffset(), resolution.getScaledHeight() - 23 + getYOffset(), 0, 22, 24, 24);
 
         RenderHelper.enableGUIStandardItemLighting();
-        ItemStack[] holdingInv = ItemSigilAugmentedHolding.getInternalInventory(sigilHolding);
+        List<ItemStack> holdingInv = ItemSigilAugmentedHolding.getInternalInventory(sigilHolding);
         int xOffset = 0;
         if (holdingInv != null)
         {
@@ -62,13 +62,14 @@ public class HUDElementAugmentedHolding extends HUDElement
         RenderHelper.disableStandardItemLighting();
     }
 
+
     @Override
     public boolean shouldRender(Minecraft minecraft)
     {
         return true;
     }
 
-    protected void renderHotbarItem(int x, int y, float partialTicks, EntityPlayer player, @Nullable ItemStack stack)
+    protected void renderHotbarItem(int x, int y, float partialTicks, EntityPlayer player, ItemStack stack)
     {
         if (stack != null)
         {

@@ -7,15 +7,11 @@ import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.registry.Constants;
 import arc.bloodarsenal.registry.ModItems;
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
@@ -24,16 +20,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-public class ItemBloodInfusedTool extends ItemTool implements IVariantProvider
+public abstract class ItemBloodInfusedTool extends ItemTool implements IVariantProvider
 {
-    protected static final Set<Block> AXE_EFFECTIVE_ON = Sets.newHashSet(Blocks.PLANKS, Blocks.BOOKSHELF, Blocks.LOG, Blocks.LOG2, Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN, Blocks.MELON_BLOCK, Blocks.LADDER);
-    protected static final Set<Block> PICKAXE_EFFECTIVE_ON = Sets.newHashSet(Blocks.ACTIVATOR_RAIL, Blocks.COAL_ORE, Blocks.COBBLESTONE, Blocks.DETECTOR_RAIL, Blocks.DIAMOND_BLOCK, Blocks.DIAMOND_ORE, Blocks.DOUBLE_STONE_SLAB, Blocks.GOLDEN_RAIL, Blocks.GOLD_BLOCK, Blocks.GOLD_ORE, Blocks.ICE, Blocks.IRON_BLOCK, Blocks.IRON_ORE, Blocks.LAPIS_BLOCK, Blocks.LAPIS_ORE, Blocks.LIT_REDSTONE_ORE, Blocks.MOSSY_COBBLESTONE, Blocks.NETHERRACK, Blocks.PACKED_ICE, Blocks.RAIL, Blocks.REDSTONE_ORE, Blocks.SANDSTONE, Blocks.RED_SANDSTONE, Blocks.STONE, Blocks.STONE_SLAB);
-    protected static final Set<Block> SHOVEL_EFFECTIVE_ON = Sets.newHashSet(Blocks.CLAY, Blocks.DIRT, Blocks.FARMLAND, Blocks.GRASS, Blocks.GRAVEL, Blocks.MYCELIUM, Blocks.SAND, Blocks.SNOW, Blocks.SNOW_LAYER, Blocks.SOUL_SAND);
-
     protected final String tooltipBase;
     private final int enchantibility;
 
@@ -46,8 +36,9 @@ public class ItemBloodInfusedTool extends ItemTool implements IVariantProvider
 
         setUnlocalizedName(BloodArsenal.MOD_ID + ".bloodInfused" + type + "." + name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
+        setHarvestLevel(name, toolMaterial == ModItems.BLOOD_INFUSED_IRON ? 3 : 1);
 
-        this.tooltipBase = "tooltip.BloodArsenal.bloodInfused" + type + "." + name + ".";
+        tooltipBase = "tooltip.bloodarsenal.bloodInfused" + type + "." + name + ".";
         this.enchantibility = enchantibility;
 
         this.repairUpdate = repairUpdate;
@@ -69,11 +60,9 @@ public class ItemBloodInfusedTool extends ItemTool implements IVariantProvider
 
                     if (enchants != null && enchants.tagCount() > 0)
                     {
-                        NBTTagCompound enchant;
-
                         for (int i = 0; i <= enchants.tagCount(); i++)
                         {
-                            enchant = enchants.getCompoundTagAt(i);
+                            NBTTagCompound enchant = enchants.getCompoundTagAt(i);
                             short lvl = enchant.getShort("lvl");
 
                             cost *= ((repairCost / 10) * lvl);

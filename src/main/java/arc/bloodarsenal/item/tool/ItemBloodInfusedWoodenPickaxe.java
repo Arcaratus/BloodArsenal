@@ -9,6 +9,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
+import static arc.bloodarsenal.registry.Constants.Item.PICKAXE_EFFECTIVE_ON;
+
 public class ItemBloodInfusedWoodenPickaxe extends ItemBloodInfusedTool.Wooden
 {
     public ItemBloodInfusedWoodenPickaxe()

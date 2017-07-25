@@ -9,27 +9,27 @@
     "type": {
       "blank": {
         "textures": {
-          "all": "bloodarsenal:blocks/BlockSlateBlank"
+          "all": "bloodarsenal:blocks/slate_blank"
         }
       },
       "reinforced": {
         "textures": {
-          "all": "bloodarsenal:blocks/BlockSlateReinforced"
+          "all": "bloodarsenal:blocks/slate_reinforced"
         }
       },
       "imbued": {
         "textures": {
-          "all": "bloodarsenal:blocks/BlockSlateImbued"
+          "all": "bloodarsenal:blocks/slate_imbued"
         }
       },
       "demonic": {
         "textures": {
-          "all": "bloodarsenal:blocks/BlockSlateDemonic"
+          "all": "bloodarsenal:blocks/slate_demonic"
         }
       },
       "ethereal": {
         "textures": {
-          "all": "bloodarsenal:blocks/BlockSlateEthereal"
+          "all": "bloodarsenal:blocks/slate_ethereal"
         }
       }
     }

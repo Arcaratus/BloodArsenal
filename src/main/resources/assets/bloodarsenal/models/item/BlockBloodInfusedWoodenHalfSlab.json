@@ -1,5 +1,5 @@
 {
-  "parent": "bloodarsenal:block/BlockBloodInfusedWoodenHalfSlab",
+  "parent": "bloodarsenal:block/blockbloodinfusedwoodenhalfslab",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

@@ -6,6 +6,7 @@ import WayofTime.bloodmagic.api.altar.IBloodAltar;
 import WayofTime.bloodmagic.api.iface.IItemLPContainer;
 import WayofTime.bloodmagic.api.util.helper.ItemHelper.LPContainer;
 import WayofTime.bloodmagic.api.util.helper.NBTHelper;
+import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.ConfigHandler;
@@ -17,9 +18,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -57,7 +56,7 @@ public class ItemSelfSacrificeAmulet extends ItemBauble implements IAltarManipul
             EntityPlayer player = (EntityPlayer) entityAttacked;
             ItemStack baubleStack = BaubleUtils.getBaubleStackInPlayer(player, this);
 
-            if (baubleStack != null && baubleStack.getItem() instanceof ItemSelfSacrificeAmulet)
+            if (baubleStack.getItem() instanceof ItemSelfSacrificeAmulet)
             {
                 ItemSelfSacrificeAmulet amulet = (ItemSelfSacrificeAmulet) baubleStack.getItem();
 
@@ -79,8 +78,12 @@ public class ItemSelfSacrificeAmulet extends ItemBauble implements IAltarManipul
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand)
     {
+        ItemStack stack = player.getHeldItem(hand);
+        if (PlayerHelper.isFakePlayer(player))
+            return super.onItemRightClick(itemStack, world, player, hand);
+
         if (world.isRemote)
             return ActionResult.newResult(EnumActionResult.FAIL, stack);
 
@@ -88,21 +91,22 @@ public class ItemSelfSacrificeAmulet extends ItemBauble implements IAltarManipul
 
         if (rayTrace == null)
         {
-            return super.onItemRightClick(stack, world, player, EnumHand.MAIN_HAND);
-        } else
+            return super.onItemRightClick(itemStack, world, player, EnumHand.MAIN_HAND);
+        }
+        else
         {
             if (rayTrace.typeOfHit == RayTraceResult.Type.BLOCK)
             {
                 TileEntity tile = world.getTileEntity(rayTrace.getBlockPos());
 
                 if (!(tile instanceof IBloodAltar))
-                    return super.onItemRightClick(stack, world, player, EnumHand.MAIN_HAND);
+                    return super.onItemRightClick(itemStack, world, player, EnumHand.MAIN_HAND);
 
                 LPContainer.tryAndFillAltar((IBloodAltar) tile, stack, world, rayTrace.getBlockPos());
             }
         }
 
-        return super.onItemRightClick(stack, world, player, hand);
+        return super.onItemRightClick(itemStack, world, player, hand);
     }
 
     @Override
@@ -111,8 +115,8 @@ public class ItemSelfSacrificeAmulet extends ItemBauble implements IAltarManipul
         if (!stack.hasTagCompound())
             return;
 
-        list.add(TextHelper.localize("tooltip.BloodArsenal.sacrificeAmulet.desc"));
-        list.add(TextHelper.localizeEffect("tooltip.BloodArsenal.stored", getStoredLP(stack)));
+        list.add(TextHelper.localize("tooltip.bloodarsenal.sacrificeAmulet.desc"));
+        list.add(TextHelper.localizeEffect("tooltip.bloodarsenal.stored", getStoredLP(stack)));
 
         super.addInformation(stack, player, list, advanced);
     }
@@ -142,9 +146,7 @@ public class ItemSelfSacrificeAmulet extends ItemBauble implements IAltarManipul
     public void setStoredLP(ItemStack stack, int lp)
     {
         if (stack != null)
-        {
             NBTHelper.checkNBT(stack).getTagCompound().setInteger(Constants.NBT.STORED_LP, lp);
-        }
     }
 
     @Override

@@ -57,8 +57,8 @@ public class ItemBloodInfusedWoodenSword extends ItemSword implements IVariantPr
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
-        if (I18n.hasKey("tooltip.BloodArsenal.bloodInfusedWooden.sword.desc"))
-            tooltip.add(TextHelper.localizeEffect("tooltip.BloodArsenal.bloodInfusedWooden.sword.desc"));
+        if (I18n.hasKey("tooltip.bloodarsenal.bloodInfusedWooden.sword.desc"))
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.bloodInfusedWooden.sword.desc"));
 
         super.addInformation(stack, player, tooltip, advanced);
     }

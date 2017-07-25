@@ -8,7 +8,6 @@ import arc.bloodarsenal.modifier.IModifiableItem;
 import arc.bloodarsenal.modifier.modifiers.*;
 import arc.bloodarsenal.recipe.RecipeSanguineInfusion;
 import arc.bloodarsenal.util.BloodArsenalUtils;
-import com.google.common.collect.ImmutableList;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
@@ -53,12 +52,12 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
         return localizedName;
     }
 
-    @Nonnull
-    @Override
-    public String getModName()
-    {
-        return BloodArsenal.MOD_ID;
-    }
+//    @Nonnull
+//    @Override
+//    public String getModName()
+//    {
+//        return BloodArsenal.MOD_ID;
+//    }
 
     @Nonnull
     @Override
@@ -85,6 +84,12 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
     }
 
     @Override
+    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull SanguineInfusionWrapper recipeWrapper)
+    {
+
+    }
+
+    @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull SanguineInfusionWrapper recipeWrapper, @Nonnull IIngredients ingredients)
     {
         int centerX = 27;
@@ -108,7 +113,7 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
                 List<ItemStack> sigils = new ArrayList<>();
                 for (ItemStack itemStack : BloodArsenalPlugin.sigils)
                 {
-                    if (!itemStack.isEmpty() && itemStack.getItem() instanceof ISigil)
+                    if (itemStack != null && itemStack.getItem() instanceof ISigil)
                     {
                         ItemStack copyStack = itemStack.copy();
                         sigils.add(copyStack);
@@ -122,7 +127,7 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
                 List<ItemStack> potions = new ArrayList<>();
                 for (ItemStack itemStack : BloodArsenalPlugin.badPotions)
                 {
-                    if (!itemStack.isEmpty())
+                    if (itemStack != null)
                     {
                         ItemStack copyStack = itemStack.copy();
                         potions.add(copyStack);
@@ -136,7 +141,7 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
                 List<ItemStack> potions = new ArrayList<>();
                 for (ItemStack itemStack : BloodArsenalPlugin.beneficialPotions)
                 {
-                    if (!itemStack.isEmpty())
+                    if (itemStack != null)
                     {
                         ItemStack copyStack = itemStack.copy();
                         potions.add(copyStack);
@@ -148,7 +153,7 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
 
             for (ItemStack itemStack : BloodArsenalPlugin.modifiables)
             {
-                if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem && itemStack.getItem() instanceof IActivatable)
+                if (itemStack != null && itemStack.getItem() instanceof IModifiableItem && itemStack.getItem() instanceof IActivatable)
                 {
                     ItemStack copyStack = itemStack.copy();
                     inputs.add(copyStack);
@@ -185,7 +190,7 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
                         {
                             break;
                         }
-                        else if (inputs.get(i).getCount() == inputs.get(i + 1).getCount())
+                        else if (inputs.get(i).stackSize == inputs.get(i + 1).stackSize)
                         {
                             inputs.remove(i);
                             i--;
@@ -232,9 +237,15 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
         return new Point((int) newX, (int) newY);
     }
 
+//    @Override
+//    public List<String> getTooltipStrings(int mouseX, int mouseY)
+//    {
+//        return ImmutableList.of();
+//    }
+
     @Override
-    public List<String> getTooltipStrings(int mouseX, int mouseY)
+    public void drawAnimations(Minecraft minecraft)
     {
-        return ImmutableList.of();
+
     }
 }

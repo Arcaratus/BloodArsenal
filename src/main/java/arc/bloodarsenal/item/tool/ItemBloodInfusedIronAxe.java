@@ -8,11 +8,13 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
+import static arc.bloodarsenal.registry.Constants.Item.AXE_EFFECTIVE_ON;
+
 public class ItemBloodInfusedIronAxe extends ItemBloodInfusedTool.Iron
 {
     public ItemBloodInfusedIronAxe()
     {
-        super("axe", 4.2F, AXE_EFFECTIVE_ON);
+        super("axe", 4.6F, AXE_EFFECTIVE_ON);
     }
 
     @Override

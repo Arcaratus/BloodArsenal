@@ -1,16 +1,15 @@
 package arc.bloodarsenal.tile;
 
-import WayofTime.bloodmagic.api.Constants;
 import WayofTime.bloodmagic.api.altar.IBloodAltar;
 import WayofTime.bloodmagic.api.iface.IBindable;
 import WayofTime.bloodmagic.api.orb.IBloodOrb;
 import WayofTime.bloodmagic.api.registry.AltarRecipeRegistry;
 import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
-import WayofTime.bloodmagic.tile.TileInventory;
 import WayofTime.bloodmagic.util.ChatUtil;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.ConfigHandler;
 import arc.bloodarsenal.block.BlockAltareAenigmatica;
+import arc.bloodarsenal.registry.Constants;
 import com.google.common.base.Strings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,7 +59,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
     @Override
     public int[] getSlotsForFace(EnumFacing side)
     {
-        IBlockState state = worldObj.getBlockState(pos);
+        IBlockState state = getWorld().getBlockState(pos);
         if (state.getBlock() instanceof BlockAltareAenigmatica)
         {
             BlockAltareAenigmatica aenigmatica = (BlockAltareAenigmatica) state.getBlock();
@@ -88,9 +87,9 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
     @Override
     public void update()
     {
-        if (altarPos != null && altarPos != BlockPos.ORIGIN)
+        if (altarPos != BlockPos.ORIGIN)
         {
-            TileInventory tile = (TileInventory) worldObj.getTileEntity(altarPos);
+            TileInventory tile = (TileInventory) getWorld().getTileEntity(altarPos);
             if (tile instanceof IBloodAltar)
             {
                 if (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN) instanceof InvWrapper)
@@ -103,13 +102,9 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
                     boolean inAltar = checkOrb(altarInventory.getStackInSlot(0));
 
                     if (inThis)
-                    {
                         manageAltar(altarInventory, orbStack, altar);
-                    }
                     else if (inAltar)
-                    {
                         manageAltar(altarInventory, altarInventory.getStackInSlot(0), altar);
-                    }
                 }
             }
         }
@@ -126,7 +121,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
 
     private boolean checkOrb(ItemStack orbStack)
     {
-        return orbStack != null && orbStack.getItem() instanceof IBloodOrb && orbStack.getItem() instanceof IBindable && ((IBindable) orbStack.getItem()).getOwnerName(orbStack).equals(linkedOrbOwner);
+        return orbStack.getItem() instanceof IBloodOrb && orbStack.getItem() instanceof IBindable && ((IBindable) orbStack.getItem()).getOwnerName(orbStack).equals(linkedOrbOwner);
     }
 
     private void manageAltar(IItemHandler altarInventory, ItemStack orbStack, IBloodAltar altar)
@@ -176,7 +171,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
                         shoveOrbIntoAltar(altarInventory, orbStack);
                     }
                 }
-                else if (altarInventory.getStackInSlot(0) == null) //Put orb back in if possible
+                else if (altarInventory.getStackInSlot(0) != null) //Put orb back in if possible
                 {
                     shoveOrbIntoAltar(altarInventory, orbStack);
                 }
@@ -201,11 +196,6 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
         this.altarPos = pos;
     }
 
-    public String getLinkedOrbOwner()
-    {
-        return linkedOrbOwner;
-    }
-
     public boolean setLinkedOrbOwner(EntityPlayer player)
     {
         String dontKnowWhatToCallThis = ((IBindable) player.getHeldItemMainhand().getItem()).getOwnerName(player.getHeldItemMainhand());
@@ -220,5 +210,11 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
             ChatUtil.sendNoSpamClient(TextHelper.localize("chat.BloodArsenal.setOwner", player.getName()));
             return true;
         }
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player)
+    {
+        return true;
     }
 }

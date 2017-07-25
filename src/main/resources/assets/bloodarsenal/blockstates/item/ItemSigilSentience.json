@@ -8,7 +8,7 @@
 	"type": {
 	  "normal": {
 		"textures": {
-		  "layer0": "bloodarsenal:items/SigilOfSentience"
+		  "layer0": "bloodarsenal:items/sigil_of_sentience"
 		}
 	  }
 	} 

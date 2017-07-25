@@ -7,6 +7,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
@@ -32,7 +33,7 @@ public class SanguineInfusionWrapper implements IRecipeWrapper
     public SanguineInfusionWrapper(RecipeSanguineInfusion recipe)
     {
         List<List<ItemStack>> itemInputs = new ArrayList<>();
-        if (recipe.getInfuse() != ItemStack.EMPTY)
+        if (recipe.getInfuse() != null)
             itemInputs.add(Collections.singletonList(recipe.getInfuse()));
 
         List<ItemStack> extraInputs = new ArrayList<>();
@@ -63,13 +64,13 @@ public class SanguineInfusionWrapper implements IRecipeWrapper
     {
         if (isModifier)
         {
-            minecraft.fontRenderer.drawString(TextHelper.localize(infoString[0], (level + 1) * lpCost), 110 - minecraft.fontRenderer.getStringWidth(TextHelper.localize(infoString[0], (level + 1) * lpCost)) / 2, 40, Color.gray.getRGB());
-            minecraft.fontRenderer.drawString(infoString[1], 10 - minecraft.fontRenderer.getStringWidth(infoString[1]) / 2, 4, Color.gray.getRGB());
-            minecraft.fontRenderer.drawString(TextHelper.localize(infoString[2], level + 1), 10 - minecraft.fontRenderer.getStringWidth(TextHelper.localize(infoString[2], level + 1)) / 2, 14, Color.gray.getRGB());
+            minecraft.fontRendererObj.drawString(TextHelper.localize(infoString[0], (level + 1) * lpCost), 110 - minecraft.fontRendererObj.getStringWidth(TextHelper.localize(infoString[0], (level + 1) * lpCost)) / 2, 40, Color.gray.getRGB());
+            minecraft.fontRendererObj.drawString(infoString[1], 10 - minecraft.fontRendererObj.getStringWidth(infoString[1]) / 2, 4, Color.gray.getRGB());
+            minecraft.fontRendererObj.drawString(TextHelper.localize(infoString[2], level + 1), 10 - minecraft.fontRendererObj.getStringWidth(TextHelper.localize(infoString[2], level + 1)) / 2, 14, Color.gray.getRGB());
         }
         else
         {
-            minecraft.fontRenderer.drawString(infoString[0], 110 - minecraft.fontRenderer.getStringWidth(infoString[0]) / 2, 40, Color.gray.getRGB());
+            minecraft.fontRendererObj.drawString(infoString[0], 110 - minecraft.fontRendererObj.getStringWidth(infoString[0]) / 2, 40, Color.gray.getRGB());
         }
     }
 
@@ -102,12 +103,42 @@ public class SanguineInfusionWrapper implements IRecipeWrapper
             if (o instanceof ItemStack)
             {
                 ItemStack itemStack = (ItemStack) o;
-                itemInputs.add(Collections.singletonList(new ItemStack(itemStack.getItem(), itemStack.getCount(), itemStack.getMetadata())));
+                itemInputs.add(Collections.singletonList(new ItemStack(itemStack.getItem(), itemStack.stackSize, itemStack.getMetadata())));
             }
             else if (o instanceof String)
             {
                 itemInputs.add(OreDictionary.getOres((String) o));
             }
         }
+    }
+
+
+    public List<FluidStack> getFluidInputs()
+    {
+        return null;
+    }
+
+    public @Deprecated // Quality copy pasting right here
+    List<FluidStack> getFluidOutputs()
+    {
+        return null;
+    }
+
+    public @Deprecated
+    List getInputs()
+    {
+        return null;
+    }
+
+    public @Deprecated
+    List getOutputs()
+    {
+        return null;
+    }
+
+    @Deprecated
+    public void drawAnimations(Minecraft minecraft, int recipeWidth, int recipeHeight)
+    {
+
     }
 }

@@ -15,9 +15,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -54,7 +52,7 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
 
             ItemStack baubleStack = BaubleUtils.getBaubleStackInPlayer(player, this);
 
-            if (baubleStack != null && baubleStack.getItem() instanceof ItemSacrificeAmulet)
+            if (baubleStack.getItem() instanceof ItemSacrificeAmulet)
             {
                 ItemSacrificeAmulet amulet = (ItemSacrificeAmulet) baubleStack.getItem();
 
@@ -69,8 +67,12 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand)
     {
+        ItemStack stack = player.getHeldItem(hand);
+        if (PlayerHelper.isFakePlayer(player))
+            return super.onItemRightClick(itemStack, world, player, hand);
+
         if (world.isRemote)
             return ActionResult.newResult(EnumActionResult.FAIL, stack);
 
@@ -78,21 +80,22 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
 
         if (rayTrace == null)
         {
-            return super.onItemRightClick(stack, world, player, EnumHand.MAIN_HAND);
-        } else
+            return super.onItemRightClick(itemStack, world, player, EnumHand.MAIN_HAND);
+        }
+        else
         {
             if (rayTrace.typeOfHit == RayTraceResult.Type.BLOCK)
             {
                 TileEntity tile = world.getTileEntity(rayTrace.getBlockPos());
 
                 if (!(tile instanceof IBloodAltar))
-                    return super.onItemRightClick(stack, world, player, EnumHand.MAIN_HAND);
+                    return super.onItemRightClick(itemStack, world, player, EnumHand.MAIN_HAND);
 
                 LPContainer.tryAndFillAltar((IBloodAltar) tile, stack, world, rayTrace.getBlockPos());
             }
         }
 
-        return super.onItemRightClick(stack, world, player, hand);
+        return super.onItemRightClick(itemStack, world, player, hand);
     }
 
     @Override
@@ -101,8 +104,8 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
         if (!stack.hasTagCompound())
             return;
 
-        list.add(TextHelper.localize("tooltip.BloodArsenal.selfSacrificeAmulet.desc"));
-        list.add(TextHelper.localizeEffect("tooltip.BloodArsenal.stored", getStoredLP(stack)));
+        list.add(TextHelper.localize("tooltip.bloodarsenal.selfSacrificeAmulet.desc"));
+        list.add(TextHelper.localizeEffect("tooltip.bloodarsenal.stored", getStoredLP(stack)));
 
         super.addInformation(stack, player, list, advanced);
     }
@@ -132,9 +135,7 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
     public void setStoredLP(ItemStack stack, int lp)
     {
         if (stack != null)
-        {
             NBTHelper.checkNBT(stack).getTagCompound().setInteger(Constants.NBT.STORED_LP, lp);
-        }
     }
 
     @Override

@@ -55,7 +55,7 @@ public class RecipeSanguineInfusion
 
     public RecipeSanguineInfusion(int lpCost, Modifier modifier, Object... inputs)
     {
-        this.output = this.infuse = ItemStack.EMPTY;
+        this.output = this.infuse = null;
 
         this.lpCost = lpCost;
         this.isModifier = true;
@@ -153,7 +153,7 @@ public class RecipeSanguineInfusion
         for (ItemStack itemStack : getItemStackInputs())
         {
             ItemStack dummyStack = itemStack.copy();
-            dummyStack.setCount(itemStack.getCount() * (modifierLevel + 1) * getLevelMultiplier());
+            dummyStack.stackSize = itemStack.stackSize * (modifierLevel + 1) * getLevelMultiplier();
             inputs.add(dummyStack);
         }
 
@@ -184,10 +184,10 @@ public class RecipeSanguineInfusion
             {
                 if (BloodArsenalUtils.areStacksEqual(ingredient, input))
                 {
-                    if (!ingredient.isEmpty() && ingredient.hasTagCompound() && !ItemStack.areItemStackTagsEqual(ingredient, input))
+                    if (ingredient != null && ingredient.hasTagCompound() && !ItemStack.areItemStackTagsEqual(ingredient, input))
                         continue;
 
-                    if (input.getCount() >= ingredient.getCount())
+                    if (input.stackSize >= ingredient.stackSize)
                     {
                         foundIngredient = true;
                         dummyList.remove(input);
@@ -201,7 +201,7 @@ public class RecipeSanguineInfusion
         }
 
         for (ItemStack input : dummyList)
-            if (!input.isEmpty())
+            if (input != null)
                 return false;
 
         return true;

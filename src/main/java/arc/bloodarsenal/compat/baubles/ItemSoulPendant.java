@@ -2,14 +2,11 @@ package arc.bloodarsenal.compat.baubles;
 
 import WayofTime.bloodmagic.api.Constants;
 import WayofTime.bloodmagic.api.iface.IMultiWillTool;
-import WayofTime.bloodmagic.api.soul.EnumDemonWillType;
-import WayofTime.bloodmagic.api.soul.IDemonWill;
-import WayofTime.bloodmagic.api.soul.IDemonWillGem;
-import WayofTime.bloodmagic.api.soul.PlayerDemonWillHandler;
+import WayofTime.bloodmagic.api.soul.*;
 import WayofTime.bloodmagic.api.util.helper.NBTHelper;
+import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.client.IMeshProvider;
 import WayofTime.bloodmagic.util.helper.TextHelper;
-import arc.bloodarsenal.client.mesh.CustomMeshDefinitionSoulPendant;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -19,9 +16,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -31,10 +26,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshProvider, IMultiWillTool
 {
@@ -53,10 +45,9 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     public void onItemPickup(EntityItemPickupEvent event)
     {
         ItemStack stack = event.getItem().getEntityItem();
-        if (stack != null && stack.getItem() instanceof IDemonWill)
+        if (stack.getItem() instanceof IDemonWill)
         {
             EntityPlayer player = event.getEntityPlayer();
-
             ItemStack remainder = addDemonWill(player, stack);
 
             if (remainder == null || ((IDemonWill) stack.getItem()).getWill(stack) < 0.0001 || isDemonWillFull(EnumDemonWillType.DEFAULT, player))
@@ -77,11 +68,12 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
             baubleStack[i] = baubles.getStackInSlot(i);
 
         inventory.addAll(Arrays.asList(baubleStack));
+        inventory.addAll(Arrays.asList(player.inventory.mainInventory));
 
         boolean hasGem = false;
         for (ItemStack stack : inventory)
         {
-            if (stack != null && stack.getItem() instanceof IDemonWillGem)
+            if (stack.getItem() instanceof IDemonWillGem)
             {
                 hasGem = true;
                 if (((IDemonWillGem) stack.getItem()).getWill(type, stack) < ((IDemonWillGem) stack.getItem()).getMaxWill(type, stack))
@@ -93,7 +85,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     }
 
     /**
-     * Modified version of {@link PlayerDemonWillHandler}'s addDemonWill
+     * Modified version of {@link PlayerDemonWillHandler#addDemonWill}
      * We need to override it to special case for baubles
      *
      * @param player
@@ -116,10 +108,11 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
             baubleStack[i] = baubles.getStackInSlot(i);
 
         inventory.addAll(Arrays.asList(baubleStack));
+        inventory.addAll(Arrays.asList(player.inventory.mainInventory));
 
         for (ItemStack stack : inventory)
         {
-            if (stack != null && stack.getItem() instanceof IDemonWillGem)
+            if (stack.getItem() instanceof IDemonWillGem)
             {
                 ItemStack newStack = ((IDemonWillGem) stack.getItem()).fillDemonWillGem(stack, willStack);
                 if (newStack == null)
@@ -137,15 +130,19 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand)
     {
+        ItemStack stack = player.getHeldItem(hand);
+        if (PlayerHelper.isFakePlayer(player))
+            return super.onItemRightClick(itemStack, world, player, hand);
+
         EnumDemonWillType type = this.getCurrentType(stack);
         double drain = Math.min(this.getWill(type, stack), this.getMaxWill(type, stack) / 10);
 
         double filled = PlayerDemonWillHandler.addDemonWill(type, player, drain, stack);
         this.drainWill(type, stack, filled, true);
 
-        return super.onItemRightClick(stack, world, player, hand);
+        return super.onItemRightClick(itemStack, world, player, hand);
     }
 
     @Override
@@ -188,6 +185,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
 
             list.add(emptyStack);
         }
+
         for (EnumDemonWillType type : EnumDemonWillType.values())
         {
             for (int i = 0; i < names.length; i++)
@@ -207,9 +205,9 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
             return;
 
         EnumDemonWillType type = this.getCurrentType(stack);
-        tooltip.add(TextHelper.localize("tooltip.BloodArsenal.soulPendant." + names[stack.getItemDamage()]));
-        tooltip.add(TextHelper.localize("tooltip.BloodMagic.will", getWill(type, stack)));
-        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.currentType." + getCurrentType(stack).getName().toLowerCase()));
+        tooltip.add(TextHelper.localize("tooltip.bloodarsenal.soulPendant." + names[stack.getItemDamage()]));
+        tooltip.add(TextHelper.localize("tooltip.bloodmagic.will", getWill(type, stack)));
+        tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentType." + getCurrentType(stack).getName().toLowerCase()));
 
         super.addInformation(stack, player, tooltip, advanced);
     }
@@ -226,22 +224,20 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
         EnumDemonWillType type = this.getCurrentType(stack);
         double maxWill = getMaxWill(type, stack);
         if (maxWill <= 0)
-        {
             return 1;
-        }
+
         return 1.0 - (getWill(type, stack) / maxWill);
     }
 
     @Override
     public ItemStack fillDemonWillGem(ItemStack soulGemStack, ItemStack soulStack)
     {
-        if (soulStack != null && soulStack.getItem() instanceof IDemonWill)
+        if (soulStack.getItem() instanceof IDemonWill)
         {
             EnumDemonWillType thisType = this.getCurrentType(soulGemStack);
             if (thisType != EnumDemonWillType.DEFAULT)
-            {
                 return soulStack;
-            }
+
             IDemonWill soul = (IDemonWill) soulStack.getItem();
             double soulsLeft = getWill(thisType, soulGemStack);
 
@@ -252,9 +248,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
 
                 setWill(thisType, soulGemStack, newSoulsLeft);
                 if (soul.getWill(soulStack) <= 0)
-                {
                     return null;
-                }
             }
         }
 
@@ -265,9 +259,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     public double getWill(EnumDemonWillType type, ItemStack soulGemStack)
     {
         if (!type.equals(getCurrentType(soulGemStack)))
-        {
             return 0;
-        }
 
         NBTTagCompound tag = soulGemStack.getTagCompound();
 
@@ -289,9 +281,8 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     {
         EnumDemonWillType currentType = this.getCurrentType(soulGemStack);
         if (currentType != type)
-        {
             return 0;
-        }
+
         double souls = getWill(type, soulGemStack);
 
         double soulsDrained = Math.min(drainAmount, souls);
@@ -305,9 +296,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     {
         EnumDemonWillType currentType = getCurrentType(soulGemStack);
         if (!type.equals(currentType) && currentType != EnumDemonWillType.DEFAULT)
-        {
             return 0;
-        }
 
         switch (soulGemStack.getMetadata())
         {
@@ -322,6 +311,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
             case 4:
                 return 16384;
         }
+
         return 64;
     }
 
@@ -333,9 +323,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
         NBTTagCompound tag = soulGemStack.getTagCompound();
 
         if (!tag.hasKey(Constants.NBT.WILL_TYPE))
-        {
             return EnumDemonWillType.DEFAULT;
-        }
 
         return EnumDemonWillType.valueOf(tag.getString(Constants.NBT.WILL_TYPE).toUpperCase(Locale.ENGLISH));
     }
@@ -349,9 +337,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
         if (type == EnumDemonWillType.DEFAULT)
         {
             if (tag.hasKey(Constants.NBT.WILL_TYPE))
-            {
                 tag.removeTag(Constants.NBT.WILL_TYPE);
-            }
 
             return;
         }
@@ -363,9 +349,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     public double fillWill(EnumDemonWillType type, ItemStack stack, double fillAmount, boolean doFill)
     {
         if (!type.equals(getCurrentType(stack)) && this.getWill(getCurrentType(stack), stack) > 0)
-        {
             return 0;
-        }
 
         double current = this.getWill(type, stack);
         double maxWill = this.getMaxWill(type, stack);

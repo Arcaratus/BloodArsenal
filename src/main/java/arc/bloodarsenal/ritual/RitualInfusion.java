@@ -3,6 +3,7 @@ package arc.bloodarsenal.ritual;
 import WayofTime.bloodmagic.api.altar.IBloodAltar;
 import WayofTime.bloodmagic.api.ritual.*;
 import WayofTime.bloodmagic.api.util.helper.NBTHelper;
+import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
 import arc.bloodarsenal.block.BlockStasisPlate;
 import arc.bloodarsenal.modifier.*;
 import arc.bloodarsenal.recipe.RecipeSanguineInfusion;
@@ -50,7 +51,7 @@ public class RitualInfusion extends RitualBloodArsenal
         {
             List<ItemStack> inputStacks = getItemStackInputs(world, pos);
             List<TileStasisPlate> stasisPlates = getStasisPlates(world, pos);
-            ItemStack wildStack = ItemStack.EMPTY;
+            ItemStack wildStack = null;
             Class wildClass = null;
 
             // Remove wildcard item inputs from inputStacks
@@ -73,9 +74,9 @@ public class RitualInfusion extends RitualBloodArsenal
             IInventory altarInv = (IInventory) world.getTileEntity(pos.add(0, 1, 0));
             ItemStack input = altarInv.getStackInSlot(0);
 
-            if (recipe != null && !altarInv.isEmpty())
+            if (recipe != null && altarInv != null)
             {
-                if (recipe.isSpecial() && (wildClass == null || wildStack.isEmpty() || !wildClass.isInstance(wildStack.getItem()))) // Check special classes and special itemstack
+                if (recipe.isSpecial() && (wildClass == null || wildStack == null || !wildClass.isInstance(wildStack.getItem()))) // Check special classes and special itemstack
                 {
                     endRitual(world, pos, masterRitualStone);
                     return;
@@ -133,7 +134,7 @@ public class RitualInfusion extends RitualBloodArsenal
                             return;
                         }
 
-                        if (specialNBT != null && !recipe.matchesWithSpecificity(wildStack, new ItemStack(specialNBT.getCompoundTag(Constants.NBT.ITEMSTACK))))
+                        if (specialNBT != null && !recipe.matchesWithSpecificity(wildStack, ItemStack.loadItemStackFromNBT(specialNBT.getCompoundTag(Constants.NBT.ITEMSTACK))))
                         {
                             endRitual(world, pos, masterRitualStone);
                             return;
@@ -162,7 +163,7 @@ public class RitualInfusion extends RitualBloodArsenal
                             shrinkItemStackInputs(world, pos, recipe.getInputsForLevel(modifierLevel), wildStack);
                             altarInv.setInventorySlotContents(0, copyStack);
 
-                            world.spawnEntity(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY() + 1, masterRitualStone.getBlockPos().getZ(), true));
+                            world.spawnEntityInWorld(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY() + 1, masterRitualStone.getBlockPos().getZ(), true));
                             endRitual(world, pos, masterRitualStone);
                             return;
                         }
@@ -184,10 +185,10 @@ public class RitualInfusion extends RitualBloodArsenal
 
                     if (craftingTimer == recipe.getLpCost() / CONSTANT_OF_INFUSION)
                     {
-                        shrinkItemStackInputs(world, pos, recipe.getItemStackInputs(), ItemStack.EMPTY);
+                        shrinkItemStackInputs(world, pos, recipe.getItemStackInputs(), null);
                         altarInv.setInventorySlotContents(0, recipe.getOutput());
 
-                        world.spawnEntity(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY(), masterRitualStone.getBlockPos().getZ(), true));
+                        world.spawnEntityInWorld(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY(), masterRitualStone.getBlockPos().getZ(), true));
                         endRitual(world, pos, masterRitualStone);
                     }
                 }
@@ -214,7 +215,7 @@ public class RitualInfusion extends RitualBloodArsenal
             return;
 
         craftingTimer++;
-        mrs.getOwnerNetwork().syphon(CONSTANT_OF_INFUSION);
+        NetworkHelper.getSoulNetwork(mrs.getOwner()).syphon(CONSTANT_OF_INFUSION);
     }
 
     private void endRitual(World world, BlockPos pos, IMasterRitualStone mrs)
@@ -268,7 +269,7 @@ public class RitualInfusion extends RitualBloodArsenal
             if (world.getTileEntity(actualPos) instanceof TileStasisPlate)
             {
                 TileStasisPlate plate = (TileStasisPlate) world.getTileEntity(actualPos);
-                if (!plate.getStackInSlot(0).isEmpty())
+                if (plate.getStackInSlot(0) != null)
                     stackList.add(plate.getStackInSlot(0));
             }
         }
@@ -285,20 +286,20 @@ public class RitualInfusion extends RitualBloodArsenal
             {
                 TileStasisPlate plate = (TileStasisPlate) world.getTileEntity(platePosition);
                 ItemStack plateStack = plate.getStackInSlot(0);
-                if (!plateStack.isEmpty())
+                if (plate != null)
                 {
                     for (ItemStack recipeInput : recipeInputs)
                     {
                         if (ItemStack.areItemsEqual(recipeInput, plateStack))
                         {
-                            plateStack.shrink(recipeInput.getCount());
+                            plateStack.stackSize -= recipeInput.stackSize;
                             plate.setInventorySlotContents(0, plateStack);
                         }
                     }
 
-                    if (!extraStack.isEmpty() && ItemStack.areItemsEqual(extraStack, plateStack))
+                    if (extraStack != null && ItemStack.areItemsEqual(extraStack, plateStack))
                     {
-                        plateStack.shrink(1);
+                        plateStack.stackSize -= 1;
                         plate.setInventorySlotContents(0, plateStack);
                     }
                 }

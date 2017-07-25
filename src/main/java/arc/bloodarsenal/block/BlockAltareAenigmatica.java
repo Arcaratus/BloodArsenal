@@ -7,7 +7,7 @@ import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.registry.Constants;
 import arc.bloodarsenal.tile.TileAltareAenigmatica;
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -18,10 +18,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -31,10 +28,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockAltareAenigmatica extends BlockContainer implements IVariantProvider
+public class BlockAltareAenigmatica extends Block implements IVariantProvider
 {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
@@ -57,7 +55,7 @@ public class BlockAltareAenigmatica extends BlockContainer implements IVariantPr
 
         BOUNDS = builder.build();
     }
-    
+
     public BlockAltareAenigmatica(String name)
     {
         super(Material.ROCK);
@@ -79,19 +77,26 @@ public class BlockAltareAenigmatica extends BlockContainer implements IVariantPr
     }
 
     @Override
-    public TileEntity createNewTileEntity(World world, int meta)
+    public boolean hasTileEntity(IBlockState state)
+    {
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state)
     {
         return new TileAltareAenigmatica();
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldStack, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof TileAltareAenigmatica)
         {
             checkFacingAltar(world, pos);
-            if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IBloodOrb)
+            if (player.getHeldItemMainhand().getItem() instanceof IBloodOrb)
                 return ((TileAltareAenigmatica) tile).setLinkedOrbOwner(player);
         }
 
@@ -125,8 +130,10 @@ public class BlockAltareAenigmatica extends BlockContainer implements IVariantPr
         if (tile instanceof TileAltareAenigmatica)
         {
             BlockPos altarPos = pos.offset(world.getBlockState(pos).getValue(FACING).getOpposite());
-            if (world.getTileEntity(altarPos) instanceof IBloodAltar) ((TileAltareAenigmatica) tile).setAltarPos(altarPos);
-            else ((TileAltareAenigmatica) tile).setAltarPos(BlockPos.ORIGIN);
+            if (world.getTileEntity(altarPos) instanceof IBloodAltar)
+                ((TileAltareAenigmatica) tile).setAltarPos(altarPos);
+            else
+                ((TileAltareAenigmatica) tile).setAltarPos(BlockPos.ORIGIN);
         }
     }
 
@@ -209,11 +216,9 @@ public class BlockAltareAenigmatica extends BlockContainer implements IVariantPr
     }
 
     @Override
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack itemStack)
     {
-        EnumFacing enumfacing = facing.getOpposite();
-
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return this.getDefaultState().withProperty(FACING, facing.getOpposite());
     }
 
     @Override

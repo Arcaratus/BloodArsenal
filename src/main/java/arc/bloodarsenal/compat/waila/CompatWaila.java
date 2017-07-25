@@ -15,7 +15,7 @@ public class CompatWaila implements ICompatibility
     @Override
     public String getModId()
     {
-        return "Waila";
+        return "waila";
     }
 
     @Override

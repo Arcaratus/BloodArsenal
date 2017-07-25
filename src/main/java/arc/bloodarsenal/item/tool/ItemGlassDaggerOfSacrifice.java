@@ -7,17 +7,17 @@ import WayofTime.bloodmagic.item.ItemDaggerOfSacrifice;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.common.util.FakePlayer;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ItemGlassDaggerOfSacrifice extends ItemDaggerOfSacrifice
 {
@@ -34,27 +34,41 @@ public class ItemGlassDaggerOfSacrifice extends ItemDaggerOfSacrifice
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
     {
-        if (target == null || attacker == null || attacker.worldObj.isRemote || (attacker instanceof EntityPlayer && !(attacker instanceof EntityPlayerMP)))
+        if (target == null || attacker == null || attacker.getEntityWorld().isRemote || attacker instanceof FakePlayer || (attacker instanceof EntityPlayer && !(attacker instanceof EntityPlayerMP)))
             return false;
 
-        if (target.isChild() || target instanceof EntityPlayer)
+        if (!target.isNonBoss())
+            return false;
+
+        if (target instanceof EntityPlayer)
+            return false;
+
+        if (target.isChild() && !(target instanceof IMob))
             return false;
 
         if (target.isDead || target.getHealth() < 0.5F)
             return false;
 
         String entityName = target.getClass().getSimpleName();
-        int lifeEssence = 1000;
+        int lifeEssenceRatio = 40;
 
         if (ConfigHandler.entitySacrificeValues.containsKey(entityName))
-            lifeEssence = ConfigHandler.entitySacrificeValues.get(entityName) * arc.bloodarsenal.ConfigHandler.glassDaggerOfSacrificeLPMultiplier;
+            lifeEssenceRatio = ConfigHandler.entitySacrificeValues.get(entityName) * arc.bloodarsenal.ConfigHandler.glassDaggerOfSacrificeLPMultiplier;
 
         if (BloodMagicAPI.getEntitySacrificeValues().containsKey(entityName))
-            lifeEssence = BloodMagicAPI.getEntitySacrificeValues().get(entityName) * arc.bloodarsenal.ConfigHandler.glassDaggerOfSacrificeLPMultiplier;
+            lifeEssenceRatio = BloodMagicAPI.getEntitySacrificeValues().get(entityName) * arc.bloodarsenal.ConfigHandler.glassDaggerOfSacrificeLPMultiplier;
 
-        if (PlayerSacrificeHelper.findAndFillAltar(attacker.worldObj, target, lifeEssence, true))
+        if (lifeEssenceRatio <= 0)
+            return false;
+
+        int lifeEssence = (int) (lifeEssenceRatio * target.getHealth());
+
+        if (target.isChild())
+            lifeEssence *= 0.5F;
+
+        if (PlayerSacrificeHelper.findAndFillAltar(attacker.getEntityWorld(), target, lifeEssence, true))
         {
-            target.worldObj.playSound(null, target.posX, target.posY, target.posZ, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (target.worldObj.rand.nextFloat() - target.worldObj.rand.nextFloat()) * 0.8F);
+            target.getEntityWorld().playSound(null, target.posX, target.posY, target.posZ, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (target.getEntityWorld().rand.nextFloat() - target.getEntityWorld().rand.nextFloat()) * 0.8F);
             target.setHealth(-1);
             target.onDeath(BloodMagicAPI.getDamageSource());
         }
@@ -65,7 +79,7 @@ public class ItemGlassDaggerOfSacrifice extends ItemDaggerOfSacrifice
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean advanced)
     {
-        list.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.BloodArsenal.glassDaggerOfSacrifice.desc"))));
+        list.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.bloodarsenal.glassDaggerOfSacrifice.desc"))));
     }
 
     @Override

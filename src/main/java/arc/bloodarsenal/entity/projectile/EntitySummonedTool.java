@@ -23,8 +23,9 @@ public class EntitySummonedTool extends EntityThrowable implements IThrowableEnt
     protected int maxTicksInAir = 16;
     protected int delay = 10;
 
-    private ItemStack stack;
+    private ItemStack stack = null;
 
+    // This constructor is needed here
     public EntitySummonedTool(World world)
     {
         super(world);
@@ -56,7 +57,7 @@ public class EntitySummonedTool extends EntityThrowable implements IThrowableEnt
     {
         super.onUpdate();
 
-        if (!worldObj.isRemote && (player == null || player.isDead))
+        if (!getEntityWorld().isRemote && (player == null || player.isDead))
         {
             setDead();
             return;
@@ -69,7 +70,7 @@ public class EntitySummonedTool extends EntityThrowable implements IThrowableEnt
         else
         {
             Vector3 playerLook;
-            RayTraceResult look = BloodArsenalUtils.rayTrace(worldObj, player, true);
+            RayTraceResult look = BloodArsenalUtils.rayTrace(getEntityWorld(), player, true);
             if (look == null)
                 playerLook = new Vector3(player.getLookVec()).multiply(64).add(Vector3.fromEntity(player));
             else
@@ -83,7 +84,7 @@ public class EntitySummonedTool extends EntityThrowable implements IThrowableEnt
             motionZ = motionVec.z;
         }
 
-        if ((getStack() != null && !ItemStack.areItemsEqualIgnoreDurability(getStack(), player.getHeldItemMainhand())) || this.ticksExisted > (this.maxTicksInAir + delay))
+        if ((!ItemStack.areItemsEqualIgnoreDurability(getStack(), player.getHeldItemMainhand())) || ticksExisted > (maxTicksInAir + delay))
         {
             setDead();
         }
@@ -101,11 +102,11 @@ public class EntitySummonedTool extends EntityThrowable implements IThrowableEnt
             }
             else if (mop.typeOfHit == RayTraceResult.Type.BLOCK)
             {
-                IBlockState block = worldObj.getBlockState(mop.getBlockPos());
+                IBlockState block = getEntityWorld().getBlockState(mop.getBlockPos());
 
-                if (getStack() != null && BloodArsenalUtils.canItemBreakBlock(player, getStack(), block) && block.getBlockHardness(worldObj, mop.getBlockPos()) != -1F)
+                if (BloodArsenalUtils.canItemBreakBlock(player, getStack(), block) && block.getBlockHardness(getEntityWorld(), mop.getBlockPos()) != -1F)
                 {
-                    worldObj.destroyBlock(mop.getBlockPos(), true);
+                    getEntityWorld().destroyBlock(mop.getBlockPos(), true);
                 }
             }
 
@@ -116,13 +117,13 @@ public class EntitySummonedTool extends EntityThrowable implements IThrowableEnt
     @Override
     public void writeSpawnData(ByteBuf data)
     {
-        data.writeByte(this.ticksInAir);
+        data.writeByte(ticksInAir);
     }
 
     @Override
     public void readSpawnData(ByteBuf data)
     {
-        this.ticksInAir = data.readByte();
+        ticksInAir = data.readByte();
     }
 
     @Override
@@ -159,7 +160,7 @@ public class EntitySummonedTool extends EntityThrowable implements IThrowableEnt
     public void setThrower(Entity entity)
     {
         if (entity instanceof EntityLivingBase)
-            this.player = (EntityPlayer) entity;
+            player = (EntityPlayer) entity;
     }
 
     public ItemStack getStack()

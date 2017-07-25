@@ -22,9 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements IVariantProvider
 {
@@ -47,7 +45,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
             iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
         }
 
-        this.setDefaultState(iblockstate.withProperty(VARIANT, BlockBloodInfusedWoodenLog.EnumType.BLOODINFUSED));
+        this.setDefaultState(iblockstate.withProperty(VARIANT, BlockBloodInfusedWoodenLog.EnumType.BLOOD_INFUSED));
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }
 
@@ -97,7 +95,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
     @Override
     public Comparable<?> getTypeForItem(ItemStack stack)
     {
-        return BlockBloodInfusedWoodenLog.EnumType.BLOODINFUSED;
+        return BlockBloodInfusedWoodenLog.EnumType.BLOOD_INFUSED;
     }
 
     @Override

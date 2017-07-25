@@ -1,10 +1,10 @@
 package arc.bloodarsenal.client.gui;
 
 import WayofTime.bloodmagic.api.altar.IBloodAltar;
-import WayofTime.bloodmagic.tile.TileInventory;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arc.bloodarsenal.BloodArsenal;
 import arc.bloodarsenal.tile.TileAltareAenigmatica;
+import arc.bloodarsenal.tile.TileInventory;
 import arc.bloodarsenal.tile.container.ContainerAltareAenigmatica;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,7 +19,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 @SideOnly(Side.CLIENT)
 public class GuiAltareAenigmatica extends GuiContainer
 {
-    private final ResourceLocation texture = new ResourceLocation(BloodArsenal.MOD_ID, "textures/gui/AltareAenigmatica.png");
+    private final ResourceLocation texture = new ResourceLocation(BloodArsenal.MOD_ID, "textures/gui/altare_aenigmatica.png");
 
     private IInventory tileAltareAenigmatica;
 
@@ -32,7 +32,7 @@ public class GuiAltareAenigmatica extends GuiContainer
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRendererObj.drawString(TextHelper.localize("tile.BloodArsenal.altareAenigmatica.name"), 43, 6, 4210752);
+        this.fontRendererObj.drawString(TextHelper.localize("tile.bloodarsenal.altareAenigmatica.name"), 43, 6, 4210752);
         this.fontRendererObj.drawString(TextHelper.localize("container.inventory"), 7, 71, 4210752);
 
         if (tileAltareAenigmatica instanceof TileAltareAenigmatica)

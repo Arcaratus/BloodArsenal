@@ -8,12 +8,12 @@
 	"active": {
       "false": {
         "textures": {
-          "layer0": "bloodarsenal:items/SigilSwimming_deactivated"
+          "layer0": "bloodarsenal:items/sigil_swimming_deactivated"
         }
       },
       "true": {
         "textures": {
-          "layer0": "bloodarsenal:items/SigilSwimming_activated"
+          "layer0": "bloodarsenal:items/sigil_swimming_activated"
         }
       }
     }
