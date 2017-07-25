@@ -109,8 +109,5 @@ public class SanguineInfusionWrapper implements IRecipeWrapper
                 itemInputs.add(OreDictionary.getOres((String) o));
             }
         }
-
-        for (ItemStack itemStack : recipe.getExtraItemStackInputs())
-            extraInputs.add(new ItemStack(itemStack.getItem(), itemStack.getCount(), itemStack.getMetadata()));
     }
 }

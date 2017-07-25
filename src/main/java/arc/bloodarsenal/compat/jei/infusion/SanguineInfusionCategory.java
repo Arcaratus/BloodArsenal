@@ -200,41 +200,20 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
             point = rotatePointAbout(point, center, angleBetweenEach);
         }
 
-        List<ItemStack> extraStacks = new ArrayList<>(recipe.getExtraItemStackInputs());
-
-        if (!recipe.getExtraItemStackInputs().isEmpty())
-        {
-            for (int i = 0; i < recipe.getExtraItemStackInputs().size(); i++)
-            {
-                if (recipe.isModifier())
-                    for (int j = 1; j < recipe.getModifier().getMaxLevel(); j++)
-                        for (ItemStack itemStack : recipe.getExtraInputsForLevel(j))
-                            if (BloodArsenalUtils.areStacksEqual(extraStacks.get(i), itemStack))
-                                extraStacks.add(itemStack);
-
-                stackGroup.init(index, true, 73 + 18 * (i % 4), 49 + 18 * (i / 4));
-                stackGroup.set(index, extraStacks.get(i));
-                index += 1;
-            }
-        }
-
         if (recipe.isModifier())
         {
             int modifierLevel = -1;
             List<ItemStack> inputStacks = new ArrayList<>();
-            List<ItemStack> moreExtraStacks = new ArrayList<>();
 
             Map<Integer, ? extends IGuiIngredient<ItemStack>> ings = stackGroup.getGuiIngredients();
 
-            for (int i = 2; i < ings.size() - extraStacks.size(); i++) // Item inputs
+            for (int i = 2; i < ings.size(); i++) // Item inputs
                 inputStacks.add(ings.get(i).getDisplayedIngredient());
-            for (int i = ings.size() - extraStacks.size(); i < ings.size(); i++)
-                moreExtraStacks.add(ings.get(i).getDisplayedIngredient());
 
             // Get the modifier level for the # of items present
             for (int i = recipe.getModifier().getMaxLevel() - 1; i >= 0; i--)
             {
-                if (recipe.matches(inputStacks, moreExtraStacks, i))
+                if (recipe.matches(inputStacks, i))
                 {
                     modifierLevel = i;
                     break;

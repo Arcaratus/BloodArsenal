@@ -9,15 +9,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeSanguineInfusion
 {
     private final ItemStack output;
     private final ItemStack infuse;
     private final ImmutableList<Object> inputs;
-
-    private ExtraItemStackInputs extraInputs = new ExtraItemStackInputs();
 
     private final int lpCost;
 
@@ -45,8 +44,6 @@ public class RecipeSanguineInfusion
                 inputsToSet.add(new ItemStack((Block) o));
             else if (o instanceof String || o instanceof ItemStack)
                 inputsToSet.add(o);
-            else if (o instanceof ExtraItemStackInputs)
-                extraInputs = (ExtraItemStackInputs) o;
             else if (o instanceof RecipeFilter)
                 filter = (RecipeFilter) o;
             else
@@ -73,8 +70,6 @@ public class RecipeSanguineInfusion
                 inputsToSet.add(new ItemStack((Block) o));
             else if (o instanceof String || o instanceof ItemStack)
                 inputsToSet.add(o);
-            else if (o instanceof ExtraItemStackInputs)
-                extraInputs = (ExtraItemStackInputs) o;
             else if (o instanceof RecipeFilter)
                 filter = (RecipeFilter) o;
             else
@@ -111,14 +106,6 @@ public class RecipeSanguineInfusion
                 stackSet.add(BloodArsenalUtils.resolveObject(o));
 
         return stackSet;
-    }
-
-    public List<ItemStack> getExtraItemStackInputs()
-    {
-        if (extraInputs.getItemStacks().isEmpty())
-            return Collections.emptyList();
-
-        return extraInputs.getItemStacks();
     }
 
     public ItemStack getInfuse()
@@ -167,27 +154,10 @@ public class RecipeSanguineInfusion
         {
             ItemStack dummyStack = itemStack.copy();
             dummyStack.setCount(itemStack.getCount() * (modifierLevel + 1) * getLevelMultiplier());
-            inputs.addAll(ExtraItemStackInputs.splitStack(dummyStack));
+            inputs.add(dummyStack);
         }
 
         return inputs;
-    }
-
-    public List<ItemStack> getExtraInputsForLevel(int modifierLevel)
-    {
-        if (modifierLevel < 0)
-            return getExtraItemStackInputs();
-
-        List<ItemStack> extraInputs = new ArrayList<>();
-
-        for (ItemStack itemStack : getExtraItemStackInputs())
-        {
-            ItemStack dummyStack = itemStack.copy();
-            dummyStack.setCount(itemStack.getCount() * (modifierLevel + 1) * getLevelMultiplier());
-            extraInputs.addAll(ExtraItemStackInputs.splitStack(dummyStack));
-        }
-
-        return extraInputs;
     }
 
     public RecipeFilter getFilter()
@@ -195,18 +165,16 @@ public class RecipeSanguineInfusion
         return filter;
     }
 
-    public boolean matches(List<ItemStack> itemStackInputs, List<ItemStack> extraItemStackInputs)
+    public boolean matches(List<ItemStack> itemStackInputs)
     {
-        return matches(itemStackInputs, extraItemStackInputs, -1);
+        return matches(itemStackInputs, -1);
     }
 
     // This has complexity of O(n^2)
-    public boolean matches(List<ItemStack> itemStackInputs, List<ItemStack> extraItemStackInputs, int modifierLevel)
+    public boolean matches(List<ItemStack> itemStackInputs, int modifierLevel)
     {
         List<ItemStack> dummyList = new ArrayList<>();
-        List<ItemStack> dumbList = new ArrayList<>();
         dummyList.addAll(itemStackInputs);
-        dumbList.addAll(extraItemStackInputs);
 
         for (ItemStack ingredient : getInputsForLevel(modifierLevel))
         {
@@ -234,36 +202,6 @@ public class RecipeSanguineInfusion
 
         for (ItemStack input : dummyList)
             if (!input.isEmpty())
-                return false;
-
-        // Handle extra inputs
-
-        if (getExtraItemStackInputs().isEmpty() || dumbList.isEmpty())
-            return true;
-
-        for (ItemStack ingredient : getExtraInputsForLevel(modifierLevel))
-        {
-            boolean foundIngredient = false;
-
-            for (ItemStack extraInput : dumbList)
-            {
-                if (BloodArsenalUtils.areStacksEqual(ingredient, extraInput))
-                {
-                    if (extraInput.getCount() >= ingredient.getCount())
-                    {
-                        foundIngredient = true;
-                        dumbList.remove(extraInput);
-                        break;
-                    }
-                }
-            }
-
-            if (!foundIngredient)
-                return false;
-        }
-
-        for (ItemStack extra : dumbList)
-            if (!extra.isEmpty())
                 return false;
 
         return true;

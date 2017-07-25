@@ -42,10 +42,10 @@ public class SanguineInfusionRecipeRegistry
     }
 
     // Complexity of O(n^3)
-    public static RecipeSanguineInfusion getRecipeFromInputs(List<ItemStack> inputs, List<ItemStack> extraInputs)
+    public static RecipeSanguineInfusion getRecipeFromInputs(List<ItemStack> inputs)
     {
         for (RecipeSanguineInfusion recipe : infusionRecipes)
-            if (recipe.matches(inputs, extraInputs))
+            if (recipe.matches(inputs))
                 return recipe;
 
         return null;

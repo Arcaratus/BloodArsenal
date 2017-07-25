@@ -3,8 +3,6 @@ package arc.bloodarsenal.ritual;
 import WayofTime.bloodmagic.api.altar.IBloodAltar;
 import WayofTime.bloodmagic.api.ritual.*;
 import WayofTime.bloodmagic.api.util.helper.NBTHelper;
-import WayofTime.bloodmagic.block.BlockSoulForge;
-import WayofTime.bloodmagic.tile.TileSoulForge;
 import arc.bloodarsenal.block.BlockStasisPlate;
 import arc.bloodarsenal.modifier.*;
 import arc.bloodarsenal.recipe.RecipeSanguineInfusion;
@@ -24,7 +22,6 @@ import java.util.List;
 public class RitualInfusion extends RitualBloodArsenal
 {
     private BlockPos[] stasisPlatePositions = new BlockPos[] { new BlockPos(1, 1, 3), new BlockPos(-1, 1, 3), new BlockPos(1, 1, -3), new BlockPos(-1, 1, -3), new BlockPos(3, 1, 1), new BlockPos(3, 1, -1), new BlockPos(-3, 1, 1), new BlockPos(-3, 1, -1) };
-    private BlockPos[] forgePositions = new BlockPos[] { new BlockPos(3, 0, 0), new BlockPos(0, 0, 3), new BlockPos(-3, 0, 0), new BlockPos(0, 0, -3) };
 
     private int craftingTimer;
     private boolean isCrafting;
@@ -52,7 +49,6 @@ public class RitualInfusion extends RitualBloodArsenal
         if (checkStructure(world, pos))
         {
             List<ItemStack> inputStacks = getItemStackInputs(world, pos);
-            List<ItemStack> extraStacks = getExtraStackInputs(world, pos);
             List<TileStasisPlate> stasisPlates = getStasisPlates(world, pos);
             ItemStack wildStack = ItemStack.EMPTY;
             Class wildClass = null;
@@ -73,7 +69,7 @@ public class RitualInfusion extends RitualBloodArsenal
                 }
             }
 
-            RecipeSanguineInfusion recipe = SanguineInfusionRecipeRegistry.getRecipeFromInputs(inputStacks, extraStacks); // Checks if items match
+            RecipeSanguineInfusion recipe = SanguineInfusionRecipeRegistry.getRecipeFromInputs(inputStacks); // Checks if items match
             IInventory altarInv = (IInventory) world.getTileEntity(pos.add(0, 1, 0));
             ItemStack input = altarInv.getStackInSlot(0);
 
@@ -110,7 +106,7 @@ public class RitualInfusion extends RitualBloodArsenal
                         // Get the modifier level for the # of items present
                         for (int i = recipe.getModifier().getMaxLevel() - 1; i >= 0; i--)
                         {
-                            if (recipe.matches(inputStacks, extraStacks, i))
+                            if (recipe.matches(inputStacks, i))
                             {
                                 modifierLevel = i;
                                 break;
@@ -163,7 +159,7 @@ public class RitualInfusion extends RitualBloodArsenal
                                 StasisModifiable.setStasisModifiable(copyStack, StasisModifiable.getModFromNBT(copyStack));
                             StasisModifiable.setStasisModifiable(copyStack, modifiable);
 
-                            shrinkItemStackInputs(world, pos, recipe.getInputsForLevel(modifierLevel), recipe.getExtraInputsForLevel(modifierLevel), wildStack);
+                            shrinkItemStackInputs(world, pos, recipe.getInputsForLevel(modifierLevel), wildStack);
                             altarInv.setInventorySlotContents(0, copyStack);
 
                             world.spawnEntity(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY() + 1, masterRitualStone.getBlockPos().getZ(), true));
@@ -188,7 +184,7 @@ public class RitualInfusion extends RitualBloodArsenal
 
                     if (craftingTimer == recipe.getLpCost() / CONSTANT_OF_INFUSION)
                     {
-                        shrinkItemStackInputs(world, pos, recipe.getItemStackInputs(), recipe.getExtraItemStackInputs(), ItemStack.EMPTY);
+                        shrinkItemStackInputs(world, pos, recipe.getItemStackInputs(), ItemStack.EMPTY);
                         altarInv.setInventorySlotContents(0, recipe.getOutput());
 
                         world.spawnEntity(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY(), masterRitualStone.getBlockPos().getZ(), true));
@@ -237,10 +233,6 @@ public class RitualInfusion extends RitualBloodArsenal
             if (!(world.getBlockState(pos.add(stasisPlatePos)).getBlock() instanceof BlockStasisPlate))
                 return false;
 
-        for (BlockPos forgePos : forgePositions)
-            if (!(world.getBlockState(pos.add(forgePos)).getBlock() instanceof BlockSoulForge))
-                return false;
-
         return true;
     }
 
@@ -284,26 +276,7 @@ public class RitualInfusion extends RitualBloodArsenal
         return stackList;
     }
 
-    private List<ItemStack> getExtraStackInputs(World world, BlockPos pos)
-    {
-        List<ItemStack> stackList = new ArrayList<>();
-        BlockPos actualPos;
-        for (BlockPos stasisPlatePos : forgePositions)
-        {
-            actualPos = pos.add(stasisPlatePos);
-            if (world.getTileEntity(actualPos) instanceof TileSoulForge)
-            {
-                TileSoulForge forge = (TileSoulForge) world.getTileEntity(actualPos);
-                for (int i = 0; i < forge.getSizeInventory(); i++)
-                    if (!forge.getStackInSlot(i).isEmpty())
-                        stackList.add(forge.getStackInSlot(i));
-            }
-        }
-
-        return stackList;
-    }
-
-    private void shrinkItemStackInputs(World world, BlockPos pos, List<ItemStack> recipeInputs, List<ItemStack> extraRecipeInputs, ItemStack extraStack)
+    private void shrinkItemStackInputs(World world, BlockPos pos, List<ItemStack> recipeInputs, ItemStack extraStack)
     {
         for (BlockPos stasisPlatePos : stasisPlatePositions)
         {
@@ -327,33 +300,6 @@ public class RitualInfusion extends RitualBloodArsenal
                     {
                         plateStack.shrink(1);
                         plate.setInventorySlotContents(0, plateStack);
-                    }
-                }
-            }
-        }
-
-        if (extraRecipeInputs.isEmpty())
-            return;
-
-        for (BlockPos forgePos : forgePositions)
-        {
-            BlockPos forgePosition = pos.add(forgePos);
-            if (world.getTileEntity(forgePosition) instanceof TileSoulForge)
-            {
-                TileSoulForge forge = (TileSoulForge) world.getTileEntity(forgePosition);
-                for (int i = 0; i < forge.getSizeInventory(); i++)
-                {
-                    ItemStack forgeStack = forge.getStackInSlot(i);
-                    if (!forgeStack.isEmpty())
-                    {
-                        for (ItemStack extraInput : extraRecipeInputs)
-                        {
-                            if (ItemStack.areItemsEqual(extraInput, forgeStack))
-                            {
-                                forgeStack.shrink(extraInput.getCount());
-                                forge.setInventorySlotContents(i, forgeStack);
-                            }
-                        }
                     }
                 }
             }
