@@ -1,6 +1,0 @@
-{
-  "parent": "block/torch",
-  "textures": {
-	"torch": "bloodarsenal:blocks/blood_torch"
-  }
-}
