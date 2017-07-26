@@ -1,0 +1,6 @@
+{
+  "parent": "block/fence_gate_open",
+  "textures": {
+	"texture": "bloodarsenal:blocks/blood_infused_wooden_planks"
+  }
+}
