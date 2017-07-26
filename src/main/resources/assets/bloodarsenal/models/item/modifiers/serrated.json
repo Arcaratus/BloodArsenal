@@ -1,0 +1,12 @@
+{
+    "textures": {
+        "battleaxe": "bloodarsenal:items/modifiers/serrated_battleaxe",
+        "broadsword": "bloodarsenal:items/modifiers/serrated_broadsword",
+        "rapier": "bloodarsenal:items/modifiers/serrated_rapier",
+        "cleaver": "bloodarsenal:items/modifiers/serrated_cleaver",
+        "frypan": "bloodarsenal:items/modifiers/serrated_frypan",
+        "hammer": "bloodarsenal:items/modifiers/serrated_hammer",
+        "hatchet": "bloodarsenal:items/modifiers/serrated_hatchet",
+        "longsword": "bloodarsenal:items/modifiers/serrated_longsword"
+    }
+}
