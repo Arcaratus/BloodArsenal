@@ -1,8 +1,0 @@
-{
-  "parent": "block/stairs",
-  "textures": {
-	"bottom": "bloodarsenal:blocks/blood_infused_wooden_planks",
-	"top": "bloodarsenal:blocks/blood_infused_wooden_planks",
-	"side": "bloodarsenal:blocks/blood_infused_wooden_planks"
-  }
-}
