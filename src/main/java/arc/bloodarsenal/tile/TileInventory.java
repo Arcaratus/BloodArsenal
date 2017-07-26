@@ -114,7 +114,7 @@ public abstract class TileInventory extends TileBase implements IInventory
     @Override
     public ItemStack getStackInSlot(int index)
     {
-        return inventory.get(index);
+        return inventory != null && !inventory.isEmpty() ? inventory.get(index) : null;
     }
 
     /**
