@@ -65,7 +65,7 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
     {
         super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.sigil.holding.press", KeyBindings.OPEN_HOLDING.getKey().getDisplayName()));
+        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.sigil.holding.press", KeyBindings.OPEN_HOLDING.getKey().getDisplayName()));
 
         if (!stack.hasTagCompound())
             return;
@@ -80,9 +80,9 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
             ItemStack invStack = inv.get(i);
             if (invStack != null)
                 if (item != null && invStack == item)
-                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.sigil.holding.sigilInSlot", i + 1, "&o&n" + invStack.getDisplayName()));
+                    tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.sigil.holding.sigilInSlot", i + 1, "&o&n" + invStack.getDisplayName()));
                 else
-                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.sigil.holding.sigilInSlot", i + 1, invStack.getDisplayName()));
+                    tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.sigil.holding.sigilInSlot", i + 1, invStack.getDisplayName()));
         }
     }
 

@@ -206,8 +206,8 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
 
         EnumDemonWillType type = this.getCurrentType(stack);
         tooltip.add(TextHelper.localize("tooltip.bloodarsenal.soulPendant." + names[stack.getItemDamage()]));
-        tooltip.add(TextHelper.localize("tooltip.bloodmagic.will", getWill(type, stack)));
-        tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentType." + getCurrentType(stack).getName().toLowerCase()));
+        tooltip.add(TextHelper.localize("tooltip.BloodMagic.will", getWill(type, stack)));
+        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.currentType." + getCurrentType(stack).getName().toLowerCase()));
 
         super.addInformation(stack, player, tooltip, advanced);
     }

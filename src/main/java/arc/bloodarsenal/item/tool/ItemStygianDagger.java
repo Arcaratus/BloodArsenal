@@ -57,7 +57,7 @@ public class ItemStygianDagger extends ItemSword implements IVariantProvider
         if (I18n.hasKey("tooltip.bloodarsenal.stygianDagger.desc"))
             tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.stygianDagger.desc"));
 
-        tooltip.add(TextHelper.localizeEffect("tooltip.bloodmagic.currentTier", stack.getItemDamage() + 1));
+        tooltip.add(TextHelper.localizeEffect("tooltip.BloodMagic.currentTier", stack.getItemDamage() + 1));
     }
 
     @Override

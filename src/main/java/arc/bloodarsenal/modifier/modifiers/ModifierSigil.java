@@ -24,7 +24,7 @@ public class ModifierSigil extends Modifier
     @Override
     public String getAlternateName(ItemStack itemStack)
     {
-        return itemStack.hasTagCompound() ? itemStack.getTagCompound().getString(Constants.NBT.ITEMSTACK_NAME) + " (" + (TextHelper.localizeEffect("tooltip.bloodmagic." + (activated ? "activated" : "deactivated")) + ") ") : "一体なにをやっているんだ？";
+        return itemStack.hasTagCompound() ? itemStack.getTagCompound().getString(Constants.NBT.ITEMSTACK_NAME) + " (" + (TextHelper.localizeEffect("tooltip.BloodMagic." + (activated ? "activated" : "deactivated")) + ") ") : "一体なにをやっているんだ？";
     }
 
     @Override
