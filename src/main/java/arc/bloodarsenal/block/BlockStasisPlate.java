@@ -90,7 +90,7 @@ public class BlockStasisPlate extends Block implements IVariantProvider
             return false;
 
         if (tile instanceof TileInventory)
-            BloodArsenalUtils.insertItemIntoTile(player, player.getHeldItemMainhand().stackSize, (TileInventory) tile);
+            BloodArsenalUtils.insertItemIntoTile(player, player.getHeldItemMainhand() != null ? player.getHeldItemMainhand().stackSize : 0, (TileInventory) tile);
 
         world.notifyBlockUpdate(pos, state, state, 3);
         return true;

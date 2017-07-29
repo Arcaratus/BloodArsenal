@@ -27,7 +27,7 @@ public class ClientHandler
         {
             ItemStack stack = player.getHeldItemMainhand();
 
-            if (stack.getItem() instanceof ItemSigilAugmentedHolding)
+            if (stack != null && stack.getItem() instanceof ItemSigilAugmentedHolding)
             {
                 cycleSigil(stack, player, event.getDwheel());
                 event.setCanceled(true);
