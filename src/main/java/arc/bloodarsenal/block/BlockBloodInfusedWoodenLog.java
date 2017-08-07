@@ -9,6 +9,8 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -87,11 +89,11 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
         return new BlockStateContainer(this, new IProperty[]{VARIANT, LOG_AXIS});
     }
 
-//    @Override
-//    protected ItemStack createStackedBlock(IBlockState state)
-//    {
-//        return new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata());
-//    }
+    @Override
+    protected ItemStack createStackedBlock(IBlockState state)
+    {
+        return new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata());
+    }
 
     @Override
     public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
@@ -126,12 +128,19 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
         private static final EnumType[] META_LOOKUP = new EnumType[values().length];
         private final int meta;
         private final String name;
+        private final String unlocalizedName;
         private final MapColor mapColor;
 
         EnumType(int metaIn, String nameIn, MapColor mapColorIn)
         {
+            this(metaIn, nameIn, nameIn, mapColorIn);
+        }
+
+        EnumType(int metaIn, String nameIn, String unlocalizedNameIn, MapColor mapColorIn)
+        {
             this.meta = metaIn;
             this.name = nameIn;
+            this.unlocalizedName = unlocalizedNameIn;
             this.mapColor = mapColorIn;
         }
 
@@ -167,11 +176,16 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
             return this.name;
         }
 
+        public String getUnlocalizedName()
+        {
+            return this.unlocalizedName;
+        }
+
         static
         {
-            for (EnumType type : values())
+            for (EnumType blockplanks : values())
             {
-                META_LOOKUP[type.getMetadata()] = type;
+                META_LOOKUP[blockplanks.getMetadata()] = blockplanks;
             }
         }
     }

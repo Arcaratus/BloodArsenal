@@ -62,7 +62,7 @@ public class BloodArsenalUtils
      */
     public static boolean insertItemIntoTile(EntityPlayer player, int amount, TileInventory tile, int slot)
     {
-        if (tile.getStackInSlot(slot) != null && player.getHeldItemMainhand() != null)
+        if (tile.getStackInSlot(slot) == null && player.getHeldItemMainhand() != null)
         {
             ItemStack input = player.getHeldItemMainhand().copy();
             input.stackSize = amount;
