@@ -19,7 +19,7 @@ public class CustomMeshDefinitionActivatable implements ItemMeshDefinition
     @Override
     public ModelResourceLocation getModelLocation(ItemStack stack)
     {
-        if (stack.getItem() instanceof IActivatable)
+        if (stack != null && stack.getItem() instanceof IActivatable)
             if (((IActivatable) stack.getItem()).getActivated(stack))
                 return new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "item/" + name), "active=true");
 

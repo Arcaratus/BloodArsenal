@@ -29,7 +29,7 @@ public class ItemSigilSentience extends ItemSigilBase
 
         if (hand.equals(EnumHand.OFF_HAND))
         {
-            ItemStack heldStack = player.getHeldItemMainhand().copy();
+            ItemStack heldStack = itemStack.copy();
             if (heldStack != null && (heldStack.getItem() instanceof ItemSword || heldStack.getItem() instanceof ItemTool))
             {
                 EntitySummonedTool summonedTool = new EntitySummonedTool(world, player, heldStack);
@@ -64,26 +64,29 @@ public class ItemSigilSentience extends ItemSigilBase
     {
         float cost = 500;
 
-        if (summonedTool.getItem() instanceof ItemTool)
+        if (summonedTool != null)
         {
-            String toolType = BloodArsenalUtils.getToolType(summonedTool.getItem());
-            float damage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-            cost *= 1 + (summonedTool.getItem().getHarvestLevel(summonedTool, toolType, player, null) / 3);
-            cost *= 1 + ((damage / 3) / 3);
-        }
-        else if (summonedTool.getItem() instanceof ItemSword)
-        {
-            float damage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-            cost *= 1 + (damage / 4);
-        }
+            if (summonedTool.getItem() instanceof ItemTool)
+            {
+                String toolType = BloodArsenalUtils.getToolType(summonedTool.getItem());
+                float damage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+                cost *= 1 + (summonedTool.getItem().getHarvestLevel(summonedTool, toolType, player, null) / 3);
+                cost *= 1 + ((damage / 3) / 3);
+            }
+            else if (summonedTool.getItem() instanceof ItemSword)
+            {
+                float damage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+                cost *= 1 + (damage / 4);
+            }
 
-        // HANDLE THE ENCHANTMENTS
-        for (Enchantment enchantment : EnchantmentHelper.getEnchantments(summonedTool).keySet())
-        {
-            int lvl = EnchantmentHelper.getEnchantmentLevel(enchantment, summonedTool);
-            cost += 200 * lvl;
-        }
+            // HANDLE THE ENCHANTMENTS
+            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(summonedTool).keySet())
+            {
+                int lvl = EnchantmentHelper.getEnchantmentLevel(enchantment, summonedTool);
+                cost += 200 * lvl;
+            }
 
-        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) cost);
+            NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) cost);
+        }
     }
 }

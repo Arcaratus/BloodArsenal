@@ -54,8 +54,11 @@ public class HUDElementAugmentedHolding extends HUDElement
         {
             for (ItemStack sigil : holdingInv)
             {
-                renderHotbarItem(resolution.getScaledWidth() / 2 + 103 + xOffset + getXOffset(), resolution.getScaledHeight() - 18 + getYOffset(), partialTicks, minecraft.thePlayer, sigil);
-                xOffset += 20;
+                if (sigil != null)
+                {
+                    renderHotbarItem(resolution.getScaledWidth() / 2 + 103 + xOffset + getXOffset(), resolution.getScaledHeight() - 18 + getYOffset(), partialTicks, minecraft.thePlayer, sigil);
+                    xOffset += 20;
+                }
             }
         }
 

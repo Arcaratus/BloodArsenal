@@ -85,6 +85,12 @@ public class ContainerAugmentedHolding extends Container
         if (slotObject != null && slotObject.getHasStack())
         {
             ItemStack stackInSlot = slotObject.getStack();
+
+            if (stackInSlot == null)
+            {
+                return null;
+            }
+
             stack = stackInSlot.copy();
 
             if (stack.getItem() instanceof ISigil)
@@ -163,7 +169,7 @@ public class ContainerAugmentedHolding extends Container
         @Override
         public boolean isItemValid(ItemStack itemStack)
         {
-            return itemStack.getItem() instanceof ISigil && !(itemStack.getItem() instanceof ItemSigilHolding || itemStack.getItem() instanceof ItemSigilAugmentedHolding);
+            return itemStack != null && itemStack.getItem() instanceof ISigil && !(itemStack.getItem() instanceof ItemSigilHolding || itemStack.getItem() instanceof ItemSigilAugmentedHolding);
         }
     }
 

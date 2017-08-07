@@ -39,7 +39,7 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
     @Override
     public void onKeyPressed(ItemStack stack, EntityPlayer player, KeyBindings key, boolean showInChat)
     {
-        if (stack == player.getHeldItemMainhand() && stack.getItem() instanceof ItemSigilAugmentedHolding && key.equals(KeyBindings.OPEN_HOLDING))
+        if (stack != null && stack == player.getHeldItemMainhand() && stack.getItem() instanceof ItemSigilAugmentedHolding && key.equals(KeyBindings.OPEN_HOLDING))
         {
             Utils.setUUID(stack);
             player.openGui(BloodArsenal.INSTANCE, Constants.Gui.SIGIL_AUGMENTED_HOLDING_GUI, player.getEntityWorld(), (int) player.posX, (int) player.posY, (int) player.posZ);
@@ -187,10 +187,10 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
 
     public static ItemStack getItemStackInSlot(ItemStack itemStack, int slot)
     {
-        if (itemStack.getItem() instanceof ItemSigilAugmentedHolding)
+        if (itemStack != null && itemStack.getItem() instanceof ItemSigilAugmentedHolding)
         {
             List<ItemStack> itemStacks = getInternalInventory(itemStack);
-            if (!itemStacks.isEmpty())
+            if (itemStacks != null && !itemStacks.isEmpty())
                 return itemStacks.get(slot == INVENTORY_SIZE ? INVENTORY_SIZE - 1 : slot);
             else
                 return null;
@@ -201,7 +201,7 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
 
     public static int getCurrentItemOrdinal(ItemStack itemStack)
     {
-        if (itemStack.getItem() instanceof ItemSigilAugmentedHolding)
+        if (itemStack != null && itemStack.getItem() instanceof ItemSigilAugmentedHolding)
         {
             initModeTag(itemStack);
             int currentSigil = itemStack.getTagCompound().getInteger(Constants.NBT.CURRENT_SIGIL);
@@ -214,31 +214,34 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
 
     public static List<ItemStack> getInternalInventory(ItemStack stack)
     {
-        initModeTag(stack);
-        NBTTagCompound tagCompound = stack.getTagCompound();
-
-        if (tagCompound == null)
-        {
-            return null;
-        }
-
-        NBTTagList tagList = tagCompound.getTagList(Constants.NBT.ITEMS, 10);
-
-        if (tagList.hasNoTags())
-        {
-            return null;
-        }
-
         List<ItemStack> inv = new ArrayList<>(INVENTORY_SIZE);
 
-        for (int i = 0; i < tagList.tagCount(); i++)
+        if (stack != null)
         {
-            NBTTagCompound data = tagList.getCompoundTagAt(i);
-            byte j = data.getByte(Constants.NBT.SLOT);
+            initModeTag(stack);
+            NBTTagCompound tagCompound = stack.getTagCompound();
 
-            if (j >= 0 && j < inv.size())
+            if (tagCompound == null)
             {
-                inv.set(j, ItemStack.loadItemStackFromNBT(data));
+                return null;
+            }
+
+            NBTTagList tagList = tagCompound.getTagList(Constants.NBT.ITEMS, 10);
+
+            if (tagList.hasNoTags())
+            {
+                return null;
+            }
+
+            for (int i = 0; i < tagList.tagCount(); i++)
+            {
+                NBTTagCompound data = tagList.getCompoundTagAt(i);
+                byte j = data.getByte(Constants.NBT.SLOT);
+
+                if (j >= 0 && j < inv.size())
+                {
+                    inv.set(j, ItemStack.loadItemStackFromNBT(data));
+                }
             }
         }
 
@@ -247,7 +250,7 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
 
     public static void cycleToNextSigil(ItemStack itemStack, int mode)
     {
-        if (itemStack.getItem() instanceof ItemSigilAugmentedHolding)
+        if (itemStack != null && itemStack.getItem() instanceof ItemSigilAugmentedHolding)
         {
             initModeTag(itemStack);
 

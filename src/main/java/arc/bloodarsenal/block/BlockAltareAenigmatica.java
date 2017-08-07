@@ -96,7 +96,7 @@ public class BlockAltareAenigmatica extends Block implements IVariantProvider
         if (tile instanceof TileAltareAenigmatica)
         {
             checkFacingAltar(world, pos);
-            if (player.getHeldItemMainhand().getItem() instanceof IBloodOrb)
+            if (player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IBloodOrb)
                 return ((TileAltareAenigmatica) tile).setLinkedOrbOwner(player);
         }
 

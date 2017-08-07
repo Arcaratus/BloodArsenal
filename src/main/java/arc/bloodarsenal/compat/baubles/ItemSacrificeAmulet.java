@@ -52,7 +52,7 @@ public class ItemSacrificeAmulet extends ItemBauble implements IAltarManipulator
 
             ItemStack baubleStack = BaubleUtils.getBaubleStackInPlayer(player, this);
 
-            if (baubleStack.getItem() instanceof ItemSacrificeAmulet)
+            if (baubleStack != null && baubleStack.getItem() instanceof ItemSacrificeAmulet)
             {
                 ItemSacrificeAmulet amulet = (ItemSacrificeAmulet) baubleStack.getItem();
 

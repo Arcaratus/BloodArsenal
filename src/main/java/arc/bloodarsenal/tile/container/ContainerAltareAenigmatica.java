@@ -51,6 +51,12 @@ public class ContainerAltareAenigmatica extends Container
         if (slot != null && slot.getHasStack())
         {
             ItemStack itemstack1 = slot.getStack();
+
+            if (itemstack1 == null)
+            {
+                return null;
+            }
+
             itemstack = itemstack1.copy();
 
             if (index > TileAltareAenigmatica.ORB_SLOT)
@@ -105,7 +111,7 @@ public class ContainerAltareAenigmatica extends Container
         @Override
         public boolean isItemValid(ItemStack itemStack)
         {
-            return itemStack.getItem() instanceof IBloodOrb;
+            return itemStack != null && itemStack.getItem() instanceof IBloodOrb;
         }
     }
 }

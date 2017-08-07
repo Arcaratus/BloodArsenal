@@ -56,7 +56,7 @@ public class ItemSelfSacrificeAmulet extends ItemBauble implements IAltarManipul
             EntityPlayer player = (EntityPlayer) entityAttacked;
             ItemStack baubleStack = BaubleUtils.getBaubleStackInPlayer(player, this);
 
-            if (baubleStack.getItem() instanceof ItemSelfSacrificeAmulet)
+            if (baubleStack != null && baubleStack.getItem() instanceof ItemSelfSacrificeAmulet)
             {
                 ItemSelfSacrificeAmulet amulet = (ItemSelfSacrificeAmulet) baubleStack.getItem();
 

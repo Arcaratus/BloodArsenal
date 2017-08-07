@@ -90,7 +90,7 @@ public class RitualInfusion extends RitualBloodArsenal
 
                 if (recipe.isModifier())
                 {
-                    if (input.getItem() instanceof IModifiableItem)
+                    if (input != null && input.getItem() instanceof IModifiableItem)
                     {
                         StasisModifiable modifiable = StasisModifiable.getModFromNBT(input);
                         if (modifiable == null)

@@ -121,7 +121,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
 
     private boolean checkOrb(ItemStack orbStack)
     {
-        return orbStack.getItem() instanceof IBloodOrb && orbStack.getItem() instanceof IBindable && ((IBindable) orbStack.getItem()).getOwnerName(orbStack).equals(linkedOrbOwner);
+        return orbStack != null && orbStack.getItem() instanceof IBloodOrb && orbStack.getItem() instanceof IBindable && ((IBindable) orbStack.getItem()).getOwnerName(orbStack).equals(linkedOrbOwner);
     }
 
     private void manageAltar(IItemHandler altarInventory, ItemStack orbStack, IBloodAltar altar)

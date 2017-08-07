@@ -78,20 +78,23 @@ public class EventHandler
         {
             EntityPlayer player = (EntityPlayer) event.getSource().getEntity();
 
-            if (player.getName().equals("Arcaratus") && player.getHeldItemMainhand().getItem() == ModItems.BLOOD_INFUSED_STICK && player.getHeldItemMainhand().hasTagCompound() && player.getHeldItemMainhand().getTagCompound().hasKey("living"))
+            if (player.getHeldItemMainhand() != null)
             {
-                event.getEntity().getEntityWorld().addWeatherEffect(new EntityLightningBolt(event.getEntity().getEntityWorld(), event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, false));
-                event.getEntityLiving().setHealth(0);
-            }
-
-            if (player.getHeldItemMainhand().getItem() instanceof ItemBoundStick)
-            {
-                float wouldBeHealth = event.getEntityLiving().getHealth() - event.getAmount();
-
-                if (wouldBeHealth <= 0)
+                if (player.getName().equals("Arcaratus") && player.getHeldItemMainhand().getItem() == ModItems.BLOOD_INFUSED_STICK && player.getHeldItemMainhand().hasTagCompound() && player.getHeldItemMainhand().getTagCompound().hasKey("living"))
                 {
-                    event.getEntityLiving().setHealth(1);
-                    event.setCanceled(true);
+                    event.getEntity().getEntityWorld().addWeatherEffect(new EntityLightningBolt(event.getEntity().getEntityWorld(), event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, false));
+                    event.getEntityLiving().setHealth(0);
+                }
+
+                if (player.getHeldItemMainhand().getItem() instanceof ItemBoundStick)
+                {
+                    float wouldBeHealth = event.getEntityLiving().getHealth() - event.getAmount();
+
+                    if (wouldBeHealth <= 0)
+                    {
+                        event.getEntityLiving().setHealth(1);
+                        event.setCanceled(true);
+                    }
                 }
             }
         }

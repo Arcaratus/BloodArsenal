@@ -39,7 +39,7 @@ public class ItemRingOfVampirism extends ItemBauble implements IVariantProvider
             {
                 ItemStack baubleStack = BaubleUtils.getBaubleStackInPlayer(player, this);
 
-                if (baubleStack.getItem() instanceof ItemRingOfVampirism)
+                if (baubleStack != null && baubleStack.getItem() instanceof ItemRingOfVampirism)
                     player.heal(event.getAmount() * ConfigHandler.ringOfVampirismHealthSyphon);
             }
         }

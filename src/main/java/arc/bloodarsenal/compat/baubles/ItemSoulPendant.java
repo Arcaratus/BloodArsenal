@@ -45,7 +45,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     public void onItemPickup(EntityItemPickupEvent event)
     {
         ItemStack stack = event.getItem().getEntityItem();
-        if (stack.getItem() instanceof IDemonWill)
+        if (stack != null && stack.getItem() instanceof IDemonWill)
         {
             EntityPlayer player = event.getEntityPlayer();
             ItemStack remainder = addDemonWill(player, stack);
@@ -73,7 +73,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
         boolean hasGem = false;
         for (ItemStack stack : inventory)
         {
-            if (stack.getItem() instanceof IDemonWillGem)
+            if (stack != null && stack.getItem() instanceof IDemonWillGem)
             {
                 hasGem = true;
                 if (((IDemonWillGem) stack.getItem()).getWill(type, stack) < ((IDemonWillGem) stack.getItem()).getMaxWill(type, stack))
@@ -112,7 +112,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
 
         for (ItemStack stack : inventory)
         {
-            if (stack.getItem() instanceof IDemonWillGem)
+            if (stack != null && stack.getItem() instanceof IDemonWillGem)
             {
                 ItemStack newStack = ((IDemonWillGem) stack.getItem()).fillDemonWillGem(stack, willStack);
                 if (newStack == null)
@@ -232,7 +232,7 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     @Override
     public ItemStack fillDemonWillGem(ItemStack soulGemStack, ItemStack soulStack)
     {
-        if (soulStack.getItem() instanceof IDemonWill)
+        if (soulStack != null && soulStack.getItem() instanceof IDemonWill)
         {
             EnumDemonWillType thisType = this.getCurrentType(soulGemStack);
             if (thisType != EnumDemonWillType.DEFAULT)
