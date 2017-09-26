@@ -188,17 +188,17 @@ chat.bloodarsenal.modifierReady=&4%s (Level %d) 准备升级！&f
 # Commands
 commands.error.arg.invalid=无效参数
 commands.error.arg.missing=参数不足
-commands.error.arg.player.missing=You must specify which player you wish to perform this action on.
-commands.error.404=Command not found!
-commands.error.unknown=Unknown command!
-commands.error.perm=You do not have permission to use this command.
-commands.success=Executed successfully
+commands.error.arg.player.missing=你必须指定希望哪个玩家做这件事
+commands.error.404=找不到命令！
+commands.error.unknown=未知命令！
+commands.error.perm=你没有使用该命令的权限
+commands.success=成功执行
 
 commands.format.help=%s - %s
 commands.format.error=%s - %s
 
 commands.help.usage=/bloodarsenal help
-commands.help.help=Displays the help information for the "/bloodarsenal" command.
+commands.help.help=为 "/bloodarsenal" 指令系列显示帮助信息。
 
 commands.stasis.usage=/bloodarsenal stasis [add|remove] [modifierName] [modifierLevel]
 commands.stasis.help=Modifies the currently held stasis tool
@@ -211,22 +211,22 @@ commands.stasis.remove.fail=Could not remove %s from the tool!
 
 # JEI
 jei.bloodarsenal.recipe.requiredLP=LP: %d
-jei.bloodarsenal.recipe.sanguineInfusion=Infusion de Sanguine
-jei.bloodarsenal.recipe.modifierLevel=Modifier Level: %d
+jei.bloodarsenal.recipe.sanguineInfusion=血红注入
+jei.bloodarsenal.recipe.modifierLevel=等级调节: %d
 
-jei.bloodarsenal.desc.glassShard=A crafting item obtained by breaking Glass while holding Flint.
-jei.bloodarsenal.desc.reagentLightning=A crafting item obtained through a tedious process.\n\nFirst, place a Water source block in the world, then drop a Binding Reagent, a Glowstone Block, a Block of Gold, a Block of Redstone, a Block of Iron, and Gunpowder into the Water.\n\nThen, hit the Water block with all the items in it with lightning.
+jei.bloodarsenal.desc.glassShard=手持燧石打破玻璃时获得的一个合成材料。
+jei.bloodarsenal.desc.reagentLightning=通过漫长乏味的过程获得的合成材料。\n\n首先，在世界中找到一个水方块，然后将一个束缚试剂，一个萤石块，一个金块,一个红石块，一个铁块和一个火药扔进水里。\n\n然后，用闪电轰击这个含有这些物品的水方块。
 
 # Tinker's
-modifier.serrated.name=Serrated
-modifier.serrated.desc=§oCuts!§r\nMakes the target bleeed!
-modifier.serrated.extra=Severity: %s
+modifier.serrated.name=血锯
+modifier.serrated.desc=§oCuts!§r\n让目标流血！
+modifier.serrated.extra=严重程度: %s
 
-modifier.living.name=Living
-modifier.living.desc=§4Regenerative!§r\nHeals itself via the user's Soul Network
+modifier.living.name=反哺
+modifier.living.desc=§4Regenerative!§r\n通过玩家的灵魂网络治疗玩家自己。
 
-material.bloodinfusedwood.name=Blood Infused Wood
-material.bloodinfusedwood.prefix=Blood Infused Wooden %s
-material.bloodinfusediron.name=Blood Infused Iron
+material.bloodinfusedwood.name=注血木
+material.bloodinfusedwood.prefix=注血 %s
+material.bloodinfusediron.name=注血铁
 
-fluid.tconstruct.molten_blood_infused_iron.name=Molten Blood Infused Iron
+fluid.tconstruct.molten_blood_infused_iron.name=熔融注血铁
