@@ -18,6 +18,14 @@
           <option name="url" value="https://github.com/Arcaratus/VirtualMachines.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="git@github.com:Arcaratus/BloodMagic.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://www.github.com/Arcaratus/BloodMagic.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\Arcaratus\Desktop\Mods" />
