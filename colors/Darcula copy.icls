@@ -1,10 +1,10 @@
 <scheme name="Darcula copy" version="142" parent_scheme="Darcula">
+  <option name="FONT_SCALE" value="1.0" />
   <option name="LINE_SPACING" value="1.0" />
-  <option name="EDITOR_FONT_SIZE" value="18" />
-  <option name="EDITOR_LIGATURES" value="true" />
+  <option name="EDITOR_FONT_SIZE" value="15" />
+  <option name="EDITOR_FONT_NAME" value="Consolas" />
   <option name="CONSOLE_FONT_NAME" value="Monospaced" />
   <option name="CONSOLE_FONT_SIZE" value="12" />
-  <option name="EDITOR_FONT_NAME" value="Consolas" />
   <attributes>
     <option name="JAVA_KEYWORD">
       <value>
