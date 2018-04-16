@@ -71,6 +71,8 @@ public class ModItems
 
     public static final Item MODIFIER_TOME;
 
+    public static final Item WARP_BLADE;
+
     public static final Item.ToolMaterial BLOOD_INFUSED_WOOD = EnumHelper.addToolMaterial("BloodInfusedWoodMaterial", 1, 186, 5.5F, 1.0F, 13);
     public static final Item.ToolMaterial BLOOD_INFUSED_IRON = EnumHelper.addToolMaterial("BloodInfusedIronMaterial", 3, 954, 7.25F, 2.7F, 21);
     public static final Item.ToolMaterial STASIS = EnumHelper.addToolMaterial("Stasis", 4, 0, 9F, 4.2F, 0);
@@ -127,6 +129,8 @@ public class ModItems
         STASIS_SWORD = registerItem(new ItemStasisSword());
 
         MODIFIER_TOME = registerItem(new ItemModifierTome("modifierTome"));
+
+        WARP_BLADE = registerItem(new ItemWarpBlade());
     }
 
     public static void addOreDictItems()

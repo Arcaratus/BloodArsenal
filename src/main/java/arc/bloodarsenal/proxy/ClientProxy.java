@@ -8,7 +8,9 @@ import arc.bloodarsenal.client.hud.HUDElementAugmentedHolding;
 import arc.bloodarsenal.client.mesh.FluidStateMapper;
 import arc.bloodarsenal.client.render.block.RenderStasisPlate;
 import arc.bloodarsenal.client.render.entity.RenderSentientTool;
+import arc.bloodarsenal.client.render.entity.RenderWarpBlade;
 import arc.bloodarsenal.entity.projectile.EntitySummonedTool;
+import arc.bloodarsenal.entity.projectile.EntityWarpBlade;
 import arc.bloodarsenal.registry.ModItems;
 import arc.bloodarsenal.tile.TileStasisPlate;
 import arc.bloodarsenal.util.IComplexVariantProvider;
@@ -54,6 +56,7 @@ public class ClientProxy extends CommonProxy
     public void registerRenderers()
     {
         RenderingRegistry.registerEntityRenderingHandler(EntitySummonedTool.class, RenderSentientTool::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityWarpBlade.class, RenderWarpBlade::new);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class RenderStasisPlate extends TileEntitySpecialRenderer<TileStasisPlate
         {
             GlStateManager.translate(0.5, 0.6125, 0.5);
             EntityItem entityitem = new EntityItem(world, 0.0D, 0.0D, 0.0D, stack);
-            entityitem.getEntityItem().setCount(1);
+            entityitem.getEntityItem().setCount(stack.getCount());
             entityitem.hoverStart = 0.0F;
             GlStateManager.pushMatrix();
             GlStateManager.disableLighting();
