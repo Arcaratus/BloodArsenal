@@ -5,14 +5,14 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath 'org.ajoberstar:gradle-git:0.10.1'
     }
 }
 
 plugins {
 	id "net.minecraftforge.gradle.forge" version "2.0.2"
-    id 'com.matthewprenger.cursegradle' version '1.0.7'
+    id 'com.matthewprenger.cursegradle' version '1.0.10'
 }
 
 apply plugin: 'maven-publish'
@@ -31,45 +31,27 @@ group = package_group
 archivesBaseName = mod_name
 version = "${mc_version}-${mod_version}-${build_number}"
 
-if (project.hasProperty('gitpush'))
-    version += "-ss"
-
-import org.ajoberstar.grgit.*
-
-ext.repo = Grgit.open(project.file('.'))
-def gitHash = 'unknown'
-
-if (new File(projectDir, '.git').exists())
-    gitHash = repo.log().find().abbreviatedId
-	
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
-
 repositories {
     maven { url "http://dvs1.progwml6.com/files/maven" }
     maven {	url "http://tehnut.info/maven" }
-	
-    ivy {
-        name "Thaumcraft"
-        artifactPattern "https://dl.dropboxusercontent.com/u/47135879/[module]-[revision]-deobf.[ext]"
-    }
-    ivy {
-        name "Baubles"
-        artifactPattern "https://dl.dropboxusercontent.com/u/47135879/[module]-1.11-[revision]-deobf.[ext]"
+
+    maven {
+        name = "thiakil"
+        url = "http://maven.thiakil.com"
     }
 }
 
 dependencies {
     deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
-	deobfCompile "com.wayoftime.bloodmagic:BloodMagic:1.11-${bloodmagic_version}"
-	deobfCompile "info.amerifrance.guideapi:Guide-API:1.11-${guideapi_version}"
+	deobfCompile "com.wayoftime.bloodmagic:BloodMagic:${mc_version}-${bloodmagic_version}"
+	deobfCompile "info.amerifrance.guideapi:Guide-API:${guideapi_version}"
 
-	deobfCompile "mcp.mobius.waila:Hwyla:${waila_version}_1.11"
+	deobfCompile "mcp.mobius.waila:Hwyla:${waila_version}"
 //    compile name: "Thaumcraft", version: "${mc_version}-${thaumcraft_version}", ext: "jar"
-    compile name: 'Baubles', version: "${baubles_version}", ext: 'jar'
+    deobfCompile "com.azanor.baubles:Baubles:1.12-${baubles_version}"
 	
-	deobfCompile "slimeknights.mantle:Mantle:${mc_version}-${mantle_version}:deobf"
-    deobfCompile "slimeknights:TConstruct:${mc_version}-${tconstruct_version}:deobf"
+//	deobfCompile "slimeknights.mantle:Mantle:1.12-${mantle_version}:deobf"
+//    deobfCompile "slimeknights:TConstruct:${mc_version}-${tconstruct_version}:deobf"
 }
 
 minecraft {
@@ -117,10 +99,17 @@ jar {
         "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
         "Implementation-Title": project.name,
         "Implementation-Version": project.version,
-        "Git-Hash": gitHash,
         "Built-On": "${mc_version}-${forge_version}"
     )
 }
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allJava
+    from sourceSets.api.allJava
+}
+
+tasks.build.dependsOn sourcesJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
@@ -131,7 +120,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifact jar
-            artifact sourceJar
+            artifact sourcesJar
         }
     }
     repositories {
@@ -185,8 +174,7 @@ curseforge {
         releaseType = 'beta'
 
         relations curseRelations
-		addGameVersion '1.11.2'
 		
-        addArtifact sourceJar
+        addArtifact sourcesJar
     }
 }

@@ -1,0 +1,62 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "glass_shard": {
+        "textures": {
+          "layer0": "bloodarsenal:items/glass_shard"
+        }
+      },
+      "blood_infused_stick": {
+		"transform": "forge:default-tool",
+        "textures": {
+          "layer0": "bloodarsenal:items/blood_infused_stick"
+        }
+      },
+	  "blood_infused_glowstone_dust": {
+        "textures": {
+          "layer0": "bloodarsenal:items/blood_infused_glowstone_dust"
+        }
+      },
+	  "inert_blood_infused_iron_ingot": {
+        "textures": {
+          "layer0": "bloodarsenal:items/inert_blood_infused_iron_ingot"
+        }
+      },
+	  "stasis_plate": {
+		"textures": {
+		  "layer0": "bloodarsenal:items/stasis_plate"
+		}
+	  },
+      "blood_infused_iron_ingot": {
+        "textures": {
+          "layer0": "bloodarsenal:items/blood_infused_iron_ingot"
+        }
+      },
+	  "reagent_swimming": {
+        "textures": {
+          "layer0": "bloodarsenal:items/reagent_swimming"
+        }
+      },
+	  "reagent_ender": {
+        "textures": {
+          "layer0": "bloodarsenal:items/reagent_ender"
+        }
+      },
+	  "reagent_lightning": {
+        "textures": {
+          "layer0": "bloodarsenal:items/reagent_lightning"
+        }
+      },
+	  "reagent_divinity": {
+        "textures": {
+          "layer0": "bloodarsenal:items/reagent_divinity"
+        }
+      }
+    }
+  }
+}
