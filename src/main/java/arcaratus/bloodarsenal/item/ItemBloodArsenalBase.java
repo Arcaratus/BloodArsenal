@@ -1,14 +1,17 @@
 package arcaratus.bloodarsenal.item;
 
 import WayofTime.bloodmagic.client.IVariantProvider;
+import WayofTime.bloodmagic.item.ItemEnum;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
+import arcaratus.bloodarsenal.item.types.EnumBaseTypes;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
@@ -20,20 +23,18 @@ import org.lwjgl.input.Keyboard;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemBloodArsenalBase extends Item implements IVariantProvider
+public class ItemBloodArsenalBase extends ItemEnum<EnumBaseTypes> implements IVariantProvider
 {
     protected final String tooltipBase;
-    private final String name;
 
     public ItemBloodArsenalBase(String name)
     {
-        super();
+        super(EnumBaseTypes.class, "");
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 
-        this.name = name;
         this.tooltipBase = "tooltip.bloodarsenal." + name + ".";
     }
 
@@ -78,7 +79,8 @@ public class ItemBloodArsenalBase extends Item implements IVariantProvider
     @Override
     public void gatherVariants(@Nonnull Int2ObjectMap<String> variants)
     {
-        variants.put(0, "type=" + name);
+        for (int i = 0; i < EnumBaseTypes.values().length; i++)
+            variants.put(i, "type=" + EnumBaseTypes.values()[i].getInternalName());
     }
 
     @Override

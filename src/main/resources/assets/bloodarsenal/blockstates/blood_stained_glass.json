@@ -1,16 +1,9 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": { },
-    "model": "cube_all",
-	"uvlock": true
-  },
   "variants": {
-    "type": {
-      "normal": {
-        "textures": {
-          "all": "bloodarsenal:blocks/blood_stained_glass"
-        }
+    "normal": {
+      "model": "bloodarsenal:blood_stained_glass",
+      "textures": {
+        "all": "bloodarsenal:blocks/blood_stained_glass"
       }
     }
   }

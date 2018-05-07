@@ -268,12 +268,13 @@ public class ItemBoundSickle extends ItemBoundTool implements IMeshProvider
     @SideOnly(Side.CLIENT)
     public ItemMeshDefinition getMeshDefinition()
     {
-        return new CustomMeshDefinitionActivatable("ItemBoundSickle");
+        return new CustomMeshDefinitionActivatable("bound_sickle");
     }
 
     @Override
     public void gatherVariants(Consumer<String> variants)
     {
-        variants.accept("type=normal");
+        variants.accept("active=true");
+        variants.accept("active=false");
     }
 }

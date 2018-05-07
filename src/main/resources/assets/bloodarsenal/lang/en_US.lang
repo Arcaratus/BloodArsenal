@@ -2,14 +2,14 @@
 itemGroup.bloodarsenal.creativeTab=§4Blood Arsenal
 
 # Items
-item.bloodarsenal.glass_shard.name=Glass Shard
-item.bloodarsenal.blood_infused_stick.name=Blood Infused Stick
+item.bloodarsenal.base_item.glass_shard.name=Glass Shard
+item.bloodarsenal.base_item.blood_infused_stick.name=Blood Infused Stick
 item.bloodarsenal.blood_burned_string.name=Blood Burned String
-item.bloodarsenal.blood_infused_glowstone_dust.name=Blood Infused Glowstone Dust
-item.bloodarsenal.inert_blood_infused_iron_ingot.name=Inert Blood-Iron Ingot
-item.bloodarsenal.blood_infused_iron_ingot.name=Blood Infused Iron Ingot
+item.bloodarsenal.base_item.blood_infused_glowstone_dust.name=Blood Infused Glowstone Dust
+item.bloodarsenal.base_item.inert_blood_infused_iron_ingot.name=Inert Blood-Iron Ingot
+item.bloodarsenal.base_item.blood_infused_iron_ingot.name=Blood Infused Iron Ingot
 item.bloodarsenal.blood_orange.name=Blood Orange
-item.bloodarsenal.bound_stick.name=Bound Stick
+item.bloodarsenal.base_item.bound_stick.name=Bound Stick
 item.bloodarsenal.blood_diamond.normal.name=Blood Diamond
 item.bloodarsenal.blood_diamond.inert.name=Inert Blood Diamond
 item.bloodarsenal.blood_diamond.infused.name=Blood Infused Diamond
@@ -31,10 +31,10 @@ item.bloodarsenal.glass_sacrificial_dagger.name=Glass Sacrificial Dagger
 item.bloodarsenal.glass_dagger_of_sacrifice.name=Glass Dagger of Sacrifice
 item.bloodarsenal.stygian_dagger.name=Stygian Dagger
 
-item.bloodarsenal.base_component.reagent_swimming.name=Swimming Reagent
-item.bloodarsenal.base_component.reagent_ender.name=Ender Reagent
-item.bloodarsenal.base_component.reagent_lightning.name=Lightning Reagent
-item.bloodarsenal.base_component.reagent_divinity.name=Divinity Reagent
+item.bloodarsenal.base_item.reagent_swimming.name=Swimming Reagent
+item.bloodarsenal.base_item.reagent_ender.name=Ender Reagent
+item.bloodarsenal.base_item.reagent_lightning.name=Lightning Reagent
+item.bloodarsenal.base_item.reagent_divinity.name=Divinity Reagent
 
 item.bloodarsenal.sigil.swimming.name=Sigil of Swimming
 item.bloodarsenal.sigil.ender.name=Ender Sigil

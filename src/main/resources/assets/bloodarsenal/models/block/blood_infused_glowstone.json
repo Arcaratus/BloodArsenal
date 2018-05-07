@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "bloodarsenal:blocks/blood_infused_glowstone"
+  }
+}

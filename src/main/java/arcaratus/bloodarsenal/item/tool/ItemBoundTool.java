@@ -32,6 +32,8 @@ import java.util.*;
  * Shameless copying from Blood Magic repo just to change a few lines ¯\_(ツ)_/¯
  * Wait a minute, I wrote half of this...
  */
+
+// TODO: Remove the shitty map implementation with the updated one I did once someone does textures
 public class ItemBoundTool extends ItemTool implements IBindable, IActivatable
 {
     public final int chargeTime = 30;

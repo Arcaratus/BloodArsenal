@@ -1,16 +1,9 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": { },
-    "model": "cube_all",
-	"uvlock": true
-  },
   "variants": {
-    "type": {
-      "normal": {
-        "textures": {
-          "all": "bloodarsenal:blocks/blood_infused_wooden_planks"
-        }
+    "normal": {
+      "model": "bloodarsenal:blood_infused_wooden_planks",
+      "textures": {
+        "all": "bloodarsenal:blocks/blood_infused_wooden_planks"
       }
     }
   }

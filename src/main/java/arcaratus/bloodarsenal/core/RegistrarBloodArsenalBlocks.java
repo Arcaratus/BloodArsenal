@@ -59,7 +59,7 @@ public class RegistrarBloodArsenalBlocks
                 new BlockBloodInfusedIron("blood_infused_iron_block"),
                 new BlockBloodInfusedGlowstone("blood_infused_glowstone"),
                 new BlockGlassShards("glass_shards"),
-//                new BlockBloodBurnedString("blood_burned_string"),
+                new BlockBloodBurnedString("blood_burned_string"),
                 new BlockAltareAenigmatica("altare_aenigmatica"),
                 new BlockStasisPlate("stasis_plate")
         );

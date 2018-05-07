@@ -9,8 +9,7 @@ import arcaratus.bloodarsenal.item.ItemBloodArsenalBase;
 import arcaratus.bloodarsenal.item.ItemBloodOrange;
 import arcaratus.bloodarsenal.item.sigil.*;
 import arcaratus.bloodarsenal.item.tool.*;
-import arcaratus.bloodarsenal.item.types.GemTypes;
-import arcaratus.bloodarsenal.item.types.ItemBaseTypes;
+import arcaratus.bloodarsenal.item.types.EnumGemTypes;
 import arcaratus.bloodarsenal.util.IComplexVariantProvider;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -43,9 +42,15 @@ public class RegistrarBloodArsenalItems
 {
     public static final Item GLASS_SHARD = Items.AIR;
     public static final Item BLOOD_INFUSED_STICK = Items.AIR;
-//    public static final Item BLOOD_BURNED_STRING = Items.AIR;
-    public static final Item BLOOD_ORANGE = Items.AIR;
 //    public static final Item BLOOD_DIAMOND = Items.AIR;
+
+    public static final Item REAGENT_SWIMMING = Items.AIR;
+    public static final Item REAGENT_ENDER = Items.AIR;
+    public static final Item REAGENT_LIGHTNING = Items.AIR;
+    public static final Item REAGENT_DIVINITY = Items.AIR;
+
+    public static final Item BLOOD_BURNED_STRING = Items.AIR;
+    public static final Item BLOOD_ORANGE = Items.AIR;
 
     public static final Item BLOOD_INFUSED_WOODEN_PICKAXE = Items.AIR;
     public static final Item BLOOD_INFUSED_WOODEN_AXE = Items.AIR;
@@ -75,11 +80,6 @@ public class RegistrarBloodArsenalItems
     public static final Item SIGIL_SENTIENCE = Items.AIR;
 
     public static final Item BASE = Items.AIR;
-
-    public static final Item REAGENT_SWIMMING = Items.AIR;
-    public static final Item REAGENT_ENDER = Items.AIR;
-    public static final Item REAGENT_LIGHTNING = Items.AIR;
-    public static final Item REAGENT_DIVINITY = Items.AIR;
 
     public static final Item BOUND_STICK = Items.AIR;
     public static final Item BOUND_SICKLE = Items.AIR;
@@ -112,8 +112,8 @@ public class RegistrarBloodArsenalItems
         });
 
         items.addAll(Lists.newArrayList(
-                new ItemBloodArsenalBase("glass_shard"),
-                new ItemBloodArsenalBase("blood_infused_stick"),
+                new ItemBloodArsenalBase("base_item"),
+//                new ItemBlockSpecialBloodArsenal("blood_burned_string", RegistrarBloodArsenalBlocks.BLOOD_BURNED_STRING),
                 new ItemBloodOrange("blood_orange"),
                 new ItemBloodInfusedWoodenPickaxe(),
                 new ItemBloodInfusedWoodenAxe(),
@@ -127,14 +127,13 @@ public class RegistrarBloodArsenalItems
                 new ItemBloodInfusedIronSword(),
                 new ItemGlassSacrificialDagger("glass_sacrificial_dagger"),
                 new ItemGlassDaggerOfSacrifice("glass_dagger_of_sacrifice"),
-                new ItemEnum.Variant<>(GemTypes.class, "gem").setRegistryName("gem"),
+                new ItemEnum.Variant<>(EnumGemTypes.class, "gem").setRegistryName("gem"),
                 new ItemSigilSwimming(),
                 new ItemSigilEnder(),
                 new ItemSigilAugmentedHolding(),
                 new ItemSigilLightning(),
                 new ItemSigilDivinity(),
                 new ItemSigilSentience(),
-                new ItemEnum.Variant<>(ItemBaseTypes.class, "base_component").setRegistryName("base_component"),
                 new ItemBoundStick("bound_stick"),
                 new ItemBoundSickle()
         ));
@@ -175,24 +174,22 @@ public class RegistrarBloodArsenalItems
             ModelLoader.setCustomMeshDefinition(i, mesh.getMeshDefinition());
         });
 
-        RegistrarBloodArsenalBlocks.blocks.stream().filter(b -> b instanceof IComplexVariantProvider).forEach(b ->
+        RegistrarBloodArsenalBlocks.blocks.stream().filter(b -> b instanceof IVariantProvider).forEach(b ->
         {
             Int2ObjectMap<String> variants = new Int2ObjectOpenHashMap<>();
             ((IVariantProvider) b).gatherVariants(variants);
+            for (Int2ObjectMap.Entry<String> variant : variants.int2ObjectEntrySet())
+                ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(b), variant.getIntKey(), new ModelResourceLocation(b.getRegistryName(), variant.getValue()));
+        });
+
+        RegistrarBloodArsenalBlocks.blocks.stream().filter(b -> b instanceof IComplexVariantProvider).forEach(b ->
+        {
             IComplexVariantProvider complexVariantProvider = (IComplexVariantProvider) b;
             if (complexVariantProvider.getIgnoredProperties() != null)
             {
                 IStateMapper customMapper = (new StateMap.Builder()).ignore(complexVariantProvider.getIgnoredProperties()).build();
                 ModelLoader.setCustomStateMapper(b, customMapper);
             }
-        });
-
-        RegistrarBloodArsenalBlocks.blocks.stream().filter(b -> b instanceof IVariantProvider && !(b instanceof IComplexVariantProvider)).forEach(b ->
-        {
-            Int2ObjectMap<String> variants = new Int2ObjectOpenHashMap<>();
-            ((IVariantProvider) b).gatherVariants(variants);
-            for (Int2ObjectMap.Entry<String> variant : variants.int2ObjectEntrySet())
-                ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(b), variant.getIntKey(), new ModelResourceLocation(b.getRegistryName(), variant.getValue()));
         });
     }
 }

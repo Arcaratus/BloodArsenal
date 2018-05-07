@@ -42,7 +42,6 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
         }
 
         setDefaultState(iblockstate.withProperty(VARIANT, BlockBloodInfusedWoodenLog.EnumType.BLOOD_INFUSED));
-        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }
 
     @Override
@@ -137,6 +136,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
         public Half(String name)
         {
             super(name);
+            setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         }
 
         public boolean isDouble()

@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.Locale;
 
-public enum GemTypes implements ISubItem
+public enum EnumGemTypes implements ISubItem
 {
     SELF_SACRIFICE,
     SACRIFICE,

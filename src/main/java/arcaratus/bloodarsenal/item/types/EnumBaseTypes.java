@@ -7,8 +7,10 @@ import net.minecraft.item.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.Locale;
 
-public enum ItemBaseTypes implements ISubItem
+public enum EnumBaseTypes implements ISubItem
 {
+    GLASS_SHARD,
+    BLOOD_INFUSED_STICK,
     REAGENT_SWIMMING,
     REAGENT_ENDER,
     REAGENT_LIGHTNING,

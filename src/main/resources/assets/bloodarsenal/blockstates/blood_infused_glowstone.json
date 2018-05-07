@@ -1,16 +1,9 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": { },
-    "model": "cube_all",
-	"uvlock": true
-  },
   "variants": {
-    "type": {
-      "normal": {
-        "textures": {
-          "all": "bloodarsenal:blocks/blood_infused_glowstone"
-        }
+    "normal": {
+      "model": "bloodarsenal:blood_infused_glowstone",
+      "textures": {
+        "all": "bloodarsenal:blocks/blood_infused_glowstone"
       }
     }
   }
