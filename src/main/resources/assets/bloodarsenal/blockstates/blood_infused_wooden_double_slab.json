@@ -1,10 +1,6 @@
 {
   "variants": {
-	"normal": { 
-		"model": "bloodarsenal:blood_infused_wooden_planks"
-	},
-	"variant=blood_infused": {
-		"model": "bloodarsenal:blood_infused_wooden_planks"
-	}
+	  "normal": { "model": "bloodarsenal:blood_infused_wooden_planks"},
+	  "variant=default": {"model": "bloodarsenal:blood_infused_wooden_planks"}
   }
 }

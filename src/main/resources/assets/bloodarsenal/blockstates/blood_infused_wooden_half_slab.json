@@ -1,7 +1,0 @@
-{
-  "variants": {
-	"normal": { "model": "bloodarsenal:blood_infused_wooden_half_slab" },
-    "half=bottom,variant=blood_infused": { "model": "bloodarsenal:blood_infused_wooden_half_slab" },
-    "half=top,variant=blood_infused": { "model": "bloodarsenal:blood_infused_wooden_upper_slab" }
-  }
-}
