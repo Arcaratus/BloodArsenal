@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "bloodarsenal:blood_stained_glass"
+  },
+  "ingredients": [
+    {
+      "item": "#BLOCKGLASS"
+    },
+    {
+      "type": "bloodmagic:orb",
+      "orb": "bloodmagic:weak"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

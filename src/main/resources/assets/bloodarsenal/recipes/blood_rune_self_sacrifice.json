@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "bloodmagic:blood_rune",
+    "data": 3,
+    "count": 4
+  },
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "#STONE"
+    },
+    "b": {
+      "item": "bloodarsenal:gem",
+      "data": 1
+    }
+  }
+}

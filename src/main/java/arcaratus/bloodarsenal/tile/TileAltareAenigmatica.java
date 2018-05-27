@@ -200,13 +200,13 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
         String dontKnowWhatToCallThis = ((IBindable) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand()).getOwnerName();
         if (linkedOrbOwner.equals(dontKnowWhatToCallThis))
         {
-            ChatUtil.sendNoSpamClient(TextHelper.localize("chat.BloodArsenal.alreadyOwner"));
+            ChatUtil.sendNoSpamClient(TextHelper.localize("chat.bloodarsenal.alreadyOwner"));
             return false;
         }
         else
         {
             linkedOrbOwner = dontKnowWhatToCallThis;
-            ChatUtil.sendNoSpamClient(TextHelper.localize("chat.BloodArsenal.setOwner", player.getName()));
+            ChatUtil.sendNoSpamClient(TextHelper.localize("chat.bloodarsenal.setOwner", player.getName()));
             return true;
         }
     }

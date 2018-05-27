@@ -1,28 +1,28 @@
 package arcaratus.bloodarsenal.item.tool;
 
-import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.client.IVariantProvider;
+import WayofTime.bloodmagic.util.helper.PlayerHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.entity.projectile.EntityWarpBlade;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Nonnull;
 
 public class ItemWarpBlade extends ItemSword implements IVariantProvider
 {
-    public ItemWarpBlade()
+    public ItemWarpBlade(String name)
     {
         super(ToolMaterial.IRON);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".warpBlade");
+        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
+        setMaxDamage(0);
     }
 
     @Override
@@ -41,10 +41,8 @@ public class ItemWarpBlade extends ItemSword implements IVariantProvider
     }
 
     @Override
-    public List<Pair<Integer, String>> getVariants()
+    public void gatherVariants(@Nonnull Int2ObjectMap<String> variants)
     {
-        List<Pair<Integer, String>> ret = new ArrayList<>();
-        ret.add(new ImmutablePair<>(0, "normal"));
-        return ret;
+        variants.put(0, "type=normal");
     }
 }

@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "bloodarsenal:blood_burned_string",
+    "count": 7
+  },
+  "pattern": [
+    "aaa",
+    "aba",
+    "aca"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "minecraft:string"
+    },
+    "b": {
+      "item": "minecraft:flint_and_steel"
+    },
+    "c": {
+      "type": "bloodmagic:orb",
+      "orb": "bloodmagic:weak"
+    }
+  }
+}

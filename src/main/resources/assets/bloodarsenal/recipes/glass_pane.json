@@ -1,0 +1,11 @@
+{
+  "result": {
+    "item": "minecraft:glass_pane"
+  },
+  "ingredients": [
+    {
+      "item": "bloodarsenal:blood_stained_glass_pane"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

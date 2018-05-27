@@ -2,14 +2,11 @@ package arcaratus.bloodarsenal.core;
 
 import WayofTime.bloodmagic.client.IMeshProvider;
 import WayofTime.bloodmagic.client.IVariantProvider;
-import WayofTime.bloodmagic.item.ItemEnum;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.block.IBABlock;
-import arcaratus.bloodarsenal.item.ItemBloodArsenalBase;
-import arcaratus.bloodarsenal.item.ItemBloodOrange;
+import arcaratus.bloodarsenal.item.*;
 import arcaratus.bloodarsenal.item.sigil.*;
 import arcaratus.bloodarsenal.item.tool.*;
-import arcaratus.bloodarsenal.item.types.EnumGemTypes;
 import arcaratus.bloodarsenal.util.IComplexVariantProvider;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -30,7 +27,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 import java.util.Set;
@@ -40,14 +36,7 @@ import java.util.Set;
 @SuppressWarnings("unchecked")
 public class RegistrarBloodArsenalItems
 {
-    public static final Item GLASS_SHARD = Items.AIR;
-    public static final Item BLOOD_INFUSED_STICK = Items.AIR;
-//    public static final Item BLOOD_DIAMOND = Items.AIR;
-
-    public static final Item REAGENT_SWIMMING = Items.AIR;
-    public static final Item REAGENT_ENDER = Items.AIR;
-    public static final Item REAGENT_LIGHTNING = Items.AIR;
-    public static final Item REAGENT_DIVINITY = Items.AIR;
+    public static final Item BLOOD_DIAMOND = Items.AIR;
 
     public static final Item BLOOD_BURNED_STRING = Items.AIR;
     public static final Item BLOOD_ORANGE = Items.AIR;
@@ -57,9 +46,6 @@ public class RegistrarBloodArsenalItems
     public static final Item BLOOD_INFUSED_WOODEN_SHOVEL = Items.AIR;
     public static final Item BLOOD_INFUSED_WOODEN_SICKLE = Items.AIR;
     public static final Item BLOOD_INFUSED_WOODEN_SWORD = Items.AIR;
-//    public static final Item BLOOD_INFUSED_GLOWSTONE_DUST = Items.AIR;
-//    public static final Item INERT_BLOOD_INFUSED_IRON_INGOT = Items.AIR;
-//    public static final Item BLOOD_INFUSED_IRON_INGOT = Items.AIR;
     public static final Item BLOOD_INFUSED_IRON_PICKAXE = Items.AIR;
     public static final Item BLOOD_INFUSED_IRON_AXE = Items.AIR;
     public static final Item BLOOD_INFUSED_IRON_SHOVEL = Items.AIR;
@@ -79,7 +65,7 @@ public class RegistrarBloodArsenalItems
     public static final Item SIGIL_DIVINITY = Items.AIR;
     public static final Item SIGIL_SENTIENCE = Items.AIR;
 
-    public static final Item BASE = Items.AIR;
+    public static final Item BASE_ITEM = Items.AIR;
 
     public static final Item BOUND_STICK = Items.AIR;
     public static final Item BOUND_SICKLE = Items.AIR;
@@ -92,7 +78,7 @@ public class RegistrarBloodArsenalItems
 
 //    public static final Item MODIFIER_TOME = Items.AIR;
 
-//    public static final Item WARP_BLADE = Items.AIR;
+    public static final Item WARP_BLADE = Items.AIR;
 
     public static Item.ToolMaterial BLOOD_INFUSED_WOOD = EnumHelper.addToolMaterial("bloodinfusedwood", 1, 186, 5.5F, 1.0F, 13);
     public static Item.ToolMaterial BLOOD_INFUSED_IRON = EnumHelper.addToolMaterial("bloodinfusediron", 3, 954, 7.25F, 2.7F, 21);
@@ -112,6 +98,7 @@ public class RegistrarBloodArsenalItems
         });
 
         items.addAll(Lists.newArrayList(
+                new ItemBloodDiamond("blood_diamond"),
                 new ItemBloodArsenalBase("base_item"),
 //                new ItemBlockSpecialBloodArsenal("blood_burned_string", RegistrarBloodArsenalBlocks.BLOOD_BURNED_STRING),
                 new ItemBloodOrange("blood_orange"),
@@ -127,7 +114,7 @@ public class RegistrarBloodArsenalItems
                 new ItemBloodInfusedIronSword(),
                 new ItemGlassSacrificialDagger("glass_sacrificial_dagger"),
                 new ItemGlassDaggerOfSacrifice("glass_dagger_of_sacrifice"),
-                new ItemEnum.Variant<>(EnumGemTypes.class, "gem").setRegistryName("gem"),
+                new ItemGem("gem"),
                 new ItemSigilSwimming(),
                 new ItemSigilEnder(),
                 new ItemSigilAugmentedHolding(),
@@ -135,16 +122,11 @@ public class RegistrarBloodArsenalItems
                 new ItemSigilDivinity(),
                 new ItemSigilSentience(),
                 new ItemBoundStick("bound_stick"),
-                new ItemBoundSickle()
+                new ItemBoundSickle(),
+                new ItemWarpBlade("warp_blade")
         ));
 
         event.getRegistry().registerAll(items.toArray(new Item[0]));
-    }
-
-    public static void addOreDictItems()
-    {
-        OreDictionary.registerOre("shardGlass", GLASS_SHARD);
-//        OreDictionary.registerOre("ingotBloodInfusedIron", BLOOD_INFUSED_IRON_INGOT);
     }
 
     @SideOnly(Side.CLIENT)

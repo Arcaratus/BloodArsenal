@@ -10,11 +10,12 @@ public class PotionBloodArsenal extends Potion
 {
     public static final ResourceLocation potionTexture = new ResourceLocation("bloodarsenal", "textures/misc/potions.png");
 
-    public PotionBloodArsenal(String name, boolean badEffect, int potionColor, int iconIndexX, int iconIndexY)
+    public PotionBloodArsenal(String name, String regName, boolean badEffect, int potionColor, int iconIndexX, int iconIndexY)
     {
         super(badEffect, potionColor);
-        this.setPotionName(name);
-        this.setIconIndex(iconIndexX, iconIndexY);
+        setPotionName(name);
+        setRegistryName(regName);
+        setIconIndex(iconIndexX, iconIndexY);
     }
 
     @Override

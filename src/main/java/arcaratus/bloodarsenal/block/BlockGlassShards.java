@@ -4,7 +4,8 @@ import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.PlayerSacrificeHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.ConfigHandler;
-import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
+import arcaratus.bloodarsenal.core.RegistrarBloodArsenal;
+import arcaratus.bloodarsenal.item.types.EnumBaseTypes;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -17,6 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -24,9 +26,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BlockGlassShards extends Block implements IVariantProvider, IBABlock
 {
@@ -66,12 +65,9 @@ public class BlockGlassShards extends Block implements IVariantProvider, IBABloc
     }
 
     @Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
     {
-        List<ItemStack> list = new ArrayList<>();
-        list.add(new ItemStack(RegistrarBloodArsenalItems.GLASS_SHARD, RANDOM.nextInt(6)));
-
-        return list;
+        drops.add(EnumBaseTypes.GLASS_SHARD.getStack(RANDOM.nextInt(6)));
     }
 
     @Override
@@ -203,7 +199,7 @@ public class BlockGlassShards extends Block implements IVariantProvider, IBABloc
 
             if (entityIn.attackEntityFrom(BloodArsenal.getDamageSourceGlass(), (float) damage))
                 PlayerSacrificeHelper.findAndFillAltar(worldIn, (EntityLivingBase) entityIn, (int) Math.round(damage * RANDOM.nextInt(101)), false);
-//            ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(ModPotions.BLEEDING, RANDOM.nextInt(100), 0));
+            ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, RANDOM.nextInt(100), 0));
         }
     }
 

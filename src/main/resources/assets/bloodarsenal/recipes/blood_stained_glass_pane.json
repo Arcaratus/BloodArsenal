@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "bloodarsenal:blood_stained_glass_pane",
+    "count": 16
+  },
+  "pattern": [
+    "aaa",
+    "aaa"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodarsenal:blood_stained_glass"
+    }
+  }
+}

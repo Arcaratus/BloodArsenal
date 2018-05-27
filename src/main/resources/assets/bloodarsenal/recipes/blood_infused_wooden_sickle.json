@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "bloodarsenal:blood_infused_wooden_sickle"
+  },
+  "pattern": [
+    " aa",
+    " ba",
+    "caa"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodarsenal:blood_infused_wooden_planks"
+    },
+    "b": {
+      "type": "bloodmagic:orb",
+      "orb": "bloodmagic:apprentice"
+    },
+    "c": {
+      "item": "bloodarsenal:base_item",
+      "data": 1
+    }
+  }
+}

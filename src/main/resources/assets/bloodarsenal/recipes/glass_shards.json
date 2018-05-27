@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "bloodarsenal:glass_shards"
+  },
+  "pattern": [
+    "aaa",
+    "aaa",
+    "aaa"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "#SHARDGLASS"
+    }
+  }
+}

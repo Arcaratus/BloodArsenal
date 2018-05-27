@@ -7,6 +7,7 @@ import WayofTime.bloodmagic.util.Constants;
 import WayofTime.bloodmagic.util.helper.*;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.ConfigHandler;
+import arcaratus.bloodarsenal.core.RegistrarBloodArsenal;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
@@ -15,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.RayTraceResult;
@@ -26,8 +28,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
-
-//import arcaratus.bloodarsenal.registry.ModPotions;
 
 public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
 {
@@ -104,7 +104,7 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
                 player.setHealth(Math.max(player.getHealth() - (float) (ConfigHandler.values.glassSacrificialDaggerHealth + itemRand.nextInt(3)), 0.0001f));
 
                 if (itemRand.nextBoolean())
-//                    player.addPotionEffect(new PotionEffect(ModPotions.BLEEDING, 20 + (itemRand.nextInt(4) * 20), itemRand.nextInt(2)));
+                    player.addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, 20 + (itemRand.nextInt(4) * 20), itemRand.nextInt(2)));
 
                 if (player.getHealth() <= 0.001f)
                 {
@@ -164,7 +164,7 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
     @SideOnly(Side.CLIENT)
     public ItemMeshDefinition getMeshDefinition()
     {
-        return stack -> new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "item/glass_sacrificial_dagger"), canUseForSacrifice(stack) ? "type=ceremonial" : "type=normal");
+        return stack -> new ModelResourceLocation(getRegistryName(), canUseForSacrifice(stack) ? "type=ceremonial" : "type=normal");
     }
 
     @Override

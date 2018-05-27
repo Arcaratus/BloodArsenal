@@ -19,7 +19,7 @@ public class EntityWarpBlade extends EntityThrowable implements IThrowableEntity
 {
     public EntityPlayer player;
     protected int ticksInAir = 0;
-    protected int maxTicksInAir = 16;
+    protected int maxTicksInAir = 40;
 
     private ItemStack stack = ItemStack.EMPTY;
 

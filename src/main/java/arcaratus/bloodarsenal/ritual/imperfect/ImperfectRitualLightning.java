@@ -1,8 +1,7 @@
 package arcaratus.bloodarsenal.ritual.imperfect;
 
-import WayofTime.bloodmagic.api.BlockStack;
-import WayofTime.bloodmagic.api.ritual.imperfect.IImperfectRitualStone;
-import WayofTime.bloodmagic.api.ritual.imperfect.ImperfectRitual;
+import WayofTime.bloodmagic.ritual.imperfect.IImperfectRitualStone;
+import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitual;
 import arcaratus.bloodarsenal.BloodArsenal;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +13,7 @@ public class ImperfectRitualLightning extends ImperfectRitual
 {
     public ImperfectRitualLightning()
     {
-        super("lightning", new BlockStack(Blocks.IRON_BLOCK), 10000, "ritual." + BloodArsenal.MOD_ID + ".imperfect.lightning");
+        super("lightning", s -> s.getBlock() == Blocks.IRON_BLOCK, 10000, false, "ritual." + BloodArsenal.MOD_ID + ".imperfect.lightning");
     }
 
     @Override
@@ -28,11 +27,5 @@ public class ImperfectRitualLightning extends ImperfectRitual
         world.addWeatherEffect(new EntityLightningBolt(world, pos.getX(), pos.getY() + 2, pos.getZ(), false));
 
         return true;
-    }
-
-    @Override
-    public boolean isLightshow()
-    {
-        return false;
     }
 }

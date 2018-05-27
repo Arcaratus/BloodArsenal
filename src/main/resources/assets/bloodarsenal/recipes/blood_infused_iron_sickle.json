@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "bloodarsenal:blood_infused_iron_sickle"
+  },
+  "pattern": [
+    " aa",
+    "bda",
+    "caa"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodarsenal:base_item",
+      "data": 4
+    },
+    "b": {
+      "item": "bloodarsenal:base_item",
+      "data": 1
+    },
+    "c": {
+      "item": "bloodarsenal:blood_infused_wooden_sickle"
+    },
+    "d": {
+      "type": "bloodmagic:orb",
+      "orb": "bloodmagic:magician"
+    }
+  }
+}

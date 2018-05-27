@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "bloodarsenal:slate",
+    "data": 0
+  },
+  "pattern": [
+    "aaa",
+    "aaa",
+    "aaa"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodmagic:slate",
+      "data": 0
+    }
+  }
+}

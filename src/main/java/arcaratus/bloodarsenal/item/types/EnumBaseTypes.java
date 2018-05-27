@@ -11,6 +11,10 @@ public enum EnumBaseTypes implements ISubItem
 {
     GLASS_SHARD,
     BLOOD_INFUSED_STICK,
+    BLOOD_INFUSED_GLOWSTONE_DUST,
+    INERT_BLOOD_INFUSED_IRON_INGOT,
+    BLOOD_INFUSED_IRON_INGOT,
+    STASIS_PLATE,
     REAGENT_SWIMMING,
     REAGENT_ENDER,
     REAGENT_LIGHTNING,
@@ -35,6 +39,6 @@ public enum EnumBaseTypes implements ISubItem
     @Override
     public ItemStack getStack(int count)
     {
-        return new ItemStack(RegistrarBloodArsenalItems.BASE, count, ordinal());
+        return new ItemStack(RegistrarBloodArsenalItems.BASE_ITEM, count, ordinal());
     }
 }

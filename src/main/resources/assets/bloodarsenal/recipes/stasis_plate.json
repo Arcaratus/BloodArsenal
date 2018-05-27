@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "bloodarsenal:base_item",
+    "data": 5
+  },
+  "pattern": [
+    "aaa",
+    "aba",
+    "cdc"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodarsenal:blood_stained_glass"
+    },
+    "b": {
+      "item": "bloodarsenal:base_item",
+      "data": 8
+    },
+    "c": {
+      "item": "bloodmagic:slate",
+      "data": 2
+    },
+    "d": {
+      "type": "bloodmagic:orb",
+      "orb": "bloodmagic:magician"
+    }
+  }
+}

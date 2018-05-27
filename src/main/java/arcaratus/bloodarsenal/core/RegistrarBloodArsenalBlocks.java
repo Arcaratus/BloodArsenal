@@ -25,8 +25,8 @@ public class RegistrarBloodArsenalBlocks
     public static final Block BLOOD_INFUSED_WOODEN_LOG = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_PLANKS = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_STAIRS = Blocks.AIR;
-//    public static final Block BLOOD_INFUSED_WOODEN_DOUBLE_SLAB = new BlockBloodInfusedWoodenSlab.Double("blood_infused_wooden_double_slab");
-//    public static final Block BLOOD_INFUSED_WOODEN_SLAB = new BlockBloodInfusedWoodenSlab.Half("blood_infused_wooden_slab");
+    public static final Block BLOOD_INFUSED_WOODEN_DOUBLE_SLAB = Blocks.AIR;
+    public static final Block BLOOD_INFUSED_WOODEN_SLAB = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_FENCE = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_FENCE_GATE = Blocks.AIR;
     public static final Block BLOOD_STAINED_GLASS = Blocks.AIR;

@@ -1,56 +1,40 @@
 package arcaratus.bloodarsenal.item;
 
 import WayofTime.bloodmagic.client.IVariantProvider;
+import WayofTime.bloodmagic.item.ItemEnum;
+import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
-import net.minecraft.item.*;
+import arcaratus.bloodarsenal.item.types.EnumDiamondTypes;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBloodDiamond extends Item implements IVariantProvider
+import java.util.List;
+
+public class ItemBloodDiamond extends ItemEnum.Variant<EnumDiamondTypes> implements IVariantProvider
 {
-    public static String[] names = { "normal", "inert", "infused", "bound" };
-
     public ItemBloodDiamond(String name)
     {
-        super();
+        super(EnumDiamondTypes.class, "");
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name + ".");
+        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
-        setHasSubtypes(true);
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack)
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag)
     {
-        return super.getUnlocalizedName(stack) + names[stack.getItemDamage()];
-    }
+        if (I18n.hasKey("tooltip.bloodarsenal.blood_diamond." + EnumDiamondTypes.values()[stack.getItemDamage()].getInternalName() + ".desc"))
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.blood_diamond." + EnumDiamondTypes.values()[stack.getItemDamage()].getInternalName() +".desc"));
 
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public void getSubItems(Item id, CreativeTabs creativeTab, NonNullList<ItemStack> list)
-//    {
-//        for (int i = 0; i < names.length; i++)
-//            list.add(new ItemStack(id, 1, i));
-//    }
-//
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
-//    {
-//        if (I18n.hasKey("tooltip.bloodarsenal.bloodDiamond." + names[stack.getItemDamage()] + ".desc"))
-//            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.bloodDiamond." + names[stack.getItemDamage()] +".desc"));
-//
-//        super.addInformation(stack, player, tooltip, advanced);
-//    }
-//
-//    @Override
-//    public List<Pair<Integer, String>> getVariants()
-//    {
-//        List<Pair<Integer, String>> ret = new ArrayList<>();
-//        ret.add(new ImmutablePair<>(0, "type=normal"));
-//        ret.add(new ImmutablePair<>(1, "type=inert"));
-//        ret.add(new ImmutablePair<>(2, "type=infused"));
-//        ret.add(new ImmutablePair<>(3, "type=bound"));
-//        return ret;
-//    }
+        super.addInformation(stack, world, tooltip, flag);
+    }
 
     @Override
     public EnumRarity getRarity(ItemStack stack)

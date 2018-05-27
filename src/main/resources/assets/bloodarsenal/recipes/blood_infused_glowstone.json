@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "bloodarsenal:blood_infused_glowstone"
+  },
+  "pattern": [
+    "aa",
+    "aa"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodarsenal:base_item",
+      "data": 2
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "bloodarsenal:blood_infused_wooden_fence",
+    "count": 3
+  },
+  "pattern": [
+    "aba",
+    "aba"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodarsenal:blood_infused_wooden_planks"
+    },
+    "b": {
+      "item": "bloodarsenal:base_item",
+      "data": 1
+    }
+  }
+}

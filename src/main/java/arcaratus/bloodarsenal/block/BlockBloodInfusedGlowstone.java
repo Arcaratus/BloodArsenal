@@ -4,10 +4,12 @@ import WayofTime.bloodmagic.altar.ComponentType;
 import WayofTime.bloodmagic.altar.IAltarComponent;
 import WayofTime.bloodmagic.client.IVariantProvider;
 import arcaratus.bloodarsenal.BloodArsenal;
+import arcaratus.bloodarsenal.item.types.EnumBaseTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -42,11 +44,11 @@ public class BlockBloodInfusedGlowstone extends Block implements IAltarComponent
         return 2 + random.nextInt(3);
     }
 
-//    @Override
-//    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-//    {
-//        return RegistrarBloodArsenalItems.BLOOD_INFUSED_GLOWSTONE_DUST;
-//    }
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune)
+    {
+        return EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack().getItem();
+    }
 
     @Override
     public ComponentType getType(World world, IBlockState state, BlockPos pos)

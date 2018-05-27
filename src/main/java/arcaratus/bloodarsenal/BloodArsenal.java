@@ -4,6 +4,8 @@ import arcaratus.bloodarsenal.client.gui.GuiHandler;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.network.BloodArsenalPacketHandler;
 import arcaratus.bloodarsenal.proxy.CommonProxy;
+import arcaratus.bloodarsenal.registry.ModRecipes;
+import arcaratus.bloodarsenal.registry.ModRituals;
 import arcaratus.bloodarsenal.util.DamageSourceBleeding;
 import arcaratus.bloodarsenal.util.DamageSourceGlass;
 import net.minecraft.creativetab.CreativeTabs;
@@ -41,7 +43,7 @@ public class BloodArsenal
         }
     };
 
-    private File configDir;
+    public static File configDir;
 
     public static DamageSourceGlass getDamageSourceGlass()
     {
@@ -57,8 +59,6 @@ public class BloodArsenal
     {
         configDir = new File(event.getModConfigurationDirectory(), "bloodarsenal");
 
-//        ModPotions.init();
-//        ModEntities.init();
 //        ModCompat.registerModCompat();
 //        ModCompat.loadCompat(ICompatibility.InitializationPhase.PRE_INIT);
 
@@ -70,8 +70,8 @@ public class BloodArsenal
     {
         BloodArsenalPacketHandler.init();
 
-//        ModRecipes.init();
-//        ModRituals.overrideRituals();
+        ModRecipes.init();
+        ModRituals.initImperfectRituals();
 //        ModModifiers.init();
 //        ModCompat.loadCompat(ICompatibility.InitializationPhase.INIT);
         NetworkRegistry.INSTANCE.registerGuiHandler(BloodArsenal.INSTANCE, new GuiHandler());

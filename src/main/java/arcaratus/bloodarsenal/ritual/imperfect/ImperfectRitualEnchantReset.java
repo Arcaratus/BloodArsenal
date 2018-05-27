@@ -1,8 +1,7 @@
 package arcaratus.bloodarsenal.ritual.imperfect;
 
-import WayofTime.bloodmagic.api.BlockStack;
-import WayofTime.bloodmagic.api.ritual.imperfect.IImperfectRitualStone;
-import WayofTime.bloodmagic.api.ritual.imperfect.ImperfectRitual;
+import WayofTime.bloodmagic.ritual.imperfect.IImperfectRitualStone;
+import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitual;
 import arcaratus.bloodarsenal.BloodArsenal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -12,7 +11,7 @@ public class ImperfectRitualEnchantReset extends ImperfectRitual
 {
     public ImperfectRitualEnchantReset()
     {
-        super("enchant_reset", new BlockStack(Blocks.BOOKSHELF), 5000, "ritual." + BloodArsenal.MOD_ID + ".imperfect.enchant_reset");
+        super("enchant_reset", s -> s.getBlock() == Blocks.BOOKSHELF, 5000, true, "ritual." + BloodArsenal.MOD_ID + ".imperfect.enchant_reset");
     }
 
     @Override
@@ -23,14 +22,8 @@ public class ImperfectRitualEnchantReset extends ImperfectRitual
             return false;
 
         player.addExperienceLevel(1);
-        player.removeExperienceLevel(1);
+        player.addExperienceLevel(-1);
 
-        return true;
-    }
-
-    @Override
-    public boolean isLightshow()
-    {
         return true;
     }
 }

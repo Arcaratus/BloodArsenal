@@ -2,6 +2,10 @@ package arcaratus.bloodarsenal.registry;
 
 import WayofTime.bloodmagic.ritual.Ritual;
 import WayofTime.bloodmagic.ritual.RitualRegistry;
+import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitual;
+import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitualRegistry;
+import arcaratus.bloodarsenal.ConfigHandler;
+import arcaratus.bloodarsenal.ritual.imperfect.*;
 import com.google.common.collect.BiMap;
 
 import java.lang.reflect.Field;
@@ -11,27 +15,27 @@ import java.util.ArrayList;
 public class ModRituals
 {
 //    public static final Ritual INFUSION_RITUAL;
-//
-//    public static final ImperfectRitual IMPERFECT_LIGHTNING;
-//    public static final ImperfectRitual IMPERFECT_ENCHANT_RESET;
-//    public static final ImperfectRitual IMPERFECT_ICE;
-//    public static final ImperfectRitual IMPERFECT_SNOW;
 
-    static
+    public static ImperfectRitual IMPERFECT_LIGHTNING;
+    public static ImperfectRitual IMPERFECT_ENCHANT_RESET;
+    public static ImperfectRitual IMPERFECT_ICE;
+    public static ImperfectRitual IMPERFECT_SNOW;
+
+    public static void initImperfectRituals()
     {
 //        INFUSION_RITUAL = new RitualInfusion();
 //
-//        IMPERFECT_LIGHTNING = new ImperfectRitualLightning();
-//        IMPERFECT_ENCHANT_RESET = new ImperfectRitualEnchantReset();
-//        IMPERFECT_ICE = new ImperfectRitualIce();
-//        IMPERFECT_SNOW = new ImperfectRitualSnow();
+        IMPERFECT_LIGHTNING = new ImperfectRitualLightning();
+        IMPERFECT_ENCHANT_RESET = new ImperfectRitualEnchantReset();
+        IMPERFECT_ICE = new ImperfectRitualIce();
+        IMPERFECT_SNOW = new ImperfectRitualSnow();
 //
 //        RitualRegistry.registerRitual(INFUSION_RITUAL, ConfigHandler.infusionRitual);
 //
-//        ImperfectRitualRegistry.registerRitual(IMPERFECT_LIGHTNING, ConfigHandler.imperfectLightning);
-//        ImperfectRitualRegistry.registerRitual(IMPERFECT_ENCHANT_RESET, ConfigHandler.imperfectEnchantReset);
-//        ImperfectRitualRegistry.registerRitual(IMPERFECT_ICE, ConfigHandler.imperfectIce);
-//        ImperfectRitualRegistry.registerRitual(IMPERFECT_SNOW, ConfigHandler.imperfectSnow);
+        ImperfectRitualRegistry.registerRitual(IMPERFECT_LIGHTNING, ConfigHandler.rituals.imperfect.imperfectLightning);
+        ImperfectRitualRegistry.registerRitual(IMPERFECT_ENCHANT_RESET, ConfigHandler.rituals.imperfect.imperfectEnchantReset);
+        ImperfectRitualRegistry.registerRitual(IMPERFECT_ICE, ConfigHandler.rituals.imperfect.imperfectIce);
+        ImperfectRitualRegistry.registerRitual(IMPERFECT_SNOW, ConfigHandler.rituals.imperfect.imperfectSnow);
     }
 
     public static void overrideRituals()

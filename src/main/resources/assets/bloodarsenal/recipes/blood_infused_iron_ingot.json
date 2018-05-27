@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "bloodarsenal:base_item",
+    "data": 4,
+    "count": 9
+  },
+  "pattern": [
+    "a"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodarsenal:blood_infused_iron_block"
+    }
+  }
+}

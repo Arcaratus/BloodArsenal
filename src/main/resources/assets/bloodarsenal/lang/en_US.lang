@@ -9,7 +9,7 @@ item.bloodarsenal.base_item.blood_infused_glowstone_dust.name=Blood Infused Glow
 item.bloodarsenal.base_item.inert_blood_infused_iron_ingot.name=Inert Blood-Iron Ingot
 item.bloodarsenal.base_item.blood_infused_iron_ingot.name=Blood Infused Iron Ingot
 item.bloodarsenal.blood_orange.name=Blood Orange
-item.bloodarsenal.base_item.bound_stick.name=Bound Stick
+item.bloodarsenal.bound_stick.name=Bound Stick
 item.bloodarsenal.blood_diamond.normal.name=Blood Diamond
 item.bloodarsenal.blood_diamond.inert.name=Inert Blood Diamond
 item.bloodarsenal.blood_diamond.infused.name=Blood Infused Diamond
@@ -43,13 +43,13 @@ item.bloodarsenal.sigil.lightning.name=Lightning Sigil
 item.bloodarsenal.sigil.divinity.name=Sigil of Divinity
 item.bloodarsenal.sigil.sentience.name=Sigil of Sentience
 
-item.bloodarsenal.base_component.gem_sacrifice.name=Gem of Sacrifice
-item.bloodarsenal.base_component.gem_self_sacrifice.name=Gem of Self Sacrifice
-item.bloodarsenal.base_component.gem_tartaric.name=Gem of Tartaric Will
+item.bloodarsenal.gem.sacrifice.name=Gem of Sacrifice
+item.bloodarsenal.gem.self_sacrifice.name=Gem of Self Sacrifice
+item.bloodarsenal.gem.tartaric.name=Gem of Tartaric Will
 
 item.bloodarsenal.bound.sickle.name=Bound Sickle
 
-item.bloodarsenal.stasis_plate.name=Stasis Plate
+item.bloodarsenal.base_item.stasis_plate.name=Stasis Plate
 item.bloodarsenal.stasis.pickaxe.name=Stasis Pickaxe
 item.bloodarsenal.stasis.axe.name=Stasis Axe
 item.bloodarsenal.stasis.shovel.name=Stasis Shovel
@@ -59,7 +59,7 @@ item.bloodarsenal.profilable.alt=Profile %d
 
 item.bloodarsenal.modifierTome.name=Modifier Tome
 
-item.bloodarsenal.warpBlade.name=Warp Blade
+item.bloodarsenal.warp_blade.name=Warp Blade
 
 item.bloodarsenal.sacrifice_amulet.name=Amulet of Sacrifice
 item.bloodarsenal.self_sacrifice_amulet.name=Amulet of Self Sacrifice
@@ -94,7 +94,8 @@ tile.bloodarsenal.altare_aenigmatica.name=Altare Aenigmatica
 tile.bloodarsenal.stasis_plate.name=Stasis Plate
 
 # Entities
-entity.bloodarsenal.SummonedTool.name=Summoned Tool
+entity.summoned_tool.name=Summoned Tool
+entity.warp_blade.name=Warp Blade
 
 # Tooltips
 tooltip.bloodarsenal.glass_shard.desc=Piercingly transparent
