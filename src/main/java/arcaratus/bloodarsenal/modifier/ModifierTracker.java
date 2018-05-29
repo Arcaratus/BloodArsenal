@@ -2,64 +2,53 @@ package arcaratus.bloodarsenal.modifier;
 
 import WayofTime.bloodmagic.util.Utils;
 import arcaratus.bloodarsenal.BloodArsenal;
+import arcaratus.bloodarsenal.registry.Constants;
 import net.minecraft.nbt.NBTTagCompound;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
+/**
+ * Mutable partner to the Modifier class
+ */
 public class ModifierTracker
 {
-    public static HashMap<String, ModifierTracker> trackerMap = new HashMap<>();
+    private double counter;
 
-    public double counter = 0;
-
-    public static HashMap<IModifiable, HashMap<Class<? extends Modifier>, Double>> changeMap = new HashMap<>();
     public final int[] COUNTERS_NEEDED;
+
+    private int level;
+    private boolean readyToUpgrade;
+    private boolean markedForUpgrade;
 
     private boolean isDirty = false;
     protected String name;
 
-    private final Modifier modifier;
+    private final String modifierKey;
 
-    private ModifierTracker(Modifier modifier, int[] countersNeeded)
+    public ModifierTracker(String modifierKey, int[] countersNeeded)
     {
-        this.modifier = modifier;
+        this.modifierKey = modifierKey;
         COUNTERS_NEEDED = countersNeeded;
+
+        counter = 0;
+        level = 0;
+        readyToUpgrade = false;
+        markedForUpgrade = false;
     }
 
-    public static ModifierTracker newTracker(Modifier modifier, int[] countersNeeded)
+    public ModifierTracker copy(int level)
     {
-        ModifierTracker tracker = new ModifierTracker(modifier, countersNeeded);
-        trackerMap.put(modifier.getUniqueIdentifier(), tracker);
+        ModifierTracker tracker = new ModifierTracker(modifierKey, COUNTERS_NEEDED);
+        tracker.setLevel(level);
         return tracker;
-    }
-
-    public static ModifierTracker getTracker(Modifier modifier)
-    {
-        return trackerMap.getOrDefault(modifier.getUniqueIdentifier(), null);
-    }
-
-    public static ModifierTracker getTracker(Class<? extends Modifier> clazz)
-    {
-        String name = "";
-
-        try
-        {
-            Method method = clazz.getDeclaredMethod("getUniqueIdentifier");
-            name = (String) method.invoke(null);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return trackerMap.getOrDefault(name, null);
     }
 
     protected String getName()
     {
-        return modifier.getName();
+        return modifierKey;
+    }
+
+    public double getCounter()
+    {
+        return counter;
     }
 
     public String getUniqueIdentifier()
@@ -67,63 +56,89 @@ public class ModifierTracker
         return BloodArsenal.MOD_ID + ".tracker." + getName();
     }
 
-    public Modifier getModifier()
+    public int getLevel()
     {
-        return modifier;
+        return level;
+    }
+
+    public void setLevel(int level)
+    {
+        this.level = level;
+    }
+
+    public void incrementLevel()
+    {
+        level++;
+    }
+
+    public boolean isReadyToUpgrade()
+    {
+        return readyToUpgrade;
+    }
+
+    public void setCounter(double counter)
+    {
+        this.counter = counter;
+    }
+
+    public void setReadyToUpgrade(boolean upgrade)
+    {
+        readyToUpgrade = upgrade;
     }
 
     /**
-     * When called the ModifierTracker should reset all of its data, including
+     * When called, the ModifierTracker should reset all of its data, including
      * upgrades.
      */
-    public void resetTracker()
+    public void resetCounter()
     {
         counter = 0;
     }
 
     public void readFromNBT(NBTTagCompound tag)
     {
-        counter = tag.getDouble(getUniqueIdentifier());
+        counter = tag.getDouble(Constants.NBT.COUNTER);
+        level = tag.getInteger(Constants.NBT.LEVEL);
+        readyToUpgrade = tag.getBoolean(Constants.NBT.READY_TO_UPGRADE);
+        markedForUpgrade = tag.getBoolean(Constants.NBT.MARKED_FOR_UPGRADE);
     }
 
     public void writeToNBT(NBTTagCompound tag)
     {
-        tag.setDouble(getUniqueIdentifier(), counter);
+        tag.setDouble(Constants.NBT.COUNTER, counter);
+        tag.setInteger(Constants.NBT.LEVEL, level);
+        tag.setBoolean(Constants.NBT.READY_TO_UPGRADE, readyToUpgrade);
+        tag.setBoolean(Constants.NBT.MARKED_FOR_UPGRADE, markedForUpgrade);
     }
 
-    public boolean onTick(IModifiable modifiable)
+    // TODO: Make the notification for Modifier upgrades work properly
+    public boolean onTick()
     {
-        if (changeMap.containsKey(modifiable) && changeMap.get(modifiable).containsKey(modifier.getClass()))
-        {
-            double change = Math.abs(changeMap.get(modifiable).get(modifier.getClass()));
-            if (change > 0)
-            {
-                counter += Math.abs(changeMap.get(modifiable).get(modifier.getClass()));
-                HashMap<Class<? extends Modifier>, Double> lol = changeMap.get(modifiable);
-                lol.put(modifier.getClass(), 0D);
-                changeMap.put(modifiable, lol);
-                markDirty();
+//        if (changeMap.containsKey(modifiable) && changeMap.get(modifiable).containsKey(modifier.getClass()))
+//        {
+//            double change = Math.abs(changeMap.get(modifiable).get(modifier.getClass()));
+//            if (change > 0)
+//            {
+//                counter += Math.abs(changeMap.get(modifiable).get(modifier.getClass()));
+//                HashMap<Class<? extends Modifier>, Double> lol = changeMap.get(modifiable);
+//                lol.put(modifier.getClass(), 0D);
+//                changeMap.put(modifiable, lol);
+//                markDirty();
+//
+//                return true;
+//            }
+//        }
+//
+//        return false;
 
-                return true;
-            }
+        if (!markedForUpgrade && level < COUNTERS_NEEDED.length - 1 && counter >= COUNTERS_NEEDED[level + 1])
+        {
+            markedForUpgrade = true;
+            readyToUpgrade = true;
+            return true;
         }
 
         return false;
-    }
-
-    public Modifier getNextModifier(HashMap<String, Modifier> modifierMap)
-    {
-        Modifier modifier = Modifier.EMPTY_MODIFIER;
-        for (Entry<String, Modifier> entry : modifierMap.entrySet())
-            if (entry.getValue().getClass().isInstance(this.modifier))
-                modifier = entry.getValue();
-
-        if (modifier != Modifier.EMPTY_MODIFIER)
-            for (int i = COUNTERS_NEEDED.length - 1; i > 0; i--)
-                if (counter >= COUNTERS_NEEDED[i])
-                    return modifier.getLevel() < i ? this.modifier.newCopy(i) : modifier;
-
-        return modifier;
     }
 
     /**
@@ -133,9 +148,9 @@ public class ModifierTracker
      *
      * @return the progress from the current level to the next level.
      */
-    public double getProgress(int currentLevel)
+    public double getProgress()
     {
-        return Utils.calculateStandardProgress(counter, COUNTERS_NEEDED, currentLevel);
+        return Utils.calculateStandardProgress(counter, COUNTERS_NEEDED, level);
     }
 
     public final boolean isDirty()
@@ -158,11 +173,10 @@ public class ModifierTracker
         return key.equals(getUniqueIdentifier());
     }
 
-    public void onModifierAdded(Modifier modifier)
+    public void onModifierUpgraded(Modifier modifier)
     {
-        if (modifier.getClass().isInstance(this.modifier))
+        if (modifier.getUniqueIdentifier().equals(modifierKey))
         {
-            int level = modifier.getLevel();
             if (level < COUNTERS_NEEDED.length)
             {
                 counter = Math.max(counter, COUNTERS_NEEDED[level]);
@@ -171,35 +185,16 @@ public class ModifierTracker
         }
     }
 
-    public void incrementCounter(IModifiable modifiable, double increment)
+    public void incrementCounter(double increment)
     {
-        if (changeMap.containsKey(modifiable) && changeMap.get(modifiable).containsKey(modifier.getClass()))
-        {
-            HashMap<Class<? extends Modifier>, Double> lol = changeMap.get(modifiable);
-            lol.put(modifier.getClass(), changeMap.get(modifiable).get(modifier.getClass()) + increment);
-            changeMap.put(modifiable, lol);
-        }
-        else
-        {
-            HashMap<Class<? extends Modifier>, Double> lol = new HashMap<>();
-            lol.put(modifier.getClass(), increment);
-            changeMap.put(modifiable, lol);
-        }
-    }
+        counter += increment;
 
-    public static void incrementCounter(IModifiable modifiable, Class<? extends Modifier> clazz, double increment)
-    {
-        if (changeMap.containsKey(modifiable) && changeMap.get(modifiable).containsKey(clazz))
+        if (!readyToUpgrade && level < COUNTERS_NEEDED.length - 1 && counter >= COUNTERS_NEEDED[level + 1])
         {
-            HashMap<Class<? extends Modifier>, Double> lol = changeMap.get(modifiable);
-            lol.put(clazz, changeMap.get(modifiable).get(clazz) + increment);
-            changeMap.put(modifiable, lol);
+            setReadyToUpgrade(true);
+            resetCounter();
         }
-        else
-        {
-            HashMap<Class<? extends Modifier>, Double> lol = new HashMap<>();
-            lol.put(clazz, increment);
-            changeMap.put(modifiable, lol);
-        }
+
+        markDirty();
     }
 }

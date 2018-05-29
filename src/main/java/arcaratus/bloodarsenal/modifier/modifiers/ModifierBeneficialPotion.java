@@ -12,9 +12,9 @@ import net.minecraft.world.World;
 
 public class ModifierBeneficialPotion extends Modifier
 {
-    public ModifierBeneficialPotion(int level)
+    public ModifierBeneficialPotion()
     {
-        super(Constants.Modifiers.BENEFICIAL_POTION, Constants.Modifiers.BENEFICIAL_POTION_COUNTER.length, level, EnumModifierType.HANDLE);
+        super(Constants.Modifiers.BENEFICIAL_POTION, Constants.Modifiers.BENEFICIAL_POTION_COUNTER.length, EnumModifierType.HANDLE);
         setAltName();
     }
 
@@ -25,9 +25,9 @@ public class ModifierBeneficialPotion extends Modifier
     }
 
     @Override
-    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot)
+    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, int level)
     {
-        if (random.nextInt(getLevel() + 1) >= random.nextInt(getMaxLevel()))
+        if (random.nextInt(level + 1) >= random.nextInt(getMaxLevel()))
         {
             if (entity instanceof EntityPlayer && itemStack.hasTagCompound())
             {
@@ -35,18 +35,18 @@ public class ModifierBeneficialPotion extends Modifier
                 Potion potion = PotionUtils.getEffectsFromStack(new ItemStack(data)).get(0).getPotion();
                 EntityPlayer player = (EntityPlayer) entity;
 
-                if (potion.isInstant() && world.getWorldTime() % (40 * getMaxLevel() - 20 * getLevel()) == 0)
-                    potion.affectEntity(player, player, player, getLevel(), 1);
+                if (potion.isInstant() && world.getWorldTime() % (40 * getMaxLevel() - 20 * level) == 0)
+                    potion.affectEntity(player, player, player, level, 1);
                 else
-                    player.addPotionEffect(new PotionEffect(potion, 20 + 40 * (getLevel() + 1), getLevel()));
+                    player.addPotionEffect(new PotionEffect(potion, 20 + 40 * (level + 1), level));
 
-                ModifierTracker.getTracker(this).incrementCounter(StasisModifiable.getStasisModifiable(itemStack), 1);
+                NewModifiable.incrementModifierTracker(itemStack, this, 1);
             }
         }
     }
 
     @Override
-    public void writeSpecialNBT(ItemStack itemStack, ItemStack extra)
+    public void writeSpecialNBT(ItemStack itemStack, ItemStack extra, int level)
     {
         NBTTagCompound tag = itemStack.getTagCompound();
         NBTTagCompound potionTag = new NBTTagCompound();

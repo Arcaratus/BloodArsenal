@@ -10,9 +10,9 @@ import net.minecraft.potion.*;
 
 public class ModifierBadPotion extends Modifier
 {
-    public ModifierBadPotion(int level)
+    public ModifierBadPotion()
     {
-        super(Constants.Modifiers.BAD_POTION, Constants.Modifiers.BAD_POTION_COUNTER.length, level, EnumModifierType.HEAD);
+        super(Constants.Modifiers.BAD_POTION, Constants.Modifiers.BAD_POTION_COUNTER.length, EnumModifierType.HEAD);
         setAltName();
     }
 
@@ -23,9 +23,9 @@ public class ModifierBadPotion extends Modifier
     }
 
     @Override
-    public void hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker)
+    public void hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker, int level)
     {
-        if (random.nextInt(getLevel() + 1) >= random.nextInt(getMaxLevel()))
+        if (random.nextInt(level + 1) >= random.nextInt(getMaxLevel()))
         {
             if (itemStack.hasTagCompound())
             {
@@ -33,17 +33,17 @@ public class ModifierBadPotion extends Modifier
                 Potion potion = PotionUtils.getEffectsFromStack(new ItemStack(data)).get(0).getPotion();
 
                 if (potion.isInstant())
-                    potion.affectEntity(attacker, attacker, target, getLevel(), 1);
+                    potion.affectEntity(attacker, attacker, target, level, 1);
                 else
-                    target.addPotionEffect(new PotionEffect(potion, 20 + 40 * (getLevel() + 1), getLevel()));
+                    target.addPotionEffect(new PotionEffect(potion, 20 + 40 * (level + 1), level));
 
-                ModifierTracker.getTracker(this).incrementCounter(StasisModifiable.getStasisModifiable(itemStack), 1);
+                NewModifiable.incrementModifierTracker(itemStack, this, 1);
             }
         }
     }
 
     @Override
-    public void writeSpecialNBT(ItemStack itemStack, ItemStack extra)
+    public void writeSpecialNBT(ItemStack itemStack, ItemStack extra, int level)
     {
         NBTTagCompound tag = itemStack.getTagCompound();
         NBTTagCompound potionTag = new NBTTagCompound();
@@ -74,7 +74,10 @@ public class ModifierBadPotion extends Modifier
     public void removeSpecialNBT(ItemStack itemStack)
     {
         NBTTagCompound tag = itemStack.getTagCompound();
-        tag.removeTag(Constants.NBT.ITEMSTACK);
-        tag.removeTag(Constants.NBT.ITEMSTACK_NAME);
+        if (tag != null)
+        {
+            tag.removeTag(Constants.NBT.ITEMSTACK);
+            tag.removeTag(Constants.NBT.ITEMSTACK_NAME);
+        }
     }
 }

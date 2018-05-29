@@ -89,6 +89,6 @@ public class ItemStasisShovel extends ItemStasisTool
     @SideOnly(Side.CLIENT)
     public ItemMeshDefinition getMeshDefinition()
     {
-        return new CustomMeshDefinitionActivatable("ItemStasisShovel");
+        return new CustomMeshDefinitionActivatable("stasis_shovel");
     }
 }

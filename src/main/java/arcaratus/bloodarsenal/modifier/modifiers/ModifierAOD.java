@@ -1,12 +1,9 @@
 package arcaratus.bloodarsenal.modifier.modifiers;
 
-import WayofTime.bloodmagic.api.BlockStack;
-import WayofTime.bloodmagic.api.ItemStackWrapper;
-import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
-import com.google.common.collect.HashMultiset;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -17,54 +14,57 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.List;
 import java.util.Set;
 
 public class ModifierAOD extends Modifier
 {
-    public ModifierAOD(int level)
+    public ModifierAOD()
     {
-        super(Constants.Modifiers.AOD, Constants.Modifiers.AOD_COUNTER.length, level, EnumModifierType.ABILITY, EnumAction.BOW);
+        super(Constants.Modifiers.AOD, Constants.Modifiers.AOD_COUNTER.length, EnumModifierType.ABILITY, EnumAction.BOW);
     }
 
     @Override
-    public void onRelease(ItemStack itemStack, World world, EntityPlayer player, int charge)
+    public void onRelease(ItemStack itemStack, World world, EntityPlayer player, int charge, int level)
     {
         if (world.isRemote)
             return;
 
         boolean silkTouch = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, itemStack) > 0;
         int fortuneLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack);
-        int range = charge * (getLevel() + 1) / getMaxLevel();
+        int range = charge * (level + 1) / getMaxLevel();
 
         Item item = itemStack.getItem();
         Set<Block> effectiveOn;
         Set<Material> materialEffOn;
         String name = (String) item.getToolClasses(itemStack).toArray()[0]; // We ONLY care about the first tool class found
-
         BlockPos playerPos = player.getPosition();
+
+        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
 
         if (name.equals("sword"))
         {
             List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(playerPos.add(-range, 0, -range), playerPos.add(range, 2 * range, range)));
-            double damage = (getLevel() + 1) * 2;
+            double damage = (level + 1) * 2;
 
             for (EntityLivingBase living : entities)
             {
                 if (living == player)
                     continue;
 
-                living.attackEntityFrom(DamageSource.GENERIC, (float) (damage * ((getLevel() + 1) / getMaxLevel())));
+                living.attackEntityFrom(DamageSource.GENERIC, (float) (damage * ((level + 1) / getMaxLevel())));
                 living.attackEntityAsMob(player);
-                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (Math.pow(charge, 3) * (getLevel() + 1) / 2.7));
-                ModifierTracker.getTracker(this).incrementCounter(StasisModifiable.getStasisModifiable(itemStack), 1);
+                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (Math.pow(charge, 3) * (level + 1) / 2.7));
+                NewModifiable.incrementModifierTracker(itemStack, this, 1);
             }
 
             return;
@@ -73,10 +73,9 @@ public class ModifierAOD extends Modifier
         effectiveOn = BloodArsenalUtils.getEffectiveBlocksForTool(name);
         materialEffOn = BloodArsenalUtils.getEffectiveMaterialsForTool(name);
 
-        HashMultiset<ItemStackWrapper> drops = HashMultiset.create();
+        NonNullList<ItemStack> drops = NonNullList.create();
 
-        StasisModifiable modifiable = StasisModifiable.getStasisModifiable(itemStack);
-        boolean hasSmelting = modifiable.hasModifier(ModifierSmelting.class);
+        boolean hasSmelting = modifiable.hasModifier(Constants.Modifiers.SMELTING);
 
         for (int i = -range; i <= range; i++)
         {
@@ -85,57 +84,77 @@ public class ModifierAOD extends Modifier
                 for (int k = -range; k <= range; k++)
                 {
                     BlockPos blockPos = playerPos.add(i, j, k);
-                    BlockStack blockStack = BlockStack.getStackFromPos(world, blockPos);
+                    IBlockState blockState = world.getBlockState(blockPos);
 
-                    if (blockStack.getBlock().isAir(blockStack.getState(), world, blockPos))
+                    if (blockState.getBlock().isAir(blockState, world, blockPos))
                         continue;
 
                     for (Material material : materialEffOn)
-                        if (blockStack.getState().getMaterial() != material)
+                        if (blockState.getMaterial() != material)
                             continue;
 
-                    if (!effectiveOn.contains(blockStack.getBlock()))
+                    if (!effectiveOn.contains(blockState.getBlock()))
                         continue;
 
-                    BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, blockPos, blockStack.getState(), player);
+                    BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, blockPos, blockState, player);
                     if (MinecraftForge.EVENT_BUS.post(event) || event.getResult() == Event.Result.DENY)
                         continue;
 
-                    if (blockStack.getBlock().getBlockHardness(blockStack.getState(), world, blockPos) != -1)
+                    if (blockState.getBlock().getBlockHardness(blockState, world, blockPos) != -1)
                     {
-                        float strengthVsBlock = itemStack.getStrVsBlock(blockStack.getState());
+                        float strengthVsBlock = itemStack.getDestroySpeed(blockState);
 
                         if (strengthVsBlock > 1.1F && world.canMineBlockBody(player, blockPos))
                         {
-                            if (silkTouch && blockStack.getBlock().canSilkHarvest(world, blockPos, world.getBlockState(blockPos), player))
+                            if (silkTouch && blockState.getBlock().canSilkHarvest(world, blockPos, world.getBlockState(blockPos), player))
                             {
-                                drops.add(new ItemStackWrapper(blockStack));
+                                drops.add(new ItemStack(blockState.getBlock(), 1, blockState.getBlock().getMetaFromState(blockState)));
                             }
-                            else if (hasSmelting)
+                            else if (hasSmelting) // Bad cross-modifier implementation
                             {
-                                IBlockState state = world.getBlockState(blockPos);
-                                ItemStack blockItemStack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
-                                ItemStack resultStack = FurnaceRecipes.instance().getSmeltingResult(blockItemStack);
+                                ItemStack blockStack = new ItemStack(blockState.getBlock(), 1, blockState.getBlock().getMetaFromState(blockState));
+                                ItemStack resultStack = FurnaceRecipes.instance().getSmeltingResult(blockStack);
                                 if (!resultStack.isEmpty())
-                                    if (getLevel() > 0 || (getLevel() == 0 && resultStack.getItem() instanceof ItemBlock))
-                                        drops.add(ItemStackWrapper.getHolder(resultStack));
+                                {
+                                    boolean hasFortune = NewModifiable.getModifiableFromStack(itemStack).hasModifier(Constants.Modifiers.FORTUNATE);
+                                    if (level > 0 && hasFortune) // Written in a jiffy
+                                    {
+                                        int fortune = random.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack) + 2) - 1;
+
+                                        drops.add(ItemHandlerHelper.copyStackWithSize(resultStack, resultStack.getCount() * (fortune + 1)));
+                                        NewModifiable.incrementModifierTracker(itemStack, this, 1);
+                                    }
+                                    else if (level == 0 && !(resultStack.getItem() instanceof ItemBlock))
+                                    {
+                                        drops.add(new ItemStack(blockState.getBlock(), 1, blockState.getBlock().getMetaFromState(blockState)));
+                                    }
+                                    else
+                                    {
+                                        drops.add(ItemHandlerHelper.copyStackWithSize(resultStack, resultStack.getCount()));
+                                        NewModifiable.incrementModifierTracker(itemStack, this, 1);
+                                    }
+                                }
+                                else
+                                {
+                                    drops.add(new ItemStack(blockState.getBlock(), 1, blockState.getBlock().getMetaFromState(blockState)));
+                                }
                             }
                             else
                             {
-                                List<ItemStack> itemDrops = blockStack.getBlock().getDrops(world, blockPos, world.getBlockState(blockPos), fortuneLvl);
-                                for (ItemStack stacks : itemDrops)
-                                    drops.add(ItemStackWrapper.getHolder(stacks));
+                                NonNullList<ItemStack> itemDrops = NonNullList.create();
+                                blockState.getBlock().getDrops(itemDrops, world, blockPos, world.getBlockState(blockPos), fortuneLvl);
+                                drops.addAll(itemDrops);
                             }
 
                             world.setBlockToAir(blockPos);
-                            ModifierTracker.getTracker(this).incrementCounter(StasisModifiable.getStasisModifiable(itemStack), 1);
+                            NewModifiable.incrementModifierTracker(itemStack, this, 1);
                         }
                     }
                 }
             }
         }
 
-        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (Math.pow(charge, 3) * (getLevel() + 1) / 2.7));
+        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (Math.pow(charge, 3) * (level + 1) / 2.7));
         world.createExplosion(player, playerPos.getX(), playerPos.getY(), playerPos.getZ(), 0.1F, false);
         BloodArsenalUtils.dropStacks(drops, world, playerPos.add(0, 1, 0));
     }

@@ -13,24 +13,24 @@ import static arcaratus.bloodarsenal.registry.Constants.Misc.ATTACK_SPEED_MODIFI
 
 public class ModifierQuickDraw extends Modifier
 {
-    public ModifierQuickDraw(int level)
+    public ModifierQuickDraw()
     {
-        super(Constants.Modifiers.QUICK_DRAW, Constants.Modifiers.QUICK_DRAW_COUNTER.length, level, EnumModifierType.HANDLE);
+        super(Constants.Modifiers.QUICK_DRAW, Constants.Modifiers.QUICK_DRAW_COUNTER.length, EnumModifierType.HANDLE);
     }
 
     @Override
-    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot)
+    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, int level)
     {
         if (world.getWorldTime() % 20 == 0)
-            ModifierTracker.getTracker(this).incrementCounter(StasisModifiable.getStasisModifiable(itemStack), 1);
+            NewModifiable.incrementModifierTracker(itemStack, this, 1);
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers()
+    public Multimap<String, AttributeModifier> getAttributeModifiers(int level)
     {
-        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers();
+        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(level);
 
-        multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (getLevel() + 1) * 2 / 4, 0));
+        multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (level + 1) * 2 / 4, 0));
 
         return multimap;
     }

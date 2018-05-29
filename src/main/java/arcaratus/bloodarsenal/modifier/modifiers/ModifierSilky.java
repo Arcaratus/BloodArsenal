@@ -9,13 +9,13 @@ import net.minecraft.item.ItemStack;
 
 public class ModifierSilky extends Modifier
 {
-    public ModifierSilky(int level)
+    public ModifierSilky()
     {
-        super(Constants.Modifiers.SILKY, 1, level, EnumModifierType.CORE);
+        super(Constants.Modifiers.SILKY, 1, EnumModifierType.CORE);
     }
 
     @Override
-    public void writeSpecialNBT(ItemStack itemStack, ItemStack extra)
+    public void writeSpecialNBT(ItemStack itemStack, ItemStack extra, int level)
     {
         BloodArsenalUtils.writeNBTEnchantment(itemStack, Enchantments.SILK_TOUCH, Enchantments.SILK_TOUCH.getMaxLevel());
     }

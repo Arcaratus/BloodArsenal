@@ -1,6 +1,6 @@
 package arcaratus.bloodarsenal.entity.projectile;
 
-import arcaratus.bloodarsenal.Constants;
+import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import arcaratus.bloodarsenal.util.Vector3;
 import io.netty.buffer.ByteBuf;

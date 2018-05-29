@@ -1,20 +1,21 @@
 package arcaratus.bloodarsenal.modifier;
 
-import WayofTime.bloodmagic.api.util.helper.NBTHelper;
+import WayofTime.bloodmagic.util.helper.NBTHelper;
 import arcaratus.bloodarsenal.item.ItemModifierTome;
 import arcaratus.bloodarsenal.registry.Constants;
 import net.minecraft.item.ItemStack;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class ModifierHelper
 {
-    public static Modifier getModifier(ItemStack itemStack)
+    public static Pair<Modifier, ModifierTracker> getModifierAndTracker(ItemStack itemStack)
     {
         if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemModifierTome)
         {
-            return ModifierHandler.generateModifierFromKey(getKey(itemStack), getLevel(itemStack), getReady(itemStack));
+            return Pair.of(ModifierHandler.getModifierFromKey(getKey(itemStack)), ModifierHandler.getTrackerFromKey(getKey(itemStack), getLevel(itemStack)));
         }
 
-        return Modifier.EMPTY_MODIFIER;
+        return Pair.of(Modifier.EMPTY_MODIFIER, null);
     }
 
     public static String getKey(ItemStack itemStack)

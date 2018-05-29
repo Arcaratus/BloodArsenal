@@ -1,8 +1,8 @@
 package arcaratus.bloodarsenal.client.gui;
 
-import arcaratus.bloodarsenal.Constants;
 import arcaratus.bloodarsenal.item.inventory.ContainerAugmentedHolding;
 import arcaratus.bloodarsenal.item.inventory.InventoryAugmentedHolding;
+import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.tile.TileAltareAenigmatica;
 import arcaratus.bloodarsenal.tile.container.ContainerAltareAenigmatica;
 import net.minecraft.client.multiplayer.WorldClient;

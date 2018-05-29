@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
-import static arcaratus.bloodarsenal.Constants.Item.PICKAXE_EFFECTIVE_ON;
+import static arcaratus.bloodarsenal.registry.Constants.Item.PICKAXE_EFFECTIVE_ON;
 
 public class ItemBloodInfusedIronPickaxe extends ItemBloodInfusedTool.Iron
 {

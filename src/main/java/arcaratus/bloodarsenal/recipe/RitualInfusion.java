@@ -2,21 +2,19 @@ package arcaratus.bloodarsenal.ritual;
 
 import WayofTime.bloodmagic.altar.IBloodAltar;
 import WayofTime.bloodmagic.ritual.*;
-import WayofTime.bloodmagic.util.helper.NBTHelper;
 import arcaratus.bloodarsenal.block.BlockStasisPlate;
 import arcaratus.bloodarsenal.recipe.RecipeSanguineInfusion;
 import arcaratus.bloodarsenal.recipe.SanguineInfusionRecipeRegistry;
-import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.tile.TileStasisPlate;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 //import arcaratus.bloodarsenal.modifier.*;
 
@@ -90,94 +88,94 @@ public class RitualInfusion extends RitualBloodArsenal
 
                 if (recipe.isModifier())
                 {
-                    if (input.getItem() instanceof IModifiableItem)
-                    {
-                        StasisModifiable modifiable = StasisModifiable.getModFromNBT(input);
-                        if (modifiable == null)
-                        {
-                            endRitual(world, pos, masterRitualStone);
-                            return;
-                        }
-
-                        Modifier modifier = recipe.getModifier();
-                        Modifier originalModifier = modifiable.getModifier(modifier.getClass());
-
-                        int modifierLevel = -1;
-
-                        // Get the modifier level for the # of items present
-                        for (int i = recipe.getModifier().getMaxLevel() - 1; i >= 0; i--)
-                        {
-                            if (recipe.matches(inputStacks, i))
-                            {
-                                modifierLevel = i;
-                                break;
-                            }
-                        }
-
-                        NBTTagCompound specialNBT = null;
-                        if (originalModifier == Modifier.EMPTY_MODIFIER && modifierLevel >= 0)
-                        {
-                            modifierLevel = 0;
-                        }
-                        else if (originalModifier.readyForUpgrade() && modifierLevel > originalModifier.getLevel())
-                        {
-                            if (originalModifier.getSpecialNBT(input) != null)
-                            {
-                                specialNBT = originalModifier.getSpecialNBT(input);
-                            }
-
-                            modifierLevel = originalModifier.getLevel() + 1;
-                        }
-                        else
-                        {
-                            endRitual(world, pos, masterRitualStone);
-                            return;
-                        }
-
-                        if (specialNBT != null && !recipe.matchesWithSpecificity(wildStack, new ItemStack(specialNBT.getCompoundTag(Constants.NBT.ITEMSTACK))))
-                        {
-                            endRitual(world, pos, masterRitualStone);
-                            return;
-                        }
-
-                        modifier.setLevel(modifierLevel);
-
-                        if (!modifiable.canApplyModifier(modifier))
-                        {
-                            endRitual(world, pos, masterRitualStone);
-                            return;
-                        }
-
-                        tickCrafting(masterRitualStone);
-
-                        if (craftingTimer == recipe.getLpCost() * (modifierLevel + 1) / CONSTANT_OF_INFUSION && modifiable.applyModifier(modifier))
-                        {
-                            ItemStack copyStack = input.copy();
-                            NBTHelper.checkNBT(copyStack);
-                            modifier.removeSpecialNBT(copyStack); // Needed here in order to reset NBT data
-                            modifier.writeSpecialNBT(copyStack, wildStack);
-                            if (!StasisModifiable.hasModifiable(copyStack))
-                                StasisModifiable.setStasisModifiable(copyStack, StasisModifiable.getModFromNBT(copyStack));
-                            StasisModifiable.setStasisModifiable(copyStack, modifiable);
-
-                            shrinkItemStackInputs(world, pos, recipe.getInputsForLevel(modifierLevel), wildStack);
-                            altarInv.setInventorySlotContents(0, copyStack);
-
-                            world.spawnEntity(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY() + 1, masterRitualStone.getBlockPos().getZ(), true));
-                            endRitual(world, pos, masterRitualStone);
-                            return;
-                        }
-
-                        if (!isCrafting)
-                        {
-                            setStasisPlates(world, stasisPlates, true);
-                            isCrafting = true;
-                        }
-                    }
-                    else
-                    {
-                        endRitual(world, pos, masterRitualStone);
-                    }
+//                    if (input.getItem() instanceof IModifiableItem)
+//                    {
+//                        StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(input);
+//                        if (modifiable == null)
+//                        {
+//                            endRitual(world, pos, masterRitualStone);
+//                            return;
+//                        }
+//
+//                        Modifier modifier = recipe.getModifierAndTracker();
+//                        Modifier originalModifier = modifiable.getModifierAndTracker(modifier.getClass());
+//
+//                        int level = -1;
+//
+//                        // Get the modifier level for the # of items present
+//                        for (int i = recipe.getModifierAndTracker().getMaxLevel() - 1; i >= 0; i--)
+//                        {
+//                            if (recipe.matches(inputStacks, i))
+//                            {
+//                                level = i;
+//                                break;
+//                            }
+//                        }
+//
+//                        NBTTagCompound specialNBT = null;
+//                        if (originalModifier == Modifier.EMPTY_MODIFIER && level >= 0)
+//                        {
+//                            level = 0;
+//                        }
+//                        else if (originalModifier.readyForUpgrade() && level > originalModifier.getLevel())
+//                        {
+//                            if (originalModifier.getSpecialNBT(input) != null)
+//                            {
+//                                specialNBT = originalModifier.getSpecialNBT(input);
+//                            }
+//
+//                            level = originalModifier.getLevel() + 1;
+//                        }
+//                        else
+//                        {
+//                            endRitual(world, pos, masterRitualStone);
+//                            return;
+//                        }
+//
+//                        if (specialNBT != null && !recipe.matchesWithSpecificity(wildStack, new ItemStack(specialNBT.getCompoundTag(Constants.NBT.ITEMSTACK))))
+//                        {
+//                            endRitual(world, pos, masterRitualStone);
+//                            return;
+//                        }
+//
+//                        modifier.setLevel(level);
+//
+//                        if (!modifiable.canApplyModifier(modifier))
+//                        {
+//                            endRitual(world, pos, masterRitualStone);
+//                            return;
+//                        }
+//
+//                        tickCrafting(masterRitualStone);
+//
+//                        if (craftingTimer == recipe.getLpCost() * (level + 1) / CONSTANT_OF_INFUSION && modifiable.applyModifier(modifier))
+//                        {
+//                            ItemStack copyStack = input.copy();
+//                            NBTHelper.checkNBT(copyStack);
+//                            modifier.removeSpecialNBT(copyStack); // Needed here in order to reset NBT data
+//                            modifier.writeSpecialNBT(copyStack, wildStack);
+//                            if (!StasisModifiable.hasModifiable(copyStack))
+//                                StasisModifiable.setStasisModifiable(copyStack, StasisModifiable.getModifiableFromStack(copyStack));
+//                            StasisModifiable.setStasisModifiable(copyStack, modifiable);
+//
+//                            shrinkItemStackInputs(world, pos, recipe.getInputsForLevel(level), wildStack);
+//                            altarInv.setInventorySlotContents(0, copyStack);
+//
+//                            world.spawnEntity(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY() + 1, masterRitualStone.getBlockPos().getZ(), true));
+//                            endRitual(world, pos, masterRitualStone);
+//                            return;
+//                        }
+//
+//                        if (!isCrafting)
+//                        {
+//                            setStasisPlates(world, stasisPlates, true);
+//                            isCrafting = true;
+//                        }
+//                    }
+//                    else
+//                    {
+//                        endRitual(world, pos, masterRitualStone);
+//                    }
                 }
                 else if (isCrafting)
                 {
@@ -308,7 +306,7 @@ public class RitualInfusion extends RitualBloodArsenal
     }
 
     @Override
-    public ArrayList<RitualComponent> addComponents(ArrayList<RitualComponent> components)
+    public void gatherComponents(Consumer<RitualComponent> components)
     {
         addCornerRunes(components, 1, -1, EnumRuneType.WATER);
         addCornerRunes(components, 2, -1, EnumRuneType.FIRE);
@@ -337,7 +335,6 @@ public class RitualInfusion extends RitualBloodArsenal
         addParallelRunes(components, 3, 6, EnumRuneType.DUSK);
         addOffsetRunes(components, 1, 3, 6, EnumRuneType.DUSK);
         addCornerRunes(components, 2, 6, EnumRuneType.DUSK);
-        return components;
     }
 
     @Override

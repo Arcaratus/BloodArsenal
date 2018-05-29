@@ -4,7 +4,6 @@ import WayofTime.bloodmagic.client.IMeshProvider;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import arcaratus.bloodarsenal.client.mesh.CustomMeshDefinitionActivatable;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
-import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
@@ -31,7 +30,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.function.Consumer;
 
-import static arcaratus.bloodarsenal.Constants.Item.SICKLE_EFFECTIVE_ON;
+import static arcaratus.bloodarsenal.registry.Constants.Item.SICKLE_EFFECTIVE_ON;
 
 public class ItemBoundSickle extends ItemBoundTool implements IMeshProvider
 {
@@ -66,7 +65,7 @@ public class ItemBoundSickle extends ItemBoundTool implements IMeshProvider
         if (!world.isRemote && canHarvestBlock(state))
         {
             Iterable<MutableBlockPos> positions = BlockPos.getAllInBoxMutable(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE, RANGE, RANGE));
-            HashMultiset<ItemStack> drops = HashMultiset.create();
+            NonNullList<ItemStack> drops = NonNullList.create();
 
             for (MutableBlockPos blockPos : positions)
             {
@@ -145,7 +144,7 @@ public class ItemBoundSickle extends ItemBoundTool implements IMeshProvider
         int fortuneLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack);
         int range = charge / 3;
 
-        HashMultiset<ItemStack> drops = HashMultiset.create();
+        NonNullList<ItemStack> drops = NonNullList.create();
         BlockPos playerPos = player.getPosition();
 
         for (int i = -range; i <= range; i++)

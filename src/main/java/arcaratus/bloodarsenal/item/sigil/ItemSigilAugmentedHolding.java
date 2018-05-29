@@ -8,7 +8,7 @@ import WayofTime.bloodmagic.iface.*;
 import WayofTime.bloodmagic.util.Utils;
 import WayofTime.bloodmagic.util.helper.*;
 import arcaratus.bloodarsenal.BloodArsenal;
-import arcaratus.bloodarsenal.Constants;
+import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.renderer.ItemMeshDefinition;

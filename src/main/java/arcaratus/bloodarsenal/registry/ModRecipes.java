@@ -3,17 +3,16 @@ package arcaratus.bloodarsenal.registry;
 import WayofTime.bloodmagic.alchemyArray.AlchemyArrayEffectBinding;
 import WayofTime.bloodmagic.altar.AltarTier;
 import WayofTime.bloodmagic.client.render.alchemyArray.BindingAlchemyCircleRenderer;
-import WayofTime.bloodmagic.core.*;
+import WayofTime.bloodmagic.core.RegistrarBloodMagic;
+import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
 import WayofTime.bloodmagic.core.registry.*;
+import WayofTime.bloodmagic.item.ItemActivationCrystal;
 import WayofTime.bloodmagic.item.types.ComponentTypes;
 import WayofTime.bloodmagic.orb.IBloodOrb;
 import WayofTime.bloodmagic.util.Utils;
 import arcaratus.bloodarsenal.BloodArsenal;
-import arcaratus.bloodarsenal.ConfigHandler;
-import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.item.types.EnumBaseTypes;
-import arcaratus.bloodarsenal.item.types.EnumGemTypes;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -77,51 +76,51 @@ public class ModRecipes
 //        addOreDictRecipe(new ItemStack(RegistrarBloodArsenalItems.STYGIAN_DAGGER, 1, 1), "eae", "aba", "cdc", 'a', "shardGlass", 'b', RegistrarBloodArsenalItems.STYGIAN_DAGGER, 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_INGOT, 'd', RegistrarBloodArsenalItems.BLOOD_DIAMOND, 'e', RegistrarBloodArsenalBlocks.GLASS_SHARD_BLOCK);
 //        addOreDictRecipe(new ItemStack(RegistrarBloodArsenalItems.STYGIAN_DAGGER, 1, 2), "aaa", "aba", "cdc", 'a', RegistrarBloodArsenalBlocks.GLASS_SHARD_BLOCK, 'b', new ItemStack(RegistrarBloodArsenalItems.STYGIAN_DAGGER, 1, 1), 'c', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_IRON_BLOCK, 'd', RegistrarBloodArsenalItems.BLOOD_DIAMOND);
 
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS, 8), "aaa", "aba", "aaa", 'a', "blockGlass", 'b', weakOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS_PANE, 8), "aaa", "aba", "aaa", 'a', "paneGlass", 'b', weakOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.GLASS_SACRIFICIAL_DAGGER), "aaa", "aba", "aca", 'a', "shardGlass", 'b', RegistrarBloodMagicItems.SACRIFICIAL_DAGGER, 'c', apprenticeOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.GLASS_DAGGER_OF_SACRIFICE), "aaa", "aba", "aca", 'a', "shardGlass", 'b', RegistrarBloodMagicItems.DAGGER_OF_SACRIFICE, 'c', apprenticeOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_PICKAXE), "aaa", " c ", " b ", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_AXE), "aa ", "ac ", " b ", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_AXE), " aa", " ca", " b ", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SHOVEL), " a ", " c ", " b ", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SICKLE), " aa", " ba", "caa", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SWORD), " a ", " a ", "cbc", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_PICKAXE), "aaa", "bcb", "bdb", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_PICKAXE, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_AXE), "aab", "acb", "bdb", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_AXE, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_AXE), "baa", "bca", "bdb", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_AXE, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_SHOVEL), " a ", "bcb", "bdb", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SHOVEL, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_SICKLE), " aa", "bda", "caa", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SICKLE, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_SWORD), "ada", "aca", " b ", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SWORD, 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_BURNED_STRING, 7), "aaa", "aba", "aca", 'a', Items.STRING, 'b', Items.FLINT_AND_STEEL, 'c', weakOrb);
-        addOreDictBloodOrbRecipe(EnumGemTypes.SACRIFICE.getStack(), "aba", "cdc", "aea", 'a', "ingotGold", 'b', RegistrarBloodMagicItems.DAGGER_OF_SACRIFICE, 'c', new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
-        addOreDictBloodOrbRecipe(EnumGemTypes.SELF_SACRIFICE.getStack(), "aba", "cdc", "aea", 'a', "dustGlowstone", 'b', RegistrarBloodMagicItems.SACRIFICIAL_DAGGER, 'c', new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
-        addOreDictBloodOrbRecipe(EnumGemTypes.TARTARIC.getStack(), "aba", "cdc", "efg", 'a', RegistrarBloodMagicItems.SOUL_GEM, 'b', "ingotGold", 'c', "blockGlass", 'd', "gemDiamond", 'e', "blockRedstone", 'f', weakOrb, 'g', "blockLapis");
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.ALTARE_AENIGMATICA), "aba", "cdc", "efe", 'a', RegistrarBloodMagicItems.BLOOD_SHARD, 'b', "gemEmerald", 'c', RegistrarBloodMagicBlocks.INPUT_ROUTING_NODE, 'd', ComponentTypes.REAGENT_SIGHT.getStack(), 'e', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_IRON_BLOCK, 'f', masterOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_DIAMOND, 1, 1), "aba", "cdc", "efe", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_GLOWSTONE, 'b', new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 4), 'c', new ItemStack(RegistrarBloodMagicItems.ACTIVATION_CRYSTAL, 1, 1), 'd', RegistrarBloodArsenalItems.BLOOD_DIAMOND, 'e', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_IRON_BLOCK, 'f', archmageOrb);
-        addOreDictBloodOrbRecipe(EnumBaseTypes.STASIS_PLATE.getStack(), "aaa", "aba", "cdc", 'a', RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS, 'b', EnumBaseTypes.REAGENT_LIGHTNING.getStack(), 'c', new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 2), 'd', magicianOrb);
-        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.STASIS_PLATE), "aaa", "aba", "cdc", 'a', EnumBaseTypes.STASIS_PLATE.getStack(), 'b', RegistrarBloodMagicBlocks.ALTAR, 'c', new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 3), 'd', magicianOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS, 8), "aaa", "aba", "aaa", 'a', "blockGlass", 'b', weakOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS_PANE, 8), "aaa", "aba", "aaa", 'a', "paneGlass", 'b', weakOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.GLASS_SACRIFICIAL_DAGGER), "aaa", "aba", "aca", 'a', "shardGlass", 'b', RegistrarBloodMagicItems.SACRIFICIAL_DAGGER, 'c', apprenticeOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.GLASS_DAGGER_OF_SACRIFICE), "aaa", "aba", "aca", 'a', "shardGlass", 'b', RegistrarBloodMagicItems.DAGGER_OF_SACRIFICE, 'c', apprenticeOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_PICKAXE), "aaa", " c ", " b ", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_AXE), "aa ", "ac ", " b ", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_AXE), " aa", " ca", " b ", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SHOVEL), " a ", " c ", " b ", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SICKLE), " aa", " ba", "caa", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SWORD), " a ", " a ", "cbc", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG, 'b', apprenticeOrb, 'c', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack());
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_PICKAXE), "aaa", "bcb", "bdb", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_PICKAXE, 'd', magicianOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_AXE), "aab", "acb", "bdb", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_AXE, 'd', magicianOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_AXE), "baa", "bca", "bdb", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_AXE, 'd', magicianOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_SHOVEL), " a ", "bcb", "bdb", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SHOVEL, 'd', magicianOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_SICKLE), " aa", "bda", "caa", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SICKLE, 'd', magicianOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON_SWORD), "ada", "aca", " b ", 'a', EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 'b', EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 'c', RegistrarBloodArsenalItems.BLOOD_INFUSED_WOODEN_SWORD, 'd', magicianOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_BURNED_STRING, 7), "aaa", "aba", "aca", 'a', Items.STRING, 'b', Items.FLINT_AND_STEEL, 'c', weakOrb);
+//        addOreDictBloodOrbRecipe(EnumGemTypes.SACRIFICE.getStack(), "aba", "cdc", "aea", 'a', "ingotGold", 'b', RegistrarBloodMagicItems.DAGGER_OF_SACRIFICE, 'c', new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
+//        addOreDictBloodOrbRecipe(EnumGemTypes.SELF_SACRIFICE.getStack(), "aba", "cdc", "aea", 'a', "dustGlowstone", 'b', RegistrarBloodMagicItems.SACRIFICIAL_DAGGER, 'c', new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 1), 'd', "gemDiamond", 'e', apprenticeOrb);
+//        addOreDictBloodOrbRecipe(EnumGemTypes.TARTARIC.getStack(), "aba", "cdc", "efg", 'a', RegistrarBloodMagicItems.SOUL_GEM, 'b', "ingotGold", 'c', "blockGlass", 'd', "gemDiamond", 'e', "blockRedstone", 'f', weakOrb, 'g', "blockLapis");
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.ALTARE_AENIGMATICA), "aba", "cdc", "efe", 'a', RegistrarBloodMagicItems.BLOOD_SHARD, 'b', "gemEmerald", 'c', RegistrarBloodMagicBlocks.INPUT_ROUTING_NODE, 'd', ComponentTypes.REAGENT_SIGHT.getStack(), 'e', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_IRON_BLOCK, 'f', masterOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalItems.BLOOD_DIAMOND, 1, 1), "aba", "cdc", "efe", 'a', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_GLOWSTONE, 'b', new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 4), 'c', new ItemStack(RegistrarBloodMagicItems.ACTIVATION_CRYSTAL, 1, 1), 'd', RegistrarBloodArsenalItems.BLOOD_DIAMOND, 'e', RegistrarBloodArsenalBlocks.BLOOD_INFUSED_IRON_BLOCK, 'f', archmageOrb);
+//        addOreDictBloodOrbRecipe(EnumBaseTypes.STASIS_PLATE.getStack(), "aaa", "aba", "cdc", 'a', RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS, 'b', EnumBaseTypes.REAGENT_LIGHTNING.getStack(), 'c', new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 2), 'd', magicianOrb);
+//        addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.STASIS_PLATE), "aaa", "aba", "cdc", 'a', EnumBaseTypes.STASIS_PLATE.getStack(), 'b', RegistrarBloodMagicBlocks.ALTAR, 'c', new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 3), 'd', magicianOrb);
 
         //TODO IS TEMPORARY BUT WILL BE IMPLEMENTED FOR THOSE WHO WANT ACCESS TO TIER 6 <- correct grammar
-        if (ConfigHandler.misc.crystalClusterEnabled)
+//        if (ConfigHandler.misc.crystalClusterEnabled)
         {
-//            addOreDictBloodOrbRecipe(new ItemStack(getBMBlock(BloodMagicBlock.CRYSTAL)), "aba", "cdc", "efe", 'a', new ItemStack(getBMItem(BloodMagicItem.ACTIVATION_CRYSTAL), 1, 1), 'b', "blockEmerald", 'c', "blockLapis", 'd', Blocks.BEACON, 'e', "blockDiamond", 'f', archmageOrb);
-//            addOreDictBloodOrbRecipe(new ItemStack(getBMBlock(BloodMagicBlock.CRYSTAL), 4, 1), "aa", "aa", 'a', getBMBlock(BloodMagicBlock.CRYSTAL));
+            addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodMagicBlocks.DECORATIVE_BRICK, 1, 2), "aba", "cdc", "efe", 'a', ItemActivationCrystal.CrystalType.AWAKENED.getStack(), 'b', "blockEmerald", 'c', "blockLapis", 'd', Blocks.BEACON, 'e', "blockDiamond", 'f', archmageOrb);
+            addOreDictBloodOrbRecipe(new ItemStack(RegistrarBloodMagicBlocks.DECORATIVE_BRICK, 4, 3), "aa", "aa", 'a', new ItemStack(RegistrarBloodMagicBlocks.DECORATIVE_BRICK, 1, 2));
         }
 
         //SHAPELESS
-        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_PLANKS, 2), RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG);
-        addShapelessOreDictRecipe(new ItemStack(Blocks.GLASS), RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS);
-        addShapelessOreDictRecipe(new ItemStack(Blocks.GLASS_PANE), RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS_PANE);
-        addShapelessOreDictRecipe(EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(9), RegistrarBloodArsenalBlocks.BLOOD_INFUSED_IRON_BLOCK);
-        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodMagicItems.SLATE, 9), RegistrarBloodArsenalBlocks.SLATE);
-        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodMagicItems.SLATE, 9, 1), new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 1));
-        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodMagicItems.SLATE, 9, 2), new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 2));
-        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodMagicItems.SLATE, 9, 3), new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 3));
-        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodMagicItems.SLATE, 9, 4), new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 4));
-//
-        addShapelessBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS), "blockGlass", weakOrb);
-        addShapelessBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS_PANE), "paneGlass", weakOrb);
+//        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_PLANKS, 2), RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_LOG);
+//        addShapelessOreDictRecipe(new ItemStack(Blocks.GLASS), RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS);
+//        addShapelessOreDictRecipe(new ItemStack(Blocks.GLASS_PANE), RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS_PANE);
+//        addShapelessOreDictRecipe(EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(9), RegistrarBloodArsenalBlocks.BLOOD_INFUSED_IRON_BLOCK);
+//        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodMagicItems.SLATE, 9), RegistrarBloodArsenalBlocks.SLATE);
+//        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodMagicItems.SLATE, 9, 1), new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 1));
+//        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodMagicItems.SLATE, 9, 2), new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 2));
+//        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodMagicItems.SLATE, 9, 3), new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 3));
+//        addShapelessOreDictRecipe(new ItemStack(RegistrarBloodMagicItems.SLATE, 9, 4), new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 4));
+////
+//        addShapelessBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS), "blockGlass", weakOrb);
+//        addShapelessBloodOrbRecipe(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS_PANE), "paneGlass", weakOrb);
     }
 
     public static void addAltarRecipes()

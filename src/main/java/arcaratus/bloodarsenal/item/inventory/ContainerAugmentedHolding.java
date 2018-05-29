@@ -8,8 +8,8 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
-import static arcaratus.bloodarsenal.Constants.Misc.PLAYER_INVENTORY_COLUMNS;
-import static arcaratus.bloodarsenal.Constants.Misc.PLAYER_INVENTORY_ROWS;
+import static arcaratus.bloodarsenal.registry.Constants.Misc.PLAYER_INVENTORY_COLUMNS;
+import static arcaratus.bloodarsenal.registry.Constants.Misc.PLAYER_INVENTORY_ROWS;
 
 public class ContainerAugmentedHolding extends Container
 {

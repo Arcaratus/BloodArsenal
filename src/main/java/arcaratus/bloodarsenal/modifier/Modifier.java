@@ -16,46 +16,36 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+/**
+ * Singleton class that is immutable except for certain NBT-special implementations
+ * Mutable values are in the respective ModifierTracker class
+ */
 public class Modifier
 {
-    public static Modifier EMPTY_MODIFIER = null;
+    public static final Modifier EMPTY_MODIFIER = new Modifier("", 0, EnumModifierType.HEAD);
 
     public static String tooltipBase = "tooltip.bloodarsenal.modifier.";
 
     private String name;
     private int maxLevel;
-    protected int level = 0;
     private EnumModifierType type;
     private EnumAction action;
 
     private boolean hasAltName = false;
 
-    private boolean readyForUpgrade = false;
-
     protected static Random random = new Random();
 
-    public Modifier(String name, int maxLevel, int level, EnumModifierType type, EnumAction action)
+    public Modifier(String name, int maxLevel, EnumModifierType type, EnumAction action)
     {
         this.name = name;
-        this.maxLevel = maxLevel;
-        this.level = level;
+        this.maxLevel = maxLevel - 1; // -1 because of the first entry being 0
         this.type = type;
         this.action = action;
     }
 
-    public Modifier(String name, int maxLevel, int level, EnumModifierType type)
+    public Modifier(String name, int maxLevel, EnumModifierType type)
     {
-        this(name, maxLevel, level, type, EnumAction.NONE);
-    }
-
-    public int getLevel()
-    {
-        return level;
-    }
-
-    public void setLevel(int level)
-    {
-        this.level = level;
+        this(name, maxLevel, type, EnumAction.NONE);
     }
 
     public EnumModifierType getType()
@@ -93,16 +83,6 @@ public class Modifier
         return maxLevel;
     }
 
-    public boolean readyForUpgrade()
-    {
-        return readyForUpgrade;
-    }
-
-    public void setReadyForUpgrade(boolean readyForUpgrade)
-    {
-        this.readyForUpgrade = readyForUpgrade;
-    }
-
     public void setAltName()
     {
         hasAltName = true;
@@ -113,37 +93,32 @@ public class Modifier
         return hasAltName;
     }
 
-    public Modifier newCopy(int level)
-    {
-        return new Modifier(getName(), getMaxLevel(), level, getType(), getAction());
-    }
-
-    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot)
+    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, int level)
     {
 
     }
 
-    public void hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker)
+    public void hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker, int level)
     {
 
     }
 
-    public void onBlockDestroyed(ItemStack itemStack, World world, IBlockState state, BlockPos pos, EntityPlayer player)
+    public void onBlockDestroyed(ItemStack itemStack, World world, IBlockState state, BlockPos pos, EntityPlayer player, int level)
     {
 
     }
 
-    public void onRightClick(ItemStack itemStack, World world, EntityPlayer player)
+    public void onRightClick(ItemStack itemStack, World world, EntityPlayer player, int level)
     {
 
     }
 
-    public void onRelease(ItemStack itemStack, World world, EntityPlayer player, int charge)
+    public void onRelease(ItemStack itemStack, World world, EntityPlayer player, int charge, int level)
     {
 
     }
 
-    public Multimap<String, AttributeModifier> getAttributeModifiers()
+    public Multimap<String, AttributeModifier> getAttributeModifiers(int level)
     {
         return HashMultimap.create();
     }
@@ -158,14 +133,14 @@ public class Modifier
 
     }
 
-    public void writeSpecialNBT(ItemStack itemStack, ItemStack extra)
+    public void writeSpecialNBT(ItemStack itemStack, ItemStack extra, int level)
     {
 
     }
 
-    public void writeSpecialNBT(ItemStack itemStack)
+    public void writeSpecialNBT(ItemStack itemStack, int level)
     {
-        writeSpecialNBT(itemStack, ItemStack.EMPTY);
+        writeSpecialNBT(itemStack, ItemStack.EMPTY, level);
     }
 
     /**

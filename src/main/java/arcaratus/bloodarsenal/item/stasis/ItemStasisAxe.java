@@ -20,9 +20,9 @@ public class ItemStasisAxe extends ItemStasisTool
     }
 
     @Override
-    public float getStrVsBlock(ItemStack itemStack, IBlockState state)
+    public float getDestroySpeed(ItemStack itemStack, IBlockState state)
     {
-        return !getActivated(itemStack) || (state.getMaterial() != Material.PLANTS && state.getMaterial() != Material.WOOD && state.getMaterial() != Material.LEAVES) ? super.getStrVsBlock(itemStack, state) : efficiencyOnProperMaterial;
+        return !getActivated(itemStack) || (state.getMaterial() != Material.PLANTS && state.getMaterial() != Material.WOOD && state.getMaterial() != Material.LEAVES) ? super.getDestroySpeed(itemStack, state) : efficiency;
     }
 
     @Override
@@ -42,6 +42,6 @@ public class ItemStasisAxe extends ItemStasisTool
     @SideOnly(Side.CLIENT)
     public ItemMeshDefinition getMeshDefinition()
     {
-        return new CustomMeshDefinitionActivatable("ItemStasisAxe");
+        return new CustomMeshDefinitionActivatable("stasis_axe");
     }
 }

@@ -1,7 +1,6 @@
 package arcaratus.bloodarsenal.item.tool;
 
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
-import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
@@ -23,7 +22,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-import static arcaratus.bloodarsenal.Constants.Item.SICKLE_EFFECTIVE_ON;
+import static arcaratus.bloodarsenal.registry.Constants.Item.SICKLE_EFFECTIVE_ON;
 
 public class ItemBloodInfusedIronSickle extends ItemBloodInfusedTool.Iron
 {
@@ -46,7 +45,7 @@ public class ItemBloodInfusedIronSickle extends ItemBloodInfusedTool.Iron
         if (!world.isRemote && canHarvestBlock(state))
         {
             Iterable<MutableBlockPos> positions = BlockPos.getAllInBoxMutable(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE, RANGE, RANGE));
-            HashMultiset<ItemStack> drops = HashMultiset.create();
+            NonNullList<ItemStack> drops = NonNullList.create();
 
             for (MutableBlockPos blockPos : positions)
             {

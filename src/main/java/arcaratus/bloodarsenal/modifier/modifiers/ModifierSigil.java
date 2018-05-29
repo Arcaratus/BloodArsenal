@@ -1,10 +1,10 @@
 package arcaratus.bloodarsenal.modifier.modifiers;
 
-import WayofTime.bloodmagic.api.iface.ISigil;
+import WayofTime.bloodmagic.iface.ISigil;
 import WayofTime.bloodmagic.util.helper.TextHelper;
-import arcaratus.bloodarsenal.modifier.EnumModifierType;
-import arcaratus.bloodarsenal.modifier.Modifier;
+import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.registry.Constants;
+import joptsimple.internal.Strings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -15,32 +15,36 @@ public class ModifierSigil extends Modifier
 {
     private boolean activated = false;
 
-    public ModifierSigil(int level)
+    public ModifierSigil()
     {
-        super(Constants.Modifiers.SIGIL, 1, level, EnumModifierType.ABILITY);
+        super(Constants.Modifiers.SIGIL, 1, EnumModifierType.ABILITY);
         setAltName();
     }
 
     @Override
     public String getAlternateName(ItemStack itemStack)
     {
-        return itemStack.hasTagCompound() ? itemStack.getTagCompound().getString(Constants.NBT.ITEMSTACK_NAME) + " (" + (TextHelper.localizeEffect("tooltip.bloodmagic." + (activated ? "activated" : "deactivated")) + ") ") : "一体なにをやっているんだ？";
+        return itemStack.hasTagCompound() && !Strings.isNullOrEmpty(itemStack.getTagCompound().getString(Constants.NBT.ITEMSTACK_NAME)) ? itemStack.getTagCompound().getString(Constants.NBT.ITEMSTACK_NAME) + " (" + (TextHelper.localizeEffect("tooltip.bloodmagic." + (activated ? "activated" : "deactivated")) + ") ") : "";
     }
 
     @Override
-    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot)
+    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, int level)
     {
         if (activated && itemStack.hasTagCompound())
         {
             NBTTagCompound data = itemStack.getTagCompound().getCompoundTag(Constants.NBT.ITEMSTACK);
             ItemStack sigilStack = new ItemStack(data);
             if (!sigilStack.isEmpty())
+            {
                 sigilStack.getItem().onUpdate(itemStack, world, entity, itemSlot, true);
+                if (world.getWorldTime() % 100 == 0)
+                    NewModifiable.incrementModifierTracker(itemStack, this, 1);
+            }
         }
     }
 
     @Override
-    public void onRightClick(ItemStack itemStack, World world, EntityPlayer player)
+    public void onRightClick(ItemStack itemStack, World world, EntityPlayer player, int level)
     {
         activated = !activated;
     }
@@ -58,7 +62,7 @@ public class ModifierSigil extends Modifier
     }
 
     @Override
-    public void writeSpecialNBT(ItemStack itemStack, ItemStack extra)
+    public void writeSpecialNBT(ItemStack itemStack, ItemStack extra, int level)
     {
         NBTTagCompound tag = itemStack.getTagCompound();
         NBTTagCompound sigilTag = new NBTTagCompound();

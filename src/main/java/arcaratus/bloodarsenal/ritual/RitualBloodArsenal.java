@@ -1,14 +1,12 @@
 package arcaratus.bloodarsenal.ritual;
 
-import WayofTime.bloodmagic.api.ritual.IMasterRitualStone;
-import WayofTime.bloodmagic.api.ritual.Ritual;
-import WayofTime.bloodmagic.api.ritual.RitualComponent;
-import WayofTime.bloodmagic.api.saving.SoulNetwork;
-import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.core.data.SoulNetwork;
+import WayofTime.bloodmagic.ritual.IMasterRitualStone;
+import WayofTime.bloodmagic.ritual.Ritual;
+import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 public abstract class RitualBloodArsenal extends Ritual
@@ -18,7 +16,7 @@ public abstract class RitualBloodArsenal extends Ritual
 
     public RitualBloodArsenal(String name, int crystalLevel, int activationCost, int refreshTime, int refreshCost)
     {
-        super("ritual" + name, crystalLevel, activationCost, "ritual." + BloodArsenal.MOD_ID + "." + name.toLowerCase(Locale.ENGLISH) + "Ritual");
+        super("ritual" + name, crystalLevel, activationCost, "ritual." + BloodArsenal.MOD_ID + "." + name.toLowerCase(Locale.ENGLISH) + "_ritual");
         this.refreshTime = refreshTime;
         this.refreshCost = refreshCost;
     }
@@ -61,17 +59,5 @@ public abstract class RitualBloodArsenal extends Ritual
     public int getRefreshCost()
     {
         return refreshCost;
-    }
-
-    @Override
-    public ArrayList<RitualComponent> getComponents()
-    {
-        ArrayList<RitualComponent> components = new ArrayList<>();
-        return addComponents(components);
-    }
-
-    public ArrayList<RitualComponent> addComponents(ArrayList<RitualComponent> components)
-    {
-        return components;
     }
 }

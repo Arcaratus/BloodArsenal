@@ -8,7 +8,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
-import static arcaratus.bloodarsenal.Constants.Item.AXE_EFFECTIVE_ON;
+import static arcaratus.bloodarsenal.registry.Constants.Item.AXE_EFFECTIVE_ON;
 
 public class ItemBloodInfusedIronAxe extends ItemBloodInfusedTool.Iron
 {

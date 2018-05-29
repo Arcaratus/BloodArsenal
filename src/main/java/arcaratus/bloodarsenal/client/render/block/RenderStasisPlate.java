@@ -14,7 +14,7 @@ public class RenderStasisPlate extends TileEntitySpecialRenderer<TileStasisPlate
     public static Minecraft mc = Minecraft.getMinecraft();
 
     @Override
-    public void renderTileEntityAt(TileStasisPlate stasisPlate, double x, double y, double z, float partialTicks, int destroyStage)
+    public void render(TileStasisPlate stasisPlate, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
         ItemStack heldStack = stasisPlate.getStackInSlot(0);
 
@@ -31,7 +31,7 @@ public class RenderStasisPlate extends TileEntitySpecialRenderer<TileStasisPlate
         {
             GlStateManager.translate(0.5, 0.6125, 0.5);
             EntityItem entityitem = new EntityItem(world, 0.0D, 0.0D, 0.0D, stack);
-            entityitem.getEntityItem().setCount(stack.getCount());
+            entityitem.getItem().setCount(stack.getCount());
             entityitem.hoverStart = 0.0F;
             GlStateManager.pushMatrix();
             GlStateManager.disableLighting();
@@ -46,7 +46,7 @@ public class RenderStasisPlate extends TileEntitySpecialRenderer<TileStasisPlate
             GlStateManager.scale(0.5F, 0.5F, 0.5F);
             GlStateManager.pushAttrib();
             RenderHelper.enableStandardItemLighting();
-            itemRenderer.renderItem(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
+            itemRenderer.renderItem(entityitem.getItem(), ItemCameraTransforms.TransformType.FIXED);
             RenderHelper.disableStandardItemLighting();
             GlStateManager.popAttrib();
 

@@ -1,7 +1,6 @@
 package arcaratus.bloodarsenal.modifier.modifiers;
 
-import arcaratus.bloodarsenal.modifier.EnumModifierType;
-import arcaratus.bloodarsenal.modifier.Modifier;
+import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.registry.Constants;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.*;
@@ -16,22 +15,23 @@ public class ModifierBloodlust extends Modifier
 {
     private double multiplier = 0;
 
-    public ModifierBloodlust(int level)
+    public ModifierBloodlust()
     {
-        super(Constants.Modifiers.BLOODLUST, Constants.Modifiers.BLOODLUST_COUNTER.length, level, EnumModifierType.HEAD);
+        super(Constants.Modifiers.BLOODLUST, Constants.Modifiers.BLOODLUST_COUNTER.length, EnumModifierType.HEAD);
     }
 
     @Override
-    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot)
+    public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, int level)
     {
         if (world.getWorldTime() % 5 == 0 && random.nextInt(3) < 2 && multiplier > 0)
             multiplier = Math.max(multiplier - (0.02 + ((double) random.nextInt(5) / 100)), 0);
     }
 
     @Override
-    public void hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker)
+    public void hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker, int level)
     {
-        multiplier = getMultiplier(multiplier + (random.nextDouble() * (getLevel() + 1)) / 6);
+        multiplier = getMultiplier(multiplier + (random.nextDouble() * (level + 1)) / 6, level);
+        NewModifiable.incrementModifierTracker(itemStack, this, 1);
     }
 
     @Override
@@ -47,19 +47,19 @@ public class ModifierBloodlust extends Modifier
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers()
+    public Multimap<String, AttributeModifier> getAttributeModifiers(int level)
     {
-        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers();
+        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(level);
 
-        multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", Math.floor(multiplier / 4 + 1) * (6 + 0.5 * (getLevel() + 1)) * Math.pow(1.1375, multiplier), 0));
+        multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", Math.floor(multiplier / 4 + 1) * (6 + 0.5 * (level + 1)) * Math.pow(1.1375, multiplier), 0));
 
         return multimap;
     }
 
-    private double getMultiplier(double multiplier)
+    private double getMultiplier(double multiplier, int level)
     {
         double max = 0;
-        switch (getLevel() + 1)
+        switch (level + 1)
         {
             case 1:
                 max = 4;

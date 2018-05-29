@@ -15,7 +15,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import static arcaratus.bloodarsenal.Constants.Item.SHOVEL_EFFECTIVE_ON;
+import static arcaratus.bloodarsenal.registry.Constants.Item.SHOVEL_EFFECTIVE_ON;
 
 public class ItemBloodInfusedWoodenShovel extends ItemBloodInfusedTool.Wooden
 {

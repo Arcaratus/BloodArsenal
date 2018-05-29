@@ -5,8 +5,6 @@ import WayofTime.bloodmagic.util.helper.NBTHelper;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.item.IProfilable;
 import arcaratus.bloodarsenal.tile.TileInventory;
-import com.google.common.collect.Multiset;
-import com.google.common.collect.Multiset.Entry;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,6 +18,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
@@ -28,7 +27,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.*;
 
-import static arcaratus.bloodarsenal.Constants.Item.*;
+import static arcaratus.bloodarsenal.registry.Constants.Item.*;
 
 public class BloodArsenalUtils
 {
@@ -184,24 +183,23 @@ public class BloodArsenalUtils
         return blocks;
     }
 
-    public static void dropStacks(Multiset<ItemStack> drops, World world, BlockPos posToDrop)
+    public static void dropStacks(NonNullList<ItemStack> drops, World world, BlockPos posToDrop)
     {
-        for (Entry<ItemStack> entry : drops.entrySet())
+        for (ItemStack itemStack : drops)
         {
-            int count = entry.getCount();
-            ItemStack stack = entry.getElement();
-            int maxStackSize = stack.getItem().getItemStackLimit(stack);
+            int count = itemStack.getCount();
+            int maxStackSize = itemStack.getItem().getItemStackLimit(itemStack);
 
             while (count >= maxStackSize)
             {
-                ItemStack s = ItemHandlerHelper.copyStackWithSize(stack, maxStackSize);
+                ItemStack s = ItemHandlerHelper.copyStackWithSize(itemStack, maxStackSize);
                 world.spawnEntity(new EntityItem(world, posToDrop.getX(), posToDrop.getY(), posToDrop.getZ(), s));
                 count -= maxStackSize;
             }
 
             if (count > 0)
             {
-                ItemStack s = ItemHandlerHelper.copyStackWithSize(stack, maxStackSize);
+                ItemStack s = ItemHandlerHelper.copyStackWithSize(itemStack, count);
                 world.spawnEntity(new EntityItem(world, posToDrop.getX(), posToDrop.getY(), posToDrop.getZ(), s));
             }
         }

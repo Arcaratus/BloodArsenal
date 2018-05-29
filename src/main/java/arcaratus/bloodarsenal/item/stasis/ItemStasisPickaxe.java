@@ -29,9 +29,9 @@ public class ItemStasisPickaxe extends ItemStasisTool
     }
 
     @Override
-    public float getStrVsBlock(ItemStack itemStack, IBlockState state)
+    public float getDestroySpeed(ItemStack itemStack, IBlockState state)
     {
-        return !getActivated(itemStack) || (state.getMaterial() != Material.IRON && state.getMaterial() != Material.ANVIL && state.getMaterial() != Material.ROCK) ? super.getStrVsBlock(itemStack, state) : efficiencyOnProperMaterial;
+        return !getActivated(itemStack) || (state.getMaterial() != Material.IRON && state.getMaterial() != Material.ANVIL && state.getMaterial() != Material.ROCK) ? super.getDestroySpeed(itemStack, state) : efficiency;
     }
 
     @Override
@@ -51,6 +51,6 @@ public class ItemStasisPickaxe extends ItemStasisTool
     @SideOnly(Side.CLIENT)
     public ItemMeshDefinition getMeshDefinition()
     {
-        return new CustomMeshDefinitionActivatable("ItemStasisPickaxe");
+        return new CustomMeshDefinitionActivatable("stasis_pickaxe");
     }
 }

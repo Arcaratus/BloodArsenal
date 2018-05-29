@@ -1,4 +1,4 @@
-package arcaratus.bloodarsenal;
+package arcaratus.bloodarsenal.registry;
 
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -23,7 +23,9 @@ public class Constants
 
         public static final String LEVEL = "Level";
         public static final String KEY = "Key";
+        public static final String COUNTER = "Counter";
         public static final String READY_TO_UPGRADE = "ReadyToUpgrade";
+        public static final String MARKED_FOR_UPGRADE = "MarkedForUpgrade";
 
         public static final String TICKS_REMAINING = "ticksRemaining";
         public static final String PROJECTILE_TICKS_IN_AIR = "projectileTicksInAir";
@@ -46,13 +48,16 @@ public class Constants
         public static final String ITEMSTACK_NAME = "itemStackName";
 
         public static final String CURRENT_PROFILE = "currentProfile";
+
+        // TODO Do all the resources and stuff
+        // ALL functional things should be finished!
     }
 
     public static class Item
     {
         public static final Set<Block> AXE_EFFECTIVE_ON = Sets.newHashSet(Blocks.PLANKS, Blocks.BOOKSHELF, Blocks.LOG, Blocks.LOG2, Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN, Blocks.MELON_BLOCK, Blocks.LADDER, Blocks.WOODEN_BUTTON, Blocks.WOODEN_PRESSURE_PLATE);
         public static final Set<Block> PICKAXE_EFFECTIVE_ON = Sets.newHashSet(Blocks.ACTIVATOR_RAIL, Blocks.COAL_ORE, Blocks.COBBLESTONE, Blocks.DETECTOR_RAIL, Blocks.DIAMOND_BLOCK, Blocks.DIAMOND_ORE, Blocks.DOUBLE_STONE_SLAB, Blocks.GOLDEN_RAIL, Blocks.GOLD_BLOCK, Blocks.GOLD_ORE, Blocks.ICE, Blocks.IRON_BLOCK, Blocks.IRON_ORE, Blocks.LAPIS_BLOCK, Blocks.LAPIS_ORE, Blocks.LIT_REDSTONE_ORE, Blocks.MOSSY_COBBLESTONE, Blocks.NETHERRACK, Blocks.PACKED_ICE, Blocks.RAIL, Blocks.REDSTONE_ORE, Blocks.SANDSTONE, Blocks.RED_SANDSTONE, Blocks.STONE, Blocks.STONE_SLAB, Blocks.STONE_BUTTON, Blocks.STONE_PRESSURE_PLATE);
-        public static final Set<Block> SHOVEL_EFFECTIVE_ON = Sets.newHashSet(Blocks.CLAY, Blocks.DIRT, Blocks.FARMLAND, Blocks.GRASS, Blocks.GRAVEL, Blocks.MYCELIUM, Blocks.SAND, Blocks.SNOW, Blocks.SNOW_LAYER, Blocks.SOUL_SAND, Blocks.GRASS_PATH);
+        public static final Set<Block> SHOVEL_EFFECTIVE_ON = Sets.newHashSet(Blocks.CLAY, Blocks.DIRT, Blocks.FARMLAND, Blocks.GRASS, Blocks.GRAVEL, Blocks.MYCELIUM, Blocks.SAND, Blocks.SNOW, Blocks.SNOW_LAYER, Blocks.SOUL_SAND, Blocks.GRASS_PATH, Blocks.CONCRETE_POWDER);
         public static final Set<Block> SICKLE_EFFECTIVE_ON = Sets.newHashSet(Blocks.BEETROOTS, Blocks.BROWN_MUSHROOM, Blocks.BROWN_MUSHROOM_BLOCK, Blocks.CACTUS, Blocks.CARROTS, Blocks.CHORUS_FLOWER, Blocks.CHORUS_PLANT, Blocks.COCOA, Blocks.DEADBUSH, Blocks.DOUBLE_PLANT, Blocks.HAY_BLOCK, Blocks.LEAVES, Blocks.LEAVES2, Blocks.PUMPKIN_STEM, Blocks.RED_FLOWER, Blocks.RED_MUSHROOM, Blocks.RED_MUSHROOM_BLOCK, Blocks.REEDS, Blocks.SAPLING, Blocks.SPONGE, Blocks.TALLGRASS, Blocks.VINE, Blocks.WATERLILY, Blocks.WHEAT, Blocks.YELLOW_FLOWER);
 
         public static final Set<Material> AXE_MATERIALS_EFFECTIVE_ON = Sets.newHashSet(Material.WOOD, Material.CACTUS, Material.GOURD);
@@ -63,7 +68,7 @@ public class Constants
 
     public static class Modifiers
     {
-        public static final String BAD_POTION = "badPotion";
+        public static final String BAD_POTION = "bad_potion";
         public static final String BLOODLUST = "bloodlust";
         public static final String FLAME = "flame";
         public static final String SHARPNESS = "sharpness";
@@ -74,9 +79,9 @@ public class Constants
         public static final String SMELTING = "smelting";
         public static final String XPERIENCED = "xperienced";
 
-        public static final String BENEFICIAL_POTION = "beneficialPotion";
-        public static final String QUICK_DRAW = "quickDraw";
-        public static final String SHADOW_TOOL = "shadowTool";
+        public static final String BENEFICIAL_POTION = "beneficial_potion";
+        public static final String QUICK_DRAW = "quick_draw";
+        public static final String SHADOW_TOOL = "shadow_tool";
 
         public static final String AOD = "aod";
         public static final String SIGIL = "sigil";
@@ -84,11 +89,11 @@ public class Constants
         public static final int[] BAD_POTION_COUNTER = new int[] { 0, 64, 256, 1024 };
         public static final int[] BLOODLUST_COUNTER = new int[] { 0, 64, 128, 256, 512, 1024, 2048 };
         public static final int[] FLAME_COUNTER = new int[] { 0, 40, 80, 160, 320, 640, 1280 };
-        public static final int[] SHARPNESS_COUNTER = new int[] { 0, 64, 128, 256, 512, 1024, 2048 };
+        public static final int[] SHARPNESS_COUNTER = new int[] { 0, 4, 128, 256, 512, 1024, 2048 };
 
         public static final int[] FORTUNATE_COUNTER = new int[] { 0, 64, 256, 1024, 4096 };
-        public static final int[] LOOTING_COUNTER= new int[] { 0, 36, 72, 144, 288 };
-        public static final int[] SMELTING_COUNTER = new int[] { 0, 1024 };
+        public static final int[] LOOTING_COUNTER = new int[] { 0, 36, 72, 144, 288 };
+        public static final int[] SMELTING_COUNTER = new int[] { 0, 2, 1024 };
         public static final int[] XPERIENCED_COUNTER = new int[] { 0, 64, 256, 1024, 2048, 4096 };
 
         public static final int[] BENEFICIAL_POTION_COUNTER = new int[] { 0, 64, 256, 1024 };

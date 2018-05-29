@@ -57,7 +57,7 @@ item.bloodarsenal.stasis.sword.name=Stasis Blade
 item.bloodarsenal.profilable.name=%s : Profile %d
 item.bloodarsenal.profilable.alt=Profile %d
 
-item.bloodarsenal.modifierTome.name=Modifier Tome
+item.bloodarsenal.modifier_tome.name=Modifier Tome
 
 item.bloodarsenal.warp_blade.name=Warp Blade
 
@@ -76,7 +76,7 @@ tile.bloodarsenal.slate.reinforced.name=Reinforced Slate Block
 tile.bloodarsenal.slate.imbued.name=Imbued Slate Block
 tile.bloodarsenal.slate.demonic.name=Demonic Slate Block
 tile.bloodarsenal.slate.ethereal.name=Ethereal Slate Block
-tile.bloodarsenal.blood_infused_wooden_log.name=Blood Infused Wooden Log
+tile.bloodarsenal.blood_infused_wooden_log.name=Blood Infused Wood
 tile.bloodarsenal.blood_infused_wooden_planks.name=Blood Infused Wooden Planks
 tile.bloodarsenal.blood_infused_wooden_stairs.name=Blood Infused Wooden Stairs
 tile.bloodarsenal.blood_infused_wooden_double_slab.name=Blood Infused Wooden Slab
@@ -151,7 +151,7 @@ tooltip.bloodarsenal.modifierType.handle=Handle:
 tooltip.bloodarsenal.modifierType.ability=Ability:
 
 tooltip.bloodarsenal.modifier.flame=Ember's Touch
-tooltip.bloodarsenal.modifier.badPotion=Potion
+tooltip.bloodarsenal.modifier.bad_potion=Potion
 tooltip.bloodarsenal.modifier.sharpness=Razor Edge
 tooltip.bloodarsenal.modifier.bloodlust=Bloodlust
 tooltip.bloodarsenal.modifier.silky=Silky Smooth
@@ -159,9 +159,9 @@ tooltip.bloodarsenal.modifier.smelting=Shmelty Smelt
 tooltip.bloodarsenal.modifier.fortunate=Luck's Charm
 tooltip.bloodarsenal.modifier.looting=Loot Farmer
 tooltip.bloodarsenal.modifier.xperienced=XPerienced
-tooltip.bloodarsenal.modifier.quickDraw=Quick Draw
-tooltip.bloodarsenal.modifier.shadowTool=Shadow Tool
-tooltip.bloodarsenal.modifier.beneficialPotion=Potion
+tooltip.bloodarsenal.modifier.quick_draw=Quick Draw
+tooltip.bloodarsenal.modifier.shadow_tool=Shadow Tool
+tooltip.bloodarsenal.modifier.beneficial_potion=Potion
 tooltip.bloodarsenal.modifier.aod=Aura of Destruction
 tooltip.bloodarsenal.modifier.sigil=Sigil
 

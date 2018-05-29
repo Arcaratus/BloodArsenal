@@ -3,7 +3,7 @@ package arcaratus.bloodarsenal.item.sigil;
 import WayofTime.bloodmagic.util.ChatUtil;
 import WayofTime.bloodmagic.util.helper.*;
 import arcaratus.bloodarsenal.ConfigHandler;
-import arcaratus.bloodarsenal.Constants;
+import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.effect.EntityLightningBolt;

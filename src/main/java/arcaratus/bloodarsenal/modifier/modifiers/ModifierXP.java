@@ -6,8 +6,8 @@ import arcaratus.bloodarsenal.registry.Constants;
 
 public class ModifierXP extends Modifier
 {
-    public ModifierXP(int level)
+    public ModifierXP()
     {
-        super(Constants.Modifiers.XPERIENCED, Constants.Modifiers.XPERIENCED_COUNTER.length, level, EnumModifierType.CORE);
+        super(Constants.Modifiers.XPERIENCED, Constants.Modifiers.XPERIENCED_COUNTER.length, EnumModifierType.CORE);
     }
 }

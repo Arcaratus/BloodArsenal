@@ -10,16 +10,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.tuple.Pair;
 
 public interface IModifiable
 {
     Multimap<String, AttributeModifier> getAttributeModifiers();
 
+    boolean hasModifier(String modifierKey);
+
     boolean canApplyModifier(Modifier modifier);
 
     boolean markModifierReady(ItemStack itemStack, EntityPlayer player, Modifier modifier);
 
-    boolean applyModifier(Modifier modifier);
+    boolean applyModifier(Pair<Modifier, ModifierTracker> modifierPair);
 
     boolean removeModifier(Modifier modifier);
 

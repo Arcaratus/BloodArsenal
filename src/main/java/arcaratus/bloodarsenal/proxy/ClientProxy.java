@@ -2,10 +2,12 @@ package arcaratus.bloodarsenal.proxy;
 
 import arcaratus.bloodarsenal.client.hud.HUDElementAugmentedHolding;
 import arcaratus.bloodarsenal.client.mesh.FluidStateMapper;
+import arcaratus.bloodarsenal.client.render.block.RenderStasisPlate;
 import arcaratus.bloodarsenal.client.render.entity.RenderSentientTool;
 import arcaratus.bloodarsenal.client.render.entity.RenderWarpBlade;
 import arcaratus.bloodarsenal.entity.projectile.EntitySummonedTool;
 import arcaratus.bloodarsenal.entity.projectile.EntityWarpBlade;
+import arcaratus.bloodarsenal.tile.TileStasisPlate;
 import arcaratus.bloodarsenal.util.handler.ClientHandler;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
@@ -17,6 +19,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.animation.ITimeValue;
 import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy
@@ -26,9 +29,7 @@ public class ClientProxy extends CommonProxy
     {
         super.preInit();
 
-//        ModItems.initSpecialRenders();
-
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileStasisPlate.class, new RenderStasisPlate());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileStasisPlate.class, new RenderStasisPlate());
 
         MinecraftForge.EVENT_BUS.register(new ClientHandler());
     }
@@ -57,51 +58,6 @@ public class ClientProxy extends CommonProxy
     {
         return ModelLoaderRegistry.loadASM(location, parameters);
     }
-
-//    @Override
-//    public void tryHandleBlockModel(Block block, String name)
-//    {
-//        if (block instanceof IVariantProvider)
-//        {
-//            IVariantProvider variantProvider = (IVariantProvider) block;
-//            for (Pair<Integer, String> variant : variantProvider.getVariants())
-//                ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), variant.getLeft(), new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, name), variant.getRight()));
-//        }
-//
-//        if (block instanceof IComplexVariantProvider)
-//        {
-//            IComplexVariantProvider complexVariantProvider = (IComplexVariantProvider) block;
-//            if (complexVariantProvider.getIgnoredProperties() != null)
-//            {
-//                IStateMapper customMapper = (new StateMap.Builder()).ignore(complexVariantProvider.getIgnoredProperties()).build();
-//                ModelLoader.setCustomStateMapper(block, customMapper);
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void tryHandleItemModel(Item item, String name)
-//    {
-//        if (item instanceof IMeshProvider)
-//        {
-//            IMeshProvider meshProvider = (IMeshProvider) item;
-//            ModelLoader.setCustomMeshDefinition(item, meshProvider.getMeshDefinition());
-//            ResourceLocation resourceLocation = meshProvider.getCustomLocation();
-//            if (resourceLocation == null)
-//                resourceLocation = new ResourceLocation(BloodArsenal.MOD_ID, "item/" + name);
-//            for (String variant : meshProvider.getVariants())
-//            {
-//                ModelLoader.registerItemVariants(item, new ModelResourceLocation(resourceLocation, variant));
-//            }
-//
-//        }
-//        else if (item instanceof IVariantProvider)
-//        {
-//            IVariantProvider variantProvider = (IVariantProvider) item;
-//            for (Pair<Integer, String> variant : variantProvider.getVariants())
-//                ModelLoader.setCustomModelResourceLocation(item, variant.getLeft(), new ModelResourceLocation(new ResourceLocation(BloodArsenal.MOD_ID, "item/" + name), variant.getRight()));
-//        }
-//    }
 
     @Override
     public void registerFluidModels(Fluid fluid)

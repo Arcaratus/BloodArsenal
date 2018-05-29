@@ -1,11 +1,9 @@
 package arcaratus.bloodarsenal.compat.baubles;
 
-import WayofTime.bloodmagic.api.Constants;
-import WayofTime.bloodmagic.api.registry.OrbRegistry;
+import WayofTime.bloodmagic.core.registry.OrbRegistry;
 import WayofTime.bloodmagic.item.ItemDemonCrystal;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.compat.ICompatibility;
-import arcaratus.bloodarsenal.registry.ModItems;
 import arcaratus.bloodarsenal.registry.ModRecipes;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -31,15 +29,15 @@ public class CompatBaubles implements ICompatibility
             }
             case INIT:
             {
-                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(SACRIFICE_AMULET), "aaa", "aba", "caa", 'a', ModItems.BLOOD_BURNED_STRING, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_APPRENTICE), 'c', ModItems.GEM_SACRIFICE);
-                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(SELF_SACRIFICE_AMULET), "aaa", "aba", "caa", 'a', ModItems.BLOOD_BURNED_STRING, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_APPRENTICE), 'c', ModItems.GEM_SELF_SACRIFICE);
-                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(SOUL_PENDANT), "aaa", "aba", "aca", 'a', ModItems.BLOOD_BURNED_STRING, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_WEAK), 'c', ModItems.GEM_TARTARIC);
-                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(RING_OF_VAMPIRISM), "baa", "aca", "aaa", 'a', new ItemStack(ModRecipes.getBMItem(Constants.BloodMagicItem.SLATE), 1, 2), 'b', ModItems.BLOOD_DIAMOND, 'c', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_MASTER));
-
-                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 1), 60, 40, new ItemStack(SOUL_PENDANT), ModItems.GEM_TARTARIC, "blockRedstone", "blockLapis");
-                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 2), 240, 100, new ItemStack(SOUL_PENDANT, 1, 1), ModItems.GEM_TARTARIC, "blockGold", new ItemStack(ModRecipes.getBMItem(Constants.BloodMagicItem.SLATE), 1, 2));
-                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 3), 1000, 200, new ItemStack(SOUL_PENDANT, 1, 2), new ItemStack(ModRecipes.getBMItem(Constants.BloodMagicItem.SLATE), 1, 3), ModRecipes.getBMItem(Constants.BloodMagicItem.BLOOD_SHARD), ItemDemonCrystal.getStack(ItemDemonCrystal.CRYSTAL_DEFAULT));
-                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 4), 4000, 1000, new ItemStack(SOUL_PENDANT, 1, 3), Items.NETHER_STAR);
+//                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(SACRIFICE_AMULET), "aaa", "aba", "caa", 'a', ModItems.BLOOD_BURNED_STRING, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_APPRENTICE), 'c', ModItems.GEM_SACRIFICE);
+//                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(SELF_SACRIFICE_AMULET), "aaa", "aba", "caa", 'a', ModItems.BLOOD_BURNED_STRING, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_APPRENTICE), 'c', ModItems.GEM_SELF_SACRIFICE);
+//                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(SOUL_PENDANT), "aaa", "aba", "aca", 'a', ModItems.BLOOD_BURNED_STRING, 'b', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_WEAK), 'c', ModItems.GEM_TARTARIC);
+//                ModRecipes.addOreDictBloodOrbRecipe(new ItemStack(RING_OF_VAMPIRISM), "baa", "aca", "aaa", 'a', new ItemStack(ModRecipes.getBMItem(Constants.BloodMagicItem.SLATE), 1, 2), 'b', ModItems.BLOOD_DIAMOND, 'c', OrbRegistry.getOrbStack(WayofTime.bloodmagic.registry.ModItems.ORB_MASTER));
+//
+//                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 1), 60, 40, new ItemStack(SOUL_PENDANT), ModItems.GEM_TARTARIC, "blockRedstone", "blockLapis");
+//                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 2), 240, 100, new ItemStack(SOUL_PENDANT, 1, 1), ModItems.GEM_TARTARIC, "blockGold", new ItemStack(ModRecipes.getBMItem(Constants.BloodMagicItem.SLATE), 1, 2));
+//                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 3), 1000, 200, new ItemStack(SOUL_PENDANT, 1, 2), new ItemStack(ModRecipes.getBMItem(Constants.BloodMagicItem.SLATE), 1, 3), ModRecipes.getBMItem(Constants.BloodMagicItem.BLOOD_SHARD), ItemDemonCrystal.getStack(ItemDemonCrystal.CRYSTAL_DEFAULT));
+//                ModRecipes.addForgeRecipe(new ItemStack(SOUL_PENDANT, 1, 4), 4000, 1000, new ItemStack(SOUL_PENDANT, 1, 3), Items.NETHER_STAR);
                 break;
             }
         }

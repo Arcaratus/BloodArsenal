@@ -4,7 +4,7 @@ import WayofTime.bloodmagic.altar.IBloodAltar;
 import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.orb.IBloodOrb;
 import arcaratus.bloodarsenal.BloodArsenal;
-import arcaratus.bloodarsenal.Constants;
+import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.tile.TileAltareAenigmatica;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;

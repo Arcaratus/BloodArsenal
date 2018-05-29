@@ -6,6 +6,7 @@ import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.block.IBABlock;
 import arcaratus.bloodarsenal.item.*;
 import arcaratus.bloodarsenal.item.sigil.*;
+import arcaratus.bloodarsenal.item.stasis.*;
 import arcaratus.bloodarsenal.item.tool.*;
 import arcaratus.bloodarsenal.util.IComplexVariantProvider;
 import com.google.common.collect.Lists;
@@ -38,6 +39,8 @@ public class RegistrarBloodArsenalItems
 {
     public static final Item BLOOD_DIAMOND = Items.AIR;
 
+    public static final Item BASE_ITEM = Items.AIR;
+
     public static final Item BLOOD_BURNED_STRING = Items.AIR;
     public static final Item BLOOD_ORANGE = Items.AIR;
 
@@ -65,18 +68,15 @@ public class RegistrarBloodArsenalItems
     public static final Item SIGIL_DIVINITY = Items.AIR;
     public static final Item SIGIL_SENTIENCE = Items.AIR;
 
-    public static final Item BASE_ITEM = Items.AIR;
-
     public static final Item BOUND_STICK = Items.AIR;
     public static final Item BOUND_SICKLE = Items.AIR;
 
-//    public static final Item STASIS_PLATE = Items.AIR;
-//    public static final Item STASIS_PICKAXE = Items.AIR;
-//    public static final Item STASIS_AXE = Items.AIR;
-//    public static final Item STASIS_SHOVEL = Items.AIR;
-//    public static final Item STASIS_SWORD = Items.AIR;
+    public static final Item STASIS_PICKAXE = Items.AIR;
+    public static final Item STASIS_AXE = Items.AIR;
+    public static final Item STASIS_SHOVEL = Items.AIR;
+    public static final Item STASIS_SWORD = Items.AIR;
 
-//    public static final Item MODIFIER_TOME = Items.AIR;
+    public static final Item MODIFIER_TOME = Items.AIR;
 
     public static final Item WARP_BLADE = Items.AIR;
 
@@ -123,6 +123,11 @@ public class RegistrarBloodArsenalItems
                 new ItemSigilSentience(),
                 new ItemBoundStick("bound_stick"),
                 new ItemBoundSickle(),
+                new ItemStasisAxe(),
+                new ItemStasisPickaxe(),
+                new ItemStasisShovel(),
+                new ItemStasisSword(),
+                new ItemModifierTome("modifier_tome"),
                 new ItemWarpBlade("warp_blade")
         ));
 

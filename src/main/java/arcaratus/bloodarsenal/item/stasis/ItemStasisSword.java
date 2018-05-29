@@ -1,24 +1,20 @@
 package arcaratus.bloodarsenal.item.stasis;
 
-import WayofTime.bloodmagic.api.event.BoundToolEvent;
-import WayofTime.bloodmagic.api.iface.IActivatable;
-import WayofTime.bloodmagic.api.iface.IBindable;
-import WayofTime.bloodmagic.api.util.helper.NBTHelper;
-import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.client.IMeshProvider;
-import WayofTime.bloodmagic.util.Utils;
+import WayofTime.bloodmagic.event.BoundToolEvent;
+import WayofTime.bloodmagic.iface.IActivatable;
+import WayofTime.bloodmagic.iface.IBindable;
+import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.client.mesh.CustomMeshDefinitionActivatable;
+import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.modifier.*;
-import arcaratus.bloodarsenal.modifier.modifiers.ModifierShadowTool;
-import arcaratus.bloodarsenal.registry.Constants;
-import arcaratus.bloodarsenal.registry.ModItems;
 import com.google.common.base.Strings;
 import com.google.common.collect.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,11 +27,13 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
 
 public class ItemStasisSword extends ItemSword implements IBindable, IActivatable, IModifiableItem, IMeshProvider
 {
@@ -49,9 +47,10 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
 
     public ItemStasisSword()
     {
-        super(ModItems.STASIS);
+        super(RegistrarBloodArsenalItems.STASIS);
 
         setUnlocalizedName(BloodArsenal.MOD_ID + ".stasis.sword");
+        setRegistryName("stasis_sword");
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 
         tooltipBase = "tooltip.bloodarsenal.stasis.sword.";
@@ -60,7 +59,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     @Override
     public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, boolean isSelected)
     {
-        if (Strings.isNullOrEmpty(getOwnerUUID(itemStack)))
+        if (getBinding(itemStack) == null)
         {
             setActivatedState(itemStack, false);
             return;
@@ -80,22 +79,20 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
         {
             if (getActivated(itemStack))
             {
-                try
+                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+                if (getActivated(itemStack))
                 {
-                    StasisModifiable.invokeModMethod(itemStack, StasisModifiable.class.getDeclaredMethod("onUpdate", ItemStack.class, World.class, Entity.class, int.class), itemStack, world, entity, itemSlot);
-                }
-                catch (Exception e)
-                {
-                }
+                    modifiable.onUpdate(itemStack, world, entity, itemSlot);
 
-                if (world.getTotalWorldTime() % 80 == 0)
-                    NetworkHelper.getSoulNetwork(getOwnerUUID(itemStack)).syphonAndDamage((EntityPlayer) entity, cost);
+                    if (world.getTotalWorldTime() % 80 == 0)
+                        NetworkHelper.getSoulNetwork(getBinding(itemStack).getOwnerId()).syphonAndDamage((EntityPlayer) entity, cost);
+                }
             }
             else
             {
-                StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
-                if (modifiable.hasModifier(ModifierShadowTool.class))
-                    modifiable.onSpecialUpdate(itemStack, world, entity);
+//                StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
+//                if (modifiable.hasModifier(ModifierShadowTool.class))
+//                    modifiable.onSpecialUpdate(itemStack, world, entity);
             }
         }
     }
@@ -103,21 +100,16 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     @Override
     public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker)
     {
+        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
         if (getActivated(itemStack))
         {
-            try
-            {
-                StasisModifiable.invokeModMethod(itemStack, StasisModifiable.class.getDeclaredMethod("hitEntity", ItemStack.class, EntityLivingBase.class, EntityLivingBase.class), itemStack, target, attacker);
-            }
-            catch (Exception e)
-            {
-            }
+            modifiable.hitEntity(itemStack, target, attacker);
         }
         else
         {
-            StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
-            if (modifiable.hasModifier(ModifierShadowTool.class))
-                ModifierTracker.getTracker(ModifierShadowTool.class).incrementCounter(modifiable, 1);
+//            StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
+//            if (modifiable.hasModifier(ModifierShadowTool.class))
+//                ModifierTracker.getTracker(ModifierShadowTool.class).incrementCounter(modifiable, 1);
         }
 
         return true;
@@ -128,26 +120,20 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     {
         if (!world.isRemote)
         {
+            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
             if (getActivated(itemStack))
             {
                 if (entityLivingBase instanceof EntityPlayer)
                 {
                     EntityPlayer player = (EntityPlayer) entityLivingBase;
-
-                    try
-                    {
-                        StasisModifiable.invokeModMethod(itemStack, StasisModifiable.class.getDeclaredMethod("onBlockDestroyed", ItemStack.class, World.class, IBlockState.class, BlockPos.class, EntityPlayer.class), itemStack, world, state, pos, player);
-                    }
-                    catch (Exception e)
-                    {
-                    }
+                    modifiable.onBlockDestroyed(itemStack, world, state, pos, player);
                 }
             }
             else
             {
-                StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
-                if (modifiable.hasModifier(ModifierShadowTool.class))
-                    ModifierTracker.getTracker(ModifierShadowTool.class).incrementCounter(modifiable, 1);
+//                StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
+//                if (modifiable.hasModifier(ModifierShadowTool.class))
+//                    ModifierTracker.getTracker(ModifierShadowTool.class).incrementCounter(modifiable, 1);
             }
         }
 
@@ -163,13 +149,13 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
 
         if (!player.isSneaking() && getActivated(itemStack))
         {
-            StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
+            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
             Modifier modifier = Modifier.EMPTY_MODIFIER;
-            for (Entry<String, Modifier> entry : modifiable.modifierMap.entrySet())
+            for (Entry<String, Pair<Modifier, ModifierTracker>> entry : modifiable.getModifierMap().entrySet())
             {
-                if (entry.getValue().getType() == EnumModifierType.ABILITY)
+                if (entry.getValue().getLeft().getType() == EnumModifierType.ABILITY)
                 {
-                    modifier = entry.getValue();
+                    modifier = entry.getValue().getLeft();
                     break;
                 }
             }
@@ -187,13 +173,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
                 }
                 else if (!world.isRemote)
                 {
-                    try
-                    {
-                        StasisModifiable.invokeModMethod(itemStack, StasisModifiable.class.getDeclaredMethod("onRightClick", ItemStack.class, World.class, EntityPlayer.class), itemStack, world, player);
-                    }
-                    catch (Exception e)
-                    {
-                    }
+                    modifiable.onRightClick(itemStack, world, player);
                 }
             }
         }
@@ -216,13 +196,8 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
 
                 i = event.charge;
 
-                try
-                {
-                    StasisModifiable.invokeModMethod(itemStack, StasisModifiable.class.getDeclaredMethod("onRelease", ItemStack.class, World.class, EntityPlayer.class, int.class), itemStack, world, player, Math.min(i, CHARGE_TIME));
-                }
-                catch (Exception e)
-                {
-                }
+                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+                modifiable.onRelease(itemStack, world, player, i);
 
                 setBeingHeldDown(itemStack, false);
             }
@@ -244,32 +219,26 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems)
-    {
-        subItems.add(Utils.setUnbreakable(new ItemStack(itemIn)));
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List<String> tooltip, boolean advanced)
+    public void addInformation(ItemStack itemStack, World world, List<String> tooltip, ITooltipFlag flag)
     {
         if (!itemStack.hasTagCompound())
             return;
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
         {
-            StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
+            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
             for (EnumModifierType type : EnumModifierType.values())
             {
                 tooltip.add(TextHelper.localize("tooltip.bloodarsenal.modifierType." + WordUtils.swapCase(type.toString())));
-                for (Entry<String, Modifier> entry : modifiable.modifierMap.entrySet())
+                for (Pair<Modifier, ModifierTracker> entry : modifiable.getModifierMap().values())
                 {
-                    Modifier modifier = entry.getValue();
-                    if (modifier != null && modifier.getType() == type)
+                    Modifier modifier = entry.getLeft();
+                    ModifierTracker tracker = entry.getRight();
+                    if (modifier != Modifier.EMPTY_MODIFIER && modifier.getType() == type)
                     {
                         String locName = TextHelper.localize(modifier.getUnlocalizedName());
                         String altText = TextHelper.localize(modifier.getAlternateName(itemStack));
-                        tooltip.add(" -" + TextHelper.localize("tooltip.bloodarsenal.modifier.level", !Strings.isNullOrEmpty(altText) ? altText : locName, modifier.getLevel() + 1, (modifier.readyForUpgrade() ? "+" : "")));
+                        tooltip.add(" -" + TextHelper.localize("tooltip.bloodarsenal.modifier.level", !Strings.isNullOrEmpty(altText) ? altText : locName, tracker.getLevel() + 1, (tracker.isReadyToUpgrade() ? "+" : "")));
                     }
                 }
             }
@@ -279,7 +248,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.holdShift"));
         }
 
-        super.addInformation(itemStack, player, tooltip, advanced);
+        super.addInformation(itemStack, world, tooltip, flag);
     }
 
     @Override
@@ -297,11 +266,16 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     @Override
     public EnumAction getItemUseAction(ItemStack itemStack)
     {
-        StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
+        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
         Modifier modifier = Modifier.EMPTY_MODIFIER;
-        for (Entry<String, Modifier> entry : modifiable.modifierMap.entrySet())
-            if (entry.getValue().getType() == EnumModifierType.ABILITY)
-                modifier = entry.getValue();
+        for (Pair<Modifier, ModifierTracker> entry : modifiable.getModifierMap().values())
+        {
+            if (entry.getLeft().getType() == EnumModifierType.ABILITY)
+            {
+                modifier = entry.getLeft();
+                break;
+            }
+        }
 
         return modifier != Modifier.EMPTY_MODIFIER ? modifier.getAction() : EnumAction.NONE;
     }
@@ -333,9 +307,9 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack itemStack)
     {
+        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
-            StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
             if (getActivated(itemStack))
             {
                 Multimap<String, AttributeModifier> map = HashMultimap.create();
@@ -349,15 +323,15 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             else
             {
                 Multimap<String, AttributeModifier> map = modifiable.getAttributeModifiers();
-                boolean hasShadow = modifiable.hasModifier(ModifierShadowTool.class);
-
-                if (hasShadow)
-                {
-                    Modifier modifier = modifiable.getModifier(ModifierShadowTool.class);
-                    map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 6.7 * (modifier.getLevel() + 1) / 5, 0));
-                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5 * (modifier.getLevel() + 1) / 5, 0));
-                }
-                else
+//                boolean hasShadow = modifiable.hasModifier(ModifierShadowTool.class);
+//
+//                if (hasShadow)
+//                {
+//                    Modifier modifier = modifiable.getModifierAndTracker(ModifierShadowTool.class);
+//                    map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 6.7 * (modifier.getLevel() + 1) / 5, 0));
+//                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5 * (modifier.getLevel() + 1) / 5, 0));
+//                }
+//                else
                 {
                     map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0, 0));
                     map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.8, 0));
@@ -378,19 +352,23 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public ItemMeshDefinition getMeshDefinition()
+    public IModifiable getModifiable(ItemStack itemStack)
     {
-        return new CustomMeshDefinitionActivatable("ItemStasisSword");
+        return NewModifiable.getModifiableFromStack(itemStack);
     }
 
     @Override
-    public List<String> getVariants()
+    @SideOnly(Side.CLIENT)
+    public ItemMeshDefinition getMeshDefinition()
     {
-        List<String> ret = new ArrayList<>();
-        ret.add("active=true");
-        ret.add("active=false");
-        return ret;
+        return new CustomMeshDefinitionActivatable("stasis_sword");
+    }
+
+    @Override
+    public void gatherVariants(Consumer<String> variants)
+    {
+        variants.accept("active=true");
+        variants.accept("active=false");
     }
 
     protected int getHeldDownCount(ItemStack itemStack)
@@ -417,45 +395,5 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     protected void setBeingHeldDown(ItemStack itemStack, boolean heldDown)
     {
         heldDownMap.put(itemStack, heldDown);
-    }
-
-    // IBindable
-
-    @Override
-    public String getOwnerName(ItemStack stack)
-    {
-        return !stack.isEmpty() ? NBTHelper.checkNBT(stack).getTagCompound().getString(Constants.NBT.OWNER_NAME) : null;
-    }
-
-    @Override
-    public String getOwnerUUID(ItemStack stack)
-    {
-        return !stack.isEmpty() ? NBTHelper.checkNBT(stack).getTagCompound().getString(Constants.NBT.OWNER_UUID) : null;
-    }
-
-    @Override
-    public boolean onBind(EntityPlayer player, ItemStack stack)
-    {
-        return true;
-    }
-
-    // IActivatable
-
-    @Override
-    public boolean getActivated(ItemStack stack)
-    {
-        return !stack.isEmpty() && NBTHelper.checkNBT(stack).getTagCompound().getBoolean(Constants.NBT.ACTIVATED);
-    }
-
-    @Override
-    public ItemStack setActivatedState(ItemStack stack, boolean activated)
-    {
-        if (!stack.isEmpty())
-        {
-            NBTHelper.checkNBT(stack).getTagCompound().setBoolean(Constants.NBT.ACTIVATED, activated);
-            return stack;
-        }
-
-        return ItemStack.EMPTY;
     }
 }

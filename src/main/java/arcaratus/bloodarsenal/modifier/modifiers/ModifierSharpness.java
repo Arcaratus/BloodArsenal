@@ -11,17 +11,17 @@ import static arcaratus.bloodarsenal.registry.Constants.Misc.ATTACK_DAMAGE_MODIF
 
 public class ModifierSharpness extends Modifier
 {
-    public ModifierSharpness(int level)
+    public ModifierSharpness()
     {
-        super(Constants.Modifiers.SHARPNESS, Constants.Modifiers.SHARPNESS_COUNTER.length, level, EnumModifierType.HEAD);
+        super(Constants.Modifiers.SHARPNESS, Constants.Modifiers.SHARPNESS_COUNTER.length, EnumModifierType.HEAD);
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers()
+    public Multimap<String, AttributeModifier> getAttributeModifiers(int level)
     {
-        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers();
+        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(level);
 
-        multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 6 + 2 * Math.pow((getLevel() + 1), 1.75), 0));
+        multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 6 + 2 * Math.pow((level + 1), 1.75), 0));
 
         return multimap;
     }

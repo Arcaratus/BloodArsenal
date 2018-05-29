@@ -7,8 +7,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 
-import static arcaratus.bloodarsenal.Constants.Misc.PLAYER_INVENTORY_COLUMNS;
-import static arcaratus.bloodarsenal.Constants.Misc.PLAYER_INVENTORY_ROWS;
+import static arcaratus.bloodarsenal.registry.Constants.Misc.PLAYER_INVENTORY_COLUMNS;
+import static arcaratus.bloodarsenal.registry.Constants.Misc.PLAYER_INVENTORY_ROWS;
 
 public class ContainerAltareAenigmatica extends Container
 {

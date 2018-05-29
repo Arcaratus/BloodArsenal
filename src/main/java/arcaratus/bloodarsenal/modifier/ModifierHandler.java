@@ -1,46 +1,20 @@
 package arcaratus.bloodarsenal.modifier;
 
-import arcaratus.bloodarsenal.BloodArsenal;
 import net.minecraft.nbt.NBTTagCompound;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class ModifierHandler
 {
-    public static List<ModifierTracker> trackers = new ArrayList<>();
-    public static HashMap<String, Class<? extends Modifier>> modifierMap = new HashMap<>();
-    public static HashMap<String, Constructor<? extends Modifier>> modifierConstructorMap = new HashMap<>();
+    public static HashMap<String, Pair<Modifier, ModifierTracker>> modifierMap = new HashMap<>();
     public static Set<Pair<EnumModifierType, Set<Modifier>>> incompatibleModifiersMap = new HashSet<>();
     public static HashMap<String, Integer> modifierMaxLevelMap = new HashMap<>();
 
-    public static void registerTracker(ModifierTracker tracker)
+    public static Modifier registerModifier(Modifier modifier, ModifierTracker tracker)
     {
-        if (trackers.contains(tracker))
-            BloodArsenal.INSTANCE.getLogger().error("You utter dimwit. I'm not even going to provide you with an informative error.");
-
-        trackers.add(tracker);
-    }
-
-    public static Modifier registerModifier(Modifier modifier)
-    {
-        Class<? extends Modifier> clazz = modifier.getClass();
-        modifierMap.put(modifier.getUniqueIdentifier(), clazz);
+        modifierMap.put(modifier.getUniqueIdentifier(), Pair.of(modifier, tracker));
         modifierMaxLevelMap.put(modifier.getUniqueIdentifier(), modifier.getMaxLevel());
-
-        try
-        {
-            Constructor<? extends Modifier> constructor = clazz.getConstructor(int.class);
-            if (constructor == null)
-                BloodArsenal.INSTANCE.getLogger().error("Error adding soul modifier {} since it doesn't have a frickin valid constructor dummy.", modifier.getUniqueIdentifier());
-            else
-                modifierConstructorMap.put(modifier.getUniqueIdentifier(), constructor);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
 
         return modifier;
     }
@@ -50,51 +24,47 @@ public class ModifierHandler
         Set<Modifier> modList = new HashSet<>();
         for (Modifier modifier : modifiers)
         {
-            if (type != modifier.getType())
-                BloodArsenal.INSTANCE.getLogger().error("Error registering incompatible modifiers since {} does not match modifier type ya idiot.", modifier.getUniqueIdentifier());
-            else
+//            if (type != modifier.getType())
+//                BloodArsenal.INSTANCE.getLogger().error("Error registering incompatible modifiers since {} does not match modifier type ya idiot.", modifier.getUniqueIdentifier());
+//            else
                 modList.add(modifier);
         }
 
         incompatibleModifiersMap.add(Pair.of(type, modList));
     }
 
-    public static Modifier generateModifierFromKey(String key, int level, boolean readyForUpgrade)
+    public static Modifier getModifierFromKey(String key)
     {
-        return generateModifierFromKey(key, level, readyForUpgrade, null);
+        return getModifierFromKey(key, null);
     }
 
-    public static Modifier generateModifierFromKey(String key, int level, boolean readyForUpgrade, NBTTagCompound tag)
+    public static Modifier getModifierFromKey(String key, NBTTagCompound tag)
     {
-        Constructor<? extends Modifier> constructor = modifierConstructorMap.get(key);
-        if (constructor != null)
-        {
-            try
-            {
-                Modifier modifier = constructor.newInstance(level);
-                if (tag != null)
-                    modifier.readFromNBT(tag);
+        Modifier modifier = modifierMap.get(key).getLeft();
+        if (tag != null)
+            modifier.readFromNBT(tag);
 
-                modifier.setReadyForUpgrade(readyForUpgrade);
-                return modifier;
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        return null;
+        return modifier;
     }
 
-    // Complexity of O(n^2)
-    public static boolean isModifierCompatible(Map<String, Modifier> modifierMap, Modifier modifier)
+    public static ModifierTracker getTrackerFromKey(String key, int level)
+    {
+        return modifierMap.get(key).getRight().copy(level);
+    }
+
+    /**
+     * Checks for any existing Modifier that is incompatible with the Modifier
+     * Complexity of O(n^2)
+     *
+     * @return true if compatible, false otherwise
+     */
+    public static boolean isModifierCompatible(Collection<String> existingModifiers, Modifier modifier)
     {
         for (Pair<EnumModifierType, Set<Modifier>> pair : incompatibleModifiersMap)
             if (pair.getKey() == modifier.getType() && !pair.getValue().isEmpty())
                 if (pair.getValue().contains(modifier))
                     for (Modifier incompatMod : pair.getValue())
-                        if (!modifier.getUniqueIdentifier().equals(incompatMod.getUniqueIdentifier()) && modifierMap.containsKey(incompatMod.getUniqueIdentifier()))
+                        if (!modifier.getUniqueIdentifier().equals(incompatMod.getUniqueIdentifier()) && existingModifiers.contains(incompatMod.getUniqueIdentifier()))
                             return false;
 
         return true;
