@@ -188,18 +188,21 @@ public class BlockGlassShards extends Block implements IVariantProvider, IBABloc
     @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
-        if (entityIn instanceof EntityLivingBase)
+        if (worldIn.getWorldTime() % 10 == 0)
         {
-            double damage = ConfigHandler.values.glassShardsDamage;
-
-            if (entityIn.fallDistance > 0)
+            if (entityIn instanceof EntityLivingBase)
             {
-                damage += entityIn.fallDistance * 1.5 + 1;
-            }
+                double damage = ConfigHandler.values.glassShardsDamage;
 
-            if (entityIn.attackEntityFrom(BloodArsenal.getDamageSourceGlass(), (float) damage))
-                PlayerSacrificeHelper.findAndFillAltar(worldIn, (EntityLivingBase) entityIn, (int) Math.round(damage * RANDOM.nextInt(101)), false);
-            ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, RANDOM.nextInt(100), 0));
+                if (entityIn.fallDistance > 0)
+                {
+                    damage += entityIn.fallDistance * 1.5 + 1;
+                }
+
+                if (entityIn.attackEntityFrom(BloodArsenal.getDamageSourceGlass(), (float) damage))
+                    PlayerSacrificeHelper.findAndFillAltar(worldIn, (EntityLivingBase) entityIn, (int) Math.round(damage * RANDOM.nextInt(101)), false);
+                ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, RANDOM.nextInt(100), 0));
+            }
         }
     }
 

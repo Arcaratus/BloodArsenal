@@ -77,7 +77,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
 
         if (entity instanceof EntityPlayer)
         {
-            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+            StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
             if (getActivated(itemStack))
             {
                 if (getActivated(itemStack))
@@ -91,7 +91,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             else
             {
                 if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
-                    NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
+                    StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
             }
         }
     }
@@ -99,7 +99,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     @Override
     public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker)
     {
-        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+        StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
         if (getActivated(itemStack))
         {
             modifiable.hitEntity(itemStack, target, attacker);
@@ -107,7 +107,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
         else
         {
             if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
-                NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
+                StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
         }
 
         return true;
@@ -118,7 +118,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     {
         if (!world.isRemote)
         {
-            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+            StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
             if (getActivated(itemStack))
             {
                 if (entityLivingBase instanceof EntityPlayer)
@@ -130,7 +130,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             else
             {
                 if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
-                    NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
+                    StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
             }
         }
 
@@ -146,7 +146,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
 
         if (!player.isSneaking() && getActivated(itemStack))
         {
-            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+            StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
             Modifier modifier = Modifier.EMPTY_MODIFIER;
             for (Entry<String, Pair<Modifier, ModifierTracker>> entry : modifiable.getModifierMap().entrySet())
             {
@@ -193,7 +193,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
 
                 i = event.charge;
 
-                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
                 modifiable.onRelease(itemStack, world, player, i);
 
                 setBeingHeldDown(itemStack, false);
@@ -223,7 +223,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
         {
-            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+            StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
             for (EnumModifierType type : EnumModifierType.values())
             {
                 tooltip.add(TextHelper.localize("tooltip.bloodarsenal.modifierType." + WordUtils.swapCase(type.toString())));
@@ -262,7 +262,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     @Override
     public EnumAction getItemUseAction(ItemStack itemStack)
     {
-        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+        StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
         Modifier modifier = Modifier.EMPTY_MODIFIER;
         for (Pair<Modifier, ModifierTracker> entry : modifiable.getModifierMap().values())
         {
@@ -303,7 +303,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack itemStack)
     {
-        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+        StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
             if (getActivated(itemStack))
@@ -350,7 +350,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     @Override
     public IModifiable getModifiable(ItemStack itemStack)
     {
-        return NewModifiable.getModifiableFromStack(itemStack);
+        return StasisModifiable.getModifiableFromStack(itemStack);
     }
 
     @Override

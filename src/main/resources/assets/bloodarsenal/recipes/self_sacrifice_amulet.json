@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "bloodarsenal:self_sacrifice_amulet",
+    "data": 0
+  },
+  "pattern": [
+    "aaa",
+    "aba",
+    "caa"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "#STRING"
+    },
+    "b": {
+      "type": "bloodmagic:orb",
+      "orb": "bloodmagic:apprentice"
+    },
+    "c": {
+      "item": "bloodarsenal:gem",
+      "data": 0
+    }
+  }
+}

@@ -5,6 +5,7 @@ import WayofTime.bloodmagic.client.IVariantProvider;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.block.IBABlock;
 import arcaratus.bloodarsenal.item.*;
+import arcaratus.bloodarsenal.item.baubles.*;
 import arcaratus.bloodarsenal.item.sigil.*;
 import arcaratus.bloodarsenal.item.stasis.*;
 import arcaratus.bloodarsenal.item.tool.*;
@@ -80,6 +81,11 @@ public class RegistrarBloodArsenalItems
 
     public static final Item WARP_BLADE = Items.AIR;
 
+    public static final Item SACRIFICE_AMULET = Items.AIR;
+    public static final Item SELF_SACRIFICE_AMULET = Items.AIR;
+    public static final Item VAMPIRE_RING = Items.AIR;
+    public static final Item SOUL_PENDANT = Items.AIR;
+
     public static Item.ToolMaterial BLOOD_INFUSED_WOOD = EnumHelper.addToolMaterial("bloodinfusedwood", 1, 186, 5.5F, 1.0F, 13);
     public static Item.ToolMaterial BLOOD_INFUSED_IRON = EnumHelper.addToolMaterial("bloodinfusediron", 3, 954, 7.25F, 2.7F, 21);
     public static Item.ToolMaterial STASIS = EnumHelper.addToolMaterial("stasis", 4, 0, 9F, 4.2F, 0);
@@ -128,7 +134,11 @@ public class RegistrarBloodArsenalItems
                 new ItemStasisShovel(),
                 new ItemStasisSword(),
                 new ItemModifierTome("modifier_tome"),
-                new ItemWarpBlade("warp_blade")
+                new ItemWarpBlade("warp_blade"),
+                new ItemSacrificeAmulet("sacrifice_amulet"),
+                new ItemSelfSacrificeAmulet("self_sacrifice_amulet"),
+                new ItemVampireRing("vampire_ring"),
+                new ItemSoulPendant("soul_pendant")
         ));
 
         event.getRegistry().registerAll(items.toArray(new Item[0]));

@@ -38,7 +38,7 @@ public class ModifierSmelting extends Modifier
         world.setBlockToAir(pos);// Needed to prevent duplicates
         if (!resultStack.isEmpty())
         {
-            boolean hasFortune = NewModifiable.getModifiableFromStack(itemStack).hasModifier(Constants.Modifiers.FORTUNATE);
+            boolean hasFortune = StasisModifiable.getModifiableFromStack(itemStack).hasModifier(Constants.Modifiers.FORTUNATE);
             if (level > 0 && hasFortune) // Written in a jiffy
             {
                 int i = random.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack) + 2) - 1;
@@ -46,7 +46,7 @@ public class ModifierSmelting extends Modifier
                 NonNullList<ItemStack> drops = NonNullList.create();
                 drops.add(ItemHandlerHelper.copyStackWithSize(resultStack, resultStack.getCount() * (i + 1)));
                 BloodArsenalUtils.dropStacks(drops, world, pos);
-                NewModifiable.incrementModifierTracker(itemStack, this);
+                StasisModifiable.incrementModifierTracker(itemStack, this);
             }
             else if (level == 0 && !(resultStack.getItem() instanceof ItemBlock))
             {
@@ -55,7 +55,7 @@ public class ModifierSmelting extends Modifier
             else
             {
                 Block.spawnAsEntity(world, pos, resultStack);
-                NewModifiable.incrementModifierTracker(itemStack, this);
+                StasisModifiable.incrementModifierTracker(itemStack, this);
             }
         }
         else

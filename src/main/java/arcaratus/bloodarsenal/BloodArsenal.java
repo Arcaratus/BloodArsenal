@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import java.io.File;
 import java.util.Locale;
 
-@Mod(modid = BloodArsenal.MOD_ID, version = BloodArsenal.VERSION, name = BloodArsenal.NAME, dependencies = "required-after:bloodmagic;after:baubles;after:guideapi")
+@Mod(modid = BloodArsenal.MOD_ID, version = BloodArsenal.VERSION, name = BloodArsenal.NAME, dependencies = "required-after:bloodmagic;required-after:baubles;after:guideapi")
 public class BloodArsenal
 {
     public static final String MOD_ID = "bloodarsenal";

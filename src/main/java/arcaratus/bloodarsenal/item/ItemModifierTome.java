@@ -78,7 +78,7 @@ public class ItemModifierTome extends Item implements IVariantProvider
             ItemStack otherStack = player.getHeldItem(EnumHand.OFF_HAND);
             if (!otherStack.isEmpty() && otherStack.getItem() instanceof IModifiableItem)
             {
-                NewModifiable modifiable = NewModifiable.getModifiableFromStack(otherStack);
+                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(otherStack);
                 if (modifiable != null)
                 {
                     if (modifiable.canApplyModifier(modifier) && modifiable.applyModifier(pair))
@@ -93,7 +93,7 @@ public class ItemModifierTome extends Item implements IVariantProvider
                             modifier.writeSpecialNBT(otherStack, new ItemStack(specialNBT.getCompoundTag(Constants.NBT.ITEMSTACK)), tracker.getLevel());
                         else
                             modifier.writeSpecialNBT(otherStack, tracker.getLevel());
-                        NewModifiable.setModifiable(otherStack, modifiable, false);
+                        StasisModifiable.setModifiable(otherStack, modifiable, false);
                         String name = modifier.hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
                         ChatUtil.sendChat(player, TextHelper.localizeEffect("chat.bloodarsenal.modifierAdded", name, tracker.getLevel() + 1, otherStack.getDisplayName()));
                         itemStack.shrink(1);

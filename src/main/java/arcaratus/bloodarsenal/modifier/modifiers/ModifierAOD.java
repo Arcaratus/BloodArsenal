@@ -49,7 +49,7 @@ public class ModifierAOD extends Modifier
         String name = (String) item.getToolClasses(itemStack).toArray()[0]; // We ONLY care about the first tool class found
         BlockPos playerPos = player.getPosition();
 
-        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+        StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
 
         if (name.equals("sword"))
         {
@@ -64,7 +64,7 @@ public class ModifierAOD extends Modifier
                 living.attackEntityFrom(DamageSource.GENERIC, (float) (damage * ((level + 1) / getMaxLevel())));
                 living.attackEntityAsMob(player);
                 NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (Math.pow(charge, 3) * (level + 1) / 2.7));
-                NewModifiable.incrementModifierTracker(itemStack, this);
+                StasisModifiable.incrementModifierTracker(itemStack, this);
             }
 
             return;
@@ -116,13 +116,13 @@ public class ModifierAOD extends Modifier
                                 ItemStack resultStack = FurnaceRecipes.instance().getSmeltingResult(blockStack);
                                 if (!resultStack.isEmpty())
                                 {
-                                    boolean hasFortune = NewModifiable.getModifiableFromStack(itemStack).hasModifier(Constants.Modifiers.FORTUNATE);
+                                    boolean hasFortune = StasisModifiable.getModifiableFromStack(itemStack).hasModifier(Constants.Modifiers.FORTUNATE);
                                     if (level > 0 && hasFortune) // Written in a jiffy
                                     {
                                         int fortune = random.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack) + 2) - 1;
 
                                         drops.add(ItemHandlerHelper.copyStackWithSize(resultStack, resultStack.getCount() * (fortune + 1)));
-                                        NewModifiable.incrementModifierTracker(itemStack, this);
+                                        StasisModifiable.incrementModifierTracker(itemStack, this);
                                     }
                                     else if (level == 0 && !(resultStack.getItem() instanceof ItemBlock))
                                     {
@@ -131,7 +131,7 @@ public class ModifierAOD extends Modifier
                                     else
                                     {
                                         drops.add(ItemHandlerHelper.copyStackWithSize(resultStack, resultStack.getCount()));
-                                        NewModifiable.incrementModifierTracker(itemStack, this, 1);
+                                        StasisModifiable.incrementModifierTracker(itemStack, this, 1);
                                     }
                                 }
                                 else
@@ -147,7 +147,7 @@ public class ModifierAOD extends Modifier
                             }
 
                             world.setBlockToAir(blockPos);
-                            NewModifiable.incrementModifierTracker(itemStack, this, 1);
+                            StasisModifiable.incrementModifierTracker(itemStack, this, 1);
                         }
                     }
                 }

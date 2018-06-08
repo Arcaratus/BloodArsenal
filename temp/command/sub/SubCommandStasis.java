@@ -5,8 +5,6 @@ import WayofTime.bloodmagic.util.Utils;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.command.CommandBloodArsenal;
-import arcaratus.bloodarsenal.modifier.*;
-import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;

@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "bloodarsenal:sacrifice_amulet"
+  },
+  "pattern": [
+    "baa",
+    "aca",
+    "aaa"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodmagic:slate",
+      "data": 3
+    },
+    "b": {
+      "item": "bloodarsenal:blood_diamond",
+      "data": 0
+    },
+    "c": {
+      "type": "bloodmagic:orb",
+      "orb": "bloodmagic:master"
+    }
+  }
+}

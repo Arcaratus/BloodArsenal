@@ -86,7 +86,7 @@ public class RitualInfusion extends RitualBloodArsenal
 
                 if (recipe.getModifier() != Modifier.EMPTY_MODIFIER && input.getItem() instanceof IModifiableItem)
                 {
-                    NewModifiable modifiable = NewModifiable.getModifiableFromStack(input);
+                    StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(input);
 
                     String modifierKey = recipe.getModifier().getUniqueIdentifier();
                     Modifier modifier = ModifierHandler.getModifierFromKey(modifierKey);
@@ -150,7 +150,7 @@ public class RitualInfusion extends RitualBloodArsenal
                         NBTHelper.checkNBT(copyStack);
                         modifier.removeSpecialNBT(copyStack); // Needed here in order to reset NBT data
                         modifier.writeSpecialNBT(copyStack, wildStack, level);
-                        NewModifiable.setModifiable(copyStack, modifiable, false);
+                        StasisModifiable.setModifiable(copyStack, modifiable, false);
 
                         shrinkItemStackInputs(world, pos, constructItemStackList(recipe.getInputs(), inputStacks), wildStack);
                         altarInv.setInventorySlotContents(0, copyStack);

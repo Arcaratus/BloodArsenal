@@ -63,6 +63,11 @@ public class RegistrarBloodArsenalRecipes
         registrar.addTartaricForge(new ItemStack(RegistrarBloodArsenalItems.BLOOD_DIAMOND), 1024, 512, Items.DIAMOND, FluidUtil.getFilledBucket(new FluidStack(BlockLifeEssence.getLifeEssence(), 0)), Items.DRAGON_BREATH, RegistrarBloodArsenalBlocks.BLOOD_INFUSED_GLOWSTONE);
 
         registrar.addTartaricForge(new ItemStack(RegistrarBloodArsenalItems.SIGIL_SENTIENCE), 8192, 4096, new ItemStack(RegistrarBloodMagicItems.SOUL_GEM, 1, 3), RegistrarBloodMagicItems.SIGIL_BLOOD_LIGHT, EnumGemTypes.TARTARIC.getStack(), RegistrarBloodMagicItems.SIGIL_AIR);
+
+        registrar.addTartaricForge(new ItemStack(RegistrarBloodArsenalItems.SOUL_PENDANT, 1, 1), 60, 40, RegistrarBloodArsenalItems.SOUL_PENDANT, EnumGemTypes.TARTARIC.getStack(), "blockRedstone", "blockLapis");
+        registrar.addTartaricForge(new ItemStack(RegistrarBloodArsenalItems.SOUL_PENDANT, 1, 2), 240, 100, new ItemStack(RegistrarBloodArsenalItems.SOUL_PENDANT, 1, 1), EnumGemTypes.TARTARIC.getStack(), "blockGold", ItemSlate.SlateType.IMBUED.getStack());
+        registrar.addTartaricForge(new ItemStack(RegistrarBloodArsenalItems.SOUL_PENDANT, 1, 3), 1000, 600, new ItemStack(RegistrarBloodArsenalItems.SOUL_PENDANT, 1, 2), RegistrarBloodMagicItems.BLOOD_SHARD, ItemSlate.SlateType.DEMONIC.getStack(), RegistrarBloodMagicItems.ITEM_DEMON_CRYSTAL);
+        registrar.addTartaricForge(new ItemStack(RegistrarBloodArsenalItems.SOUL_PENDANT, 1, 4), 4000, 3000, new ItemStack(RegistrarBloodArsenalItems.SOUL_PENDANT, 1, 3), EnumDiamondTypes.INERT.getStack(), new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 4), Items.NETHER_STAR);
     }
 
     public static void registerAlchemyArrayRecipes(BloodMagicRecipeRegistrar registrar)

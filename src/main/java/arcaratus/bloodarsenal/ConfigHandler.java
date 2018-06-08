@@ -86,6 +86,15 @@ public class ConfigHandler
         @Comment({ "Amount of LP per usage for the Sigil of Sentience." })
         @RangeInt(min = 0, max = 10000)
         public int sigilSentienceBaseCost = 1000;
+        @Comment({ "Fraction of the damage that is converted to health for the Vampire Ring: health = (damageDealt * vampireRingSyphon)" })
+        @RangeDouble(min = 0, max = 100)
+        public double vampireRingMultiplier = 0.5;
+        @Comment({ "Multiplier of LP for the Sacrifice Amulet: LP = (damageDone * sacrificeAmuletMultiplier" })
+        @RangeDouble(min = 0, max = 100)
+        public double sacrificeAmuletMultiplier = 20;
+        @Comment({ "Multiplier of LP for the Self Sacrifice Amulet: LP = (damageDone * sacrificeAmuletMultiplier" })
+        @RangeDouble(min = 0, max = 100)
+        public double selfSacrificeAmuletMultiplier = 20;
     }
 
     public static class ConfigRituals
@@ -109,7 +118,7 @@ public class ConfigHandler
         public boolean doGlassShardsDrop = true;
         @Comment({ "The max range for anything that uses raytracing (Ender Sigil, Lightning Sigil, etc.)" })
         @RangeDouble(min = 1, max = 256)
-        public double rayTraceRange;
+        public double rayTraceRange = 64;
         @Comment({ "Provides a temporary recipe for the Crystal Cluster blocks in vanilla Blood Magic for those who want access to Tier 6." })
         public boolean crystalClusterEnabled;
     }

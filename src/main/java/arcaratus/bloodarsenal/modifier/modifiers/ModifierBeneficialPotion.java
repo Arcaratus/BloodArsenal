@@ -40,7 +40,7 @@ public class ModifierBeneficialPotion extends Modifier
                 else
                     player.addPotionEffect(new PotionEffect(potion, 20 + 40 * (level + 1), level));
 
-                NewModifiable.incrementModifierTracker(itemStack, this);
+                StasisModifiable.incrementModifierTracker(itemStack, this);
             }
         }
     }

@@ -23,7 +23,7 @@ public class ModifierFortunate extends Modifier
     {
         Block block = state.getBlock();
         if (block.getDrops(world, pos, state, level + 1).size() > block.getDrops(world, pos, state, 0).size())
-            NewModifiable.incrementModifierTracker(itemStack, this);
+            StasisModifiable.incrementModifierTracker(itemStack, this);
     }
 
     @Override
