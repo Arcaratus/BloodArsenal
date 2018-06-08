@@ -83,7 +83,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
 
         if (entity instanceof EntityPlayer)
         {
-            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+            StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
             if (getActivated(itemStack))
             {
                 modifiable.onUpdate(itemStack, world, entity, itemSlot);
@@ -94,7 +94,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
             else
             {
                 if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
-                    NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
+                    StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
             }
         }
     }
@@ -102,7 +102,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
     @Override
     public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker)
     {
-        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+        StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
         if (getActivated(itemStack))
         {
             modifiable.hitEntity(itemStack, target, attacker);
@@ -110,7 +110,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
         else
         {
             if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
-                NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
+                StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
         }
 
         return true;
@@ -121,20 +121,20 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
     {
         if (!world.isRemote)
         {
-            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+            StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
             if (getActivated(itemStack))
             {
                 if (entityLivingBase instanceof EntityPlayer)
                 {
                     EntityPlayer player = (EntityPlayer) entityLivingBase;
                     modifiable.onBlockDestroyed(itemStack, world, state, pos, player);
-                    NewModifiable.setModifiable(itemStack, modifiable, false);
+                    StasisModifiable.setModifiable(itemStack, modifiable, false);
                 }
             }
             else
             {
                 if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
-                    NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
+                    StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
             }
         }
 
@@ -150,7 +150,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
 
         if (!player.isSneaking() && getActivated(itemStack))
         {
-            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+            StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
             Modifier modifier = Modifier.EMPTY_MODIFIER;
             for (Entry<String, Pair<Modifier, ModifierTracker>> entry : modifiable.getModifierMap().entrySet())
             {
@@ -197,7 +197,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
 
                 i = event.charge;
 
-                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
                 modifiable.onRelease(itemStack, world, player, i);
 
                 setBeingHeldDown(itemStack, false);
@@ -208,7 +208,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
     @Override
     public float getDestroySpeed(ItemStack itemStack, IBlockState state)
     {
-        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+        StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
         return getActivated(itemStack) ? efficiency : (modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL) ? efficiency * (((float) modifiable.getTrackerForModifier(Constants.Modifiers.SHADOW_TOOL).getLevel() + 1) / 3F) : 1);
     }
 
@@ -241,7 +241,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
         {
-            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+            StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
             for (EnumModifierType type : EnumModifierType.values())
             {
                 tooltip.add(TextHelper.localize("tooltip.bloodarsenal.modifierType." + WordUtils.swapCase(type.toString())));
@@ -280,7 +280,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
     @Override
     public EnumAction getItemUseAction(ItemStack itemStack)
     {
-        NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+        StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
         Modifier modifier = Modifier.EMPTY_MODIFIER;
         for (Pair<Modifier, ModifierTracker> entry : modifiable.getModifierMap().values())
         {
@@ -325,11 +325,11 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
         {
             if (getActivated(itemStack))
             {
-                return NewModifiable.getModifiableFromStack(itemStack).getAttributeModifiers();
+                return StasisModifiable.getModifiableFromStack(itemStack).getAttributeModifiers();
             }
             else
             {
-                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
                 Multimap<String, AttributeModifier> map = modifiable.getAttributeModifiers();
                 boolean hasShadow = modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL);
 
@@ -355,7 +355,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
     @Override
     public IModifiable getModifiable(ItemStack itemStack)
     {
-        return NewModifiable.getModifiableFromStack(itemStack);
+        return StasisModifiable.getModifiableFromStack(itemStack);
     }
 
     @Nullable

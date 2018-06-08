@@ -60,7 +60,7 @@ public class RitualModifierRemove extends Ritual
             ItemStack itemStack = entityItem.getItem();
             if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
             {
-                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
                 if (modifiable != null)
                 {
                     @SuppressWarnings("unchecked") HashMap<String, Pair<Modifier, ModifierTracker>> modifierMap = (HashMap<String, Pair<Modifier, ModifierTracker>>) modifiable.getModifierMap();
@@ -89,7 +89,7 @@ public class RitualModifierRemove extends Ritual
 
                     if (removedModifier)
                     {
-                        NewModifiable.setModifiable(itemStack, modifiable, true);
+                        StasisModifiable.setModifiable(itemStack, modifiable, true);
 
                         masterRitualStone.setActive(false);
 

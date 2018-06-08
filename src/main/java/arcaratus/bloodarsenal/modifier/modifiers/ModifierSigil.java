@@ -38,7 +38,7 @@ public class ModifierSigil extends Modifier
             {
                 sigilStack.getItem().onUpdate(itemStack, world, entity, itemSlot, true);
                 if (world.getWorldTime() % 100 == 0)
-                    NewModifiable.incrementModifierTracker(itemStack, this);
+                    StasisModifiable.incrementModifierTracker(itemStack, this);
             }
         }
     }

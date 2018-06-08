@@ -25,7 +25,7 @@ import java.util.Map;
  * This is an object that stores Modifiers and their respective Trackers
  * Writes everything to NBT
  */
-public class NewModifiable implements IModifiable
+public class StasisModifiable implements IModifiable
 {
     private Map<String, Pair<Modifier, ModifierTracker>> modifierMap = new HashMap<>();
 
@@ -317,15 +317,15 @@ public class NewModifiable implements IModifiable
 
     // Static methods
 
-    public static NewModifiable getModifiableFromStack(ItemStack itemStack)
+    public static StasisModifiable getModifiableFromStack(ItemStack itemStack)
     {
         NBTTagCompound tag = getNBTTag(itemStack);
-        NewModifiable modifiable = new NewModifiable();
+        StasisModifiable modifiable = new StasisModifiable();
         modifiable.readFromNBT(tag);
         return modifiable;
     }
 
-    public static void setModifiable(ItemStack itemStack, NewModifiable modifiable, boolean forceWrite)
+    public static void setModifiable(ItemStack itemStack, StasisModifiable modifiable, boolean forceWrite)
     {
         NBTTagCompound tag = new NBTTagCompound();
         if (!forceWrite)
@@ -369,9 +369,9 @@ public class NewModifiable implements IModifiable
 
     public static void incrementModifierTracker(ItemStack itemStack, String modifierKey, double increment)
     {
-        NewModifiable modifiable = getModifiableFromStack(itemStack);
+        StasisModifiable modifiable = getModifiableFromStack(itemStack);
         modifiable.getTrackerForModifier(modifierKey).incrementCounter(increment);
-        NewModifiable.setModifiable(itemStack, modifiable, false);
+        StasisModifiable.setModifiable(itemStack, modifiable, false);
     }
 
     public static void incrementModifierTracker(ItemStack itemStack, String modifierKey)

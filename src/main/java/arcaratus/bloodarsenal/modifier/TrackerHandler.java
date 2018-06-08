@@ -36,18 +36,18 @@ public class TrackerHandler
 
             if (!modifiableStack.isEmpty() && modifiableStack.getItem() instanceof IModifiableItem)
             {
-                NewModifiable modifiable = NewModifiable.getModifiableFromStack(modifiableStack);
+                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(modifiableStack);
                 float amount = Math.min(Utils.getModifiedDamage(attackedEntity, event.getSource(), event.getAmount()), attackedEntity.getHealth());
 
                 if (modifiable.hasModifier(Constants.Modifiers.FLAME) && source.isFireDamage())
-                    NewModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.FLAME);
+                    StasisModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.FLAME);
 
                 float reducedAmount = amount / 4;
 
                 if (modifiable.hasModifier(Constants.Modifiers.BLOODLUST))
-                    NewModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.BLOODLUST, reducedAmount);
+                    StasisModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.BLOODLUST, reducedAmount);
                 else if (modifiable.hasModifier(Constants.Modifiers.SHARPNESS))
-                    NewModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.SHARPNESS, reducedAmount);
+                    StasisModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.SHARPNESS, reducedAmount);
             }
         }
     }
@@ -66,10 +66,10 @@ public class TrackerHandler
 
                 if (!modifiableStack.isEmpty() && modifiableStack.getItem() instanceof IModifiableItem)
                 {
-                    NewModifiable modifiable = NewModifiable.getModifiableFromStack(modifiableStack);
+                    StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(modifiableStack);
 
                     if (modifiable.hasModifier(Constants.Modifiers.LOOTING))
-                        NewModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.LOOTING);
+                        StasisModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.LOOTING);
                 }
             }
         }
@@ -84,7 +84,7 @@ public class TrackerHandler
             ItemStack itemStack = player.getHeldItemMainhand();
             if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
             {
-                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
 
                 if (modifiable.hasModifier(Constants.Modifiers.XPERIENCED))
                 {
@@ -104,11 +104,11 @@ public class TrackerHandler
             ItemStack itemStack = player.getHeldItemMainhand();
             if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
             {
-                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
 
                 if (modifiable.hasModifier(Constants.Modifiers.XPERIENCED))
                 {
-                    NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.XPERIENCED, (double) event.getOrb().getXpValue() / 4D);
+                    StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.XPERIENCED, (double) event.getOrb().getXpValue() / 4D);
                 }
             }
         }
@@ -123,7 +123,7 @@ public class TrackerHandler
             ItemStack itemStack = player.getHeldItemMainhand();
             if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
             {
-                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
+                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
 
                 if (modifiable.hasModifier(Constants.Modifiers.XPERIENCED) && event.getExpToDrop() > 0)
                 {

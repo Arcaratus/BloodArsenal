@@ -37,7 +37,7 @@ public class ModifierBadPotion extends Modifier
                 else
                     target.addPotionEffect(new PotionEffect(potion, 20 + 40 * (level + 1), level));
 
-                NewModifiable.incrementModifierTracker(itemStack, this);
+                StasisModifiable.incrementModifierTracker(itemStack, this);
             }
         }
     }
