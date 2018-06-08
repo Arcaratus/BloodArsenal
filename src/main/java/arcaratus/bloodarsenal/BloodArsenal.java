@@ -18,10 +18,11 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import java.io.File;
 import java.util.Locale;
 
-@Mod(modid = BloodArsenal.MOD_ID, version = BloodArsenal.VERSION, name = "Blood Arsenal", dependencies = "required-after:bloodmagic;after:baubles;after:guideapi")
+@Mod(modid = BloodArsenal.MOD_ID, version = BloodArsenal.VERSION, name = BloodArsenal.NAME, dependencies = "required-after:bloodmagic;after:baubles;after:guideapi")
 public class BloodArsenal
 {
     public static final String MOD_ID = "bloodarsenal";
+    public static final String NAME = "Blood Arsenal";
     public static final String VERSION = "@VERSION@";
     public static final String DOMAIN = MOD_ID.toLowerCase(Locale.ENGLISH) + ":";
 
@@ -69,9 +70,10 @@ public class BloodArsenal
     {
         BloodArsenalPacketHandler.init();
 
-        ModRecipes.init();
         ModRituals.initImperfectRituals();
         ModModifiers.init();
+        ModRecipes.init();
+        ModRituals.overrideRituals();
 //        ModCompat.loadCompat(ICompatibility.InitializationPhase.INIT);
         NetworkRegistry.INSTANCE.registerGuiHandler(BloodArsenal.INSTANCE, new GuiHandler());
 

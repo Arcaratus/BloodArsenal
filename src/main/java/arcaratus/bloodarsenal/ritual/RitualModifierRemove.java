@@ -1,13 +1,13 @@
 package arcaratus.bloodarsenal.ritual;
 
-import WayofTime.bloodmagic.api.livingArmour.LivingArmourUpgrade;
-import WayofTime.bloodmagic.api.livingArmour.StatTracker;
-import WayofTime.bloodmagic.api.ritual.*;
-import WayofTime.bloodmagic.api.util.helper.ItemHelper.LivingUpgrades;
-import WayofTime.bloodmagic.api.util.helper.NBTHelper;
+import WayofTime.bloodmagic.BloodMagic;
+import WayofTime.bloodmagic.core.RegistrarBloodMagicItems;
 import WayofTime.bloodmagic.item.armour.ItemLivingArmour;
-import WayofTime.bloodmagic.livingArmour.LivingArmour;
-import WayofTime.bloodmagic.registry.ModItems;
+import WayofTime.bloodmagic.livingArmour.*;
+import WayofTime.bloodmagic.ritual.*;
+import WayofTime.bloodmagic.util.helper.ItemHelper;
+import WayofTime.bloodmagic.util.helper.NBTHelper;
+import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.registry.Constants;
 import com.google.common.collect.Iterables;
@@ -17,9 +17,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
 
 /**
  * This Ritual overrides RitualUpgradeRemove in BloodMagic
@@ -30,7 +33,7 @@ public class RitualModifierRemove extends Ritual
 
     public RitualModifierRemove()
     {
-        super("ritualUpgradeRemove", 0, 25000, "ritual." + WayofTime.bloodmagic.api.Constants.Mod.MODID + ".upgradeRemoveRitual");
+        super("ritualUpgradeRemove", 0, 25000, "ritual." + BloodMagic.MODID + ".upgradeRemoveRitual");
         addBlockRange(CHECK_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 2, 1));
     }
 
@@ -40,9 +43,7 @@ public class RitualModifierRemove extends Ritual
         World world = masterRitualStone.getWorldObj();
 
         if (world.isRemote)
-        {
             return;
-        }
 
         BlockPos pos = masterRitualStone.getBlockPos();
 
@@ -56,24 +57,25 @@ public class RitualModifierRemove extends Ritual
         {
             boolean removedModifier = false;
 
-            ItemStack itemStack = entityItem.getEntityItem();
+            ItemStack itemStack = entityItem.getItem();
             if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
             {
-                StasisModifiable modifiable = StasisModifiable.getStasisModifiable(itemStack);
+                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
                 if (modifiable != null)
                 {
-                    @SuppressWarnings("unchecked") HashMap<String, Modifier> modifierMap = (HashMap<String, Modifier>) modifiable.modifierMap.clone();
-                    for (Entry<String, Modifier> entry : modifierMap.entrySet())
+                    @SuppressWarnings("unchecked") HashMap<String, Pair<Modifier, ModifierTracker>> modifierMap = (HashMap<String, Pair<Modifier, ModifierTracker>>) modifiable.getModifierMap();
+                    for (Entry<String, Pair<Modifier, ModifierTracker>> entry : modifierMap.entrySet())
                     {
-                        Modifier modifier = entry.getValue();
+                        Modifier modifier = entry.getValue().getLeft();
+                        ModifierTracker tracker = entry.getValue().getRight();
                         String modifierKey = entry.getKey();
 
-                        ItemStack modifierStack = new ItemStack(arcaratus.bloodarsenal.registry.ModItems.MODIFIER_TOME);
+                        ItemStack modifierStack = new ItemStack(RegistrarBloodArsenalItems.MODIFIER_TOME);
                         NBTHelper.checkNBT(modifierStack);
                         ModifierHelper.setKey(modifierStack, modifierKey);
-                        ModifierHelper.setLevel(modifierStack, modifier.getLevel());
-                        ModifierHelper.setReady(modifierStack, modifier.readyForUpgrade());
-                        modifier.writeSpecialNBT(modifierStack, new ItemStack(itemStack.getTagCompound().getCompoundTag(Constants.NBT.ITEMSTACK)));
+                        ModifierHelper.setLevel(modifierStack, tracker.getLevel());
+                        ModifierHelper.setReady(modifierStack, tracker.isReadyToUpgrade());
+                        modifier.writeSpecialNBT(modifierStack, new ItemStack(itemStack.getTagCompound().getCompoundTag(Constants.NBT.ITEMSTACK)), tracker.getLevel());
 
                         boolean successful = modifiable.removeModifier(modifier);
 
@@ -82,21 +84,12 @@ public class RitualModifierRemove extends Ritual
                             modifierRemove = true;
                             removedModifier = true;
                             world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, modifierStack));
-                            for (Entry<String, ModifierTracker> trackerEntry : modifiable.trackerMap.entrySet())
-                            {
-                                ModifierTracker tracker = trackerEntry.getValue();
-                                if (tracker != null && tracker.providesModifier(modifierKey))
-                                {
-                                    tracker.resetTracker();
-                                }
-                            }
                         }
                     }
 
                     if (removedModifier)
                     {
-                        StasisModifiable.setStasisModifiable(itemStack, modifiable, true);
-                        StasisModifiable.setStasisModifiable(itemStack, modifiable);
+                        NewModifiable.setModifiable(itemStack, modifiable, true);
 
                         masterRitualStone.setActive(false);
 
@@ -128,9 +121,9 @@ public class RitualModifierRemove extends Ritual
                         LivingArmourUpgrade upgrade = entry.getValue();
                         String upgradeKey = entry.getKey();
 
-                        ItemStack upgradeStack = new ItemStack(ModItems.UPGRADE_TOME);
-                        LivingUpgrades.setKey(upgradeStack, upgradeKey);
-                        LivingUpgrades.setLevel(upgradeStack, upgrade.getUpgradeLevel());
+                        ItemStack upgradeStack = new ItemStack(RegistrarBloodMagicItems.UPGRADE_TOME);
+                        ItemHelper.LivingUpgrades.setKey(upgradeStack, upgradeKey);
+                        ItemHelper.LivingUpgrades.setLevel(upgradeStack, upgrade.getUpgradeLevel());
 
                         boolean successful = armour.removeUpgrade(player, upgrade);
 
@@ -142,12 +135,8 @@ public class RitualModifierRemove extends Ritual
                             {
                                 StatTracker tracker = trackerEntry.getValue();
                                 if (tracker != null)
-                                {
                                     if (tracker.providesUpgrade(upgradeKey))
-                                    {
                                         tracker.resetTracker(); //Resets the tracker if the upgrade corresponding to it was removed.
-                                    }
-                                }
                             }
                         }
                     }
@@ -180,24 +169,18 @@ public class RitualModifierRemove extends Ritual
     }
 
     @Override
-    public ArrayList<RitualComponent> getComponents()
+    public void gatherComponents(Consumer<RitualComponent> components)
     {
-        ArrayList<RitualComponent> components = new ArrayList<RitualComponent>();
-
-        this.addCornerRunes(components, 1, 0, EnumRuneType.DUSK);
-        this.addCornerRunes(components, 2, 0, EnumRuneType.FIRE);
-        this.addOffsetRunes(components, 1, 2, 0, EnumRuneType.FIRE);
-        this.addCornerRunes(components, 1, 1, EnumRuneType.WATER);
-        this.addParallelRunes(components, 4, 0, EnumRuneType.EARTH);
-        this.addCornerRunes(components, 1, 3, EnumRuneType.WATER);
-        this.addParallelRunes(components, 1, 4, EnumRuneType.AIR);
+        addCornerRunes(components, 1, 0, EnumRuneType.DUSK);
+        addCornerRunes(components, 2, 0, EnumRuneType.FIRE);
+        addOffsetRunes(components, 1, 2, 0, EnumRuneType.FIRE);
+        addCornerRunes(components, 1, 1, EnumRuneType.WATER);
+        addParallelRunes(components, 4, 0, EnumRuneType.EARTH);
+        addCornerRunes(components, 1, 3, EnumRuneType.WATER);
+        addParallelRunes(components, 1, 4, EnumRuneType.AIR);
 
         for (int i = 0; i < 4; i++)
-        {
-            this.addCornerRunes(components, 3, i, EnumRuneType.EARTH);
-        }
-
-        return components;
+            addCornerRunes(components, 3, i, EnumRuneType.EARTH);
     }
 
     @Override

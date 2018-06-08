@@ -64,7 +64,7 @@ public class ModifierAOD extends Modifier
                 living.attackEntityFrom(DamageSource.GENERIC, (float) (damage * ((level + 1) / getMaxLevel())));
                 living.attackEntityAsMob(player);
                 NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (Math.pow(charge, 3) * (level + 1) / 2.7));
-                NewModifiable.incrementModifierTracker(itemStack, this, 1);
+                NewModifiable.incrementModifierTracker(itemStack, this);
             }
 
             return;
@@ -122,7 +122,7 @@ public class ModifierAOD extends Modifier
                                         int fortune = random.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack) + 2) - 1;
 
                                         drops.add(ItemHandlerHelper.copyStackWithSize(resultStack, resultStack.getCount() * (fortune + 1)));
-                                        NewModifiable.incrementModifierTracker(itemStack, this, 1);
+                                        NewModifiable.incrementModifierTracker(itemStack, this);
                                     }
                                     else if (level == 0 && !(resultStack.getItem() instanceof ItemBlock))
                                     {

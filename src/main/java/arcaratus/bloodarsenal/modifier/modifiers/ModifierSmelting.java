@@ -46,7 +46,7 @@ public class ModifierSmelting extends Modifier
                 NonNullList<ItemStack> drops = NonNullList.create();
                 drops.add(ItemHandlerHelper.copyStackWithSize(resultStack, resultStack.getCount() * (i + 1)));
                 BloodArsenalUtils.dropStacks(drops, world, pos);
-                NewModifiable.incrementModifierTracker(itemStack, this, 1);
+                NewModifiable.incrementModifierTracker(itemStack, this);
             }
             else if (level == 0 && !(resultStack.getItem() instanceof ItemBlock))
             {
@@ -55,7 +55,7 @@ public class ModifierSmelting extends Modifier
             else
             {
                 Block.spawnAsEntity(world, pos, resultStack);
-                NewModifiable.incrementModifierTracker(itemStack, this, 1);
+                NewModifiable.incrementModifierTracker(itemStack, this);
             }
         }
         else

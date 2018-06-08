@@ -1,0 +1,34 @@
+{
+  "result": {
+    "item": "bloodmagic:decorative_brick",
+    "data": 2
+  },
+  "pattern": [
+    "aba",
+    "cdc",
+    "efe"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodmagic:activation_crystal",
+      "data": 1
+    },
+    "b": {
+      "item": "#BLOCKEMERALD"
+    },
+    "c": {
+      "item": "#BLOCKLAPIS"
+    },
+    "d": {
+      "item": "minecraft:beacon"
+    },
+    "e": {
+      "item": "#BLOCKDIAMOND"
+    },
+    "f": {
+      "type": "bloodmagic:orb",
+      "orb": "bloodmagic:archmage"
+    }
+  }
+}

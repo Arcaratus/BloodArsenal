@@ -2,25 +2,29 @@ package arcaratus.bloodarsenal.ritual;
 
 import WayofTime.bloodmagic.altar.IBloodAltar;
 import WayofTime.bloodmagic.ritual.*;
+import WayofTime.bloodmagic.util.helper.NBTHelper;
 import arcaratus.bloodarsenal.block.BlockStasisPlate;
+import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.recipe.RecipeSanguineInfusion;
 import arcaratus.bloodarsenal.recipe.SanguineInfusionRecipeRegistry;
+import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.tile.TileStasisPlate;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
-
-//import arcaratus.bloodarsenal.modifier.*;
 
 public class RitualInfusion extends RitualBloodArsenal
 {
-    private BlockPos[] stasisPlatePositions = new BlockPos[] { new BlockPos(1, 1, 3), new BlockPos(-1, 1, 3), new BlockPos(1, 1, -3), new BlockPos(-1, 1, -3), new BlockPos(3, 1, 1), new BlockPos(3, 1, -1), new BlockPos(-3, 1, 1), new BlockPos(-3, 1, -1) };
+    private final BlockPos[] STASIS_PLATE_POS = new BlockPos[] { new BlockPos(1, 1, 3), new BlockPos(-1, 1, 3), new BlockPos(1, 1, -3), new BlockPos(-1, 1, -3), new BlockPos(3, 1, 1), new BlockPos(3, 1, -1), new BlockPos(-3, 1, 1), new BlockPos(-3, 1, -1) };
 
     private int craftingTimer;
     private boolean isCrafting;
@@ -68,114 +72,99 @@ public class RitualInfusion extends RitualBloodArsenal
                 }
             }
 
-            RecipeSanguineInfusion recipe = SanguineInfusionRecipeRegistry.getRecipeFromInputs(inputStacks); // Checks if items match
             IInventory altarInv = (IInventory) world.getTileEntity(pos.add(0, 1, 0));
             ItemStack input = altarInv.getStackInSlot(0);
+            RecipeSanguineInfusion recipe = SanguineInfusionRecipeRegistry.getRecipeFromInputs(input, inputStacks); // Checks if the inputs match a recipe
 
             if (recipe != null && !altarInv.isEmpty())
             {
-                if (recipe.isSpecial() && (wildClass == null || wildStack.isEmpty() || !wildClass.isInstance(wildStack.getItem()))) // Check special classes and special itemstack
+                if (recipe.getFilter() != null && !recipe.getFilter().matches(wildStack) && (wildClass == null || wildStack.isEmpty() || !wildClass.isInstance(wildStack.getItem()))) // Check special classes and special itemstack
                 {
                     endRitual(world, pos, masterRitualStone);
                     return;
                 }
 
-                if (recipe.getFilter() != null && !recipe.getFilter().matches(wildStack)) // Check specific item filters
+                if (recipe.getModifier() != Modifier.EMPTY_MODIFIER && input.getItem() instanceof IModifiableItem)
                 {
-                    endRitual(world, pos, masterRitualStone);
-                    return;
-                }
+                    NewModifiable modifiable = NewModifiable.getModifiableFromStack(input);
 
-                if (recipe.isModifier())
-                {
-//                    if (input.getItem() instanceof IModifiableItem)
-//                    {
-//                        StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(input);
-//                        if (modifiable == null)
-//                        {
-//                            endRitual(world, pos, masterRitualStone);
-//                            return;
-//                        }
-//
-//                        Modifier modifier = recipe.getModifierAndTracker();
-//                        Modifier originalModifier = modifiable.getModifierAndTracker(modifier.getClass());
-//
-//                        int level = -1;
-//
-//                        // Get the modifier level for the # of items present
-//                        for (int i = recipe.getModifierAndTracker().getMaxLevel() - 1; i >= 0; i--)
-//                        {
-//                            if (recipe.matches(inputStacks, i))
-//                            {
-//                                level = i;
-//                                break;
-//                            }
-//                        }
-//
-//                        NBTTagCompound specialNBT = null;
-//                        if (originalModifier == Modifier.EMPTY_MODIFIER && level >= 0)
-//                        {
-//                            level = 0;
-//                        }
-//                        else if (originalModifier.readyForUpgrade() && level > originalModifier.getLevel())
-//                        {
-//                            if (originalModifier.getSpecialNBT(input) != null)
-//                            {
-//                                specialNBT = originalModifier.getSpecialNBT(input);
-//                            }
-//
-//                            level = originalModifier.getLevel() + 1;
-//                        }
-//                        else
-//                        {
-//                            endRitual(world, pos, masterRitualStone);
-//                            return;
-//                        }
-//
-//                        if (specialNBT != null && !recipe.matchesWithSpecificity(wildStack, new ItemStack(specialNBT.getCompoundTag(Constants.NBT.ITEMSTACK))))
-//                        {
-//                            endRitual(world, pos, masterRitualStone);
-//                            return;
-//                        }
-//
-//                        modifier.setLevel(level);
-//
-//                        if (!modifiable.canApplyModifier(modifier))
-//                        {
-//                            endRitual(world, pos, masterRitualStone);
-//                            return;
-//                        }
-//
-//                        tickCrafting(masterRitualStone);
-//
-//                        if (craftingTimer == recipe.getLpCost() * (level + 1) / CONSTANT_OF_INFUSION && modifiable.applyModifier(modifier))
-//                        {
-//                            ItemStack copyStack = input.copy();
-//                            NBTHelper.checkNBT(copyStack);
-//                            modifier.removeSpecialNBT(copyStack); // Needed here in order to reset NBT data
-//                            modifier.writeSpecialNBT(copyStack, wildStack);
-//                            if (!StasisModifiable.hasModifiable(copyStack))
-//                                StasisModifiable.setStasisModifiable(copyStack, StasisModifiable.getModifiableFromStack(copyStack));
-//                            StasisModifiable.setStasisModifiable(copyStack, modifiable);
-//
-//                            shrinkItemStackInputs(world, pos, recipe.getInputsForLevel(level), wildStack);
-//                            altarInv.setInventorySlotContents(0, copyStack);
-//
-//                            world.spawnEntity(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY() + 1, masterRitualStone.getBlockPos().getZ(), true));
-//                            endRitual(world, pos, masterRitualStone);
-//                            return;
-//                        }
-//
-//                        if (!isCrafting)
-//                        {
-//                            setStasisPlates(world, stasisPlates, true);
-//                            isCrafting = true;
-//                        }
-//                    }
-//                    else
-//                    {
-//                        endRitual(world, pos, masterRitualStone);
-//                    }
+                    String modifierKey = recipe.getModifier().getUniqueIdentifier();
+                    Modifier modifier = ModifierHandler.getModifierFromKey(modifierKey);
+                    Modifier modifierOnItem =  modifiable.getModifier(modifierKey);
+                    ModifierTracker trackerOnItem = modifiable.getTrackerForModifier(modifierKey);
+
+                    if (!modifiable.canApplyModifier(modifier))
+                    {
+                        endRitual(world, pos, masterRitualStone);
+                        return;
+                    }
+
+                    int level = -1;
+
+                    // Get the modifier level for the # of items present
+                    for (int i = modifier.getMaxLevel(); i >= 0; i--)
+                    {
+                        if (recipe.matches(ItemStack.EMPTY, inputStacks, i))
+                        {
+                            level = i;
+                            break;
+                        }
+                    }
+
+                    NBTTagCompound specialNBT = null;
+                    boolean trackerFlag = false;
+                    if (!modifiable.hasModifier(modifierKey) && level >= 0)
+                    {
+                        level = 0;
+                    }
+                    else if (trackerOnItem != null && trackerOnItem.isReadyToUpgrade() && level > trackerOnItem.getLevel())
+                    {
+                        if (modifierOnItem.getSpecialNBT(input) != null)
+                            specialNBT = modifierOnItem.getSpecialNBT(input);
+
+                        level = trackerOnItem.getLevel() + 1;
+                        trackerFlag = true;
+                    }
+                    else
+                    {
+                        endRitual(world, pos, masterRitualStone);
+                        return;
+                    }
+
+
+                    // Just assume this works
+                    if (specialNBT != null && !recipe.matchesWithSpecificity(wildStack, new ItemStack(specialNBT.getCompoundTag(Constants.NBT.ITEMSTACK))))
+                    {
+                        endRitual(world, pos, masterRitualStone);
+                        return;
+                    }
+
+                    tickCrafting(masterRitualStone);
+
+                    if (craftingTimer == recipe.getLpCost() * (level + 1) / CONSTANT_OF_INFUSION)
+                    {
+                        modifiable.applyModifier(ModifierHelper.getModifierAndTracker(modifierKey, level));
+                        if (trackerFlag)
+                            trackerOnItem.onModifierUpgraded();
+                        ItemStack copyStack = input.copy();
+                        NBTHelper.checkNBT(copyStack);
+                        modifier.removeSpecialNBT(copyStack); // Needed here in order to reset NBT data
+                        modifier.writeSpecialNBT(copyStack, wildStack, level);
+                        NewModifiable.setModifiable(copyStack, modifiable, false);
+
+                        shrinkItemStackInputs(world, pos, constructItemStackList(recipe.getInputs(), inputStacks), wildStack);
+                        altarInv.setInventorySlotContents(0, copyStack);
+
+                        world.spawnEntity(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY() + 1, masterRitualStone.getBlockPos().getZ(), true));
+                        endRitual(world, pos, masterRitualStone);
+                        return;
+                    }
+
+                    if (!isCrafting)
+                    {
+                        setStasisPlates(world, stasisPlates, true);
+                        isCrafting = true;
+                    }
                 }
                 else if (isCrafting)
                 {
@@ -183,7 +172,7 @@ public class RitualInfusion extends RitualBloodArsenal
 
                     if (craftingTimer == recipe.getLpCost() / CONSTANT_OF_INFUSION)
                     {
-                        shrinkItemStackInputs(world, pos, recipe.getItemStackInputs(), ItemStack.EMPTY);
+                        shrinkItemStackInputs(world, pos, constructItemStackList(recipe.getInputs(), inputStacks), ItemStack.EMPTY);
                         altarInv.setInventorySlotContents(0, recipe.getOutput());
 
                         world.spawnEntity(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY(), masterRitualStone.getBlockPos().getZ(), true));
@@ -228,7 +217,7 @@ public class RitualInfusion extends RitualBloodArsenal
         if (!(world.getTileEntity(pos.add(0, 1, 0)) instanceof IBloodAltar))
             return false;
 
-        for (BlockPos stasisPlatePos : stasisPlatePositions)
+        for (BlockPos stasisPlatePos : STASIS_PLATE_POS)
             if (!(world.getBlockState(pos.add(stasisPlatePos)).getBlock() instanceof BlockStasisPlate))
                 return false;
 
@@ -238,7 +227,7 @@ public class RitualInfusion extends RitualBloodArsenal
     private List<TileStasisPlate> getStasisPlates(World world, BlockPos pos)
     {
         List<TileStasisPlate> stasisPlates = new ArrayList<>();
-        for (BlockPos stasisPlatePos : stasisPlatePositions)
+        for (BlockPos stasisPlatePos : STASIS_PLATE_POS)
             if (world.getTileEntity(pos.add(stasisPlatePos)) instanceof TileStasisPlate)
                 stasisPlates.add((TileStasisPlate) world.getTileEntity(pos.add(stasisPlatePos)));
 
@@ -260,10 +249,9 @@ public class RitualInfusion extends RitualBloodArsenal
     private List<ItemStack> getItemStackInputs(World world, BlockPos pos)
     {
         List<ItemStack> stackList = new ArrayList<>();
-        BlockPos actualPos;
-        for (BlockPos stasisPlatePos : stasisPlatePositions)
+        for (BlockPos stasisPlatePos : STASIS_PLATE_POS)
         {
-            actualPos = pos.add(stasisPlatePos);
+            BlockPos actualPos = pos.add(stasisPlatePos);
             if (world.getTileEntity(actualPos) instanceof TileStasisPlate)
             {
                 TileStasisPlate plate = (TileStasisPlate) world.getTileEntity(actualPos);
@@ -275,9 +263,29 @@ public class RitualInfusion extends RitualBloodArsenal
         return stackList;
     }
 
+    private List<ItemStack> constructItemStackList(ImmutableMap<Ingredient, Integer> ingredients, List<ItemStack> inputs)
+    {
+        List<ItemStack> dummyList = new ArrayList<>();
+
+        for (Map.Entry<Ingredient, Integer> entry : ingredients.entrySet())
+        {
+            for (ItemStack input : inputs)
+            {
+                Ingredient ingredient = entry.getKey();
+                if (ingredient.apply(input) && input.getCount() >= entry.getValue())
+                {
+                    dummyList.add(ItemHandlerHelper.copyStackWithSize(input, entry.getValue()));
+                    break;
+                }
+            }
+        }
+
+        return dummyList;
+    }
+
     private void shrinkItemStackInputs(World world, BlockPos pos, List<ItemStack> recipeInputs, ItemStack extraStack)
     {
-        for (BlockPos stasisPlatePos : stasisPlatePositions)
+        for (BlockPos stasisPlatePos : STASIS_PLATE_POS)
         {
             BlockPos platePosition = pos.add(stasisPlatePos);
             if (world.getTileEntity(platePosition) instanceof TileStasisPlate)

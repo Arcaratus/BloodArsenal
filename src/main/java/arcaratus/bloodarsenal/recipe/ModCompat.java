@@ -1,4 +1,4 @@
-package arcaratus.bloodarsenal.registry;
+package arcaratus.bloodarsenal.recipe;
 
 import arcaratus.bloodarsenal.compat.ICompatibility;
 import net.minecraftforge.fml.common.Loader;

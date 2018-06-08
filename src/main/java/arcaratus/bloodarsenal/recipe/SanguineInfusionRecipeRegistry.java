@@ -1,7 +1,7 @@
 package arcaratus.bloodarsenal.recipe;
 
-import arcaratus.bloodarsenal.modifier.Modifier;
 import net.minecraft.item.ItemStack;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,24 +9,29 @@ import java.util.List;
 public class SanguineInfusionRecipeRegistry
 {
     private static List<RecipeSanguineInfusion> infusionRecipes = new ArrayList<>();
-
     private static List<Class> blacklistedClasses = new ArrayList<>();
 
-    public static void registerSanguineInfusionRecipe(ItemStack output, int lpCost, ItemStack infuse, Object... inputs)
+    @SafeVarargs
+    public static void registerSanguineInfusionRecipe(ItemStack output, int lpCost, ItemStack infuse, Pair<Object, Integer>... inputs)
     {
         RecipeSanguineInfusion recipe = new RecipeSanguineInfusion(output, lpCost, infuse, inputs);
         infusionRecipes.add(recipe);
     }
 
-    public static void registerModificationRecipe(int lpCost, Modifier modifier, int levelMultiplier, Object... inputs)
+    @SafeVarargs
+    public static void registerModificationRecipe(int lpCost, String modifierKey, int levelMultiplier, Pair<Object, Integer>... inputs)
     {
-        RecipeSanguineInfusion recipe = new RecipeSanguineInfusion(lpCost, modifier, inputs).setLevelMultiplier(levelMultiplier);
+        RecipeSanguineInfusion recipe = new RecipeSanguineInfusion(lpCost, modifierKey, inputs).setLevelMultiplier(levelMultiplier);
         infusionRecipes.add(recipe);
     }
 
-    public static void registerModificationRecipe(int lpCost, Modifier modifier, int levelMultiplier, Class specialClass, Object... inputs)
+    /**
+     * For recipes with "wildcard" ItemStacks with varying NBT data (i.e. Potions, Sigils, etc.)
+     */
+    @SafeVarargs
+    public static void registerModificationRecipe(int lpCost, String modifierKey, int levelMultiplier, Class specialClass, Pair<Object, Integer>... inputs)
     {
-        RecipeSanguineInfusion recipe = new RecipeSanguineInfusion(lpCost, modifier, inputs).setLevelMultiplier(levelMultiplier).setSpecial();
+        RecipeSanguineInfusion recipe = new RecipeSanguineInfusion(lpCost, modifierKey, inputs).setLevelMultiplier(levelMultiplier);
         infusionRecipes.add(recipe);
         blacklistedClasses.add(specialClass);
     }
@@ -42,10 +47,10 @@ public class SanguineInfusionRecipeRegistry
     }
 
     // Complexity of O(n^3)
-    public static RecipeSanguineInfusion getRecipeFromInputs(List<ItemStack> inputs)
+    public static RecipeSanguineInfusion getRecipeFromInputs(ItemStack infuseStack, List<ItemStack> inputs)
     {
         for (RecipeSanguineInfusion recipe : infusionRecipes)
-            if (recipe.matches(inputs))
+            if (recipe.matches(infuseStack, inputs))
                 return recipe;
 
         return null;

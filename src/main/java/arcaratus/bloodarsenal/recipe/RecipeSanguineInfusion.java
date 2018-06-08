@@ -1,111 +1,112 @@
 package arcaratus.bloodarsenal.recipe;
 
+import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.modifier.Modifier;
-import arcaratus.bloodarsenal.util.BloodArsenalUtils;
-import com.google.common.collect.ImmutableList;
+import arcaratus.bloodarsenal.modifier.ModifierHandler;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.oredict.OreIngredient;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class RecipeSanguineInfusion
 {
+    @Nonnull
     private final ItemStack output;
+    @Nonnull
     private final ItemStack infuse;
-    private final ImmutableList<Object> inputs;
+    // Contains the Ingredient and the amount required
+    @Nonnull
+    private final ImmutableMap<Ingredient, Integer> inputs;
 
+    @Nonnegative
     private final int lpCost;
 
     private boolean isModifier = false;
-    private boolean isSpecial = false;
+    private String modifierKey = "";
     private Modifier modifier = Modifier.EMPTY_MODIFIER;
 
+    // The multiplier used per level (think of the r term in a geometric series)
     private int levelMultiplier = 1;
 
     private RecipeFilter filter = null;
 
-    public RecipeSanguineInfusion(ItemStack output, int lpCost, ItemStack infuse, Object... inputs)
+    @SafeVarargs
+    public RecipeSanguineInfusion(@Nonnull ItemStack output, @Nonnegative int lpCost, @Nonnull ItemStack infuse, @Nonnull Pair<Object, Integer>... inputs)
     {
-        this.output = output;
-        this.infuse = infuse;
+        this.output = output.copy();
+        this.infuse = infuse.copy();
 
         this.lpCost = lpCost;
 
-        ImmutableList.Builder<Object> inputsToSet = ImmutableList.builder();
-        for (Object o : inputs)
+        ImmutableMap.Builder<Ingredient, Integer> inputsToMap = ImmutableMap.builder();
+        for (Pair<Object, Integer> pair : inputs)
         {
+            Object o = pair.getLeft();
+            Integer i = pair.getRight();
             if (o instanceof Item)
-                inputsToSet.add(new ItemStack((Item) o));
+                inputsToMap.put(Ingredient.fromStacks(new ItemStack((Item) o)), i);
             else if (o instanceof Block)
-                inputsToSet.add(new ItemStack((Block) o));
-            else if (o instanceof String || o instanceof ItemStack)
-                inputsToSet.add(o);
+                inputsToMap.put(Ingredient.fromStacks(new ItemStack((Block) o)), i);
+            else if (o instanceof ItemStack)
+                inputsToMap.put(Ingredient.fromStacks(((ItemStack) o).copy()), i);
+            else if (o instanceof String)
+                inputsToMap.put(new OreIngredient((String) o), i);
             else if (o instanceof RecipeFilter)
                 filter = (RecipeFilter) o;
             else
-                throw new IllegalArgumentException("Invalid input");
+                throw new IllegalArgumentException("Invalid input: " + o);
         }
 
-        this.inputs = inputsToSet.build();
+        this.inputs = inputsToMap.build();
     }
 
-    public RecipeSanguineInfusion(int lpCost, Modifier modifier, Object... inputs)
+    @SafeVarargs
+    public RecipeSanguineInfusion(@Nonnegative int lpCost, @Nonnull String modifierKey, @Nonnull Pair<Object, Integer>... inputs)
     {
         this.output = this.infuse = ItemStack.EMPTY;
 
         this.lpCost = lpCost;
         this.isModifier = true;
-        this.modifier = modifier;
+        this.modifierKey = modifierKey;
+        this.modifier = ModifierHandler.getModifierFromKey(BloodArsenal.MOD_ID + ".modifier." + modifierKey);
 
-        ImmutableList.Builder<Object> inputsToSet = ImmutableList.builder();
-        for (Object o : inputs)
+        ImmutableMap.Builder<Ingredient, Integer> inputsToMap = ImmutableMap.builder();
+        for (Pair<Object, Integer> pair : inputs)
         {
+            Object o = pair.getLeft();
+            Integer i = pair.getRight();
             if (o instanceof Item)
-                inputsToSet.add(new ItemStack((Item) o));
+                inputsToMap.put(Ingredient.fromStacks(new ItemStack((Item) o)), i);
             else if (o instanceof Block)
-                inputsToSet.add(new ItemStack((Block) o));
-            else if (o instanceof String || o instanceof ItemStack)
-                inputsToSet.add(o);
+                inputsToMap.put(Ingredient.fromStacks(new ItemStack((Block) o)), i);
+            else if (o instanceof ItemStack)
+                inputsToMap.put(Ingredient.fromStacks(((ItemStack) o).copy()), i);
+            else if (o instanceof String)
+                inputsToMap.put(new OreIngredient((String) o), i);
             else if (o instanceof RecipeFilter)
                 filter = (RecipeFilter) o;
             else
                 throw new IllegalArgumentException("Invalid input");
         }
 
-        this.inputs = inputsToSet.build();
-    }
-
-    public RecipeSanguineInfusion setSpecial()
-    {
-        isSpecial = true;
-        return this;
+        this.inputs = inputsToMap.build();
     }
 
     public RecipeSanguineInfusion setLevelMultiplier(int levelMultiplier)
     {
         this.levelMultiplier = levelMultiplier;
         return this;
-    }
-
-    public List<Object> getInputs()
-    {
-        return inputs;
-    }
-
-    public List<ItemStack> getItemStackInputs()
-    {
-        List<ItemStack> stackSet = new ArrayList<>();
-        for (Object o : inputs)
-            if (o instanceof ItemStack)
-                stackSet.add((ItemStack) o);
-            else if (o instanceof String)
-                stackSet.add(BloodArsenalUtils.resolveObject(o));
-
-        return stackSet;
     }
 
     public ItemStack getInfuse()
@@ -128,9 +129,9 @@ public class RecipeSanguineInfusion
         return isModifier;
     }
 
-    public boolean isSpecial()
+    public String getModifierKey()
     {
-        return isSpecial;
+        return modifierKey;
     }
 
     public Modifier getModifier()
@@ -143,56 +144,76 @@ public class RecipeSanguineInfusion
         return levelMultiplier;
     }
 
-    public List<ItemStack> getInputsForLevel(int modifierLevel)
-    {
-        if (modifierLevel < 0)
-            return getItemStackInputs();
-
-        List<ItemStack> inputs = new ArrayList<>();
-
-        for (ItemStack itemStack : getItemStackInputs())
-        {
-            ItemStack dummyStack = itemStack.copy();
-            dummyStack.setCount(itemStack.getCount() * (modifierLevel + 1) * getLevelMultiplier());
-            inputs.add(dummyStack);
-        }
-
-        return inputs;
-    }
-
     public RecipeFilter getFilter()
     {
         return filter;
     }
 
-    public boolean matches(List<ItemStack> itemStackInputs)
+    public ImmutableMap<Ingredient, Integer> getInputs()
     {
-        return matches(itemStackInputs, -1);
+        return getInputsForLevel(-1);
     }
 
-    // This has complexity of O(n^2)
-    public boolean matches(List<ItemStack> itemStackInputs, int modifierLevel)
+    public ImmutableMap<Ingredient, Integer> getInputsForLevel(int modifierLevel)
     {
-        List<ItemStack> dummyList = new ArrayList<>();
-        dummyList.addAll(itemStackInputs);
+        if (modifierLevel <= 0)
+            return inputs;
 
-        for (ItemStack ingredient : getInputsForLevel(modifierLevel))
+        ImmutableMap.Builder<Ingredient, Integer> builder = ImmutableMap.builder();
+        for (Map.Entry<Ingredient, Integer> entry : inputs.entrySet())
+            builder.put(entry.getKey(), entry.getValue() * (modifierLevel + 1) * getLevelMultiplier());
+        return builder.build();
+    }
+
+    public List<List<ItemStack>> getItemStackInputs(int modifierLevel)
+    {
+        List<List<ItemStack>> stackSet = new ArrayList<>();
+        for (Map.Entry<Ingredient, Integer> entry : getInputsForLevel(modifierLevel).entrySet())
+        {
+            List<ItemStack> actualStacks = new ArrayList<>();
+            for (ItemStack itemStack : entry.getKey().getMatchingStacks())
+                actualStacks.add(ItemHandlerHelper.copyStackWithSize(itemStack, entry.getValue()));
+
+            stackSet.add(actualStacks);
+        }
+
+        return stackSet;
+    }
+
+    public boolean matches(ItemStack infuseStack, List<ItemStack> itemStackInputs)
+    {
+        return matches(infuseStack, itemStackInputs, -1);
+    }
+
+    // Complexity of O(n^2)
+    public boolean matches(ItemStack infuseStack, List<ItemStack> itemStackInputs, int modifierLevel)
+    {
+        if (!(infuse.isEmpty() || ItemStack.areItemsEqual(infuse, infuseStack)))
+            return false;
+
+        List<ItemStack> dummyList = itemStackInputs.stream().map(ItemStack::copy).collect(Collectors.toList());
+        ImmutableMap<Ingredient, Integer> ingredientsMap = getInputsForLevel(modifierLevel);
+
+        boolean foundFilter = filter == null;
+        for (Map.Entry<Ingredient, Integer> entry : ingredientsMap.entrySet())
         {
             boolean foundIngredient = false;
 
+            // TODO fix an error here, not working for Modifier Recipes
             for (ItemStack input : dummyList)
             {
-                if (BloodArsenalUtils.areStacksEqual(ingredient, input))
+                Ingredient ingredient = entry.getKey();
+                if (ingredient.apply(input) && input.getCount() >= entry.getValue())
                 {
-                    if (!ingredient.isEmpty() && ingredient.hasTagCompound() && !ItemStack.areItemStackTagsEqual(ingredient, input))
-                        continue;
+                    foundIngredient = true;
+                    dummyList.remove(input);
+                    break;
+                }
 
-                    if (input.getCount() >= ingredient.getCount())
-                    {
-                        foundIngredient = true;
-                        dummyList.remove(input);
-                        break;
-                    }
+                if (!foundFilter && filter.matches(input))
+                {
+                    foundFilter = true;
+                    dummyList.remove(input);
                 }
             }
 
@@ -200,11 +221,14 @@ public class RecipeSanguineInfusion
                 return false;
         }
 
+        if (!foundFilter)
+            return false;
+
         for (ItemStack input : dummyList)
             if (!input.isEmpty())
                 return false;
 
-        return true;
+        return dummyList.isEmpty();
     }
 
     /**

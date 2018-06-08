@@ -51,14 +51,14 @@ public class ItemBloodArsenalBase extends ItemEnum<EnumBaseTypes> implements IVa
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag)
     {
         {
-            if (stack.getItem() == EnumBaseTypes.GLASS_SHARD.getStack().getItem())
+            if (ItemStack.areItemsEqual(stack, EnumBaseTypes.GLASS_SHARD.getStack()))
             {
                 if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
                     tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.glass_shard.info"));
                 else
                     tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.holdShift"));
             }
-            else if (stack.getItem() == EnumBaseTypes.REAGENT_LIGHTNING.getStack().getItem())
+            else if (ItemStack.areItemsEqual(stack, EnumBaseTypes.REAGENT_LIGHTNING.getStack()))
             {
                 if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
                     for (int i = 0; i < 8; i++)

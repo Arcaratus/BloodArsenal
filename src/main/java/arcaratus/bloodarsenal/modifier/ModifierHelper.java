@@ -18,6 +18,11 @@ public class ModifierHelper
         return Pair.of(Modifier.EMPTY_MODIFIER, null);
     }
 
+    public static Pair<Modifier, ModifierTracker> getModifierAndTracker(String modifierKey, int level)
+    {
+        return Pair.of(ModifierHandler.getModifierFromKey(modifierKey), ModifierHandler.getTrackerFromKey(modifierKey, level));
+    }
+
     public static String getKey(ItemStack itemStack)
     {
         if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemModifierTome)

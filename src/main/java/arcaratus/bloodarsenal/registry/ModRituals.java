@@ -5,7 +5,10 @@ import WayofTime.bloodmagic.ritual.RitualRegistry;
 import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitual;
 import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitualRegistry;
 import arcaratus.bloodarsenal.ConfigHandler;
+import arcaratus.bloodarsenal.ritual.RitualInfusion;
+import arcaratus.bloodarsenal.ritual.RitualModifierRemove;
 import arcaratus.bloodarsenal.ritual.imperfect.*;
+import arcaratus.bloodarsenal.util.BALog;
 import com.google.common.collect.BiMap;
 
 import java.lang.reflect.Field;
@@ -14,7 +17,7 @@ import java.util.ArrayList;
 
 public class ModRituals
 {
-//    public static final Ritual INFUSION_RITUAL;
+    public static Ritual INFUSION_RITUAL;
 
     public static ImperfectRitual IMPERFECT_LIGHTNING;
     public static ImperfectRitual IMPERFECT_ENCHANT_RESET;
@@ -23,15 +26,15 @@ public class ModRituals
 
     public static void initImperfectRituals()
     {
-//        INFUSION_RITUAL = new RitualInfusion();
-//
+        INFUSION_RITUAL = new RitualInfusion();
+
         IMPERFECT_LIGHTNING = new ImperfectRitualLightning();
         IMPERFECT_ENCHANT_RESET = new ImperfectRitualEnchantReset();
         IMPERFECT_ICE = new ImperfectRitualIce();
         IMPERFECT_SNOW = new ImperfectRitualSnow();
-//
-//        RitualRegistry.registerRitual(INFUSION_RITUAL, ConfigHandler.infusionRitual);
-//
+
+        RitualRegistry.registerRitual(INFUSION_RITUAL, ConfigHandler.rituals.infusionRitual);
+
         ImperfectRitualRegistry.registerRitual(IMPERFECT_LIGHTNING, ConfigHandler.rituals.imperfect.imperfectLightning);
         ImperfectRitualRegistry.registerRitual(IMPERFECT_ENCHANT_RESET, ConfigHandler.rituals.imperfect.imperfectEnchantReset);
         ImperfectRitualRegistry.registerRitual(IMPERFECT_ICE, ConfigHandler.rituals.imperfect.imperfectIce);
@@ -40,8 +43,8 @@ public class ModRituals
 
     public static void overrideRituals()
     {
-//        BloodArsenal.INSTANCE.getLogger().info("Overriding the Sound of the Cleansing Soul");
-//        BloodArsenal.INSTANCE.getLogger().info("Report any issues about the ritual to Blood Arsenal first, NOT Blood Magic");
+        BALog.DEFAULT.info("Overriding the Sound of the Cleansing Soul (upgradeRemoveRitual)");
+        BALog.DEFAULT.info("Report any issues about the ritual to Blood Arsenal first, NOT Blood Magic");
 
         try
         {
@@ -60,8 +63,8 @@ public class ModRituals
             registry.remove(WayofTime.bloodmagic.registry.ModRituals.upgradeRemoveRitual.getName());
             registryField.set(null, registry);
 
-//            WayofTime.bloodmagic.registry.ModRituals.upgradeRemoveRitual = new RitualModifierRemove();
-//            RitualRegistry.registerRitual(WayofTime.bloodmagic.registry.ModRituals.upgradeRemoveRitual, WayofTime.bloodmagic.ConfigHandler.ritualUpgradeRemove);
+            WayofTime.bloodmagic.registry.ModRituals.upgradeRemoveRitual = new RitualModifierRemove();
+            RitualRegistry.registerRitual(WayofTime.bloodmagic.registry.ModRituals.upgradeRemoveRitual, WayofTime.bloodmagic.ConfigHandler.rituals.ritualUpgradeRemove);
 
             ArrayList<String> orderedIDList = RitualRegistry.getOrderedIds();
             orderedIDList.remove(orderedIDList.lastIndexOf(WayofTime.bloodmagic.registry.ModRituals.upgradeRemoveRitual.getName()));
@@ -69,9 +72,6 @@ public class ModRituals
 
             registryField.setAccessible(false);
             orderedIDListField.setAccessible(false);
-
-//            BloodArsenal.INSTANCE.getLogger().info("...don't tell TehNut about this...");
-//            BloodArsenal.INSTANCE.getLogger().info("...cuz he'll probably hunt me down...");
         }
         catch (Exception e)
         {

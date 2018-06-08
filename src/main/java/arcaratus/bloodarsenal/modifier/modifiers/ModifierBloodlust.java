@@ -1,6 +1,7 @@
 package arcaratus.bloodarsenal.modifier.modifiers;
 
-import arcaratus.bloodarsenal.modifier.*;
+import arcaratus.bloodarsenal.modifier.EnumModifierType;
+import arcaratus.bloodarsenal.modifier.Modifier;
 import arcaratus.bloodarsenal.registry.Constants;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.*;
@@ -31,7 +32,6 @@ public class ModifierBloodlust extends Modifier
     public void hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker, int level)
     {
         multiplier = getMultiplier(multiplier + (random.nextDouble() * (level + 1)) / 6, level);
-        NewModifiable.incrementModifierTracker(itemStack, this, 1);
     }
 
     @Override

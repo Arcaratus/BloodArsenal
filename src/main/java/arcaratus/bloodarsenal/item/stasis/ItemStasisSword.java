@@ -10,7 +10,7 @@ import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.client.mesh.CustomMeshDefinitionActivatable;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.modifier.*;
-import com.google.common.base.Strings;
+import arcaratus.bloodarsenal.registry.Constants;
 import com.google.common.collect.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -77,9 +77,9 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
 
         if (entity instanceof EntityPlayer)
         {
+            NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
             if (getActivated(itemStack))
             {
-                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
                 if (getActivated(itemStack))
                 {
                     modifiable.onUpdate(itemStack, world, entity, itemSlot);
@@ -90,9 +90,8 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             }
             else
             {
-//                StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
-//                if (modifiable.hasModifier(ModifierShadowTool.class))
-//                    modifiable.onSpecialUpdate(itemStack, world, entity);
+                if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
+                    NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
             }
         }
     }
@@ -107,9 +106,8 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
         }
         else
         {
-//            StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
-//            if (modifiable.hasModifier(ModifierShadowTool.class))
-//                ModifierTracker.getTracker(ModifierShadowTool.class).incrementCounter(modifiable, 1);
+            if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
+                NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
         }
 
         return true;
@@ -131,9 +129,8 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             }
             else
             {
-//                StasisModifiable modifiable = StasisModifiable.getModFromNBT(itemStack);
-//                if (modifiable.hasModifier(ModifierShadowTool.class))
-//                    ModifierTracker.getTracker(ModifierShadowTool.class).incrementCounter(modifiable, 1);
+                if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
+                    NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
             }
         }
 
@@ -236,9 +233,8 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
                     ModifierTracker tracker = entry.getRight();
                     if (modifier != Modifier.EMPTY_MODIFIER && modifier.getType() == type)
                     {
-                        String locName = TextHelper.localize(modifier.getUnlocalizedName());
-                        String altText = TextHelper.localize(modifier.getAlternateName(itemStack));
-                        tooltip.add(" -" + TextHelper.localize("tooltip.bloodarsenal.modifier.level", !Strings.isNullOrEmpty(altText) ? altText : locName, tracker.getLevel() + 1, (tracker.isReadyToUpgrade() ? "+" : "")));
+                        String name = modifier.hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
+                        tooltip.add(" -" + TextHelper.localize("tooltip.bloodarsenal.modifier.level", name, tracker.getLevel() + 1, (tracker.isReadyToUpgrade() ? "+" : "")));
                     }
                 }
             }
@@ -323,15 +319,15 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             else
             {
                 Multimap<String, AttributeModifier> map = modifiable.getAttributeModifiers();
-//                boolean hasShadow = modifiable.hasModifier(ModifierShadowTool.class);
-//
-//                if (hasShadow)
-//                {
-//                    Modifier modifier = modifiable.getModifierAndTracker(ModifierShadowTool.class);
-//                    map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 6.7 * (modifier.getLevel() + 1) / 5, 0));
-//                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5 * (modifier.getLevel() + 1) / 5, 0));
-//                }
-//                else
+                boolean hasShadow = modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL);
+
+                if (hasShadow)
+                {
+                    int level = modifiable.getTrackerForModifier(Constants.Modifiers.SHADOW_TOOL).getLevel() + 1;
+                    map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 6.7 * level / 5, 0));
+                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5 * level / 5, 0));
+                }
+                else
                 {
                     map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0, 0));
                     map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.8, 0));

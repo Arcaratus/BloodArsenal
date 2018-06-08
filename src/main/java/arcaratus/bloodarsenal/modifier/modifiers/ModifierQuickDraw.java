@@ -21,8 +21,8 @@ public class ModifierQuickDraw extends Modifier
     @Override
     public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, int level)
     {
-        if (world.getWorldTime() % 20 == 0)
-            NewModifiable.incrementModifierTracker(itemStack, this, 1);
+        if (world.getWorldTime() % 200 == 0)
+            NewModifiable.incrementModifierTracker(itemStack, this);
     }
 
     @Override

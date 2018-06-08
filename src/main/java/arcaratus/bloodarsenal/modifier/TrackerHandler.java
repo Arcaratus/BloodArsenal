@@ -1,8 +1,8 @@
-package arcaratus.bloodarsenal.util.handler;
+package arcaratus.bloodarsenal.modifier;
 
 import WayofTime.bloodmagic.util.Utils;
-import arcaratus.bloodarsenal.modifier.*;
-import arcaratus.bloodarsenal.modifier.modifiers.*;
+import arcaratus.bloodarsenal.BloodArsenal;
+import arcaratus.bloodarsenal.registry.Constants;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,11 +11,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Random;
 
+@Mod.EventBusSubscriber(modid = BloodArsenal.MOD_ID)
 public class TrackerHandler
 {
     private static Random rand = new Random();
@@ -24,7 +26,7 @@ public class TrackerHandler
     public void onEntityHurt(LivingHurtEvent event)
     {
         DamageSource source = event.getSource();
-        Entity sourceEntity = source.getEntity();
+        Entity sourceEntity = source.getImmediateSource();
         EntityLivingBase attackedEntity = event.getEntityLiving();
 
         if (attackedEntity.getAttackingEntity() instanceof EntityPlayer)
@@ -34,24 +36,18 @@ public class TrackerHandler
 
             if (!modifiableStack.isEmpty() && modifiableStack.getItem() instanceof IModifiableItem)
             {
-                StasisModifiable modifiable = StasisModifiable.getStasisModifiable(modifiableStack);
+                NewModifiable modifiable = NewModifiable.getModifiableFromStack(modifiableStack);
+                float amount = Math.min(Utils.getModifiedDamage(attackedEntity, event.getSource(), event.getAmount()), attackedEntity.getHealth());
 
-                if (modifiable != null)
-                {
-                    float amount = Math.min(Utils.getModifiedDamage(attackedEntity, event.getSource(), event.getAmount()), attackedEntity.getHealth());
+                if (modifiable.hasModifier(Constants.Modifiers.FLAME) && source.isFireDamage())
+                    NewModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.FLAME);
 
-                    if (modifiable.hasModifier(ModifierFlame.class) && source.isFireDamage())
-                    {
-                        ModifierTracker.incrementCounter(modifiable, ModifierFlame.class, amount);
-                    }
+                float reducedAmount = amount / 4;
 
-                    float reducedAmount = amount / 4;
-
-                    if (modifiable.hasModifier(ModifierBloodlust.class))
-                        ModifierTracker.incrementCounter(modifiable, ModifierBloodlust.class, reducedAmount);
-                    else if (modifiable.hasModifier(ModifierSharpness.class))
-                        ModifierTracker.incrementCounter(modifiable, ModifierSharpness.class, reducedAmount);
-                }
+                if (modifiable.hasModifier(Constants.Modifiers.BLOODLUST))
+                    NewModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.BLOODLUST, reducedAmount);
+                else if (modifiable.hasModifier(Constants.Modifiers.SHARPNESS))
+                    NewModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.SHARPNESS, reducedAmount);
             }
         }
     }
@@ -70,12 +66,10 @@ public class TrackerHandler
 
                 if (!modifiableStack.isEmpty() && modifiableStack.getItem() instanceof IModifiableItem)
                 {
-                    StasisModifiable modifiable = StasisModifiable.getStasisModifiable(modifiableStack);
+                    NewModifiable modifiable = NewModifiable.getModifiableFromStack(modifiableStack);
 
-                    if (modifiable != null && modifiable.hasModifier(ModifierLooting.class))
-                    {
-                        ModifierTracker.incrementCounter(modifiable, ModifierLooting.class, 1);
-                    }
+                    if (modifiable.hasModifier(Constants.Modifiers.LOOTING))
+                        NewModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.LOOTING);
                 }
             }
         }
@@ -90,12 +84,12 @@ public class TrackerHandler
             ItemStack itemStack = player.getHeldItemMainhand();
             if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
             {
-                StasisModifiable modifiable = StasisModifiable.getStasisModifiable(itemStack);
+                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
 
-                if (modifiable != null && modifiable.hasModifier(ModifierXP.class))
+                if (modifiable.hasModifier(Constants.Modifiers.XPERIENCED))
                 {
-                    ModifierXP modifier = (ModifierXP) modifiable.getModifier(ModifierXP.class);
-                    event.setDroppedExperience(event.getOriginalExperience() * (rand.nextInt(modifier.getLevel() + 2) + 1));
+                    ModifierTracker xpTracker = modifiable.getTrackerForModifier(Constants.Modifiers.XPERIENCED);
+                    event.setDroppedExperience(event.getOriginalExperience() * (rand.nextInt(xpTracker.getLevel() + 2) + 1));
                 }
             }
         }
@@ -110,11 +104,11 @@ public class TrackerHandler
             ItemStack itemStack = player.getHeldItemMainhand();
             if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
             {
-                StasisModifiable modifiable = StasisModifiable.getStasisModifiable(itemStack);
+                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
 
-                if (modifiable != null && modifiable.hasModifier(ModifierXP.class))
+                if (modifiable.hasModifier(Constants.Modifiers.XPERIENCED))
                 {
-                    ModifierTracker.incrementCounter(modifiable, ModifierXP.class, event.getOrb().getXpValue());
+                    NewModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.XPERIENCED, (double) event.getOrb().getXpValue() / 4D);
                 }
             }
         }
@@ -129,15 +123,12 @@ public class TrackerHandler
             ItemStack itemStack = player.getHeldItemMainhand();
             if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
             {
-                StasisModifiable modifiable = StasisModifiable.getStasisModifiable(itemStack);
+                NewModifiable modifiable = NewModifiable.getModifiableFromStack(itemStack);
 
-                if (modifiable != null)
+                if (modifiable.hasModifier(Constants.Modifiers.XPERIENCED) && event.getExpToDrop() > 0)
                 {
-                    if (modifiable.hasModifier(ModifierXP.class) && event.getExpToDrop() > 0)
-                    {
-                        ModifierXP modifier = (ModifierXP) modifiable.getModifier(ModifierXP.class);
-                        event.setExpToDrop(event.getExpToDrop() * (rand.nextInt(modifier.getLevel() + 2) + 1));
-                    }
+                    ModifierTracker xpTracker = modifiable.getTrackerForModifier(Constants.Modifiers.XPERIENCED);
+                    event.setExpToDrop(event.getExpToDrop() * (rand.nextInt(xpTracker.getLevel() + 2) + 1));
                 }
             }
         }

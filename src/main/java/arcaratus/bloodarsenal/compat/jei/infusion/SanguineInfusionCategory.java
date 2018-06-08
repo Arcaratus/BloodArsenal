@@ -1,21 +1,19 @@
 package arcaratus.bloodarsenal.compat.jei.infusion;
 
-import WayofTime.bloodmagic.api.iface.IActivatable;
-import WayofTime.bloodmagic.api.iface.ISigil;
+import WayofTime.bloodmagic.iface.IActivatable;
+import WayofTime.bloodmagic.iface.ISigil;
+import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.compat.jei.BloodArsenalPlugin;
 import arcaratus.bloodarsenal.modifier.IModifiableItem;
-import arcaratus.bloodarsenal.modifier.modifiers.*;
 import arcaratus.bloodarsenal.recipe.RecipeSanguineInfusion;
+import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import com.google.common.collect.ImmutableList;
-import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -25,39 +23,40 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusionWrapper>
+public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusionRecipeJEI>
 {
-    public static final String UID = BloodArsenal.MOD_ID + ":sanguineInfusion";
-    private final IDrawable background;
-    private final String localizedName;
-    private final IDrawable overlay;
+    private static final int OUTPUT_SLOT = 0;
+    private static final int INPUT_SLOT = 1;
 
-    public SanguineInfusionCategory(IGuiHelper guiHelper)
+    @Nonnull
+    private final IDrawable background = BloodArsenalPlugin.jeiHelper.getGuiHelper().createDrawable(new ResourceLocation(BloodArsenal.DOMAIN + "textures/gui/sanguine_infusion.png"), 0, 0, 103, 103);
+    @Nonnull
+    private final ICraftingGridHelper craftingGridHelper;
+
+    public SanguineInfusionCategory()
     {
-        background = guiHelper.createBlankDrawable(103, 103);
-        localizedName = I18n.format("jei.bloodarsenal.recipe.sanguineInfusion");
-        overlay = guiHelper.createDrawable(new ResourceLocation("bloodarsenal", "textures/gui/sanguine_infusion.png"), 0, 0, 103, 103);
+        craftingGridHelper = BloodArsenalPlugin.jeiHelper.getGuiHelper().createCraftingGridHelper(INPUT_SLOT, OUTPUT_SLOT);
     }
 
     @Nonnull
     @Override
     public String getUid()
     {
-        return UID;
+        return Constants.Compat.JEI_CATEGORY_SANGUINE_INFUSION;
     }
 
     @Nonnull
     @Override
     public String getTitle()
     {
-        return localizedName;
+        return TextHelper.localize("jei.bloodarsenal.recipe.sanguine_infusion");
     }
 
     @Nonnull
     @Override
     public String getModName()
     {
-        return BloodArsenal.MOD_ID;
+        return BloodArsenal.NAME;
     }
 
     @Nonnull
@@ -75,17 +74,10 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
     }
 
     @Override
-    public void drawExtras(@Nonnull Minecraft minecraft)
-    {
-        GlStateManager.enableAlpha();
-        GlStateManager.enableBlend();
-        overlay.draw(minecraft);
-        GlStateManager.disableBlend();
-        GlStateManager.disableAlpha();
-    }
+    public void drawExtras(@Nonnull Minecraft minecraft) {}
 
     @Override
-    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull SanguineInfusionWrapper recipeWrapper, @Nonnull IIngredients ingredients)
+    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull SanguineInfusionRecipeJEI recipeWrapper, @Nonnull IIngredients ingredients)
     {
         int centerX = 27;
         int centerY = 57;
@@ -103,47 +95,55 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
         {
             List<ItemStack> inputs = new LinkedList<>();
 
-            if (recipe.getModifier() instanceof ModifierSigil)
+            switch (recipe.getModifierKey())
             {
-                List<ItemStack> sigils = new ArrayList<>();
-                for (ItemStack itemStack : BloodArsenalPlugin.sigils)
+                case Constants.Modifiers.SIGIL:
                 {
-                    if (!itemStack.isEmpty() && itemStack.getItem() instanceof ISigil)
+                    List<ItemStack> sigils = new ArrayList<>();
+                    for (ItemStack itemStack : BloodArsenalPlugin.sigils)
                     {
-                        ItemStack copyStack = itemStack.copy();
-                        sigils.add(copyStack);
+                        if (!itemStack.isEmpty() && itemStack.getItem() instanceof ISigil)
+                        {
+                            ItemStack copyStack = itemStack.copy();
+                            sigils.add(copyStack);
+                        }
                     }
+
+                    itemInputs.add(sigils);
+                    break;
                 }
 
-                itemInputs.add(sigils);
-            }
-            else if (recipe.getModifier() instanceof ModifierBadPotion)
-            {
-                List<ItemStack> potions = new ArrayList<>();
-                for (ItemStack itemStack : BloodArsenalPlugin.badPotions)
+                case Constants.Modifiers.BAD_POTION:
                 {
-                    if (!itemStack.isEmpty())
+                    List<ItemStack> potions = new ArrayList<>();
+                    for (ItemStack itemStack : BloodArsenalPlugin.badPotions)
                     {
-                        ItemStack copyStack = itemStack.copy();
-                        potions.add(copyStack);
+                        if (!itemStack.isEmpty())
+                        {
+                            ItemStack copyStack = itemStack.copy();
+                            potions.add(copyStack);
+                        }
                     }
+
+                    itemInputs.add(potions);
+                    break;
                 }
 
-                itemInputs.add(potions);
-            }
-            else if (recipe.getModifier() instanceof ModifierBeneficialPotion)
-            {
-                List<ItemStack> potions = new ArrayList<>();
-                for (ItemStack itemStack : BloodArsenalPlugin.beneficialPotions)
+                case Constants.Modifiers.BENEFICIAL_POTION:
                 {
-                    if (!itemStack.isEmpty())
+                    List<ItemStack> potions = new ArrayList<>();
+                    for (ItemStack itemStack : BloodArsenalPlugin.beneficialPotions)
                     {
-                        ItemStack copyStack = itemStack.copy();
-                        potions.add(copyStack);
+                        if (!itemStack.isEmpty())
+                        {
+                            ItemStack copyStack = itemStack.copy();
+                            potions.add(copyStack);
+                        }
                     }
-                }
 
-                itemInputs.add(potions);
+                    itemInputs.add(potions);
+                    break;
+                }
             }
 
             for (ItemStack itemStack : BloodArsenalPlugin.modifiables)
@@ -167,15 +167,17 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
 
         double angleBetweenEach = 360.0 / ingredients.getInputs(ItemStack.class).size();
         Point point = new Point(centerX, centerY - 35), center = new Point(centerX - 1, centerY);
+        int maxLevel = recipe.isModifier() ? recipe.getModifier().getMaxLevel() : 0;
 
         for (List<ItemStack> inputs : itemInputs)
         {
             if (recipe.isModifier()) // Puts in the items for the different levels
             {
-                for (int i = 1; i < recipe.getModifier().getMaxLevel(); i++)
-                    for (ItemStack itemStack : recipe.getInputsForLevel(i))
-                        if (BloodArsenalUtils.areStacksEqual(inputs.get(0), itemStack))
-                            inputs.add(itemStack);
+                for (int i = 1; i < maxLevel; i++)
+                    for (List<ItemStack> itemStacks : recipe.getItemStackInputs(i))
+                        for (ItemStack itemStack : itemStacks)
+                            if (BloodArsenalUtils.areStacksEqual(inputs.get(0), itemStack))
+                                inputs.add(itemStack);
 
                 for (int i = 0; i < inputs.size(); i++) // This mess here removes duplicate items
                 {
@@ -211,16 +213,16 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
                 inputStacks.add(ings.get(i).getDisplayedIngredient());
 
             // Get the modifier level for the # of items present
-            for (int i = recipe.getModifier().getMaxLevel() - 1; i >= 0; i--)
+            for (int i = maxLevel; i >= 0; i--)
             {
-                if (recipe.matches(inputStacks, i))
+                if (recipe.matches(ItemStack.EMPTY, inputStacks, i))
                 {
                     modifierLevel = i;
                     break;
                 }
             }
 
-            recipeWrapper.setInfoData(modifierLevel);
+            recipeWrapper.setLevel(modifierLevel);
         }
     }
 

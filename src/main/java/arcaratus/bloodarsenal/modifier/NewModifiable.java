@@ -2,7 +2,6 @@ package arcaratus.bloodarsenal.modifier;
 
 import WayofTime.bloodmagic.util.ChatUtil;
 import WayofTime.bloodmagic.util.helper.TextHelper;
-import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.registry.Constants;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -51,7 +50,7 @@ public class NewModifiable implements IModifiable
     @Override
     public boolean hasModifier(String modifierKey)
     {
-        return !Strings.isNullOrEmpty(modifierKey) && modifierMap.containsKey(BloodArsenal.MOD_ID + ".modifier." + modifierKey);
+        return !Strings.isNullOrEmpty(modifierKey) && modifierMap.containsKey(modifierKey);
     }
 
     @Override
@@ -71,8 +70,7 @@ public class NewModifiable implements IModifiable
                 return false;
         }
 
-        String key = modifier.getUniqueIdentifier();
-        return !hasModifier(key);
+        return true;
     }
 
     @Override
@@ -85,9 +83,10 @@ public class NewModifiable implements IModifiable
         if (hasModifier(key))
         {
             ModifierTracker tracker = modifierMap.get(key).getRight();
+            // TODO fix this method
             if (!tracker.isReadyToUpgrade())
             {
-                tracker.setReadyToUpgrade(true);
+//                tracker.setReadyToUpgrade(true);
                 String name = modifierMap.get(key).getLeft().hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
                 ChatUtil.sendChat(player, TextHelper.localizeEffect("chat.bloodarsenal.modifierReady", name, tracker.getLevel() + 1));
                 return true;
@@ -118,6 +117,20 @@ public class NewModifiable implements IModifiable
         {
             modifierMap.remove(key);
             return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean upgradeModifier(Modifier modifier)
+    {
+        String key = modifier.getUniqueIdentifier();
+        if (hasModifier(key))
+        {
+            ModifierTracker tracker = modifierMap.get(key).getRight();
+            if (tracker.isReadyToUpgrade())
+                tracker.onModifierUpgraded();
         }
 
         return false;
@@ -287,9 +300,19 @@ public class NewModifiable implements IModifiable
         return modifierMap;
     }
 
+    public Modifier getModifier(String modifierKey)
+    {
+        return modifierMap.getOrDefault(modifierKey, Pair.of(Modifier.EMPTY_MODIFIER, null)).getLeft();
+    }
+
     public ModifierTracker getTrackerForModifier(Modifier modifier)
     {
-        return modifierMap.get(modifier.getUniqueIdentifier()).getRight();
+        return getTrackerForModifier(modifier.getUniqueIdentifier());
+    }
+
+    public ModifierTracker getTrackerForModifier(String modifierKey)
+    {
+        return modifierMap.getOrDefault(modifierKey, Pair.of(Modifier.EMPTY_MODIFIER, null)).getRight();
     }
 
     // Static methods
@@ -336,8 +359,23 @@ public class NewModifiable implements IModifiable
 
     public static void incrementModifierTracker(ItemStack itemStack, Modifier modifier, double increment)
     {
+        incrementModifierTracker(itemStack, modifier.getUniqueIdentifier(), increment);
+    }
+
+    public static void incrementModifierTracker(ItemStack itemStack, Modifier modifier)
+    {
+        incrementModifierTracker(itemStack, modifier.getUniqueIdentifier(), 1);
+    }
+
+    public static void incrementModifierTracker(ItemStack itemStack, String modifierKey, double increment)
+    {
         NewModifiable modifiable = getModifiableFromStack(itemStack);
-        modifiable.getTrackerForModifier(modifier).incrementCounter(increment);
+        modifiable.getTrackerForModifier(modifierKey).incrementCounter(increment);
         NewModifiable.setModifiable(itemStack, modifiable, false);
+    }
+
+    public static void incrementModifierTracker(ItemStack itemStack, String modifierKey)
+    {
+        incrementModifierTracker(itemStack, modifierKey, 1);
     }
 }

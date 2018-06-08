@@ -170,7 +170,7 @@ tooltip.bloodarsenal.modifier.level=%s (Level %d%s)
 tooltip.bloodarsenal.holdShift=Hold -&1SHIFT&7- for more information
 
 # Ritual
-ritual.bloodarsenal.infusionRitual=Infusion de Sanguine
+ritual.bloodarsenal.infusion_ritual=Infusion de Sanguine
 
 ritual.bloodarsenal.imperfect.lightning=Imperfect Lightning Ritual
 ritual.bloodarsenal.imperfect.enchant_reset=Imperfect Enchantment Reset Ritual
@@ -213,9 +213,9 @@ commands.stasis.remove.success=Successfully removed %s from the tool!
 commands.stasis.remove.fail=Could not remove %s from the tool!
 
 # JEI
-jei.bloodarsenal.recipe.requiredLP=LP: %d
-jei.bloodarsenal.recipe.sanguineInfusion=Infusion de Sanguine
-jei.bloodarsenal.recipe.modifierLevel=Modifier Level: %d
+jei.bloodarsenal.recipe.required_LP=LP: %d
+jei.bloodarsenal.recipe.sanguine_infusion=Infusion de Sanguine
+jei.bloodarsenal.recipe.modifier_level=Modifier Level: %d
 
 jei.bloodarsenal.desc.glass_shard=A crafting item obtained by breaking Glass while holding Flint.
 jei.bloodarsenal.desc.reagent_lightning=A crafting item obtained through a tedious process.\n\nFirst, place a Water source block in the world, then drop a Binding Reagent, a Glowstone Block, a Block of Gold, a Block of Redstone, a Block of Iron, and Gunpowder into the Water.\n\nThen, hit the Water block with all the items in it with lightning.

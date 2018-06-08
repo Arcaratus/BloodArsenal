@@ -1,5 +1,6 @@
 package arcaratus.bloodarsenal.registry;
 
+import arcaratus.bloodarsenal.BloodArsenal;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -25,7 +26,6 @@ public class Constants
         public static final String KEY = "Key";
         public static final String COUNTER = "Counter";
         public static final String READY_TO_UPGRADE = "ReadyToUpgrade";
-        public static final String MARKED_FOR_UPGRADE = "MarkedForUpgrade";
 
         public static final String TICKS_REMAINING = "ticksRemaining";
         public static final String PROJECTILE_TICKS_IN_AIR = "projectileTicksInAir";
@@ -93,7 +93,7 @@ public class Constants
 
         public static final int[] FORTUNATE_COUNTER = new int[] { 0, 64, 256, 1024, 4096 };
         public static final int[] LOOTING_COUNTER = new int[] { 0, 36, 72, 144, 288 };
-        public static final int[] SMELTING_COUNTER = new int[] { 0, 2, 1024 };
+        public static final int[] SMELTING_COUNTER = new int[] { 0, 256, 1024 };
         public static final int[] XPERIENCED_COUNTER = new int[] { 0, 64, 256, 1024, 2048, 4096 };
 
         public static final int[] BENEFICIAL_POTION_COUNTER = new int[] { 0, 64, 256, 1024 };
@@ -107,6 +107,11 @@ public class Constants
     {
         public static final int SIGIL_AUGMENTED_HOLDING_GUI = 0;
         public static final int ALTARE_AENIGMATICA_GUI = 1;
+    }
+
+    public static class Compat
+    {
+        public static final String JEI_CATEGORY_SANGUINE_INFUSION = BloodArsenal.MOD_ID + ":sanguineInfusion";
     }
 
     public static class Misc

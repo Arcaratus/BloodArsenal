@@ -16,7 +16,6 @@ public class ModifierTracker
 
     private int level;
     private boolean readyToUpgrade;
-    private boolean markedForUpgrade;
 
     private boolean isDirty = false;
     protected String name;
@@ -31,7 +30,6 @@ public class ModifierTracker
         counter = 0;
         level = 0;
         readyToUpgrade = false;
-        markedForUpgrade = false;
     }
 
     public ModifierTracker copy(int level)
@@ -66,11 +64,6 @@ public class ModifierTracker
         this.level = level;
     }
 
-    public void incrementLevel()
-    {
-        level++;
-    }
-
     public boolean isReadyToUpgrade()
     {
         return readyToUpgrade;
@@ -100,7 +93,6 @@ public class ModifierTracker
         counter = tag.getDouble(Constants.NBT.COUNTER);
         level = tag.getInteger(Constants.NBT.LEVEL);
         readyToUpgrade = tag.getBoolean(Constants.NBT.READY_TO_UPGRADE);
-        markedForUpgrade = tag.getBoolean(Constants.NBT.MARKED_FOR_UPGRADE);
     }
 
     public void writeToNBT(NBTTagCompound tag)
@@ -108,7 +100,6 @@ public class ModifierTracker
         tag.setDouble(Constants.NBT.COUNTER, counter);
         tag.setInteger(Constants.NBT.LEVEL, level);
         tag.setBoolean(Constants.NBT.READY_TO_UPGRADE, readyToUpgrade);
-        tag.setBoolean(Constants.NBT.MARKED_FOR_UPGRADE, markedForUpgrade);
     }
 
     // TODO: Make the notification for Modifier upgrades work properly
@@ -131,10 +122,9 @@ public class ModifierTracker
 //
 //        return false;
 
-        if (!markedForUpgrade && level < COUNTERS_NEEDED.length - 1 && counter >= COUNTERS_NEEDED[level + 1])
+        if (level <= COUNTERS_NEEDED.length - 1 && readyToUpgrade)
         {
-            markedForUpgrade = true;
-            readyToUpgrade = true;
+            markDirty();
             return true;
         }
 
@@ -173,23 +163,25 @@ public class ModifierTracker
         return key.equals(getUniqueIdentifier());
     }
 
-    public void onModifierUpgraded(Modifier modifier)
+    public void onModifierUpgraded()
     {
-        if (modifier.getUniqueIdentifier().equals(modifierKey))
+        if (level < COUNTERS_NEEDED.length)
         {
-            if (level < COUNTERS_NEEDED.length)
-            {
-                counter = Math.max(counter, COUNTERS_NEEDED[level]);
-                markDirty();
-            }
+            level = Math.min(++level, COUNTERS_NEEDED.length - 1);
+            counter = Math.max(counter, COUNTERS_NEEDED[level]);
+            setReadyToUpgrade(false);
+            markDirty();
         }
     }
 
     public void incrementCounter(double increment)
     {
+        if (readyToUpgrade)
+            return;
+
         counter += increment;
 
-        if (!readyToUpgrade && level < COUNTERS_NEEDED.length - 1 && counter >= COUNTERS_NEEDED[level + 1])
+        if (level < COUNTERS_NEEDED.length - 1 && counter >= COUNTERS_NEEDED[level + 1])
         {
             setReadyToUpgrade(true);
             resetCounter();

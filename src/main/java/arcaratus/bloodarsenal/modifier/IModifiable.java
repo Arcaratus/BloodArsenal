@@ -26,6 +26,8 @@ public interface IModifiable
 
     boolean removeModifier(Modifier modifier);
 
+    boolean upgradeModifier(Modifier modifier);
+
     void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot);
 
     void hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker);
