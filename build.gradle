@@ -157,9 +157,9 @@ String getChangelogText() {
 
 def curseRelations = {
 	requiredLibrary 'blood-magic'
+    requiredLibrary 'baubles'
     optionalLibrary 'just-enough-items-jei'
     optionalLibrary 'waila'
-	optionalLibrary 'baubles'
 	optionalLibrary 'guide-api'
 	optionalLibrary 'tinkers-construct'
 }
