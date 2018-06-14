@@ -43,6 +43,7 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag)
     {
         tooltip.addAll(Arrays.asList(TextHelper.cutLongString(TextHelper.localizeEffect("tooltip.bloodarsenal.glass_sacrificial_dagger.desc"))));
