@@ -13,10 +13,10 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = BloodArsenal.MOD_ID)
 public class PotionEventHandlers
 {
-    private Random rand = new Random();
+    private static Random rand = new Random();
 
     @SubscribeEvent
-    public void onEntityUpdate(LivingEvent.LivingUpdateEvent event)
+    public static void onEntityUpdate(LivingEvent.LivingUpdateEvent event)
     {
         EntityLivingBase entityLiving = event.getEntityLiving();
 

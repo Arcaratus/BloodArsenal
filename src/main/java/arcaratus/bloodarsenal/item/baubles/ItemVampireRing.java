@@ -1,7 +1,6 @@
 package arcaratus.bloodarsenal.item.baubles;
 
 import WayofTime.bloodmagic.client.IVariantProvider;
-import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.ConfigHandler;
 import baubles.api.BaubleType;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -10,12 +9,10 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
 
-@Mod.EventBusSubscriber(modid = BloodArsenal.MOD_ID)
 public class ItemVampireRing extends ItemBauble implements IVariantProvider
 {
     public ItemVampireRing(String name)

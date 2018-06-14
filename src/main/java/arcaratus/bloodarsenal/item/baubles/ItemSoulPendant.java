@@ -5,7 +5,6 @@ import WayofTime.bloodmagic.iface.IMultiWillTool;
 import WayofTime.bloodmagic.soul.*;
 import WayofTime.bloodmagic.util.Constants;
 import WayofTime.bloodmagic.util.helper.*;
-import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.client.mesh.CustomMeshDefinitionSoulPendant;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
@@ -21,7 +20,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -31,7 +29,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 
-@Mod.EventBusSubscriber(modid = BloodArsenal.MOD_ID)
 public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshProvider, IMultiWillTool
 {
     public static String[] names = { "petty", "lesser", "common", "greater", "grand" };

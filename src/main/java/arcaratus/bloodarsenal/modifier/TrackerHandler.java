@@ -23,7 +23,7 @@ public class TrackerHandler
     private static Random rand = new Random();
 
     @SubscribeEvent
-    public void onEntityHurt(LivingHurtEvent event)
+    public static void onEntityHurt(LivingHurtEvent event)
     {
         DamageSource source = event.getSource();
         Entity sourceEntity = source.getImmediateSource();
@@ -53,7 +53,7 @@ public class TrackerHandler
     }
 
     @SubscribeEvent
-    public void onLivingDrops(LivingDropsEvent event)
+    public static void onLivingDrops(LivingDropsEvent event)
     {
         EntityLivingBase attackedEntity = event.getEntityLiving();
 
@@ -76,7 +76,7 @@ public class TrackerHandler
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
-    public void onLivingXPDrop(LivingExperienceDropEvent event)
+    public static void onLivingXPDrop(LivingExperienceDropEvent event)
     {
         if (event.getAttackingPlayer() != null)
         {
@@ -96,7 +96,7 @@ public class TrackerHandler
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
-    public void onXPPickup(PlayerPickupXpEvent event)
+    public static void onXPPickup(PlayerPickupXpEvent event)
     {
         if (event.getEntityPlayer() != null)
         {
@@ -115,7 +115,7 @@ public class TrackerHandler
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
-    public void onBlockBreak(BlockEvent.BreakEvent event)
+    public static void onBlockBreak(BlockEvent.BreakEvent event)
     {
         if (event.getPlayer() != null)
         {
