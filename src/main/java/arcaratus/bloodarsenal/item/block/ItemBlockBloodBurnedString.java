@@ -2,17 +2,17 @@ package arcaratus.bloodarsenal.item.block;
 
 import WayofTime.bloodmagic.client.IVariantProvider;
 import arcaratus.bloodarsenal.BloodArsenal;
+import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlockSpecial;
 
 import javax.annotation.Nonnull;
 
-public class ItemBlockSpecialBloodArsenal extends ItemBlockSpecial implements IVariantProvider
+public class ItemBlockBloodBurnedString extends ItemBlockSpecial implements IVariantProvider
 {
-    public ItemBlockSpecialBloodArsenal(String name, Block block)
+    public ItemBlockBloodBurnedString(String name)
     {
-        super(block);
+        super(RegistrarBloodArsenalBlocks.BLOCK_BLOOD_BURNED_STRING);
 
         setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);

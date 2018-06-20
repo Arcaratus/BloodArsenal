@@ -1,5 +1,5 @@
 {
-  "parent":"bloodarsenal:block/blood_burned_string",
+  "parent":"bloodarsenal:block/block_blood_burned_string",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -90, 170 ],

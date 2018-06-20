@@ -21,10 +21,23 @@ public class ItemSigilEnder extends ItemSigilBase
     }
 
     @Override
-    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+    public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected)
     {
-        if (getCooldownRemainder(stack) > 0)
-            reduceCooldown(stack);
+        if (getDelay(stack) > 0)
+            reduceDelay(stack);
+
+        BlockPos cachedPos = BloodArsenalUtils.getPosFromStack(stack);
+        if (cachedPos != BlockPos.ORIGIN && getDelay(stack) == 0 && entity instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) entity;
+            world.spawnParticle(EnumParticleTypes.PORTAL, player.posX + (world.rand.nextDouble() - 0.5D) * (double) player.width, player.posY + world.rand.nextDouble() * (double) player.height - 0.25D, player.posZ + (world.rand.nextDouble() - 0.5D) * (double) player.width,  (itemRand.nextDouble() - 0.5D) * 2.0D, -itemRand.nextDouble(), (itemRand.nextDouble() - 0.5D) * 2.0D, new int[0]);
+            world.playSound(player, player.prevPosX, player.prevPosY, player.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
+            player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+            player.fallDistance = 0;
+            player.setPositionAndUpdate(cachedPos.getX() + 0.5, cachedPos.getY() + 0.5, cachedPos.getZ() + 0.5);
+            player.getCooldownTracker().setCooldown(this, ConfigHandler.values.sigilEnderTeleportationCooldown);
+            reduceDelay(stack);
+        }
     }
 
     @Override
@@ -36,7 +49,7 @@ public class ItemSigilEnder extends ItemSigilBase
 
         RayTraceResult mop = BloodArsenalUtils.rayTrace(world, player, false);
 
-        if (getCooldownRemainder(stack) > 0)
+        if (getDelay(stack) > 0)
             return super.onItemRightClick(world, player, hand);
 
         if (player.isSneaking() && mop != null && mop.typeOfHit == RayTraceResult.Type.BLOCK)
@@ -47,13 +60,9 @@ public class ItemSigilEnder extends ItemSigilBase
 
             if (NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (distance * ConfigHandler.values.sigilEnderTeleportMultiplier)) || player.capabilities.isCreativeMode)
             {
-                world.spawnParticle(EnumParticleTypes.PORTAL, player.posX + (world.rand.nextDouble() - 0.5D) * (double) player.width, player.posY + world.rand.nextDouble() * (double) player.height - 0.25D, player.posZ + (world.rand.nextDouble() - 0.5D) * (double) player.width,  (itemRand.nextDouble() - 0.5D) * 2.0D, -itemRand.nextDouble(), (itemRand.nextDouble() - 0.5D) * 2.0D, new int[0]);
-                world.playSound(player, player.prevPosX, player.prevPosY, player.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
-                player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
-                player.fallDistance = 0;
-                player.setPositionAndUpdate(blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5);
-                resetCooldown(stack);
-                player.swingArm(hand);
+                BloodArsenalUtils.writePosToStack(stack, blockPos);
+                resetDelay(stack);
+                player.getCooldownTracker().setCooldown(this, 1000);
             }
         }
         else if (!player.isSneaking())
@@ -62,25 +71,23 @@ public class ItemSigilEnder extends ItemSigilBase
 
             if (!world.isRemote)
                 NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, getLpUsed());
-
-            resetCooldown(stack);
         }
 
         return super.onItemRightClick(world, player, hand);
     }
 
-    public int getCooldownRemainder(ItemStack stack)
+    public int getDelay(ItemStack stack)
     {
-        return NBTHelper.checkNBT(stack).getTagCompound().getInteger(Constants.NBT.TICKS_REMAINING);
+        return NBTHelper.checkNBT(stack).getTagCompound().getInteger(Constants.NBT.DELAY);
     }
 
-    public void reduceCooldown(ItemStack stack)
+    public void reduceDelay(ItemStack stack)
     {
-        NBTHelper.checkNBT(stack).getTagCompound().setInteger(Constants.NBT.TICKS_REMAINING, getCooldownRemainder(stack) - 1);
+        NBTHelper.checkNBT(stack).getTagCompound().setInteger(Constants.NBT.DELAY, getDelay(stack) - 1);
     }
 
-    public void resetCooldown(ItemStack stack)
+    public void resetDelay(ItemStack stack)
     {
-        NBTHelper.checkNBT(stack).getTagCompound().setInteger(Constants.NBT.TICKS_REMAINING, 10);
+        NBTHelper.checkNBT(stack).getTagCompound().setInteger(Constants.NBT.DELAY, ConfigHandler.values.sigilEnderTeleportationDelay);
     }
 }

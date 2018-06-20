@@ -4,6 +4,7 @@ import WayofTime.bloodmagic.item.ItemSigilToggleable;
 import WayofTime.bloodmagic.util.helper.NBTHelper;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.item.IProfilable;
+import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.tile.TileInventory;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -104,6 +105,33 @@ public class BloodArsenalUtils
         Vec3d vec3d1 = vec3d.addVector((double) f6 * range, (double) f5 * range, (double) f7 * range);
 
         return world.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
+    }
+
+    public static void writePosToNBT(NBTTagCompound tag, int x, int y, int z)
+    {
+        tag.setInteger(Constants.NBT.X_COORD, x);
+        tag.setInteger(Constants.NBT.Y_COORD, y);
+        tag.setInteger(Constants.NBT.Z_COORD, z);
+    }
+
+    public static void writePosToNBT(NBTTagCompound tag, BlockPos pos)
+    {
+        writePosToNBT(tag, pos.getX(), pos.getY(), pos.getZ());
+    }
+
+    public static void writePosToStack(ItemStack stack, BlockPos pos)
+    {
+        writePosToNBT(NBTHelper.checkNBT(stack).getTagCompound(), pos);
+    }
+
+    public static BlockPos getPosFromNBT(NBTTagCompound tag)
+    {
+        return new BlockPos(tag.getInteger(Constants.NBT.X_COORD), tag.getInteger(Constants.NBT.Y_COORD), tag.getInteger(Constants.NBT.Z_COORD));
+    }
+
+    public static BlockPos getPosFromStack(ItemStack stack)
+    {
+        return getPosFromNBT(NBTHelper.checkNBT(stack).getTagCompound());
     }
 
     public static boolean isSigilInInvAndActive(EntityPlayer player, Item item)

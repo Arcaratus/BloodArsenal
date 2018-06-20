@@ -13,7 +13,7 @@ item.bloodarsenal.bound_stick.name=Bound Stick
 item.bloodarsenal.blood_diamond.normal.name=Blood Diamond
 item.bloodarsenal.blood_diamond.inert.name=Inert Blood Diamond
 item.bloodarsenal.blood_diamond.infused.name=Blood Infused Diamond
-item.bloodarsenal.blood_diamond.bound.name=Bound Blood Infused Diamond
+item.bloodarsenal.blood_diamond.bound.name=Bound Diamond
 
 item.bloodarsenal.blood_infused_wooden.pickaxe.name=Blood Infused Wooden Pickaxe
 item.bloodarsenal.blood_infused_wooden.axe.name=Blood Infused Wooden Axe
@@ -91,9 +91,11 @@ tile.bloodarsenal.blood_torch.name=Blood Torch
 tile.bloodarsenal.blood_infused_iron_block.name=Blood Infused Iron Block
 tile.bloodarsenal.blood_infused_glowstone.name=Blood Infused Glowstone
 tile.bloodarsenal.glass_shards.name=Glass Shards
-tile.bloodarsenal.blood_burned_string.name=Blood Burned String
+tile.bloodarsenal.block_blood_burned_string.name=Blood Burned String
 tile.bloodarsenal.altare_aenigmatica.name=Altare Aenigmatica
 tile.bloodarsenal.stasis_plate.name=Stasis Plate
+
+tile.bloodarsenal.fluid.refined_life_essence.name=Refined Life Essence
 
 # Entities
 entity.summoned_tool.name=Summoned Tool

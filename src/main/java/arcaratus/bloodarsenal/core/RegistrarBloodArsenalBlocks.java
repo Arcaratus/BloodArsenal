@@ -2,17 +2,28 @@ package arcaratus.bloodarsenal.core;
 
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.block.*;
+import arcaratus.bloodarsenal.block.fluid.BlockFluidRefinedLifeEssence;
+import arcaratus.bloodarsenal.fluid.FluidCore;
 import arcaratus.bloodarsenal.tile.TileAltareAenigmatica;
 import arcaratus.bloodarsenal.tile.TileStasisPlate;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -35,15 +46,23 @@ public class RegistrarBloodArsenalBlocks
     public static final Block BLOOD_INFUSED_IRON_BLOCK = Blocks.AIR;
     public static final Block BLOOD_INFUSED_GLOWSTONE = Blocks.AIR;
     public static final Block GLASS_SHARD_BLOCK = Blocks.AIR;
-    public static final Block BLOOD_BURNED_STRING = Blocks.AIR;
+    public static final Block BLOCK_BLOOD_BURNED_STRING = Blocks.AIR;
     public static final Block ALTARE_AENIGMATICA = Blocks.AIR;
     public static final Block STASIS_PLATE = Blocks.AIR;
+
+    public static final Block REFINED_LIFE_ESSENCE = Blocks.AIR;
+
+    public static Fluid FLUID_REFINED_LIFE_ESSENCE;
 
     static List<Block> blocks;
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event)
     {
+        FLUID_REFINED_LIFE_ESSENCE = new FluidCore("refined_life_essence").setDensity(1200).setViscosity(1200);
+        FluidRegistry.registerFluid(FLUID_REFINED_LIFE_ESSENCE);
+        FluidRegistry.addBucketForFluid(FLUID_REFINED_LIFE_ESSENCE);
+
         blocks = Lists.newArrayList(
                 new BlockSlate("slate"),
                 new BlockBloodInfusedWoodenLog("blood_infused_wooden_log"),
@@ -60,9 +79,10 @@ public class RegistrarBloodArsenalBlocks
                 new BlockBloodInfusedIron("blood_infused_iron_block"),
                 new BlockBloodInfusedGlowstone("blood_infused_glowstone"),
                 new BlockGlassShards("glass_shards"),
-                new BlockBloodBurnedString("blood_burned_string"),
+                new BlockBloodBurnedString("block_blood_burned_string"),
                 new BlockAltareAenigmatica("altare_aenigmatica"),
-                new BlockStasisPlate("stasis_plate")
+                new BlockStasisPlate("stasis_plate"),
+                new BlockFluidRefinedLifeEssence("refined_life_essence")
         );
 
         event.getRegistry().registerAll(blocks.toArray(new Block[0]));
@@ -74,6 +94,20 @@ public class RegistrarBloodArsenalBlocks
     {
         registerTile(TileAltareAenigmatica.class, "altare_aenigmatica");
         registerTile(TileStasisPlate.class, "stasis_plate");
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public static void registerModels(ModelRegistryEvent event)
+    {
+        ModelLoader.setCustomStateMapper(REFINED_LIFE_ESSENCE, new StateMapperBase()
+        {
+            @Override
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state)
+            {
+                return new ModelResourceLocation(state.getBlock().getRegistryName(), "fluid");
+            }
+        });
     }
 
     private static void registerTile(Class<? extends TileEntity> tile, String name)

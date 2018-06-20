@@ -6,6 +6,7 @@ import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.block.IBABlock;
 import arcaratus.bloodarsenal.item.*;
 import arcaratus.bloodarsenal.item.baubles.*;
+import arcaratus.bloodarsenal.item.block.ItemBlockBloodBurnedString;
 import arcaratus.bloodarsenal.item.sigil.*;
 import arcaratus.bloodarsenal.item.stasis.*;
 import arcaratus.bloodarsenal.item.tool.*;
@@ -108,7 +109,7 @@ public class RegistrarBloodArsenalItems
         items.addAll(Lists.newArrayList(
                 new ItemBloodDiamond("blood_diamond"),
                 new ItemBloodArsenalBase("base_item"),
-//                new ItemBlockSpecialBloodArsenal("blood_burned_string", RegistrarBloodArsenalBlocks.BLOOD_BURNED_STRING),
+                new ItemBlockBloodBurnedString("blood_burned_string"),
                 new ItemBloodOrange("blood_orange"),
                 new ItemBloodInfusedWoodenPickaxe(),
                 new ItemBloodInfusedWoodenAxe(),

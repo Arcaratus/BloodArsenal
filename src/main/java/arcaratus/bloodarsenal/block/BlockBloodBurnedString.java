@@ -67,24 +67,6 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
         worldIn.setBlockState(pos, state, 3);
-        this.notifyHook(worldIn, pos);
-    }
-
-    private void notifyHook(World worldIn, BlockPos pos)
-    {
-        for (EnumFacing enumfacing : new EnumFacing[]{EnumFacing.SOUTH, EnumFacing.WEST})
-        {
-            for (int i = 1; i < 42; ++i)
-            {
-                BlockPos blockpos = pos.offset(enumfacing, i);
-                IBlockState iblockstate = worldIn.getBlockState(blockpos);
-
-                if (iblockstate.getBlock() != RegistrarBloodArsenalBlocks.BLOOD_BURNED_STRING)
-                {
-                    break;
-                }
-            }
-        }
     }
 
     @Override
@@ -93,12 +75,10 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
         if (!worldIn.isRemote)
         {
             if (!state.getValue(POWERED))
-            {
-                this.updateState(worldIn, pos);
-            }
+                updateState(worldIn, pos);
 
             Random rand = new Random();
-            if (rand.nextBoolean() && rand.nextInt(1000) == 4)
+            if (rand.nextInt(5) == 4)
                 entityIn.setFire(3);
         }
     }
@@ -109,9 +89,7 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
         if (!worldIn.isRemote)
         {
             if (worldIn.getBlockState(pos).getValue(POWERED))
-            {
-                this.updateState(worldIn, pos);
-            }
+                updateState(worldIn, pos);
         }
     }
 
@@ -138,18 +116,15 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
         {
             iblockstate = iblockstate.withProperty(POWERED, flag1);
             worldIn.setBlockState(pos, iblockstate, 3);
-            this.notifyHook(worldIn, pos);
         }
 
         if (flag1)
-        {
-            worldIn.scheduleUpdate(new BlockPos(pos), this, this.tickRate(worldIn));
-        }
+            worldIn.scheduleUpdate(new BlockPos(pos), this, tickRate(worldIn));
     }
 
     private static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, EnumFacing direction)
     {
-        return worldIn.getBlockState(pos.offset(direction)).getBlock() == RegistrarBloodArsenalBlocks.BLOOD_BURNED_STRING;
+        return worldIn.getBlockState(pos.offset(direction)).getBlock() == RegistrarBloodArsenalBlocks.BLOCK_BLOOD_BURNED_STRING;
     }
 
     @Override

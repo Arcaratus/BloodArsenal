@@ -9,6 +9,7 @@ import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.block.BlockAltareAenigmatica;
 import arcaratus.bloodarsenal.registry.Constants;
+import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -40,7 +41,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
     public void deserialize(NBTTagCompound tag)
     {
         super.deserialize(tag);
-        altarPos = new BlockPos(tag.getInteger(Constants.NBT.X_COORD), tag.getInteger(Constants.NBT.Y_COORD), tag.getInteger(Constants.NBT.Z_COORD));
+        altarPos = BloodArsenalUtils.getPosFromNBT(tag);
         linkedOrbOwner = tag.getString(Constants.NBT.OWNER_UUID);
     }
 
@@ -48,9 +49,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
     public NBTTagCompound serialize(NBTTagCompound tag)
     {
         super.serialize(tag);
-        tag.setInteger(Constants.NBT.X_COORD, altarPos.getX());
-        tag.setInteger(Constants.NBT.Y_COORD, altarPos.getY());
-        tag.setInteger(Constants.NBT.Z_COORD, altarPos.getZ());
+        BloodArsenalUtils.writePosToNBT(tag, altarPos.getX(), altarPos.getY(), altarPos.getZ());
         tag.setString(Constants.NBT.OWNER_UUID, linkedOrbOwner);
 
         return tag;

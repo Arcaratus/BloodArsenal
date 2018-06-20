@@ -83,6 +83,12 @@ public class ConfigHandler
         @Comment({ "Multiplier of LP for teleporting with the Ender Sigil" })
         @RangeDouble(min = 0, max = 10000)
         public double sigilEnderTeleportMultiplier = 200;
+        @Comment({ "Time (in ticks) of the delay before teleportation for the Ender Sigil" })
+        @RangeInt(min = 0, max = 60)
+        public int sigilEnderTeleportationDelay = 10;
+        @Comment({ "Time (in ticks) of the cooldown after teleportation for the Ender Sigil" })
+        @RangeInt(min = 0, max = 200)
+        public int sigilEnderTeleportationCooldown = 40;
         @Comment({ "Multiplier of LP (per lightning bolt) for zapping things with the Lightning Sigil" })
         @RangeDouble(min = 0, max = 10000)
         public double sigilLightningMultiplier = 800;
