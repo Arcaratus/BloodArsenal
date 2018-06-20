@@ -1,15 +1,14 @@
 package arcaratus.bloodarsenal.compat.tconstruct;
 
 import arcaratus.bloodarsenal.BloodArsenal;
-import arcaratus.bloodarsenal.registry.ModBlocks;
-import arcaratus.bloodarsenal.registry.ModItems;
-import net.minecraft.item.*;
+import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
+import arcaratus.bloodarsenal.item.types.EnumBaseTypes;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import slimeknights.tconstruct.TinkerIntegration;
 import slimeknights.tconstruct.common.ModelRegisterUtil;
 import slimeknights.tconstruct.library.*;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
@@ -39,15 +38,15 @@ public class HandlerTConstruct
     public static void preInit()
     {
         modSerrated = new ModifierSerrated();
-        modSerrated.addItem(ModItems.GLASS_SHARD, 1, 1);
+        modSerrated.addItem(EnumBaseTypes.GLASS_SHARD.getStack(), 1, 1);
 
         traitLiving1 = new TraitLiving(1);
         traitLiving2 = new TraitLiving(2);
 
         materialBloodInfusedWood = new Material("bloodInfusedWood", 0x682318);
         materialBloodInfusedWood.addTrait(traitLiving1);
-        materialBloodInfusedWood.addItem(new ItemStack(ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS), 1, Material.VALUE_Ingot);
-        materialBloodInfusedWood.setRepresentativeItem(ModBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
+        materialBloodInfusedWood.addItem(new ItemStack(RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_PLANKS), 1, Material.VALUE_Ingot);
+        materialBloodInfusedWood.setRepresentativeItem(RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
         materialBloodInfusedWood.setCraftable(true);
 
         TinkerRegistry.addMaterialStats(materialBloodInfusedWood,
@@ -55,12 +54,12 @@ public class HandlerTConstruct
                 new HandleMaterialStats(1.4F, 32),
                 new ExtraMaterialStats(28));
 
-        TinkerIntegration.integrate(materialBloodInfusedWood);
+        TinkerRegistry.integrate(materialBloodInfusedWood);
 
         materialBloodInfusedIron = new Material("bloodInfusedIron", 0x4c1e1a);
         materialBloodInfusedIron.addTrait(traitLiving2);
-        materialBloodInfusedIron.addItem(ModItems.BLOOD_INFUSED_IRON_INGOT, 1, Material.VALUE_Ingot);
-        materialBloodInfusedIron.setRepresentativeItem(ModItems.BLOOD_INFUSED_IRON_INGOT);
+        materialBloodInfusedIron.addItem(EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), 1, Material.VALUE_Ingot);
+        materialBloodInfusedIron.setRepresentativeItem(EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack());
 
         TinkerRegistry.addMaterialStats(materialBloodInfusedIron,
                 new HeadMaterialStats(568, 7.3F, 4.9F, HarvestLevels.DIAMOND),
@@ -82,12 +81,14 @@ public class HandlerTConstruct
         moltenBloodInfusedIronBlock.setUnlocalizedName("molten_" + moltenBloodInfusedIron.getName());
         moltenBloodInfusedIronBlock.setRegistryName(BloodArsenal.MOD_ID.toLowerCase(Locale.ENGLISH), "molten_" + moltenBloodInfusedIron.getName());
 
-        GameRegistry.register(moltenBloodInfusedIronBlock);
-        GameRegistry.register(new ItemBlock(moltenBloodInfusedIronBlock).setRegistryName(moltenBloodInfusedIronBlock.getRegistryName()));
+//        GameRegistry.register(moltenBloodInfusedIronBlock);
+//        GameRegistry.register(new ItemBlock(moltenBloodInfusedIronBlock).setRegistryName(moltenBloodInfusedIronBlock.getRegistryName()));
 
         BloodArsenal.PROXY.registerFluidModels(moltenBloodInfusedIron);
 
-        TinkerIntegration.integrate(materialBloodInfusedIron, moltenBloodInfusedIron, "BloodInfusedIron").toolforge();
+//        MaterialIntegration bloodInfusedIronMI = new MaterialIntegration(materialBloodInfusedIron, moltenBloodInfusedIron, "BloodInfusedIron");
+//        bloodInfusedIronMI.registerFluidBlock(GameRegistry.findRegistry(Block.class));
+//        TinkerRegistry.integrate(bloodInfusedIronMI).toolforge();
 
 //        materialBloodInfusedIron.setCastable(true);
 //        materialBloodInfusedIron.setFluid(moltenBloodInfusedIron);
@@ -95,11 +96,11 @@ public class HandlerTConstruct
 
         MaterialIntegration materialIntegration = new MaterialIntegration(materialBloodInfusedWood);
         integrationList.add(materialIntegration);
-        materialIntegration = new MaterialIntegration(materialBloodInfusedIron, moltenBloodInfusedIron, "BloodInfusedIron").toolforge();
-        integrationList.add(materialIntegration);
+//        materialIntegration = new MaterialIntegration(materialBloodInfusedIron, moltenBloodInfusedIron, "BloodInfusedIron").toolforge();
+//        integrationList.add(materialIntegration);
 
-//        for (MaterialIntegration integration : integrationList)
-//            integration.integrate();
+        for (MaterialIntegration integration : integrationList)
+            integration.integrate();
     }
 
     public static void init()

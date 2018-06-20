@@ -62,7 +62,7 @@ public class BlockAltareAenigmatica extends Block implements IVariantProvider, I
         setHardness(2.0F);
         setResistance(5.0F);
         setHarvestLevel("pickaxe", 0);
-        setSoundType(SoundType.METAL);
+        setSoundType(SoundType.STONE);
 
         setDefaultState(getBlockState().getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(NORTH, false).withProperty(EAST, false).withProperty(NORTHEAST, false).withProperty(NORTHWEST, false));
     }

@@ -1,13 +1,14 @@
-package arcaratus.bloodarsenal.compat.guideapi.book;
+package arcaratus.bloodarsenal.compat.guideapi;
 
-import WayofTime.bloodmagic.api.registry.AltarRecipeRegistry.AltarRecipe;
 import WayofTime.bloodmagic.compat.guideapi.page.PageAltarRecipe;
+import WayofTime.bloodmagic.core.registry.AltarRecipeRegistry;
 import WayofTime.bloodmagic.util.helper.RecipeHelper;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.page.PageIRecipe;
+import arcaratus.bloodarsenal.compat.guideapi.book.EntryText;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -46,7 +47,7 @@ public class BookUtils
 
     public static List<IPage> addAltarRecipeToPage(List<IPage> pages, ItemStack recipeStack)
     {
-        AltarRecipe altarRecipe = RecipeHelper.getAltarRecipeForOutput(recipeStack);
+        AltarRecipeRegistry.AltarRecipe altarRecipe = RecipeHelper.getAltarRecipeForOutput(recipeStack);
         if (altarRecipe != null)
             pages.add(new PageAltarRecipe(altarRecipe));
 

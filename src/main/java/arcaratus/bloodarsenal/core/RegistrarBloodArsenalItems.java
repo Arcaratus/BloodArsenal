@@ -71,6 +71,8 @@ public class RegistrarBloodArsenalItems
 
     public static final Item BOUND_STICK = Items.AIR;
     public static final Item BOUND_SICKLE = Items.AIR;
+    public static final Item BOUND_IGNITER = Items.AIR;
+    public static final Item BOUND_SHEARS = Items.AIR;
 
     public static final Item STASIS_PICKAXE = Items.AIR;
     public static final Item STASIS_AXE = Items.AIR;
@@ -129,6 +131,8 @@ public class RegistrarBloodArsenalItems
                 new ItemSigilSentience(),
                 new ItemBoundStick("bound_stick"),
                 new ItemBoundSickle(),
+                new ItemBoundIgniter("bound_igniter"),
+                new ItemBoundShears("bound_shears"),
                 new ItemStasisAxe(),
                 new ItemStasisPickaxe(),
                 new ItemStasisShovel(),

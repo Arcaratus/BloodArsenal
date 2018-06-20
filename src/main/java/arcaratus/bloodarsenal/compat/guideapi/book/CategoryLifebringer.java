@@ -2,38 +2,39 @@ package arcaratus.bloodarsenal.compat.guideapi.book;
 
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
-import arcaratus.bloodarsenal.BloodArsenal;
+import amerifrance.guideapi.page.PageText;
+import arcaratus.bloodarsenal.compat.guideapi.BookUtils;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CategoryLifebringer
 {
     public static Map<ResourceLocation, EntryAbstract> buildCategory()
     {
         Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<>();
-        String keyBase = "guide." + BloodArsenal.MOD_ID + ".entry.lifebringer.";
+        String keyBase = "guide.bloodarsenal.entry.lifebringer.";
         String heading;
 
+        // Intro
         {
-            List<IPage> pages = new ArrayList<>();
             heading = keyBase + "intro";
-            pages.addAll(BookUtils.textPages(heading));
+            List<IPage> pages = new ArrayList<>(BookUtils.textPages(heading));
 
-            entries = BookUtils.putPagesToEntry(entries, heading, pages);
+            BookUtils.putPagesToEntry(entries, heading, pages);
         }
+
+        // Glass Is Dangerous
         {
-            List<IPage> pages = new ArrayList<>();
             heading = keyBase + "glassIsDangerous";
-            pages.addAll(BookUtils.textPages(heading));
+            List<IPage> pages = new ArrayList<>(BookUtils.textPages(heading));
 //            pages = BookUtils.addRecipeToPage(pages, new ItemStack(ModItems.bloodInfusedIronSword));
 //            pages = BookUtils.addRecipeToPage(pages, new ItemStack(Items.DIAMOND_AXE));
 
-            entries = BookUtils.putPagesToEntry(entries, heading, pages);
+            BookUtils.putPagesToEntry(entries, heading, pages);
         }
+
+        entries.forEach((r, entry) -> entry.pageList.stream().filter(page -> page instanceof PageText).forEach(page -> ((PageText) page).setUnicodeFlag(true)));
 
         return entries;
     }

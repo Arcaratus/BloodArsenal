@@ -1,6 +1,5 @@
 package arcaratus.bloodarsenal.modifier;
 
-import WayofTime.bloodmagic.util.ChatUtil;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.registry.Constants;
 import com.google.common.collect.HashMultimap;
@@ -15,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -88,7 +88,7 @@ public class StasisModifiable implements IModifiable
             {
 //                tracker.setReadyToUpgrade(true);
                 String name = modifierMap.get(key).getLeft().hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
-                ChatUtil.sendChat(player, TextHelper.localizeEffect("chat.bloodarsenal.modifierReady", name, tracker.getLevel() + 1));
+                player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.modifierReady", name, tracker.getLevel() + 1)), true);
                 return true;
             }
         }

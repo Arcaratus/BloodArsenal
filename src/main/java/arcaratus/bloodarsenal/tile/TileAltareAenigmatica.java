@@ -4,7 +4,6 @@ import WayofTime.bloodmagic.altar.IBloodAltar;
 import WayofTime.bloodmagic.core.registry.AltarRecipeRegistry;
 import WayofTime.bloodmagic.iface.IBindable;
 import WayofTime.bloodmagic.orb.IBloodOrb;
-import WayofTime.bloodmagic.util.ChatUtil;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.ConfigHandler;
@@ -15,9 +14,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -32,7 +33,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
 
     public TileAltareAenigmatica()
     {
-        super(10, "altareAenigmatica");
+        super(10, "altare_aenigmatica");
     }
 
     @Override
@@ -88,7 +89,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
     {
         if (altarPos != BlockPos.ORIGIN)
         {
-            TileInventory tile = (TileInventory) getWorld().getTileEntity(altarPos);
+            TileEntity tile = getWorld().getTileEntity(altarPos);
             if (tile instanceof IBloodAltar)
             {
                 if (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN) instanceof InvWrapper)
@@ -200,13 +201,13 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
         String dontKnowWhatToCallThis = ((IBindable) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand()).getOwnerName();
         if (linkedOrbOwner.equals(dontKnowWhatToCallThis))
         {
-            ChatUtil.sendNoSpamClient(TextHelper.localize("chat.bloodarsenal.alreadyOwner"));
+            player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.alreadyOwner")), true);
             return false;
         }
         else
         {
             linkedOrbOwner = dontKnowWhatToCallThis;
-            ChatUtil.sendNoSpamClient(TextHelper.localize("chat.bloodarsenal.setOwner", player.getName()));
+            player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.setOwner", player.getName())), true);
             return true;
         }
     }

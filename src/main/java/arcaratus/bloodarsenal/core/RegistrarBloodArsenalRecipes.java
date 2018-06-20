@@ -1,6 +1,7 @@
 package arcaratus.bloodarsenal.core;
 
 import WayofTime.bloodmagic.altar.AltarTier;
+import WayofTime.bloodmagic.api.IBloodMagicRecipeRegistrar;
 import WayofTime.bloodmagic.api.impl.BloodMagicRecipeRegistrar;
 import WayofTime.bloodmagic.block.BlockLifeEssence;
 import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
@@ -33,7 +34,7 @@ public class RegistrarBloodArsenalRecipes
         OreDictionary.registerOre("ingotBloodInfusedIron", EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack());
     }
 
-    public static void registerAltarRecipes(BloodMagicRecipeRegistrar registrar)
+    public static void registerAltarRecipes(IBloodMagicRecipeRegistrar registrar)
     {
         // ONE
 

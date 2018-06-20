@@ -48,6 +48,8 @@ item.bloodarsenal.gem.self_sacrifice.name=Gem of Self Sacrifice
 item.bloodarsenal.gem.tartaric.name=Gem of Tartaric Will
 
 item.bloodarsenal.bound.sickle.name=Bound Sickle
+item.bloodarsenal.bound.igniter.name=Bound Igniter
+item.bloodarsenal.bound.shears.name=Bound Shears
 
 item.bloodarsenal.base_item.stasis_plate.name=Stasis Plate
 item.bloodarsenal.stasis.pickaxe.name=Stasis Pickaxe
@@ -140,6 +142,8 @@ tooltip.bloodarsenal.soul_pendant.grand=A pendant used to contain a large amount
 tooltip.bloodarsenal.vampire_ring.desc=Feeding off of blood!
 
 tooltip.bloodarsenal.bound.sickle.desc=Ready for reaping
+tooltip.bloodarsenal.bound.igniter.desc=Life ignition!
+tooltip.bloodarsenal.bound.shears.desc=Shearing sheep, oh so fun!
 
 tooltip.bloodarsenal.stored=Stored: &c%d &7LP
 tooltip.bloodarsenal.level=Level: %d

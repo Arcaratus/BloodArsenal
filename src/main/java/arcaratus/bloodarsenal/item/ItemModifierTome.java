@@ -2,7 +2,6 @@ package arcaratus.bloodarsenal.item;
 
 import WayofTime.bloodmagic.BloodMagic;
 import WayofTime.bloodmagic.client.IVariantProvider;
-import WayofTime.bloodmagic.util.ChatUtil;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.modifier.*;
@@ -16,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -95,7 +95,7 @@ public class ItemModifierTome extends Item implements IVariantProvider
                             modifier.writeSpecialNBT(otherStack, tracker.getLevel());
                         StasisModifiable.setModifiable(otherStack, modifiable, false);
                         String name = modifier.hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
-                        ChatUtil.sendChat(player, TextHelper.localizeEffect("chat.bloodarsenal.modifierAdded", name, tracker.getLevel() + 1, otherStack.getDisplayName()));
+                        player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.modifierAdded", name, tracker.getLevel() + 1, otherStack.getDisplayName())), true);
                         itemStack.shrink(1);
                     }
                 }

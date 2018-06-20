@@ -1,6 +1,6 @@
 package arcaratus.bloodarsenal.compat.tconstruct;
 
-import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import arcaratus.bloodarsenal.ConfigHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,20 +30,18 @@ public class TraitLiving extends AbstractTraitLeveled
             switch (data.level)
             {
                 case 1:
-                    time = ConfigHandler.bloodInfusedWoodenToolsRepairUpdate;
-                    cost = 2 * ConfigHandler.bloodInfusedWoodenToolsRepairCost;
+                    time = ConfigHandler.values.bloodInfusedWoodenToolsRepairUpdate;
+                    cost = 2 * ConfigHandler.values.bloodInfusedWoodenToolsRepairCost;
                     break;
                 case 2:
-                    time = ConfigHandler.bloodInfusedIronToolsRepairUpdate;
-                    cost = 2 * ConfigHandler.bloodInfusedIronToolsRepairCost;
+                    time = ConfigHandler.values.bloodInfusedIronToolsRepairUpdate;
+                    cost = 2 * ConfigHandler.values.bloodInfusedIronToolsRepairCost;
                     break;
             }
 
             if (world.getWorldTime() % time == 0)
             {
-                EntityPlayer player = (EntityPlayer) entity;
-
-                if (NetworkHelper.syphonAndDamage(NetworkHelper.getSoulNetwork(player), player, cost))
+                if (NetworkHelper.syphonFromContainer(tool, cost))
                     ToolHelper.healTool(tool, 1, (EntityLivingBase) entity);
             }
         }

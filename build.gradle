@@ -34,6 +34,7 @@ version = "${mc_version}-${mod_version}-${build_number}"
 repositories {
     maven { url "http://dvs1.progwml6.com/files/maven" }
     maven {	url "http://tehnut.info/maven" }
+    maven { url "http://maven.covers1624.net" }
 
     maven {
         name = "thiakil"
@@ -52,6 +53,7 @@ dependencies {
 	
 //	deobfCompile "slimeknights.mantle:Mantle:1.12-${mantle_version}:deobf"
 //    deobfCompile "slimeknights:TConstruct:${mc_version}-${tconstruct_version}:deobf"
+//    deobfCompile "cofh:RedstoneFlux:1.12-${redstoneflux_version}:deobf"
 }
 
 minecraft {

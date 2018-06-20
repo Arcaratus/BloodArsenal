@@ -41,37 +41,43 @@ public class ConfigHandler
 
     public static class ConfigValues
     {
-        @Comment({ "Amount of damage the Glass Shards block deals when an entity touches it." })
+        @Comment({ "Amount of damage the Glass Shards block deals when an entity touches it" })
         @RangeDouble(min = 0, max = 1000)
         public double glassShardsDamage = 2;
-        @Comment({ "The multiplier (per item) of LP drained when the Altare Aenigmatica moves an item to the altar." })
+        @Comment({ "The multiplier (per item) of LP drained when the Altare Aenigmatica moves an item to the altar" })
         @RangeInt(min = 0, max = 1000)
         public int altareAenigmaticaMoveMultiplier = 50;
-        @Comment({ "Amount of LP the Glass Sacrificial Dagger (approximately) gives per use." })
+        @Comment({ "Amount of LP the Glass Sacrificial Dagger (approximately) gives per use" })
         @RangeInt(min = 0, max = 10000)
         public int glassSacrificialDaggerLP = 500;
-        @Comment({ "Amount of damage the Glass Sacrificial Dagger deals per use." })
+        @Comment({ "Amount of damage the Glass Sacrificial Dagger deals per use" })
         @RangeInt(min = 1, max = 10000)
         public double glassSacrificialDaggerHealth = 2;
-        @Comment({ "The multiplier of LP for the Glass Dagger of Sacrifice." })
+        @Comment({ "The multiplier of LP for the Glass Dagger of Sacrifice" })
         @RangeDouble(min = 1, max = 1000)
         public double glassDaggerOfSacrificeLPMultiplier = 2;
-        @Comment({ "Amount of ticks for a repair to occur for Blood Infused Wooden Tools." })
+        @Comment({ "Amount of ticks for a repair to occur for Blood Infused Wooden Tools" })
         @RangeInt(min = 0, max = 1000)
         public int bloodInfusedWoodenToolsRepairUpdate = 100;
-        @Comment({ "Amount of LP required for a repair for Blood Infused Wooden Tools." })
+        @Comment({ "Amount of LP required for a repair for Blood Infused Wooden Tools" })
         @RangeInt(min = 0, max = 1000)
         public int bloodInfusedWoodenToolsRepairCost = 20;
-        @Comment({ "Amount of ticks for a repair to occur for Blood Infused Iron Tools." })
+        @Comment({ "Amount of ticks for a repair to occur for Blood Infused Iron Tools" })
         @RangeInt(min = 0, max = 1000)
         public int bloodInfusedIronToolsRepairUpdate = 40;
-        @Comment({ "Amount of LP required for a repair for Blood Infused Iron Tools." })
+        @Comment({ "Amount of LP required for a repair for Blood Infused Iron Tools" })
         @RangeInt(min = 0, max = 1000)
         public int bloodInfusedIronToolsRepairCost = 50;
-        @Comment({ "Amount of LP per update for the Sigil of Swimming." })
+        @Comment({ "Amount of LP required per usage of the Bound Igniter" })
+        @RangeInt(min = 0, max = 10000)
+        public int boundIgniterCost = 200;
+        @Comment({ "Amount of LP required per usage of the Bound Shears" })
+        @RangeInt(min = 0, max = 10000)
+        public int boundShearsCost = 300;
+        @Comment({ "Amount of LP per update for the Sigil of Swimming" })
         @RangeInt(min = 0, max = 10000)
         public int sigilSwimmingCost = 100;
-        @Comment({ "Amount of LP required to open the Ender Sigil." })
+        @Comment({ "Amount of LP required to open the Ender Sigil" })
         @RangeInt(min = 0, max = 10000)
         public int sigilEnderOpenCost = 500;
         @Comment({ "Multiplier of LP for teleporting with the Ender Sigil" })
@@ -80,10 +86,10 @@ public class ConfigHandler
         @Comment({ "Multiplier of LP (per lightning bolt) for zapping things with the Lightning Sigil" })
         @RangeDouble(min = 0, max = 10000)
         public double sigilLightningMultiplier = 800;
-        @Comment({ "Amount of LP per update for the Sigil of Divinity." })
+        @Comment({ "Amount of LP per update for the Sigil of Divinity" })
         @RangeInt(min = 0)
         public int sigilDivinityCost = 100000;
-        @Comment({ "Amount of LP per usage for the Sigil of Sentience." })
+        @Comment({ "Amount of LP per usage for the Sigil of Sentience" })
         @RangeInt(min = 0, max = 10000)
         public int sigilSentienceBaseCost = 1000;
         @Comment({ "Fraction of the damage that is converted to health for the Vampire Ring: health = (damageDealt * vampireRingSyphon)" })
@@ -114,28 +120,17 @@ public class ConfigHandler
 
     public static class ConfigMisc
     {
-        @Comment({ "Should be set to false when another mod adds in its own Ore-Dict glass shards." })
+        @Comment({ "Should be set to false when another mod adds in its own Ore-Dict glass shards" })
         public boolean doGlassShardsDrop = true;
         @Comment({ "The max range for anything that uses raytracing (Ender Sigil, Lightning Sigil, etc.)" })
         @RangeDouble(min = 1, max = 256)
         public double rayTraceRange = 64;
-        @Comment({ "Provides a temporary recipe for the Crystal Cluster blocks in vanilla Blood Magic for those who want access to Tier 6." })
-        public boolean crystalClusterEnabled;
     }
 
     public static class ConfigCompat
     {
-        public boolean baublesCompatEnabled = true;
         public boolean tconstructCompatEnabled = true;
 
-        @Comment({ "Base conversion for the Sacrifice Amulet = (damageDealt * sacrificeAmuletConversion)" })
-        @RangeDouble(min = 0, max = 10000)
-        public double sacrificeAmuletConversion = 20;
-        @Comment({ "Base conversion for the Self Sacrifice Amulet = (damageDealt * selfSacrificeAmuletConversion)" })
-        @RangeDouble(min = 0, max = 10000)
-        public double selfSacrificeAmuletConversion = 2;
-        @Comment({ "Health syphoned from the Ring of Vampirism = (damageDealt * ringOfVampirismHealthSyphon)" })
-        @RangeDouble(min = 0, max = 10000)
-        public double ringOfVampirismHealthSyphon = 0.5;
+
     }
 }

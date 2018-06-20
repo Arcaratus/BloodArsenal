@@ -1,6 +1,6 @@
 package arcaratus.bloodarsenal.compat.tconstruct;
 
-import arcaratus.bloodarsenal.registry.ModPotions;
+import arcaratus.bloodarsenal.core.RegistrarBloodArsenal;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -26,7 +26,7 @@ public class ModifierSerrated extends ModifierTrait
             if (target.getHealth() > 0.01)
             {
                 ModifierNBT data = new ModifierNBT(TinkerUtil.getModifierTag(tool, getModifierIdentifier()));
-                target.addPotionEffect(new PotionEffect(ModPotions.BLEEDING, 20 + (random.nextInt((data.level) * 2) * 20), data.level));
+                target.addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, 20 + (random.nextInt((data.level) * 2) * 20), data.level));
             }
         }
     }

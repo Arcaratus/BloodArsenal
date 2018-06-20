@@ -1,6 +1,5 @@
 package arcaratus.bloodarsenal.item.sigil;
 
-import WayofTime.bloodmagic.util.ChatUtil;
 import WayofTime.bloodmagic.util.helper.*;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.registry.Constants;
@@ -12,6 +11,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -44,7 +44,7 @@ public class ItemSigilLightning extends ItemSigilBase
                     stack.getTagCompound().setInteger(Constants.NBT.LEVEL, stack.getTagCompound().getInteger(Constants.NBT.LEVEL) + 1);
 
                 level = stack.getTagCompound().getInteger(Constants.NBT.LEVEL);
-                ChatUtil.sendNoSpam(player, TextHelper.localizeEffect("chat.bloodarsenal.setLevel", NumeralHelper.toRoman(stack.getTagCompound().getInteger(Constants.NBT.LEVEL) + 1)));
+                player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.setLevel", NumeralHelper.toRoman(stack.getTagCompound().getInteger(Constants.NBT.LEVEL) + 1))), true);
                 return super.onItemRightClick(world, player, hand);
             }
             else if (!isUnusable(stack))
@@ -266,7 +266,7 @@ public class ItemSigilLightning extends ItemSigilBase
                         NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, cost);
                     }
                     else
-                        ChatUtil.sendChat(player, TextHelper.localize("chat.bloodarsenal.tooWeak"));
+                        player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.tooWeak")), true);
                 }
             }
         }

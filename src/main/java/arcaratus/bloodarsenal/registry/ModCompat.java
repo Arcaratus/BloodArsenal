@@ -1,4 +1,4 @@
-package arcaratus.bloodarsenal.recipe;
+package arcaratus.bloodarsenal.registry;
 
 import arcaratus.bloodarsenal.compat.ICompatibility;
 import net.minecraftforge.fml.common.Loader;
@@ -11,7 +11,6 @@ public class ModCompat
 
     public static void registerModCompat()
     {
-//        compatibilities.add(new CompatBaubles());
 //        compatibilities.add(new CompatWaila());
 //        compatibilities.add(new CompatTConstruct());
     }

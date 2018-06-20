@@ -1,6 +1,7 @@
 package arcaratus.bloodarsenal;
 
 import arcaratus.bloodarsenal.client.gui.GuiHandler;
+import arcaratus.bloodarsenal.compat.ICompatibility;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.network.BloodArsenalPacketHandler;
 import arcaratus.bloodarsenal.proxy.CommonProxy;
@@ -18,7 +19,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import java.io.File;
 import java.util.Locale;
 
-@Mod(modid = BloodArsenal.MOD_ID, version = BloodArsenal.VERSION, name = BloodArsenal.NAME, dependencies = "required-after:bloodmagic;required-after:baubles;after:guideapi")
+@Mod(modid = BloodArsenal.MOD_ID, version = BloodArsenal.VERSION, name = BloodArsenal.NAME, dependencies = "required-after:bloodmagic;required-after:baubles;after:guideapi;after:tconstruct")
 public class BloodArsenal
 {
     public static final String MOD_ID = "bloodarsenal";
@@ -59,8 +60,8 @@ public class BloodArsenal
     {
         configDir = new File(event.getModConfigurationDirectory(), "bloodarsenal");
 
-//        ModCompat.registerModCompat();
-//        ModCompat.loadCompat(ICompatibility.InitializationPhase.PRE_INIT);
+        ModCompat.registerModCompat();
+        ModCompat.loadCompat(ICompatibility.InitializationPhase.PRE_INIT);
 
         PROXY.preInit();
     }
@@ -74,7 +75,7 @@ public class BloodArsenal
         ModModifiers.init();
         ModRecipes.init();
         ModRituals.overrideRituals();
-//        ModCompat.loadCompat(ICompatibility.InitializationPhase.INIT);
+        ModCompat.loadCompat(ICompatibility.InitializationPhase.INIT);
         NetworkRegistry.INSTANCE.registerGuiHandler(BloodArsenal.INSTANCE, new GuiHandler());
 
         PROXY.init();
@@ -83,7 +84,7 @@ public class BloodArsenal
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-//        ModCompat.loadCompat(ICompatibility.InitializationPhase.POST_INIT);
+        ModCompat.loadCompat(ICompatibility.InitializationPhase.POST_INIT);
 
         PROXY.postInit();
     }

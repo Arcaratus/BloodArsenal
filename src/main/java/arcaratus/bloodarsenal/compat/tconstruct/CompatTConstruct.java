@@ -40,6 +40,6 @@ public class CompatTConstruct implements ICompatibility
     @Override
     public boolean enableCompat()
     {
-        return ConfigHandler.tconstructEnabled;
+        return ConfigHandler.compat.tconstructCompatEnabled;
     }
 }
