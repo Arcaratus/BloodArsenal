@@ -5,8 +5,7 @@ import WayofTime.bloodmagic.ritual.RitualRegistry;
 import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitual;
 import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitualRegistry;
 import arcaratus.bloodarsenal.ConfigHandler;
-import arcaratus.bloodarsenal.ritual.RitualInfusion;
-import arcaratus.bloodarsenal.ritual.RitualModifierRemove;
+import arcaratus.bloodarsenal.ritual.*;
 import arcaratus.bloodarsenal.ritual.imperfect.*;
 import arcaratus.bloodarsenal.util.BALog;
 import com.google.common.collect.BiMap;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 public class ModRituals
 {
     public static Ritual INFUSION_RITUAL;
+    public static Ritual PURIFICATION_RITUAL;
 
     public static ImperfectRitual IMPERFECT_LIGHTNING;
     public static ImperfectRitual IMPERFECT_ENCHANT_RESET;
@@ -27,6 +27,7 @@ public class ModRituals
     public static void initImperfectRituals()
     {
         INFUSION_RITUAL = new RitualInfusion();
+        PURIFICATION_RITUAL = new RitualPurification();
 
         IMPERFECT_LIGHTNING = new ImperfectRitualLightning();
         IMPERFECT_ENCHANT_RESET = new ImperfectRitualEnchantReset();
@@ -34,6 +35,7 @@ public class ModRituals
         IMPERFECT_SNOW = new ImperfectRitualSnow();
 
         RitualRegistry.registerRitual(INFUSION_RITUAL, ConfigHandler.rituals.infusionRitual);
+        RitualRegistry.registerRitual(PURIFICATION_RITUAL, ConfigHandler.rituals.purificationRitual);
 
         ImperfectRitualRegistry.registerRitual(IMPERFECT_LIGHTNING, ConfigHandler.rituals.imperfect.imperfectLightning);
         ImperfectRitualRegistry.registerRitual(IMPERFECT_ENCHANT_RESET, ConfigHandler.rituals.imperfect.imperfectEnchantReset);

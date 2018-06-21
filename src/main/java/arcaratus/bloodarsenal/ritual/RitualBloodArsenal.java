@@ -3,7 +3,6 @@ package arcaratus.bloodarsenal.ritual;
 import WayofTime.bloodmagic.core.data.SoulNetwork;
 import WayofTime.bloodmagic.ritual.IMasterRitualStone;
 import WayofTime.bloodmagic.ritual.Ritual;
-import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import net.minecraft.world.World;
 
@@ -30,10 +29,8 @@ public abstract class RitualBloodArsenal extends Ritual
     public void performRitual(IMasterRitualStone masterRitualStone)
     {
         World world = masterRitualStone.getWorldObj();
-        SoulNetwork network = NetworkHelper.getSoulNetwork(masterRitualStone.getOwner());
-        int currentEssence = network.getCurrentEssence();
-
-        performRitual(masterRitualStone, world, network, currentEssence);
+        SoulNetwork soulNetwork = masterRitualStone.getOwnerNetwork();
+        performRitual(masterRitualStone, world, soulNetwork);
     }
 
     /**
@@ -41,13 +38,8 @@ public abstract class RitualBloodArsenal extends Ritual
      *
      * @param masterRitualStone
      * @param world
-     * @param network
-     * @param currentEssence
      */
-    public void performRitual(IMasterRitualStone masterRitualStone, World world, SoulNetwork network, int currentEssence)
-    {
-
-    }
+    public void performRitual(IMasterRitualStone masterRitualStone, World world, SoulNetwork network) {}
 
     @Override
     public int getRefreshTime()

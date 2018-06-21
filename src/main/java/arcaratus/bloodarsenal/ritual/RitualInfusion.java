@@ -1,8 +1,10 @@
 package arcaratus.bloodarsenal.ritual;
 
 import WayofTime.bloodmagic.altar.IBloodAltar;
+import WayofTime.bloodmagic.core.data.SoulNetwork;
 import WayofTime.bloodmagic.ritual.*;
 import WayofTime.bloodmagic.util.helper.NBTHelper;
+import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.block.BlockStasisPlate;
 import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.recipe.RecipeSanguineInfusion;
@@ -24,30 +26,26 @@ import java.util.function.Consumer;
 
 public class RitualInfusion extends RitualBloodArsenal
 {
-    private final BlockPos[] STASIS_PLATE_POS = new BlockPos[] { new BlockPos(1, 1, 3), new BlockPos(-1, 1, 3), new BlockPos(1, 1, -3), new BlockPos(-1, 1, -3), new BlockPos(3, 1, 1), new BlockPos(3, 1, -1), new BlockPos(-3, 1, 1), new BlockPos(-3, 1, -1) };
+    private static final BlockPos[] STASIS_PLATE_POS = new BlockPos[] { new BlockPos(1, 1, 3), new BlockPos(-1, 1, 3), new BlockPos(1, 1, -3), new BlockPos(-1, 1, -3), new BlockPos(3, 1, 1), new BlockPos(3, 1, -1), new BlockPos(-3, 1, 1), new BlockPos(-3, 1, -1) };
 
     private int craftingTimer;
     private boolean isCrafting;
 
-    private final int CONSTANT_OF_INFUSION = 100;
-
     public RitualInfusion()
     {
-        super("infusion", 0, 100, 1, 0);
+        super("infusion", 0, ConfigHandler.rituals.infusionRitualActivationCost, 1, ConfigHandler.rituals.infusionRitualRefreshCost);
 
         craftingTimer = 0;
         isCrafting = false;
     }
 
     @Override
-    public void performRitual(IMasterRitualStone masterRitualStone)
+    public void performRitual(IMasterRitualStone masterRitualStone, World world, SoulNetwork network)
     {
-        World world = masterRitualStone.getWorldObj();
+        BlockPos pos = masterRitualStone.getBlockPos();
 
         if (world.isRemote)
             return;
-
-        BlockPos pos = masterRitualStone.getBlockPos();
 
         if (checkStructure(world, pos))
         {
@@ -131,7 +129,6 @@ public class RitualInfusion extends RitualBloodArsenal
                         return;
                     }
 
-
                     // Just assume this works
                     if (specialNBT != null && !recipe.matchesWithSpecificity(wildStack, new ItemStack(specialNBT.getCompoundTag(Constants.NBT.ITEMSTACK))))
                     {
@@ -139,9 +136,9 @@ public class RitualInfusion extends RitualBloodArsenal
                         return;
                     }
 
-                    tickCrafting(masterRitualStone);
+                    tickCrafting(network);
 
-                    if (craftingTimer == recipe.getLpCost() * (level + 1) / CONSTANT_OF_INFUSION)
+                    if (craftingTimer == recipe.getLpCost() * (level + 1) / getRefreshCost())
                     {
                         modifiable.applyModifier(ModifierHelper.getModifierAndTracker(modifierKey, level));
                         if (trackerFlag)
@@ -168,9 +165,9 @@ public class RitualInfusion extends RitualBloodArsenal
                 }
                 else if (isCrafting)
                 {
-                    tickCrafting(masterRitualStone);
+                    tickCrafting(network);
 
-                    if (craftingTimer == recipe.getLpCost() / CONSTANT_OF_INFUSION)
+                    if (craftingTimer == recipe.getLpCost() / getRefreshCost())
                     {
                         shrinkItemStackInputs(world, pos, constructItemStackList(recipe.getInputs(), inputStacks), ItemStack.EMPTY);
                         altarInv.setInventorySlotContents(0, recipe.getOutput());
@@ -196,13 +193,13 @@ public class RitualInfusion extends RitualBloodArsenal
         }
     }
 
-    private void tickCrafting(IMasterRitualStone mrs)
+    private void tickCrafting(SoulNetwork network)
     {
         if (!isCrafting)
             return;
 
         craftingTimer++;
-        mrs.getOwnerNetwork().syphon(CONSTANT_OF_INFUSION);
+        network.syphon(getRefreshCost());
     }
 
     private void endRitual(World world, BlockPos pos, IMasterRitualStone mrs)

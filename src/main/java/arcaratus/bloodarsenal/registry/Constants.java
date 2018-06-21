@@ -11,6 +11,11 @@ import java.util.UUID;
 
 public class Constants
 {
+    public static final int HUNDRED = 100;
+    public static final int ONE_K = 1000;
+    public static final int TEN_K = 10000;
+    public static final int HUNDRED_K = 100000;
+
     public static class NBT
     {
         public static final String OWNER_UUID = "ownerUUID";

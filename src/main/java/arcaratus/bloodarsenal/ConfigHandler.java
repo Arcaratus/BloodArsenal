@@ -7,6 +7,8 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import static arcaratus.bloodarsenal.registry.Constants.*;
+
 @Config(modid = BloodArsenal.MOD_ID, name = BloodArsenal.MOD_ID + "/" + BloodArsenal.MOD_ID, category = "")
 @Mod.EventBusSubscriber(modid = BloodArsenal.MOD_ID)
 public class ConfigHandler
@@ -42,47 +44,47 @@ public class ConfigHandler
     public static class ConfigValues
     {
         @Comment({ "Amount of damage the Glass Shards block deals when an entity touches it" })
-        @RangeDouble(min = 0, max = 1000)
+        @RangeDouble(min = 0, max = ONE_K)
         public double glassShardsDamage = 2;
         @Comment({ "The multiplier (per item) of LP drained when the Altare Aenigmatica moves an item to the altar" })
-        @RangeInt(min = 0, max = 1000)
+        @RangeInt(min = 0, max = ONE_K)
         public int altareAenigmaticaMoveMultiplier = 50;
         @Comment({ "Amount of LP the Glass Sacrificial Dagger (approximately) gives per use" })
-        @RangeInt(min = 0, max = 10000)
-        public int glassSacrificialDaggerLP = 500;
+        @RangeInt(min = 0, max = TEN_K)
+        public int glassSacrificialDaggerLP = 5 * HUNDRED;
         @Comment({ "Amount of damage the Glass Sacrificial Dagger deals per use" })
-        @RangeInt(min = 1, max = 10000)
+        @RangeInt(min = 1, max = TEN_K)
         public double glassSacrificialDaggerHealth = 2;
         @Comment({ "The multiplier of LP for the Glass Dagger of Sacrifice" })
-        @RangeDouble(min = 1, max = 1000)
+        @RangeDouble(min = 1, max = ONE_K)
         public double glassDaggerOfSacrificeLPMultiplier = 2;
         @Comment({ "Amount of ticks for a repair to occur for Blood Infused Wooden Tools" })
-        @RangeInt(min = 0, max = 1000)
-        public int bloodInfusedWoodenToolsRepairUpdate = 100;
+        @RangeInt(min = 0, max = ONE_K)
+        public int bloodInfusedWoodenToolsRepairUpdate = HUNDRED;
         @Comment({ "Amount of LP required for a repair for Blood Infused Wooden Tools" })
-        @RangeInt(min = 0, max = 1000)
+        @RangeInt(min = 0, max = ONE_K)
         public int bloodInfusedWoodenToolsRepairCost = 20;
         @Comment({ "Amount of ticks for a repair to occur for Blood Infused Iron Tools" })
-        @RangeInt(min = 0, max = 1000)
+        @RangeInt(min = 0, max = ONE_K)
         public int bloodInfusedIronToolsRepairUpdate = 40;
         @Comment({ "Amount of LP required for a repair for Blood Infused Iron Tools" })
-        @RangeInt(min = 0, max = 1000)
+        @RangeInt(min = 0, max = ONE_K)
         public int bloodInfusedIronToolsRepairCost = 50;
         @Comment({ "Amount of LP required per usage of the Bound Igniter" })
-        @RangeInt(min = 0, max = 10000)
-        public int boundIgniterCost = 200;
+        @RangeInt(min = 0, max = TEN_K)
+        public int boundIgniterCost = 2 * HUNDRED;
         @Comment({ "Amount of LP required per usage of the Bound Shears" })
-        @RangeInt(min = 0, max = 10000)
-        public int boundShearsCost = 300;
+        @RangeInt(min = 0, max = TEN_K)
+        public int boundShearsCost = 3 * HUNDRED;
         @Comment({ "Amount of LP per update for the Sigil of Swimming" })
-        @RangeInt(min = 0, max = 10000)
-        public int sigilSwimmingCost = 100;
+        @RangeInt(min = 0, max = TEN_K)
+        public int sigilSwimmingCost = HUNDRED;
         @Comment({ "Amount of LP required to open the Ender Sigil" })
-        @RangeInt(min = 0, max = 10000)
-        public int sigilEnderOpenCost = 500;
+        @RangeInt(min = 0, max = TEN_K)
+        public int sigilEnderOpenCost = 5 * HUNDRED;
         @Comment({ "Multiplier of LP for teleporting with the Ender Sigil" })
-        @RangeDouble(min = 0, max = 10000)
-        public double sigilEnderTeleportMultiplier = 200;
+        @RangeDouble(min = 0, max = TEN_K)
+        public double sigilEnderTeleportMultiplier = 2 * HUNDRED;
         @Comment({ "Time (in ticks) of the delay before teleportation for the Ender Sigil" })
         @RangeInt(min = 0, max = 60)
         public int sigilEnderTeleportationDelay = 10;
@@ -90,28 +92,45 @@ public class ConfigHandler
         @RangeInt(min = 0, max = 200)
         public int sigilEnderTeleportationCooldown = 40;
         @Comment({ "Multiplier of LP (per lightning bolt) for zapping things with the Lightning Sigil" })
-        @RangeDouble(min = 0, max = 10000)
-        public double sigilLightningMultiplier = 800;
+        @RangeDouble(min = 0, max = TEN_K)
+        public double sigilLightningMultiplier = 8 * HUNDRED;
         @Comment({ "Amount of LP per update for the Sigil of Divinity" })
         @RangeInt(min = 0)
-        public int sigilDivinityCost = 100000;
+        public int sigilDivinityCost = HUNDRED_K;
         @Comment({ "Amount of LP per usage for the Sigil of Sentience" })
-        @RangeInt(min = 0, max = 10000)
-        public int sigilSentienceBaseCost = 1000;
+        @RangeInt(min = 0, max = TEN_K)
+        public int sigilSentienceBaseCost = ONE_K;
         @Comment({ "Fraction of the damage that is converted to health for the Vampire Ring: health = (damageDealt * vampireRingSyphon)" })
-        @RangeDouble(min = 0, max = 100)
+        @RangeDouble(min = 0, max = HUNDRED)
         public double vampireRingMultiplier = 0.5;
         @Comment({ "Multiplier of LP for the Sacrifice Amulet: LP = (damageDone * sacrificeAmuletMultiplier" })
-        @RangeDouble(min = 0, max = 100)
+        @RangeDouble(min = 0, max = HUNDRED)
         public double sacrificeAmuletMultiplier = 20;
         @Comment({ "Multiplier of LP for the Self Sacrifice Amulet: LP = (damageDone * sacrificeAmuletMultiplier" })
-        @RangeDouble(min = 0, max = 100)
+        @RangeDouble(min = 0, max = HUNDRED)
         public double selfSacrificeAmuletMultiplier = 20;
     }
 
     public static class ConfigRituals
     {
         public boolean infusionRitual = true;
+        public boolean purificationRitual = true;
+
+        @Comment({ "Activation cost of the Infusion de Sanguine (infusionRitual)" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int infusionRitualActivationCost = TEN_K;
+        @Comment({ "Refresh cost of the Infusion de Sanguine (infusionRitual)" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int infusionRitualRefreshCost = HUNDRED;
+        @Comment({ "Activation cost of the Ritual of Purification (purificationRitual)" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int purificationtRitualActivationCost = TEN_K;
+        @Comment({ "Refresh cost of the Ritual of Purification (purificationRitual)" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int purificationRitualRefreshCost = 20;
+        @Comment({ "Minimum amount of Life Essence (in mB) required to start the Ritual of Purification" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int purificationRitualMinLP = TEN_K;
 
         public ConfigImperfectRituals imperfect = new ConfigImperfectRituals();
     }
@@ -122,6 +141,19 @@ public class ConfigHandler
         public boolean imperfectEnchantReset = true;
         public boolean imperfectIce = true;
         public boolean imperfectSnow = true;
+
+        @Comment({ "Activation cost of the Imperfect Lightning Ritual" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int imperfectLightningActivationCost = 5 * ONE_K;
+        @Comment({ "Activation cost of the Enchant Reset Ritual" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int imperfectEnchantResetActivationCost = 5 * ONE_K;
+        @Comment({ "Activation cost of the Imperfect Lightning Ritual" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int imperfectIceActivationCost = 5 * HUNDRED;
+        @Comment({ "Activation cost of the Imperfect Lightning Ritual" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int imperfectSnowActivationCost = 5 * HUNDRED;
     }
 
     public static class ConfigMisc

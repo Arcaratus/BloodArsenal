@@ -4,6 +4,7 @@ import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
 import WayofTime.bloodmagic.ritual.imperfect.IImperfectRitualStone;
 import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitual;
 import arcaratus.bloodarsenal.BloodArsenal;
+import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -15,7 +16,7 @@ public class ImperfectRitualSnow extends ImperfectRitual
 {
     public ImperfectRitualSnow()
     {
-        super("snow", s -> s.getBlock() == Blocks.SNOW, 500, true, "ritual." + BloodArsenal.MOD_ID + ".imperfect.snow");
+        super("snow", s -> s.getBlock() == Blocks.SNOW, ConfigHandler.rituals.imperfect.imperfectSnowActivationCost, true, "ritual." + BloodArsenal.MOD_ID + ".imperfect.snow");
     }
 
     @Override

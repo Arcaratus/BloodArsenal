@@ -177,6 +177,7 @@ tooltip.bloodarsenal.holdShift=Hold -&1SHIFT&7- for more information
 
 # Ritual
 ritual.bloodarsenal.infusion_ritual=Infusion de Sanguine
+ritual.bloodarsenal.purification_ritual=Ritual of Purification
 
 ritual.bloodarsenal.imperfect.lightning=Imperfect Lightning Ritual
 ritual.bloodarsenal.imperfect.enchant_reset=Imperfect Enchantment Reset Ritual

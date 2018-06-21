@@ -3,6 +3,7 @@ package arcaratus.bloodarsenal.ritual.imperfect;
 import WayofTime.bloodmagic.ritual.imperfect.IImperfectRitualStone;
 import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitual;
 import arcaratus.bloodarsenal.BloodArsenal;
+import arcaratus.bloodarsenal.ConfigHandler;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -13,7 +14,7 @@ public class ImperfectRitualLightning extends ImperfectRitual
 {
     public ImperfectRitualLightning()
     {
-        super("lightning", s -> s.getBlock() == Blocks.IRON_BLOCK, 10000, false, "ritual." + BloodArsenal.MOD_ID + ".imperfect.lightning");
+        super("lightning", s -> s.getBlock() == Blocks.IRON_BLOCK, ConfigHandler.rituals.imperfect.imperfectLightningActivationCost, false, "ritual." + BloodArsenal.MOD_ID + ".imperfect.lightning");
     }
 
     @Override
