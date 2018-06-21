@@ -131,6 +131,9 @@ public class ConfigHandler
         @Comment({ "Minimum amount of Life Essence (in mB) required to start the Ritual of Purification" })
         @RangeInt(min = 0, max = HUNDRED_K)
         public int purificationRitualMinLP = TEN_K;
+        @Comment({ "Amount of Life Essence (in mB) per mB of Refined Life Essence" })
+        @RangeInt(min = 1, max = TEN_K)
+        public int refinedLifeEssenceConversion = 10;
 
         public ConfigImperfectRituals imperfect = new ConfigImperfectRituals();
     }

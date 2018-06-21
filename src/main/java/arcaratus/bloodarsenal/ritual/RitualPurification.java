@@ -23,6 +23,8 @@ import java.util.function.Consumer;
 public class RitualPurification extends RitualBloodArsenal
 {
     private static final BlockPos[] STASIS_PLATE_POS = new BlockPos[] { new BlockPos(2, 1, 0), new BlockPos(-2, 1, 0), new BlockPos(0, 1, 2), new BlockPos(0, 1, -2) };
+    private static final BlockPos INPUT_TANK_POS = new BlockPos(0, 3, 0);
+    private static final BlockPos OUTPUT_TANK_POS = new BlockPos(0, 2, 0);
     private static final Set<ItemStack> PURIFICATION_1 = Sets.newHashSet(new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.REDSTONE), new ItemStack(Items.BLAZE_POWDER), EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack());
 
     private boolean active;
@@ -45,15 +47,14 @@ public class RitualPurification extends RitualBloodArsenal
 
         if (checkStructure(world, pos))
         {
-            TileBloodTank inputTank = (TileBloodTank) world.getTileEntity(pos.add(0, 3, 0));
-            TileBloodTank outputTank = (TileBloodTank) world.getTileEntity(pos.add(0, 2, 0));
+            TileBloodTank inputTank = (TileBloodTank) world.getTileEntity(pos.add(INPUT_TANK_POS));
+            TileBloodTank outputTank = (TileBloodTank) world.getTileEntity(pos.add(OUTPUT_TANK_POS));
 
             if (active)
             {
-                world.markBlockRangeForRenderUpdate(pos.add(0, 2, 0), pos.add(0, 3, 0));
                 if (fluidLeft > 0)
                 {
-                    tickRitual(network, inputTank, outputTank);
+                    tickRitual(world, pos, network, inputTank, outputTank);
                 }
                 else if (fluidLeft == 0)
                 {
@@ -99,15 +100,19 @@ public class RitualPurification extends RitualBloodArsenal
         }
     }
 
-    private void tickRitual(SoulNetwork network, TileBloodTank inputTank, TileBloodTank outputTank)
+    private void tickRitual(World world, BlockPos pos, SoulNetwork network, TileBloodTank inputTank, TileBloodTank outputTank)
     {
         if (!active)
             return;
 
-        inputTank.getTank().drain(10, true);
+        int conversion = ConfigHandler.rituals.refinedLifeEssenceConversion;
+        inputTank.getTank().drain(conversion, true);
         outputTank.getTank().fill(new FluidStack(RegistrarBloodArsenalBlocks.FLUID_REFINED_LIFE_ESSENCE, 1), true);
 
-        fluidLeft -= 10;
+        world.notifyBlockUpdate(pos.add(OUTPUT_TANK_POS), world.getBlockState(pos.add(OUTPUT_TANK_POS)), world.getBlockState(pos.add(OUTPUT_TANK_POS)), 3);
+        world.notifyBlockUpdate(pos.add(OUTPUT_TANK_POS), world.getBlockState(pos.add(OUTPUT_TANK_POS)), world.getBlockState(pos.add(OUTPUT_TANK_POS)), 3);
+
+        fluidLeft -= conversion;
         network.syphon(getRefreshCost());
     }
 
@@ -120,7 +125,7 @@ public class RitualPurification extends RitualBloodArsenal
 
     private boolean checkStructure(World world, BlockPos pos)
     {
-        if (!(world.getTileEntity(pos.add(0, 2, 0)) instanceof TileBloodTank) || !(world.getTileEntity(pos.add(0, 3, 0)) instanceof TileBloodTank))
+        if (!(world.getTileEntity(pos.add(OUTPUT_TANK_POS)) instanceof TileBloodTank) || !(world.getTileEntity(pos.add(INPUT_TANK_POS)) instanceof TileBloodTank))
             return false;
 
         for (BlockPos stasisPlatePos : STASIS_PLATE_POS)
@@ -144,11 +149,8 @@ public class RitualPurification extends RitualBloodArsenal
     {
         for (TileStasisPlate plate : stasisPlates)
         {
-            if (plate.getStasis())
-            {
-                plate.setStasis(stasis);
-                world.notifyBlockUpdate(plate.getPos(), world.getBlockState(plate.getPos()), world.getBlockState(plate.getPos()), 3);
-            }
+            plate.setStasis(stasis);
+            world.notifyBlockUpdate(plate.getPos(), world.getBlockState(plate.getPos()), world.getBlockState(plate.getPos()), 3);
         }
     }
 

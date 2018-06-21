@@ -88,7 +88,7 @@ public class RitualInfusion extends RitualBloodArsenal
 
                     String modifierKey = recipe.getModifier().getUniqueIdentifier();
                     Modifier modifier = ModifierHandler.getModifierFromKey(modifierKey);
-                    Modifier modifierOnItem =  modifiable.getModifier(modifierKey);
+                    Modifier modifierOnItem = modifiable.getModifier(modifierKey);
                     ModifierTracker trackerOnItem = modifiable.getTrackerForModifier(modifierKey);
 
                     if (!modifiable.canApplyModifier(modifier))
@@ -235,11 +235,8 @@ public class RitualInfusion extends RitualBloodArsenal
     {
         for (TileStasisPlate plate : stasisPlates)
         {
-            if (plate.getStasis())
-            {
-                plate.setStasis(stasis);
-                world.notifyBlockUpdate(plate.getPos(), world.getBlockState(plate.getPos()), world.getBlockState(plate.getPos()), 3);
-            }
+            plate.setStasis(stasis);
+            world.notifyBlockUpdate(plate.getPos(), world.getBlockState(plate.getPos()), world.getBlockState(plate.getPos()), 3);
         }
     }
 

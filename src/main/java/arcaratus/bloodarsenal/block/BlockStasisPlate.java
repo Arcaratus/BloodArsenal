@@ -2,7 +2,6 @@ package arcaratus.bloodarsenal.block;
 
 import WayofTime.bloodmagic.client.IVariantProvider;
 import arcaratus.bloodarsenal.BloodArsenal;
-import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
 import arcaratus.bloodarsenal.tile.TileInventory;
 import arcaratus.bloodarsenal.tile.TileStasisPlate;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
@@ -48,14 +47,11 @@ public class BlockStasisPlate extends Block implements IVariantProvider, IBABloc
         IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
         Block block = iblockstate.getBlock();
 
-        if (this == RegistrarBloodArsenalBlocks.STASIS_PLATE)
-        {
-            if (blockState != iblockstate)
-                return true;
+        if (blockState != iblockstate)
+            return true;
 
-            if (block == this)
-                return false;
-        }
+        if (block == this)
+            return false;
 
         return block != this && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
