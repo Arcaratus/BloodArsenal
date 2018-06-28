@@ -1,4 +1,15 @@
 ------------------------------------------------------
+Version 2.1.0-23
+------------------------------------------------------
+- Added in the Ritual of Purification
+- Added in the Blood Capacitor
+- Added in the Blood Burner Rites
+- Re-added in Blood Burned String
+- Re-added Bound Shears and Bound Igniter
+- Added in a lot of ritual configs
+- Fixed bugs (a lot)
+
+------------------------------------------------------
 Version 2.1.0-22
 ------------------------------------------------------
 - Fixed game-breaking bug
