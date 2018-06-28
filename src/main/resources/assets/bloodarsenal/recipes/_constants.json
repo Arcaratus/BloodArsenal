@@ -173,5 +173,12 @@
       "ore": "shardGlass"
     },
     "name": "SHARDGLASS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotBloodInfusedIron"
+    },
+    "name": "INGOTBLOODINFUSEDIRON"
   }
 ]

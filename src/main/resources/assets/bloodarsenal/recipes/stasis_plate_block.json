@@ -17,8 +17,7 @@
       "item": "bloodmagic:altar"
     },
     "c": {
-      "item": "bloodarsenal:base_item",
-      "data": 4
+      "item": "INGOTBLOODINFUSEDIRON"
     },
     "d": {
       "type": "bloodmagic:orb",

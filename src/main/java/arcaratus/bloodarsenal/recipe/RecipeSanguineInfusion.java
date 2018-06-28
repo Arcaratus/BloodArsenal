@@ -199,21 +199,22 @@ public class RecipeSanguineInfusion
         {
             boolean foundIngredient = false;
 
-            // TODO fix an error here, not working for Modifier Recipes
-            for (ItemStack input : dummyList)
+            // TODO fix an error here, not working for Potion Recipes
+            for (Iterator<ItemStack> iterator = dummyList.iterator(); iterator.hasNext();)
             {
+                ItemStack input = iterator.next();
                 Ingredient ingredient = entry.getKey();
                 if (ingredient.apply(input) && input.getCount() >= entry.getValue())
                 {
                     foundIngredient = true;
-                    dummyList.remove(input);
+                    iterator.remove();
                     break;
                 }
 
                 if (!foundFilter && filter.matches(input))
                 {
                     foundFilter = true;
-                    dummyList.remove(input);
+                    iterator.remove();
                 }
             }
 

@@ -15,15 +15,14 @@ public class Constants
     public static final int ONE_K = 1000;
     public static final int TEN_K = 10000;
     public static final int HUNDRED_K = 100000;
+    public static final int MILLION = 1000000;
 
     public static class NBT
     {
         public static final String OWNER_UUID = "ownerUUID";
         public static final String OWNER_NAME = "ownerNAME";
         public static final String ACTIVATED = "activated";
-        public static final String X_COORD = "xCoord";
-        public static final String Y_COORD = "yCoord";
-        public static final String Z_COORD = "zCoord";
+        public static final String POS = "pos";
         public static final String ITEMS = "Items";
         public static final String SLOT = "Slot";
 
@@ -117,6 +116,9 @@ public class Constants
     public static class Compat
     {
         public static final String JEI_CATEGORY_SANGUINE_INFUSION = BloodArsenal.MOD_ID + ":sanguineInfusion";
+
+        public static final String WAILA_CONFIG_STASIS_PLATE = BloodArsenal.MOD_ID + ".stasis_plate";
+        public static final String WAILA_CONFIG_BLOOD_CAPACITOR = BloodArsenal.MOD_ID + ".blood_capacitor";
     }
 
     public static class Misc

@@ -1,0 +1,30 @@
+{
+  "result": {
+    "item": "bloodarsenal:blood_capacitor"
+  },
+  "pattern": [
+    "aea",
+    "bcb",
+    "ada"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "bloodarsenal:blood_infused_iron_block"
+    },
+    "b": {
+      "item": "bloodarsenal:blood_stained_glass"
+    },
+    "c": {
+      "item": "#BLOCKREDSTONE"
+    },
+    "d": {
+      "type": "bloodmagic:orb",
+      "orb": "bloodmagic:master"
+    },
+    "e": {
+      "item": "bloodmagic:activation_crystal",
+      "data": 0
+    }
+  }
+}

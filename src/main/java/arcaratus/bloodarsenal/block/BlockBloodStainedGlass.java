@@ -2,7 +2,6 @@ package arcaratus.bloodarsenal.block;
 
 import WayofTime.bloodmagic.client.IVariantProvider;
 import arcaratus.bloodarsenal.BloodArsenal;
-import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -38,18 +37,11 @@ public class BlockBloodStainedGlass extends BlockBreakable implements IVariantPr
         IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
         Block block = iblockstate.getBlock();
 
-        if (this == RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS)
-        {
-            if (blockState != iblockstate)
-            {
-                return true;
-            }
+        if (blockState != iblockstate)
+            return true;
 
-            if (block == this)
-            {
-                return false;
-            }
-        }
+        if (block == this)
+            return false;
 
         return block != this && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }

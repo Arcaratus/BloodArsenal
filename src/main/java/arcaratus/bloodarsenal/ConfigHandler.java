@@ -49,6 +49,12 @@ public class ConfigHandler
         @Comment({ "The multiplier (per item) of LP drained when the Altare Aenigmatica moves an item to the altar" })
         @RangeInt(min = 0, max = ONE_K)
         public int altareAenigmaticaMoveMultiplier = 50;
+        @Comment({ "Amount of energy the Blood Capacitor can store" })
+        @RangeInt(min = 0, max = ONE_K * MILLION)
+        public int bloodCapacitorStorage = 10 * MILLION;
+        @Comment({ "Amount of energy the Blood Capacitor can transfer per tick" })
+        @RangeInt(min = 0, max = MILLION)
+        public int bloodCapacitorTransfer = TEN_K;
         @Comment({ "Amount of LP the Glass Sacrificial Dagger (approximately) gives per use" })
         @RangeInt(min = 0, max = TEN_K)
         public int glassSacrificialDaggerLP = 5 * HUNDRED;
@@ -115,6 +121,7 @@ public class ConfigHandler
     {
         public boolean infusionRitual = true;
         public boolean purificationRitual = true;
+        public boolean bloodBurnerRitual = true;
 
         @Comment({ "Activation cost of the Infusion de Sanguine (infusionRitual)" })
         @RangeInt(min = 0, max = HUNDRED_K)
@@ -134,6 +141,12 @@ public class ConfigHandler
         @Comment({ "Amount of Life Essence (in mB) per mB of Refined Life Essence" })
         @RangeInt(min = 1, max = TEN_K)
         public int refinedLifeEssenceConversion = 10;
+        @Comment({ "Activation cost of the Ritual of Purification (purificationRitual)" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int bloodBurnerRitualActivationCost = TEN_K;
+        @Comment({ "Refresh cost of the Ritual of Purification (purificationRitual)" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int bloodBurnerRitualRefreshCost = 2 * HUNDRED;
 
         public ConfigImperfectRituals imperfect = new ConfigImperfectRituals();
     }

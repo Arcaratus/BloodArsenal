@@ -36,7 +36,7 @@ public class ItemBloodArsenalBase extends ItemEnum<EnumBaseTypes> implements IVa
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
         ItemStack stack = player.getHeldItem(hand);
-        if (player.getName().equals("Arcaratus") && stack.getItem() == EnumBaseTypes.BLOOD_INFUSED_STICK.getStack().getItem() && stack.getCount() == 1)
+        if (player.getName().equals("Arcaratus") && ItemStack.areItemsEqual(stack, EnumBaseTypes.BLOOD_INFUSED_STICK.getStack()) && stack.getCount() == 1)
         {
             stack.setTagCompound(new NBTTagCompound());
             stack.setStackDisplayName(TextHelper.getFormattedText("&r&cThe Living Stick"));
@@ -50,22 +50,20 @@ public class ItemBloodArsenalBase extends ItemEnum<EnumBaseTypes> implements IVa
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag)
     {
+        if (ItemStack.areItemsEqual(stack, EnumBaseTypes.GLASS_SHARD.getStack()))
         {
-            if (ItemStack.areItemsEqual(stack, EnumBaseTypes.GLASS_SHARD.getStack()))
-            {
-                if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
-                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.glass_shard.info"));
-                else
-                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.holdShift"));
-            }
-            else if (ItemStack.areItemsEqual(stack, EnumBaseTypes.REAGENT_LIGHTNING.getStack()))
-            {
-                if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
-                    for (int i = 0; i < 8; i++)
-                        tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.reagent_lightning.info" + i));
-                else
-                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.holdShift"));
-            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+                tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.glass_shard.info"));
+            else
+                tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.holdShift"));
+        }
+        else if (ItemStack.areItemsEqual(stack, EnumBaseTypes.REAGENT_LIGHTNING.getStack()))
+        {
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+                for (int i = 0; i < 8; i++)
+                    tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.reagent_lightning.info" + i));
+            else
+                tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.holdShift"));
         }
 
         super.addInformation(stack, world, tooltip, flag);
@@ -81,8 +79,10 @@ public class ItemBloodArsenalBase extends ItemEnum<EnumBaseTypes> implements IVa
     @Override
     public EnumRarity getRarity(ItemStack stack)
     {
-        if (stack.getItem() == EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack().getItem() || stack.getItem() == EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack().getItem()) return EnumRarity.UNCOMMON;
-        if (stack.getItem() == EnumBaseTypes.REAGENT_DIVINITY.getStack().getItem()) return EnumRarity.EPIC;
+        if (ItemStack.areItemsEqual(stack, EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack()) || ItemStack.areItemsEqual(stack, EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack()))
+            return EnumRarity.UNCOMMON;
+        if (ItemStack.areItemsEqual(stack, EnumBaseTypes.REAGENT_DIVINITY.getStack()))
+            return EnumRarity.EPIC;
 
         return super.getRarity(stack);
     }

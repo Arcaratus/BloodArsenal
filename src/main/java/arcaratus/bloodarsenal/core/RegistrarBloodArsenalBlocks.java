@@ -4,8 +4,7 @@ import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.block.*;
 import arcaratus.bloodarsenal.block.fluid.BlockFluidRefinedLifeEssence;
 import arcaratus.bloodarsenal.fluid.FluidCore;
-import arcaratus.bloodarsenal.tile.TileAltareAenigmatica;
-import arcaratus.bloodarsenal.tile.TileStasisPlate;
+import arcaratus.bloodarsenal.tile.*;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -50,6 +49,8 @@ public class RegistrarBloodArsenalBlocks
     public static final Block ALTARE_AENIGMATICA = Blocks.AIR;
     public static final Block STASIS_PLATE = Blocks.AIR;
 
+    public static final Block BLOOD_CAPACITOR = Blocks.AIR;
+
     public static final Block REFINED_LIFE_ESSENCE = Blocks.AIR;
 
     public static Fluid FLUID_REFINED_LIFE_ESSENCE;
@@ -82,7 +83,8 @@ public class RegistrarBloodArsenalBlocks
                 new BlockBloodBurnedString("block_blood_burned_string"),
                 new BlockAltareAenigmatica("altare_aenigmatica"),
                 new BlockStasisPlate("stasis_plate"),
-                new BlockFluidRefinedLifeEssence("refined_life_essence")
+                new BlockFluidRefinedLifeEssence("refined_life_essence"),
+                new BlockBloodCapacitor("blood_capacitor")
         );
 
         event.getRegistry().registerAll(blocks.toArray(new Block[0]));
@@ -94,6 +96,7 @@ public class RegistrarBloodArsenalBlocks
     {
         registerTile(TileAltareAenigmatica.class, "altare_aenigmatica");
         registerTile(TileStasisPlate.class, "stasis_plate");
+        registerTile(TileBloodCapacitor.class, "blood_capacitor");
     }
 
     @SideOnly(Side.CLIENT)

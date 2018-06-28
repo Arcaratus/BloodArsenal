@@ -5,6 +5,7 @@ import WayofTime.bloodmagic.iface.IActivatable;
 import WayofTime.bloodmagic.iface.ISigil;
 import arcaratus.bloodarsenal.compat.jei.infusion.SanguineInfusionCategory;
 import arcaratus.bloodarsenal.compat.jei.infusion.SanguineInfusionRecipeJEI;
+import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.item.types.EnumBaseTypes;
 import arcaratus.bloodarsenal.modifier.IModifiableItem;
@@ -15,6 +16,8 @@ import mezz.jei.api.*;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.*;
 import net.minecraft.potion.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -90,6 +93,7 @@ public class BloodArsenalPlugin implements IModPlugin
 //
         registry.addIngredientInfo(EnumBaseTypes.GLASS_SHARD.getStack(), ItemStack.class, "jei.bloodarsenal.desc.glass_shard");
         registry.addIngredientInfo(EnumBaseTypes.REAGENT_LIGHTNING.getStack(), ItemStack.class, "jei.bloodarsenal.desc.reagent_lightning");
+        registry.addIngredientInfo(new FluidStack(RegistrarBloodArsenalBlocks.FLUID_REFINED_LIFE_ESSENCE, Fluid.BUCKET_VOLUME), FluidStack.class, "jei.bloodarsenal.desc.refined_life_essence");
     }
 
     @Override

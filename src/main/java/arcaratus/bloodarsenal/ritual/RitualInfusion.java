@@ -12,6 +12,7 @@ import arcaratus.bloodarsenal.recipe.SanguineInfusionRecipeRegistry;
 import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.tile.TileStasisPlate;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Sets;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -26,7 +27,7 @@ import java.util.function.Consumer;
 
 public class RitualInfusion extends RitualBloodArsenal
 {
-    private static final BlockPos[] STASIS_PLATE_POS = new BlockPos[] { new BlockPos(1, 1, 3), new BlockPos(-1, 1, 3), new BlockPos(1, 1, -3), new BlockPos(-1, 1, -3), new BlockPos(3, 1, 1), new BlockPos(3, 1, -1), new BlockPos(-3, 1, 1), new BlockPos(-3, 1, -1) };
+    private static final Set<BlockPos> STASIS_PLATE_POS = Sets.newHashSet(new BlockPos(1, 1, 3), new BlockPos(-1, 1, 3), new BlockPos(1, 1, -3), new BlockPos(-1, 1, -3), new BlockPos(3, 1, 1), new BlockPos(3, 1, -1), new BlockPos(-3, 1, 1), new BlockPos(-3, 1, -1));
 
     private int craftingTimer;
     private boolean isCrafting;

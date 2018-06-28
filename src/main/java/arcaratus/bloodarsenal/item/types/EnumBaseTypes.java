@@ -2,6 +2,7 @@ package arcaratus.bloodarsenal.item.types;
 
 import WayofTime.bloodmagic.item.types.ISubItem;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -40,5 +41,10 @@ public enum EnumBaseTypes implements ISubItem
     public ItemStack getStack(int count)
     {
         return new ItemStack(RegistrarBloodArsenalItems.BASE_ITEM, count, ordinal());
+    }
+
+    public Item getItem()
+    {
+        return getStack().getItem();
     }
 }

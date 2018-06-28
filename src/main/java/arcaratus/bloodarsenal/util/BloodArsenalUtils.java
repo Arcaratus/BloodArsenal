@@ -19,10 +19,11 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -109,14 +110,12 @@ public class BloodArsenalUtils
 
     public static void writePosToNBT(NBTTagCompound tag, int x, int y, int z)
     {
-        tag.setInteger(Constants.NBT.X_COORD, x);
-        tag.setInteger(Constants.NBT.Y_COORD, y);
-        tag.setInteger(Constants.NBT.Z_COORD, z);
+        writePosToNBT(tag, new BlockPos(x, y, z));
     }
 
     public static void writePosToNBT(NBTTagCompound tag, BlockPos pos)
     {
-        writePosToNBT(tag, pos.getX(), pos.getY(), pos.getZ());
+        tag.setLong(Constants.NBT.POS, pos.toLong());
     }
 
     public static void writePosToStack(ItemStack stack, BlockPos pos)
@@ -126,12 +125,35 @@ public class BloodArsenalUtils
 
     public static BlockPos getPosFromNBT(NBTTagCompound tag)
     {
-        return new BlockPos(tag.getInteger(Constants.NBT.X_COORD), tag.getInteger(Constants.NBT.Y_COORD), tag.getInteger(Constants.NBT.Z_COORD));
+        return BlockPos.fromLong(tag.getLong(Constants.NBT.POS));
     }
 
     public static BlockPos getPosFromStack(ItemStack stack)
     {
         return getPosFromNBT(NBTHelper.checkNBT(stack).getTagCompound());
+    }
+
+    public static TileEntity getAdjacentTileEntity(World world, BlockPos pos, EnumFacing dir)
+    {
+        pos = pos.offset(dir);
+        return world == null || !world.isBlockLoaded(pos) ? null : world.getTileEntity(pos);
+    }
+
+    public static TileEntity getAdjacentTileEntity(TileEntity refTile, EnumFacing dir)
+    {
+        return refTile == null ? null : getAdjacentTileEntity(refTile.getWorld(), refTile.getPos(), dir);
+    }
+
+    public static int insertEnergyIntoAdjacentEnergyReceiver(TileEntity tile, EnumFacing side, int energy, boolean simulate)
+    {
+        TileEntity handler = getAdjacentTileEntity(tile, side);
+
+        if (handler != null && handler.hasCapability(CapabilityEnergy.ENERGY, side.getOpposite()))
+        {
+            return handler.getCapability(CapabilityEnergy.ENERGY, side.getOpposite()).receiveEnergy(energy, simulate);
+        }
+
+        return 0;
     }
 
     public static boolean isSigilInInvAndActive(EntityPlayer player, Item item)

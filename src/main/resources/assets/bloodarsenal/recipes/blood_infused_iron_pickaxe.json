@@ -10,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "a": {
-      "item": "bloodarsenal:base_item",
-      "data": 4
+      "item": "#INGOTBLOODINFUSEDIRON"
     },
     "b": {
       "item": "bloodarsenal:base_item",

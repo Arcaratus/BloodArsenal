@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 
 public class RitualPurification extends RitualBloodArsenal
 {
-    private static final BlockPos[] STASIS_PLATE_POS = new BlockPos[] { new BlockPos(2, 1, 0), new BlockPos(-2, 1, 0), new BlockPos(0, 1, 2), new BlockPos(0, 1, -2) };
+    private static final Set<BlockPos> STASIS_PLATE_POS = Sets.newHashSet(new BlockPos(2, 1, 0), new BlockPos(-2, 1, 0), new BlockPos(0, 1, 2), new BlockPos(0, 1, -2));
     private static final BlockPos INPUT_TANK_POS = new BlockPos(0, 3, 0);
     private static final BlockPos OUTPUT_TANK_POS = new BlockPos(0, 2, 0);
     private static final Set<ItemStack> PURIFICATION_1 = Sets.newHashSet(new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.REDSTONE), new ItemStack(Items.BLAZE_POWDER), EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack());
@@ -43,7 +43,7 @@ public class RitualPurification extends RitualBloodArsenal
         BlockPos pos = masterRitualStone.getBlockPos();
 
         if (active && world.isRemote)
-            world.spawnParticle(EnumParticleTypes.REDSTONE, pos.getX() + 0.5D + world.rand.nextGaussian() / 6, pos.getY() + 1.5D + world.rand.nextGaussian() / 6, pos.getZ() + 0.5D + world.rand.nextGaussian() / 6, 0, 0, 0, 0);
+            world.spawnParticle(EnumParticleTypes.REDSTONE, pos.getX() + 0.5D + world.rand.nextGaussian() / 8, pos.getY() + 1.5D + world.rand.nextGaussian() / 8, pos.getZ() + 0.5D + world.rand.nextGaussian() / 8, 0, 0, 0, 0);
 
         if (checkStructure(world, pos))
         {
@@ -222,9 +222,9 @@ public class RitualPurification extends RitualBloodArsenal
     {
         addParallelRunes(components, 1, 0, EnumRuneType.BLANK);
         addCornerRunes(components, 1, 0, EnumRuneType.EARTH);
-        addParallelRunes(components, 2, 0, EnumRuneType.WATER);
+        addParallelRunes(components, 2, 0, EnumRuneType.FIRE);
         addOffsetRunes(components, 2, 1, 0, EnumRuneType.AIR);
-        addCornerRunes(components, 2, 0, EnumRuneType.FIRE);
+        addCornerRunes(components, 2, 0, EnumRuneType.EARTH);
         addParallelRunes(components, 3, 0, EnumRuneType.BLANK);
         addOffsetRunes(components, 3, 1, 0, EnumRuneType.AIR);
         addOffsetRunes(components, 3, 2, 0, EnumRuneType.WATER);

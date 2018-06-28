@@ -18,6 +18,7 @@ public class ModRituals
 {
     public static Ritual INFUSION_RITUAL;
     public static Ritual PURIFICATION_RITUAL;
+    public static Ritual BLOOD_BURNER_RITUAL;
 
     public static ImperfectRitual IMPERFECT_LIGHTNING;
     public static ImperfectRitual IMPERFECT_ENCHANT_RESET;
@@ -28,6 +29,7 @@ public class ModRituals
     {
         INFUSION_RITUAL = new RitualInfusion();
         PURIFICATION_RITUAL = new RitualPurification();
+        BLOOD_BURNER_RITUAL = new RitualBloodBurner();
 
         IMPERFECT_LIGHTNING = new ImperfectRitualLightning();
         IMPERFECT_ENCHANT_RESET = new ImperfectRitualEnchantReset();
@@ -36,6 +38,7 @@ public class ModRituals
 
         RitualRegistry.registerRitual(INFUSION_RITUAL, ConfigHandler.rituals.infusionRitual);
         RitualRegistry.registerRitual(PURIFICATION_RITUAL, ConfigHandler.rituals.purificationRitual);
+        RitualRegistry.registerRitual(BLOOD_BURNER_RITUAL, ConfigHandler.rituals.bloodBurnerRitual);
 
         ImperfectRitualRegistry.registerRitual(IMPERFECT_LIGHTNING, ConfigHandler.rituals.imperfect.imperfectLightning);
         ImperfectRitualRegistry.registerRitual(IMPERFECT_ENCHANT_RESET, ConfigHandler.rituals.imperfect.imperfectEnchantReset);

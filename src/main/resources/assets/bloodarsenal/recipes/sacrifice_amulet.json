@@ -11,7 +11,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "a": {
-      "item": "#STRING"
+      "item": "bloodarsenal:blood_burned_string"
     },
     "b": {
       "type": "bloodmagic:orb",

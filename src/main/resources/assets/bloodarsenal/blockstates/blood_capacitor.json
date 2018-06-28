@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "normal": {
+      "model": "bloodarsenal:blood_capacitor",
+      "textures": {
+        "all": "bloodarsenal:blocks/blood_capacitor"
+      }
+    }
+  }
+}
