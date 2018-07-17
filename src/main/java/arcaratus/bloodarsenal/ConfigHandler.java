@@ -117,6 +117,7 @@ public class ConfigHandler
         public double selfSacrificeAmuletMultiplier = 20;
     }
 
+    // TODO: Port this to the automagic stuff as seen in RitualManager
     public static class ConfigRituals
     {
         public boolean infusionRitual = true;

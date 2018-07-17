@@ -20,6 +20,7 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.*;
 import java.util.function.Consumer;
 
+@RitualRegister("purification")
 public class RitualPurification extends RitualBloodArsenal
 {
     private static final Set<BlockPos> STASIS_PLATE_POS = Sets.newHashSet(new BlockPos(2, 1, 0), new BlockPos(-2, 1, 0), new BlockPos(0, 1, 2), new BlockPos(0, 1, -2));

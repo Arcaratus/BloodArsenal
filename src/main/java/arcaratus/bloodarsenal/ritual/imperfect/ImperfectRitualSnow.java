@@ -1,6 +1,7 @@
 package arcaratus.bloodarsenal.ritual.imperfect;
 
 import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
+import WayofTime.bloodmagic.ritual.RitualRegister;
 import WayofTime.bloodmagic.ritual.imperfect.IImperfectRitualStone;
 import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitual;
 import arcaratus.bloodarsenal.BloodArsenal;
@@ -12,6 +13,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+@RitualRegister.Imperfect("snow")
 public class ImperfectRitualSnow extends ImperfectRitual
 {
     public ImperfectRitualSnow()

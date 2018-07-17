@@ -24,7 +24,7 @@ public class GuiAugmentedHolding extends GuiContainer
     {
         super(new ContainerAugmentedHolding(player, inventoryHolding));
         xSize = 176;
-        ySize = 121;
+        ySize = 123;
         this.player = player;
     }
 
@@ -32,7 +32,7 @@ public class GuiAugmentedHolding extends GuiContainer
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         //the parameters for drawString are: string, x, y, color
-        fontRenderer.drawString(TextHelper.localize("item.bloodarsenal.sigil.augmentedHolding.name"), 28, 4, 4210752);
+        fontRenderer.drawString(TextHelper.localize("item.bloodarsenal.sigil.augmented_holding.name"), 25, 4, 4210752);
     }
 
     @Override

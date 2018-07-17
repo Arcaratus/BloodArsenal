@@ -25,6 +25,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import java.util.*;
 import java.util.function.Consumer;
 
+@RitualRegister("infusion")
 public class RitualInfusion extends RitualBloodArsenal
 {
     private static final Set<BlockPos> STASIS_PLATE_POS = Sets.newHashSet(new BlockPos(1, 1, 3), new BlockPos(-1, 1, 3), new BlockPos(1, 1, -3), new BlockPos(-1, 1, -3), new BlockPos(3, 1, 1), new BlockPos(3, 1, -1), new BlockPos(-3, 1, 1), new BlockPos(-3, 1, -1));

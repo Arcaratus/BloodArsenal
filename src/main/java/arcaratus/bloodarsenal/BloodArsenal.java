@@ -6,6 +6,7 @@ import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.network.BloodArsenalPacketHandler;
 import arcaratus.bloodarsenal.proxy.CommonProxy;
 import arcaratus.bloodarsenal.registry.*;
+import arcaratus.bloodarsenal.ritual.RitualModifierRemove;
 import arcaratus.bloodarsenal.util.DamageSourceBleeding;
 import arcaratus.bloodarsenal.util.DamageSourceGlass;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,7 +20,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import java.io.File;
 import java.util.Locale;
 
-@Mod(modid = BloodArsenal.MOD_ID, version = BloodArsenal.VERSION, name = BloodArsenal.NAME, dependencies = "required-after:bloodmagic;required-after:baubles;after:guideapi;after:tconstruct")
+@Mod(modid = BloodArsenal.MOD_ID, version = BloodArsenal.VERSION, name = BloodArsenal.NAME, dependencies = "required-after:bloodmagic@[1.12.2-2.3.0,);required-after:baubles;after:guideapi;after:tconstruct")
 public class BloodArsenal
 {
     public static final String MOD_ID = "bloodarsenal";
@@ -71,10 +72,9 @@ public class BloodArsenal
     {
         BloodArsenalPacketHandler.init();
 
-        ModRituals.initImperfectRituals();
         ModModifiers.init();
         ModRecipes.init();
-        ModRituals.overrideRituals();
+        RitualModifierRemove.overrideRitual();
         ModCompat.loadCompat(ICompatibility.InitializationPhase.INIT);
         NetworkRegistry.INSTANCE.registerGuiHandler(BloodArsenal.INSTANCE, new GuiHandler());
 

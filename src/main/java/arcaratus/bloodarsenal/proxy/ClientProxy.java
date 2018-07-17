@@ -1,6 +1,6 @@
 package arcaratus.bloodarsenal.proxy;
 
-import arcaratus.bloodarsenal.client.hud.HUDElementAugmentedHolding;
+import arcaratus.bloodarsenal.client.hud.BloodArsenalElements;
 import arcaratus.bloodarsenal.client.mesh.FluidStateMapper;
 import arcaratus.bloodarsenal.client.render.block.RenderStasisPlate;
 import arcaratus.bloodarsenal.client.render.entity.RenderSentientTool;
@@ -50,7 +50,7 @@ public class ClientProxy extends CommonProxy
     @Override
     public void postInit()
     {
-        new HUDElementAugmentedHolding();
+        BloodArsenalElements.registerElements();
     }
 
     @Override

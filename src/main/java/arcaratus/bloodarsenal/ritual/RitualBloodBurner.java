@@ -28,6 +28,7 @@ import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
+@RitualRegister("blood_burner")
 public class RitualBloodBurner extends RitualBloodArsenal
 {
     private static final Set<BlockPos> FIRE_POS = Sets.newHashSet(new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0), new BlockPos(0, 0, 1), new BlockPos(0, 0, -1), new BlockPos(1, 0, 1), new BlockPos(-1, 0, 1), new BlockPos(1, 0, -1), new BlockPos(-1, 0, -1));

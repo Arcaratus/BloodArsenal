@@ -1,5 +1,6 @@
 package arcaratus.bloodarsenal.ritual.imperfect;
 
+import WayofTime.bloodmagic.ritual.RitualRegister;
 import WayofTime.bloodmagic.ritual.imperfect.IImperfectRitualStone;
 import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitual;
 import arcaratus.bloodarsenal.BloodArsenal;
@@ -8,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
+@RitualRegister.Imperfect("enchant_reset")
 public class ImperfectRitualEnchantReset extends ImperfectRitual
 {
     public ImperfectRitualEnchantReset()
