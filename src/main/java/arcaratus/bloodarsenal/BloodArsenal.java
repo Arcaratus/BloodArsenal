@@ -6,7 +6,6 @@ import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.network.BloodArsenalPacketHandler;
 import arcaratus.bloodarsenal.proxy.CommonProxy;
 import arcaratus.bloodarsenal.registry.*;
-import arcaratus.bloodarsenal.ritual.RitualModifierRemove;
 import arcaratus.bloodarsenal.util.DamageSourceBleeding;
 import arcaratus.bloodarsenal.util.DamageSourceGlass;
 import net.minecraft.creativetab.CreativeTabs;
@@ -74,7 +73,6 @@ public class BloodArsenal
 
         ModModifiers.init();
         ModRecipes.init();
-        RitualModifierRemove.overrideRitual();
         ModCompat.loadCompat(ICompatibility.InitializationPhase.INIT);
         NetworkRegistry.INSTANCE.registerGuiHandler(BloodArsenal.INSTANCE, new GuiHandler());
 
