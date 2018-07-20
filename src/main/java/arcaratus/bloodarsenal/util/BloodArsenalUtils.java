@@ -125,7 +125,7 @@ public class BloodArsenalUtils
 
     public static BlockPos getPosFromNBT(NBTTagCompound tag)
     {
-        return BlockPos.fromLong(tag.getLong(Constants.NBT.POS));
+        return tag.hasKey(Constants.NBT.POS) ? BlockPos.fromLong(tag.getLong(Constants.NBT.POS)) : BlockPos.ORIGIN;
     }
 
     public static BlockPos getPosFromStack(ItemStack stack)

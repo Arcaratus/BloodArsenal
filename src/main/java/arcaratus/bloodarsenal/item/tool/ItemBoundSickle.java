@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -62,19 +63,21 @@ public class ItemBoundSickle extends ItemBoundTool implements IMeshProvider
         boolean silkTouch = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, itemStack) > 0;
         int fortuneLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack);
 
-        if (!world.isRemote && canHarvestBlock(state))
+        if (!world.isRemote)
         {
             Iterable<MutableBlockPos> positions = BlockPos.getAllInBoxMutable(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE, RANGE, RANGE));
             NonNullList<ItemStack> drops = NonNullList.create();
 
+            int damage = 0;
             for (MutableBlockPos blockPos : positions)
             {
                 IBlockState blockState = world.getBlockState(blockPos);
+                Block block = blockState.getBlock();
 
-                if (blockState.getBlock().isAir(blockState, world, blockPos))
+                if (block.isAir(blockState, world, blockPos))
                     continue;
 
-                if (!SICKLE_EFFECTIVE_ON.contains(blockState.getBlock()))
+                if (!SICKLE_EFFECTIVE_ON.contains(block))
                     continue;
 
                 BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, blockPos, blockState, player);
@@ -89,25 +92,25 @@ public class ItemBoundSickle extends ItemBoundTool implements IMeshProvider
                     {
                         if (silkTouch)
                         {
-                            if (blockState.getBlock() instanceof IShearable)
+                            if (block instanceof IShearable)
                             {
-                                drops.addAll(((IShearable) blockState.getBlock()).onSheared(itemStack, world, blockPos, fortuneLvl));
+                                drops.addAll(((IShearable) block).onSheared(itemStack, world, blockPos, fortuneLvl));
                             }
-                            else if (blockState.getBlock().canSilkHarvest(world, blockPos, world.getBlockState(blockPos), player))
+                            else if (block.canSilkHarvest(world, blockPos, world.getBlockState(blockPos), player))
                             {
-                                drops.add(new ItemStack(blockState.getBlock(), 1, blockState.getBlock().getMetaFromState(blockState)));
+                                drops.add(new ItemStack(block, 1, block.getMetaFromState(blockState)));
                             }
                             else
                             {
                                 NonNullList<ItemStack> itemDrops = NonNullList.create();
-                                blockState.getBlock().getDrops(itemDrops, world, blockPos, blockState, fortuneLvl);
+                                block.getDrops(itemDrops, world, blockPos, blockState, fortuneLvl);
                                 drops.addAll(itemDrops);
                             }
                         }
                         else
                         {
                             NonNullList<ItemStack> itemDrops = NonNullList.create();
-                            blockState.getBlock().getDrops(itemDrops, world, blockPos, blockState, fortuneLvl);
+                            block.getDrops(itemDrops, world, blockPos, blockState, fortuneLvl);
                             drops.addAll(itemDrops);
                         }
 
@@ -117,9 +120,11 @@ public class ItemBoundSickle extends ItemBoundTool implements IMeshProvider
                     }
                 }
             }
+
+            itemStack.attemptDamageItem(damage, itemRand, (EntityPlayerMP) player);
         }
 
-        return true;
+        return false;
     }
 
     @Override
@@ -155,11 +160,12 @@ public class ItemBoundSickle extends ItemBoundTool implements IMeshProvider
                 {
                     BlockPos blockPos = playerPos.add(i, j, k);
                     IBlockState blockState = world.getBlockState(blockPos);
+                    Block block = blockState.getBlock();
 
-                    if (blockState.getBlock().isAir(blockState, world, blockPos))
+                    if (block.isAir(blockState, world, blockPos))
                         continue;
 
-                    if (!SICKLE_EFFECTIVE_ON.contains(blockState.getBlock()))
+                    if (!SICKLE_EFFECTIVE_ON.contains(block))
                         continue;
 
                     BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, blockPos, blockState, player);
@@ -168,31 +174,29 @@ public class ItemBoundSickle extends ItemBoundTool implements IMeshProvider
 
                     if (blockState.getBlockHardness(world, blockPos) != -1.0F)
                     {
-                        float strengthVsBlock = getDestroySpeed(itemStack, blockState);
-
-                        if (strengthVsBlock > 1.1F && world.canMineBlockBody(player, blockPos))
+                        if (world.canMineBlockBody(player, blockPos))
                         {
                             if (silkTouch)
                             {
-                                if (blockState.getBlock() instanceof IShearable)
+                                if (block instanceof IShearable)
                                 {
-                                    drops.addAll(((IShearable) blockState.getBlock()).onSheared(itemStack, world, blockPos, fortuneLvl));
+                                    drops.addAll(((IShearable) block).onSheared(itemStack, world, blockPos, fortuneLvl));
                                 }
-                                else if (blockState.getBlock().canSilkHarvest(world, blockPos, world.getBlockState(blockPos), player))
+                                else if (block.canSilkHarvest(world, blockPos, world.getBlockState(blockPos), player))
                                 {
-                                    drops.add(new ItemStack(blockState.getBlock(), 1, blockState.getBlock().getMetaFromState(blockState)));
+                                    drops.add(new ItemStack(block, 1, block.getMetaFromState(blockState)));
                                 }
                                 else
                                 {
                                     NonNullList<ItemStack> itemDrops = NonNullList.create();
-                                    blockState.getBlock().getDrops(itemDrops, world, blockPos, blockState, fortuneLvl);
+                                    block.getDrops(itemDrops, world, blockPos, blockState, fortuneLvl);
                                     drops.addAll(itemDrops);
                                 }
                             }
                             else
                             {
                                 NonNullList<ItemStack> itemDrops = NonNullList.create();
-                                blockState.getBlock().getDrops(itemDrops, world, blockPos, blockState, fortuneLvl);
+                                block.getDrops(itemDrops, world, blockPos, blockState, fortuneLvl);
                                 drops.addAll(itemDrops);
                             }
 

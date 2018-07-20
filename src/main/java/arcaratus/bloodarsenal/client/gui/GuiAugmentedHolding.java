@@ -1,11 +1,11 @@
 package arcaratus.bloodarsenal.client.gui;
 
-import WayofTime.bloodmagic.item.sigil.ItemSigilHolding;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.item.inventory.ContainerAugmentedHolding;
 import arcaratus.bloodarsenal.item.inventory.InventoryAugmentedHolding;
+import arcaratus.bloodarsenal.item.sigil.ItemSigilAugmentedHolding;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +29,14 @@ public class GuiAugmentedHolding extends GuiContainer
     }
 
     @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    {
+        drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        renderHoveredToolTip(mouseX, mouseY);
+    }
+
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         //the parameters for drawString are: string, x, y, color
@@ -47,8 +55,7 @@ public class GuiAugmentedHolding extends GuiContainer
         if (player.getHeldItemMainhand().getItem() == RegistrarBloodArsenalItems.SIGIL_AUGMENTED_HOLDING)
         {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            int ordinal = ItemSigilHolding.getCurrentItemOrdinal(player.getHeldItemMainhand());
-            drawTexturedModalRect(5 + x + 18 * ordinal - (int) (0.5 * ordinal), y + 14, 0, 123, 22, 22);
+            drawTexturedModalRect(5 + x + (int) (17.5 * ItemSigilAugmentedHolding.getCurrentItemOrdinal(player.getHeldItemMainhand())), y + 14, 0, 123, 22, 22);
         }
     }
 }
