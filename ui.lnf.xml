@@ -1,7 +1,5 @@
 <application>
   <component name="UISettings">
-    <option name="FONT_SCALE" value="1.25" />
-    <option name="HIDE_TOOL_STRIPES" value="false" />
     <option name="MAX_LOOKUP_LIST_HEIGHT" value="7" />
   </component>
 </application>
