@@ -1,4 +1,11 @@
 ------------------------------------------------------
+Version 2.1.0-26
+------------------------------------------------------
+- Update to latest Blood Magic version
+- Fixed losing items on death bug
+- Fixed Ritual Diviner not scrolling past the Sound of the Cleansing Soul
+
+------------------------------------------------------
 Version 2.1.0-25
 ------------------------------------------------------
 - Major bug fixes
