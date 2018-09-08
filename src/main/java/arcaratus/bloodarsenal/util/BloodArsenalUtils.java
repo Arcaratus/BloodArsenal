@@ -1,6 +1,6 @@
 package arcaratus.bloodarsenal.util;
 
-import WayofTime.bloodmagic.item.ItemSigilToggleable;
+import WayofTime.bloodmagic.item.sigil.ItemSigilToggleable;
 import WayofTime.bloodmagic.util.helper.NBTHelper;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.item.IProfilable;

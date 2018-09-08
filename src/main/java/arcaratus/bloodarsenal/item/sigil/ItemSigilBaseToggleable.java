@@ -2,7 +2,7 @@ package arcaratus.bloodarsenal.item.sigil;
 
 import WayofTime.bloodmagic.client.IMeshProvider;
 import WayofTime.bloodmagic.core.data.Binding;
-import WayofTime.bloodmagic.item.ItemSigilToggleable;
+import WayofTime.bloodmagic.item.sigil.ItemSigilToggleable;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.client.mesh.CustomMeshDefinitionActivatable;

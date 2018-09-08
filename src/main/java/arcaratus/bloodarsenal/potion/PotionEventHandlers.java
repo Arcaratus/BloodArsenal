@@ -3,6 +3,7 @@ package arcaratus.bloodarsenal.potion;
 import WayofTime.bloodmagic.util.helper.PlayerSacrificeHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenal;
+import arcaratus.bloodarsenal.util.DamageSourceBleeding;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,7 +28,7 @@ public class PotionEventHandlers
 
             if (entityLiving.getEntityWorld().getWorldTime() % (30 / (amplifier + 1)) == 0)
             {
-                entityLiving.attackEntityFrom(BloodArsenal.getDamageSourceBleeding(), damage);
+                entityLiving.attackEntityFrom(DamageSourceBleeding.INSTANCE, damage);
                 entityLiving.hurtResistantTime = Math.min(entityLiving.hurtResistantTime, 30 / (amplifier + 1));
                 entityLiving.onEntityUpdate();
 

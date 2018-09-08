@@ -8,6 +8,8 @@ import net.minecraft.util.text.TextComponentString;
 
 public class DamageSourceGlass extends DamageSource
 {
+    public static final DamageSourceGlass INSTANCE = new DamageSourceGlass();
+
     public DamageSourceGlass()
     {
         super("glass");
@@ -19,6 +21,6 @@ public class DamageSourceGlass extends DamageSource
     @Override
     public ITextComponent getDeathMessage(EntityLivingBase livingBase)
     {
-        return new TextComponentString(TextHelper.localizeEffect("chat.BloodArsenal.damageSourceGlass", livingBase.getName()));
+        return new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.damageSourceGlass", livingBase.getName()));
     }
 }

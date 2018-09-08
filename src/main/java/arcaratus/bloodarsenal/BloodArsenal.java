@@ -6,8 +6,7 @@ import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.network.BloodArsenalPacketHandler;
 import arcaratus.bloodarsenal.proxy.CommonProxy;
 import arcaratus.bloodarsenal.registry.*;
-import arcaratus.bloodarsenal.util.DamageSourceBleeding;
-import arcaratus.bloodarsenal.util.DamageSourceGlass;
+import arcaratus.bloodarsenal.ritual.RitualModifierRemove;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
@@ -46,15 +45,6 @@ public class BloodArsenal
 
     public static File configDir;
 
-    public static DamageSourceGlass getDamageSourceGlass()
-    {
-        return new DamageSourceGlass();
-    }
-    public static DamageSourceBleeding getDamageSourceBleeding()
-    {
-        return new DamageSourceBleeding();
-    }
-
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -73,6 +63,7 @@ public class BloodArsenal
 
         ModModifiers.init();
         ModRecipes.init();
+        RitualModifierRemove.overrideRitual();
         ModCompat.loadCompat(ICompatibility.InitializationPhase.INIT);
         NetworkRegistry.INSTANCE.registerGuiHandler(BloodArsenal.INSTANCE, new GuiHandler());
 

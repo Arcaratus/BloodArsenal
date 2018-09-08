@@ -1,5 +1,6 @@
 package arcaratus.bloodarsenal.item.sigil;
 
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.util.helper.PlayerHelper;
 import arcaratus.bloodarsenal.ConfigHandler;
@@ -47,7 +48,7 @@ public class ItemSigilSentience extends ItemSigilBase
                 }
 
                 if (!world.isRemote)
-                    syphonCosts(player, heldStack);
+                    syphonCosts(stack, world, player, heldStack);
             }
         }
 
@@ -60,7 +61,7 @@ public class ItemSigilSentience extends ItemSigilBase
         return oldStack.getItem() != newStack.getItem();
     }
 
-    private void syphonCosts(EntityPlayer player, ItemStack summonedTool)
+    private void syphonCosts(ItemStack stack, World world, EntityPlayer player, ItemStack summonedTool)
     {
         float cost = 500;
 
@@ -84,6 +85,6 @@ public class ItemSigilSentience extends ItemSigilBase
             cost += 200 * lvl;
         }
 
-        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) cost);
+        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(stack, world, player, (int) cost));
     }
 }

@@ -2,6 +2,7 @@ package arcaratus.bloodarsenal.ritual;
 
 import WayofTime.bloodmagic.altar.IBloodAltar;
 import WayofTime.bloodmagic.core.data.SoulNetwork;
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.ritual.*;
 import WayofTime.bloodmagic.util.helper.NBTHelper;
 import arcaratus.bloodarsenal.ConfigHandler;
@@ -138,7 +139,7 @@ public class RitualInfusion extends RitualBloodArsenal
                         return;
                     }
 
-                    tickCrafting(network);
+                    tickCrafting(world, pos, network);
 
                     if (craftingTimer == recipe.getLpCost() * (level + 1) / getRefreshCost())
                     {
@@ -167,7 +168,7 @@ public class RitualInfusion extends RitualBloodArsenal
                 }
                 else if (isCrafting)
                 {
-                    tickCrafting(network);
+                    tickCrafting(world, pos, network);
 
                     if (craftingTimer == recipe.getLpCost() / getRefreshCost())
                     {
@@ -195,13 +196,13 @@ public class RitualInfusion extends RitualBloodArsenal
         }
     }
 
-    private void tickCrafting(SoulNetwork network)
+    private void tickCrafting(World world, BlockPos pos, SoulNetwork network)
     {
         if (!isCrafting)
             return;
 
         craftingTimer++;
-        network.syphon(getRefreshCost());
+        network.syphon(SoulTicket.block(world, pos, getRefreshCost()));
     }
 
     private void endRitual(World world, BlockPos pos, IMasterRitualStone mrs)

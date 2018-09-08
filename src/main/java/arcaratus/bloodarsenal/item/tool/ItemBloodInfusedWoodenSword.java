@@ -1,6 +1,7 @@
 package arcaratus.bloodarsenal.item.tool;
 
 import WayofTime.bloodmagic.client.IVariantProvider;
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
@@ -42,7 +43,7 @@ public class ItemBloodInfusedWoodenSword extends ItemSword implements IVariantPr
         {
             if (entity instanceof EntityPlayer)
             {
-                NetworkHelper.getSoulNetwork((EntityPlayer) entity).syphonAndDamage((EntityPlayer) entity, ConfigHandler.values.bloodInfusedWoodenToolsRepairCost);
+                NetworkHelper.getSoulNetwork((EntityPlayer) entity).syphonAndDamage((EntityPlayer) entity, SoulTicket.item(stack, world, entity, ConfigHandler.values.bloodInfusedWoodenToolsRepairCost));
                 stack.setItemDamage(stack.getItemDamage() - 2);
             }
         }

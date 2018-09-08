@@ -1,6 +1,7 @@
 package arcaratus.bloodarsenal.item.tool;
 
 import WayofTime.bloodmagic.client.IMeshProvider;
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import arcaratus.bloodarsenal.client.mesh.CustomMeshDefinitionActivatable;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
@@ -207,7 +208,7 @@ public class ItemBoundSickle extends ItemBoundTool implements IMeshProvider
             }
         }
 
-        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (charge * charge * charge / 2.7));
+        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(itemStack, world, player, (int) (Math.pow(charge, 3) / 2.7)));
         world.createExplosion(player, playerPos.getX(), playerPos.getY(), playerPos.getZ(), 0.1F, false);
         BloodArsenalUtils.dropStacks(drops, world, playerPos.add(0, 1, 0));
     }

@@ -1,5 +1,6 @@
 package arcaratus.bloodarsenal.item.sigil;
 
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.util.helper.*;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.registry.Constants;
@@ -263,7 +264,7 @@ public class ItemSigilLightning extends ItemSigilBase
                                 break;
                         }
 
-                        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, cost);
+                        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(stack, world, player, cost));
                     }
                     else
                         player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.tooWeak")), true);

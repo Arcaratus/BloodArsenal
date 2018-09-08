@@ -1,5 +1,6 @@
 package arcaratus.bloodarsenal.item.sigil;
 
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.util.helper.*;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.registry.Constants;
@@ -58,7 +59,7 @@ public class ItemSigilEnder extends ItemSigilBase
 
             double distance = player.getPosition().getDistance(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-            if (NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (distance * ConfigHandler.values.sigilEnderTeleportMultiplier)) || player.capabilities.isCreativeMode)
+            if (NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(stack, world, player, (int) (distance * ConfigHandler.values.sigilEnderTeleportMultiplier))).isSuccess() || player.capabilities.isCreativeMode)
             {
                 BloodArsenalUtils.writePosToStack(stack, blockPos);
                 resetDelay(stack);
@@ -70,7 +71,7 @@ public class ItemSigilEnder extends ItemSigilBase
             player.displayGUIChest(player.getInventoryEnderChest());
 
             if (!world.isRemote)
-                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, getLpUsed());
+                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(stack, world, player, getLpUsed()));
         }
 
         return super.onItemRightClick(world, player, hand);

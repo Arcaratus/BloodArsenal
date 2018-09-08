@@ -1,6 +1,7 @@
 package arcaratus.bloodarsenal.ritual;
 
 import WayofTime.bloodmagic.core.data.SoulNetwork;
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.ritual.*;
 import WayofTime.bloodmagic.tile.TileBloodTank;
 import arcaratus.bloodarsenal.ConfigHandler;
@@ -74,7 +75,7 @@ public class RitualBloodBurner extends RitualBloodArsenal
                     if (energyHandler != null && energyHandler.hasCapability(CapabilityEnergy.ENERGY, EnumFacing.DOWN))
                     {
                         world.spawnParticle(EnumParticleTypes.REDSTONE, pos.getX() + 0.5, pos.getY() + 4.5, + pos.getZ() + 0.5, 0, 0, 0, 0);
-                        network.syphon(rateRF / 100);
+                        network.syphon(SoulTicket.block(world, pos, rateRF / 100));
                         energyHandler.getCapability(CapabilityEnergy.ENERGY, EnumFacing.DOWN).receiveEnergy(rateRF, false);
                         secondsLeft--;
                     }

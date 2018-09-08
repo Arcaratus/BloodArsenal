@@ -1,6 +1,7 @@
 package arcaratus.bloodarsenal.tile;
 
 import WayofTime.bloodmagic.altar.IBloodAltar;
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.core.registry.AltarRecipeRegistry;
 import WayofTime.bloodmagic.iface.IBindable;
 import WayofTime.bloodmagic.orb.IBloodOrb;
@@ -162,7 +163,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
                         {
                             altarInventory.insertItem(0, stackInSlot.copy(), false);
                             setInventorySlotContents(slot, ItemStack.EMPTY);
-                            NetworkHelper.syphonFromContainer(orbStack, stackInSlot.getCount() * ConfigHandler.values.altareAenigmaticaMoveMultiplier);
+                            NetworkHelper.syphonFromContainer(orbStack, SoulTicket.block(world, pos, stackInSlot.getCount() * ConfigHandler.values.altareAenigmaticaMoveMultiplier));
                         }
                     }
                     else

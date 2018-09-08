@@ -8,6 +8,8 @@ import net.minecraft.util.text.TextComponentString;
 
 public class DamageSourceBleeding extends DamageSource
 {
+    public static final DamageSourceBleeding INSTANCE = new DamageSourceBleeding();
+
     public DamageSourceBleeding()
     {
         super("bleeding");
@@ -19,6 +21,6 @@ public class DamageSourceBleeding extends DamageSource
     @Override
     public ITextComponent getDeathMessage(EntityLivingBase livingBase)
     {
-        return new TextComponentString(TextHelper.localizeEffect("chat.BloodArsenal.damageSourceBleeding", livingBase.getName()));
+        return new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.damageSourceBleeding", livingBase.getName()));
     }
 }

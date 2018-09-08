@@ -5,11 +5,13 @@ import WayofTime.bloodmagic.core.RegistrarBloodMagicItems;
 import WayofTime.bloodmagic.item.armour.ItemLivingArmour;
 import WayofTime.bloodmagic.livingArmour.*;
 import WayofTime.bloodmagic.ritual.*;
+import WayofTime.bloodmagic.ritual.types.RitualUpgradeRemove;
 import WayofTime.bloodmagic.util.helper.ItemHelper;
 import WayofTime.bloodmagic.util.helper.NBTHelper;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.registry.Constants;
+import arcaratus.bloodarsenal.util.BALog;
 import com.google.common.collect.Iterables;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
@@ -19,15 +21,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.HashMap;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 
 /**
  * This Ritual overrides RitualUpgradeRemove in BloodMagic
+ * Uses REFLECTION because the annotation overrides weirdly
  */
-@RitualRegister("upgradeRemove")
+//@RitualRegister("upgradeRemove")
 public class RitualModifierRemove extends Ritual
 {
     public static final String CHECK_RANGE = "fillRange";
@@ -188,5 +191,56 @@ public class RitualModifierRemove extends Ritual
     public Ritual getNewCopy()
     {
         return new RitualModifierRemove();
+    }
+
+    public static void overrideRitual()
+    {
+        BALog.DEFAULT.info("Overriding the Sound of the Cleansing Soul (upgradeRemoveRitual)");
+        BALog.DEFAULT.info("Report any issues about the ritual to Blood Arsenal first, NOT Blood Magic");
+
+        try
+        {
+            Field fieldRituals = RitualManager.class.getDeclaredField("rituals");
+            fieldRituals.setAccessible(true);
+            Field fieldRitualsReverse = RitualManager.class.getDeclaredField("ritualsReverse");
+            fieldRitualsReverse.setAccessible(true);
+            Field fieldSortedRituals = RitualManager.class.getDeclaredField("sortedRituals");
+            fieldSortedRituals.setAccessible(true);
+
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+
+            modifiersField.setInt(fieldRituals, fieldRituals.getModifiers() & ~java.lang.reflect.Modifier.FINAL);
+            modifiersField.setInt(fieldRitualsReverse, fieldRituals.getModifiers() & ~java.lang.reflect.Modifier.FINAL);
+
+            RitualManager manager = BloodMagic.RITUAL_MANAGER;
+            String id = "upgradeRemove";
+            Ritual modifierRemoveRitual = new RitualModifierRemove();
+
+            Map<String, Ritual> rituals = (Map<String, Ritual>) fieldRituals.get(manager);
+            rituals.put(id, modifierRemoveRitual);
+            fieldRituals.set(manager, rituals);
+
+            Map<Ritual, String> ritualsReverse = (Map<Ritual, String>) fieldRitualsReverse.get(manager);
+            ritualsReverse.put(modifierRemoveRitual, id);
+            fieldRitualsReverse.set(manager, ritualsReverse);
+
+            List<Ritual> sortedRituals = (List<Ritual>) fieldSortedRituals.get(manager);
+            for (int i = 0; i < sortedRituals.size(); i++)
+            {
+                if (sortedRituals.get(i) instanceof RitualUpgradeRemove)
+                {
+                    sortedRituals.set(i, modifierRemoveRitual);
+                    break;
+                }
+            }
+
+            fieldRituals.setAccessible(false);
+            fieldRitualsReverse.setAccessible(false);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

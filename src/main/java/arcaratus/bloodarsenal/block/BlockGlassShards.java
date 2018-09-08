@@ -6,6 +6,7 @@ import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenal;
 import arcaratus.bloodarsenal.item.types.EnumBaseTypes;
+import arcaratus.bloodarsenal.util.DamageSourceGlass;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -199,7 +200,7 @@ public class BlockGlassShards extends Block implements IVariantProvider, IBABloc
                     damage += entityIn.fallDistance * 1.5 + 1;
                 }
 
-                if (entityIn.attackEntityFrom(BloodArsenal.getDamageSourceGlass(), (float) damage))
+                if (entityIn.attackEntityFrom(DamageSourceGlass.INSTANCE, (float) damage))
                     PlayerSacrificeHelper.findAndFillAltar(worldIn, (EntityLivingBase) entityIn, (int) Math.round(damage * RANDOM.nextInt(101)), false);
                 ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, RANDOM.nextInt(100), 0));
             }

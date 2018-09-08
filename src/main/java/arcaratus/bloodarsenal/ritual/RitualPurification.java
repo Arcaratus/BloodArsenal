@@ -2,6 +2,7 @@ package arcaratus.bloodarsenal.ritual;
 
 import WayofTime.bloodmagic.block.BlockLifeEssence;
 import WayofTime.bloodmagic.core.data.SoulNetwork;
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.ritual.*;
 import WayofTime.bloodmagic.tile.TileBloodTank;
 import arcaratus.bloodarsenal.ConfigHandler;
@@ -114,7 +115,7 @@ public class RitualPurification extends RitualBloodArsenal
         world.notifyBlockUpdate(pos.add(OUTPUT_TANK_POS), world.getBlockState(pos.add(OUTPUT_TANK_POS)), world.getBlockState(pos.add(OUTPUT_TANK_POS)), 3);
 
         fluidLeft -= conversion;
-        network.syphon(getRefreshCost());
+        network.syphon(SoulTicket.block(world, pos, getRefreshCost()));
     }
 
     private void endRitual(World world, BlockPos pos, IMasterRitualStone mrs)

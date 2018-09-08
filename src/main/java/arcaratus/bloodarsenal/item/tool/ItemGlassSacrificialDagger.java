@@ -8,6 +8,7 @@ import WayofTime.bloodmagic.util.helper.*;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenal;
+import arcaratus.bloodarsenal.util.DamageSourceGlass;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
@@ -101,7 +102,7 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
             if (evt.shouldDrainHealth)
             {
                 player.hurtResistantTime = 0;
-                player.attackEntityFrom(BloodArsenal.getDamageSourceGlass(), 0.001F);
+                player.attackEntityFrom(DamageSourceGlass.INSTANCE, 0.001F);
                 player.setHealth(Math.max(player.getHealth() - (float) (ConfigHandler.values.glassSacrificialDaggerHealth + itemRand.nextInt(3)), 0.0001f));
 
                 if (itemRand.nextBoolean())
@@ -109,7 +110,7 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
 
                 if (player.getHealth() <= 0.001f)
                 {
-                    player.onDeath(BloodArsenal.getDamageSourceBleeding());
+                    player.onDeath(DamageSourceGlass.INSTANCE);
                     player.setHealth(0);
                 }
             }
@@ -131,7 +132,6 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
         if (!world.isRemote && PlayerHelper.isFakePlayer(player))
             return super.onItemRightClick(world, player, hand);
 
-        // TODO - Check if SoulFray is active
         PlayerSacrificeHelper.findAndFillAltar(world, player, lpAdded, false);
 
         return super.onItemRightClick(world, player, hand);

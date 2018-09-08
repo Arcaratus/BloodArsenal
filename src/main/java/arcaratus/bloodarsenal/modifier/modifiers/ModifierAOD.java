@@ -1,5 +1,6 @@
 package arcaratus.bloodarsenal.modifier.modifiers;
 
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.registry.Constants;
@@ -63,7 +64,7 @@ public class ModifierAOD extends Modifier
 
                 living.attackEntityFrom(DamageSource.GENERIC, (float) (damage * ((level + 1) / getMaxLevel())));
                 living.attackEntityAsMob(player);
-                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (Math.pow(charge, 3) * (level + 1) / 2.7));
+                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(itemStack, world, player, (int) (Math.pow(charge, 3) * (level + 1) / 2.7)));
                 StasisModifiable.incrementModifierTracker(itemStack, this);
             }
 
@@ -154,7 +155,7 @@ public class ModifierAOD extends Modifier
             }
         }
 
-        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, (int) (Math.pow(charge, 3) * (level + 1) / 2.7));
+        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(itemStack, world, player, (int) (Math.pow(charge, 3) * (level + 1) / 2.7)));
         world.createExplosion(player, playerPos.getX(), playerPos.getY(), playerPos.getZ(), 0.1F, false);
         BloodArsenalUtils.dropStacks(drops, world, playerPos.add(0, 1, 0));
     }

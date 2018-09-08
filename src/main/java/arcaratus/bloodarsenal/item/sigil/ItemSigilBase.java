@@ -2,7 +2,7 @@ package arcaratus.bloodarsenal.item.sigil;
 
 import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.core.data.Binding;
-import WayofTime.bloodmagic.item.ItemSigil;
+import WayofTime.bloodmagic.item.sigil.ItemSigil;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;

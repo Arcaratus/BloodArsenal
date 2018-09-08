@@ -2,6 +2,7 @@ package arcaratus.bloodarsenal.item.tool;
 
 import WayofTime.bloodmagic.client.IMeshProvider;
 import WayofTime.bloodmagic.core.data.Binding;
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.iface.IActivatable;
 import WayofTime.bloodmagic.iface.IBindable;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
@@ -76,7 +77,7 @@ public class ItemBoundShears extends ItemShears implements IBindable, IActivatab
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving)
     {
-        NetworkHelper.syphonFromContainer(stack, ConfigHandler.values.boundShearsCost);
+        NetworkHelper.syphonFromContainer(stack, SoulTicket.item(stack, worldIn, entityLiving, ConfigHandler.values.boundShearsCost));
         Block block = state.getBlock();
         if (block instanceof IShearable) return true;
         return state.getMaterial() != Material.LEAVES || !EFFECTIVE_BLOCKS.contains(block);
@@ -105,7 +106,7 @@ public class ItemBoundShears extends ItemShears implements IBindable, IActivatab
                     ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                 }
 
-                NetworkHelper.syphonFromContainer(itemstack, ConfigHandler.values.boundShearsCost);
+                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(itemstack, player.world, player, ConfigHandler.values.boundShearsCost));
             }
 
             return true;
@@ -115,7 +116,7 @@ public class ItemBoundShears extends ItemShears implements IBindable, IActivatab
     }
 
     @Override
-    public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, net.minecraft.entity.player.EntityPlayer player)
+    public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player)
     {
         if (player.world.isRemote || player.capabilities.isCreativeMode)
             return false;
@@ -140,7 +141,7 @@ public class ItemBoundShears extends ItemShears implements IBindable, IActivatab
                     player.world.spawnEntity(entityitem);
                 }
 
-                NetworkHelper.syphonFromContainer(itemstack, ConfigHandler.values.boundShearsCost);
+                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(itemstack, player.world, player, ConfigHandler.values.boundShearsCost));
                 player.addStat(StatList.getBlockStats(block));
                 player.world.setBlockState(pos, Blocks.AIR.getDefaultState(), 11); //TODO: Move to IShearable implementors in 1.12+
                 return true;

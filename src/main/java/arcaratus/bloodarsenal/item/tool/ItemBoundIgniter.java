@@ -2,6 +2,7 @@ package arcaratus.bloodarsenal.item.tool;
 
 import WayofTime.bloodmagic.client.IMeshProvider;
 import WayofTime.bloodmagic.core.data.Binding;
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.iface.IActivatable;
 import WayofTime.bloodmagic.iface.IBindable;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
@@ -108,7 +109,7 @@ public class ItemBoundIgniter extends Item implements IBindable, IActivatable, I
                 if (player instanceof EntityPlayerMP)
                     CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)player, pos, itemstack);
 
-                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, ConfigHandler.values.boundIgniterCost);
+                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(itemstack, worldIn, player, ConfigHandler.values.boundIgniterCost));
                 return EnumActionResult.SUCCESS;
             }
         }
@@ -122,7 +123,7 @@ public class ItemBoundIgniter extends Item implements IBindable, IActivatable, I
         if (getActivated(stack) && target != null && !target.isDead && attacker instanceof EntityPlayer)
         {
             target.setFire(4);
-            NetworkHelper.getSoulNetwork((EntityPlayer) attacker).syphonAndDamage((EntityPlayer) attacker, 2 * ConfigHandler.values.boundIgniterCost);
+            NetworkHelper.getSoulNetwork((EntityPlayer) attacker).syphonAndDamage((EntityPlayer) attacker, SoulTicket.item(stack, attacker.world, attacker, 2 * ConfigHandler.values.boundIgniterCost));
         }
 
         return true;

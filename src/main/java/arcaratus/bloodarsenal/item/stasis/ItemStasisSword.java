@@ -1,6 +1,7 @@
 package arcaratus.bloodarsenal.item.stasis;
 
 import WayofTime.bloodmagic.client.IMeshProvider;
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.event.BoundToolEvent;
 import WayofTime.bloodmagic.iface.IActivatable;
 import WayofTime.bloodmagic.iface.IBindable;
@@ -85,7 +86,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
                     modifiable.onUpdate(itemStack, world, entity, itemSlot);
 
                     if (world.getTotalWorldTime() % 80 == 0)
-                        NetworkHelper.getSoulNetwork(getBinding(itemStack).getOwnerId()).syphonAndDamage((EntityPlayer) entity, cost);
+                        NetworkHelper.getSoulNetwork(getBinding(itemStack).getOwnerId()).syphonAndDamage((EntityPlayer) entity, SoulTicket.item(itemStack, world, entity, cost));
                 }
             }
             else
