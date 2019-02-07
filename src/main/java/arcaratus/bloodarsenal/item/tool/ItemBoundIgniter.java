@@ -35,7 +35,7 @@ public class ItemBoundIgniter extends Item implements IBindable, IActivatable, I
     {
         super();
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".bound.igniter");
+        setTranslationKey(BloodArsenal.MOD_ID + ".bound.igniter");
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }

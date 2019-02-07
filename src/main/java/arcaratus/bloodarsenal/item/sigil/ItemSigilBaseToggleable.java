@@ -26,7 +26,7 @@ public class ItemSigilBaseToggleable extends ItemSigilToggleable implements IMes
     {
         super(lpUsed);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".sigil." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + ".sigil." + name);
         setRegistryName("sigil_" + name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 

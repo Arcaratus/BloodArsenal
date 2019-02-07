@@ -30,7 +30,7 @@ public class ItemBloodInfusedIronSword extends ItemSword implements IVariantProv
     {
         super(RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".blood_infused_iron.sword");
+        setTranslationKey(BloodArsenal.MOD_ID + ".blood_infused_iron.sword");
         setRegistryName("blood_infused_iron_sword");
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }

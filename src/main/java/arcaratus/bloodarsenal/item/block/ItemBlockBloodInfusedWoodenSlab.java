@@ -10,7 +10,7 @@ public class ItemBlockBloodInfusedWoodenSlab extends ItemSlab
     public ItemBlockBloodInfusedWoodenSlab(String name)
     {
         super(RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_SLAB, (BlockSlab) RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_SLAB, (BlockSlab) RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_DOUBLE_SLAB);
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }

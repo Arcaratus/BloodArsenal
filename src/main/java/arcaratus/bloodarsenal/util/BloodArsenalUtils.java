@@ -103,7 +103,7 @@ public class BloodArsenalUtils
         float f6 = f3 * f4;
         float f7 = f2 * f4;
         double range = ConfigHandler.misc.rayTraceRange;
-        Vec3d vec3d1 = vec3d.addVector((double) f6 * range, (double) f5 * range, (double) f7 * range);
+        Vec3d vec3d1 = vec3d.add((double) f6 * range, (double) f5 * range, (double) f7 * range);
 
         return world.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
     }

@@ -36,7 +36,7 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
     {
         super();
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setMaxStackSize(1);

@@ -31,7 +31,7 @@ public class BlockStasisPlate extends Block implements IVariantProvider, IBABloc
     {
         super(Material.GLASS);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(2.0F);
@@ -114,7 +114,7 @@ public class BlockStasisPlate extends Block implements IVariantProvider, IBABloc
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.TRANSLUCENT;
     }

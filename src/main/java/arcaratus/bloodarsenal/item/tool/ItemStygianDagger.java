@@ -10,7 +10,7 @@ public class ItemStygianDagger extends ItemSword implements IVariantProvider
     {
         super(ToolMaterial.GOLD);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setMaxStackSize(1);
         setMaxDamage(3);

@@ -16,7 +16,7 @@ public class BlockBloodInfusedWoodenPlanks extends Block implements IVariantProv
     {
         super(Material.WOOD);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(3.0F);

@@ -50,7 +50,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     {
         super(RegistrarBloodArsenalItems.STASIS);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".stasis.sword");
+        setTranslationKey(BloodArsenal.MOD_ID + ".stasis.sword");
         setRegistryName("stasis_sword");
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 

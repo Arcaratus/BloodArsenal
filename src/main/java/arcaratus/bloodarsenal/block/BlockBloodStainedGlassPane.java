@@ -18,7 +18,7 @@ public class BlockBloodStainedGlassPane extends BlockPane implements IVariantPro
     {
         super(Material.GLASS, false);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(1.0F);
@@ -35,7 +35,7 @@ public class BlockBloodStainedGlassPane extends BlockPane implements IVariantPro
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.TRANSLUCENT;
     }

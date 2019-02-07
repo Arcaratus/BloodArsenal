@@ -233,7 +233,7 @@ public class StasisModifiable implements IModifiable
 
                 String trackerKey = tracker.getUniqueIdentifier();
                 NBTTagCompound trackerTag = tag.getCompoundTag(trackerKey);
-                if (!trackerTag.hasNoTags())
+                if (!trackerTag.isEmpty())
                     tracker.readFromNBT(trackerTag);
 
                 if (modifier != Modifier.EMPTY_MODIFIER)

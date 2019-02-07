@@ -25,7 +25,7 @@ public class ItemSigilBase extends ItemSigil implements IVariantProvider
     {
         super(lpUsed);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".sigil." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + ".sigil." + name);
         setRegistryName("sigil_" + name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
 

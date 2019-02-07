@@ -34,7 +34,7 @@ public class ItemGlassDaggerOfSacrifice extends Item implements IVariantProvider
     {
         super();
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setMaxStackSize(1);

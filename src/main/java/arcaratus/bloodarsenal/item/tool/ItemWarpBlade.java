@@ -19,7 +19,7 @@ public class ItemWarpBlade extends ItemSword implements IVariantProvider
     {
         super(ToolMaterial.IRON);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
 //        setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setMaxDamage(0);

@@ -36,7 +36,7 @@ public class BloodArsenal
     public final static CreativeTabs TAB_BLOOD_ARSENAL = new CreativeTabs(BloodArsenal.MOD_ID + ".creativeTab")
     {
         @Override
-        public ItemStack getTabIconItem()
+        public ItemStack createIcon()
         {
             return new ItemStack(RegistrarBloodArsenalItems.BLOOD_ORANGE);
         }

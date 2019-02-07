@@ -46,7 +46,7 @@ public class ItemBoundTool extends ItemTool implements IBindable, IActivatable
     public ItemBoundTool(String name, float damage, Set<Block> effectiveBlocks)
     {
         super(damage, 1, RegistrarBloodMagicItems.BOUND_TOOL_MATERIAL, effectiveBlocks);
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".bound." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + ".bound." + name);
         setRegistryName("bound_" + name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHarvestLevel(name, 4);

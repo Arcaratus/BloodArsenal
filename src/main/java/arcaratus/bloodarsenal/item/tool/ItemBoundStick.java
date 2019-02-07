@@ -25,7 +25,7 @@ public class ItemBoundStick extends ItemSword implements IVariantProvider
     {
         super(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOOD);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setMaxDamage(0);

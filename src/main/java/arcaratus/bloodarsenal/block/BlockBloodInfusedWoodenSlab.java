@@ -29,7 +29,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
     {
         super(Material.WOOD, EnumType.BLOOD_INFUSED.getMapColor());
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setHardness(3.0F);
         setResistance(6.0F);
@@ -66,9 +66,9 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
     }
 
     @Override
-    public String getUnlocalizedName(int meta)
+    public String getTranslationKey(int meta)
     {
-        return super.getUnlocalizedName();
+        return super.getTranslationKey();
     }
 
     @Override

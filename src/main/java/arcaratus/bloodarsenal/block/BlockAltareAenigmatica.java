@@ -56,7 +56,7 @@ public class BlockAltareAenigmatica extends Block implements IVariantProvider, I
     {
         super(Material.ROCK);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(2.0F);
@@ -137,7 +137,7 @@ public class BlockAltareAenigmatica extends Block implements IVariantProvider, I
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.CUTOUT;
     }

@@ -54,7 +54,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
     {
         super(damage, -3.2F, RegistrarBloodArsenalItems.STASIS, BloodArsenalUtils.getEffectiveBlocksForTool(name));
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".stasis." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + ".stasis." + name);
         setRegistryName("stasis_" + name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHarvestLevel(name, 4);

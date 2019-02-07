@@ -166,7 +166,7 @@ public class RitualBloodBurner extends RitualBloodArsenal
             TileEntity tank = world.getTileEntity(actualPos);
             if (tank instanceof TileBloodTank)
             {
-                world.markAndNotifyBlock(actualPos, world.getChunkFromBlockCoords(actualPos), world.getBlockState(actualPos), world.getBlockState(actualPos), 3);
+                world.markAndNotifyBlock(actualPos, world.getChunk(actualPos), world.getBlockState(actualPos), world.getBlockState(actualPos), 3);
 
                 if (((TileBloodTank) tank).getTank().getFluidAmount() >= Fluid.BUCKET_VOLUME)
                 {

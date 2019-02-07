@@ -48,7 +48,7 @@ public class RitualModifierRemove extends Ritual
 
         BlockPos pos = masterRitualStone.getBlockPos();
 
-        AreaDescriptor checkRange = getBlockRange(CHECK_RANGE);
+        AreaDescriptor checkRange = masterRitualStone.getBlockRange(CHECK_RANGE);
 
         List<EntityItem> itemList = world.getEntitiesWithinAABB(EntityItem.class, checkRange.getAABB(pos));
 

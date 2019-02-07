@@ -23,7 +23,7 @@ public class BlockBloodInfusedGlowstone extends Block implements IAltarComponent
     {
         super(Material.GLASS);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(0.75F);

@@ -56,7 +56,7 @@ public class BlockGlassShards extends Block implements IVariantProvider, IBABloc
     {
         super(Material.GLASS);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(0.75F);
@@ -73,7 +73,7 @@ public class BlockGlassShards extends Block implements IVariantProvider, IBABloc
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.TRANSLUCENT;
     }
@@ -187,7 +187,7 @@ public class BlockGlassShards extends Block implements IVariantProvider, IBABloc
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         if (worldIn.getWorldTime() % 10 == 0)
         {

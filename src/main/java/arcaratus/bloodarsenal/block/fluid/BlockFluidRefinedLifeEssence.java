@@ -14,7 +14,7 @@ public class BlockFluidRefinedLifeEssence extends BlockFluidClassic
     {
         super(RegistrarBloodArsenalBlocks.FLUID_REFINED_LIFE_ESSENCE, Material.WATER); // Har har har superfluid
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".fluid." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + ".fluid." + name);
         setRegistryName(name);
         RegistrarBloodArsenalBlocks.FLUID_REFINED_LIFE_ESSENCE.setBlock(this);
     }

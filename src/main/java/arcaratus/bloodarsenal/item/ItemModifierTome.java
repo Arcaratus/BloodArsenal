@@ -30,7 +30,7 @@ public class ItemModifierTome extends Item implements IVariantProvider
     {
         super();
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodMagic.TAB_TOMES);
     }

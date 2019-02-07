@@ -27,7 +27,7 @@ public class ItemBloodArsenalBase extends ItemEnum<EnumBaseTypes> implements IVa
     {
         super(EnumBaseTypes.class, "");
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }

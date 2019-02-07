@@ -1,7 +1,7 @@
 {
   "result": {
     "item": "bloodmagic:blood_rune",
-    "data": 4,
+    "data": 3,
     "count": 4
   },
   "pattern": [
@@ -16,7 +16,7 @@
     },
     "b": {
       "item": "bloodarsenal:gem",
-      "data": 0
+      "data": 1
     }
   }
 }

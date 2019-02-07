@@ -27,7 +27,7 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
     {
         super();
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
     }
 
@@ -39,7 +39,7 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.TRANSLUCENT;
     }
@@ -70,7 +70,7 @@ public class BlockBloodBurnedString extends BlockTripWire implements IComplexVar
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         if (!worldIn.isRemote)
         {

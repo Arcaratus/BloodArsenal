@@ -119,9 +119,9 @@ public class ItemSoulPendant extends ItemBauble implements IDemonWillGem, IMeshP
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack)
+    public String getTranslationKey(ItemStack stack)
     {
-        return super.getUnlocalizedName(stack) + "." + names[stack.getItemDamage()];
+        return super.getTranslationKey(stack) + "." + names[stack.getItemDamage()];
     }
 
     @Override

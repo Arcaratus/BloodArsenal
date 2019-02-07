@@ -36,7 +36,7 @@ public abstract class ItemBloodInfusedTool extends ItemTool implements IVariantP
     {
         super(damage, -2.8F, toolMaterial, effectiveBlocks);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".blood_infused_" + type + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + ".blood_infused_" + type + "." + name);
         setRegistryName("blood_infused_" + type + "_" + name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHarvestLevel(name, toolMaterial == RegistrarBloodArsenalItems.BLOOD_INFUSED_IRON ? 3 : 1);

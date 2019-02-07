@@ -17,7 +17,7 @@ public class BlockBloodInfusedWoodenFence extends BlockFence implements IVariant
     {
         super(Material.WOOD, MapColor.RED);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(3.0F);

@@ -13,7 +13,7 @@ public class BlockSlate extends BlockEnum<EnumSlate> implements IVariantProvider
     {
         super(Material.ROCK, EnumSlate.class);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name + ".");
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name + ".");
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setSoundType(SoundType.STONE);

@@ -33,7 +33,7 @@ public abstract class ItemBauble extends Item implements IBauble
             for (int i = 0; i < inv.getSlots(); i++)
             {
                 ItemStack stack = inv.getStackInSlot(i);
-                if (!stack.isEmpty() && stack.getItem().getRegistryName().getResourceDomain().equals(BloodArsenal.MOD_ID))
+                if (!stack.isEmpty() && stack.getItem().getRegistryName().getNamespace().equals(BloodArsenal.MOD_ID))
                 {
                     ((ItemBauble) stack.getItem()).onUnequipped(stack, evt.getEntityLiving());
                 }
@@ -47,7 +47,7 @@ public abstract class ItemBauble extends Item implements IBauble
     {
         super();
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setMaxStackSize(1);

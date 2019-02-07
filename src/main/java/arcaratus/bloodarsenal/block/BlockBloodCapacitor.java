@@ -30,7 +30,7 @@ public class BlockBloodCapacitor extends Block implements IVariantProvider, IBAB
     {
         super(Material.IRON);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setHardness(5F);
@@ -63,7 +63,7 @@ public class BlockBloodCapacitor extends Block implements IVariantProvider, IBAB
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.TRANSLUCENT;
     }
@@ -97,7 +97,7 @@ public class BlockBloodCapacitor extends Block implements IVariantProvider, IBAB
             capacitor.setEnergyStored(tag.getInteger("Stored"));
         }
 
-        world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, state, 3);
+        world.markAndNotifyBlock(pos, world.getChunk(pos), state, state, 3);
     }
 
     @Override

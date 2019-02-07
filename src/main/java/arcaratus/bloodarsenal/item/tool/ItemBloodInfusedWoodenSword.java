@@ -31,7 +31,7 @@ public class ItemBloodInfusedWoodenSword extends ItemSword implements IVariantPr
     {
         super(RegistrarBloodArsenalItems.BLOOD_INFUSED_WOOD);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".blood_infused_wooden.sword");
+        setTranslationKey(BloodArsenal.MOD_ID + ".blood_infused_wooden.sword");
         setRegistryName("blood_infused_wooden_sword");
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }

@@ -14,7 +14,7 @@ public class ItemBlockBloodBurnedString extends ItemBlockSpecial implements IVar
     {
         super(RegistrarBloodArsenalBlocks.BLOCK_BLOOD_BURNED_STRING);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }

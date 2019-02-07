@@ -22,7 +22,7 @@ public class ItemBloodOrange extends ItemFood implements IVariantProvider
     {
         super(4, 2.0F, false);
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + "." + name);
+        setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
         setAlwaysEdible();

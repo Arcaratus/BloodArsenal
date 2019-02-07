@@ -44,7 +44,7 @@ public class ItemBoundShears extends ItemShears implements IBindable, IActivatab
     {
         super();
 
-        setUnlocalizedName(BloodArsenal.MOD_ID + ".bound.shears");
+        setTranslationKey(BloodArsenal.MOD_ID + ".bound.shears");
         setRegistryName(name);
         setCreativeTab(BloodArsenal.TAB_BLOOD_ARSENAL);
     }
