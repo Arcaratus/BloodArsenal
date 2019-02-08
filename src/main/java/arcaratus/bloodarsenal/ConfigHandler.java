@@ -177,6 +177,8 @@ public class ConfigHandler
     {
         @Comment({ "Should be set to false when another mod adds in its own Ore-Dict glass shards" })
         public boolean doGlassShardsDrop = true;
+        @Comment({ "Determines if there is a chance dying to a glass sacrificial dagger or bleeding has the drops disappear." })
+        public boolean glassDeathCanRemoveDrops = true;
         @Comment({ "The max range for anything that uses raytracing (Ender Sigil, Lightning Sigil, etc.)" })
         @RangeDouble(min = 1, max = 256)
         public double rayTraceRange = 64;

@@ -47,15 +47,18 @@ public class EventHandler
     @SubscribeEvent
     public void onLivingDrops(LivingDropsEvent event)
     {
-        DamageSource source = event.getSource();
-        Random random = new Random();
-
-        if (source instanceof DamageSourceGlass || source instanceof DamageSourceBleeding)
+        if (ConfigHandler.misc.glassDeathCanRemoveDrops)
         {
-            if (random.nextBoolean())
-                event.getDrops().clear();
-            else if (event.getDrops().size() > 0)
-                event.getDrops().remove(random.nextInt(event.getDrops().size()));
+            DamageSource source = event.getSource();
+            Random random = new Random();
+
+            if (source instanceof DamageSourceGlass || source instanceof DamageSourceBleeding)
+            {
+                if (random.nextBoolean())
+                    event.getDrops().clear();
+                else if (event.getDrops().size() > 0)
+                    event.getDrops().remove(random.nextInt(event.getDrops().size()));
+            }
         }
     }
 
