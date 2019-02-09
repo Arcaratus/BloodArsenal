@@ -25,6 +25,8 @@ import java.awt.*;
 @GuideBook(priority = EventPriority.HIGHEST)
 public class GuideBloodArsenal implements IGuideBook
 {
+    public static Book GUIDE_BOOK;
+
     @Nullable
     @Override
     public Book buildBook()
@@ -36,12 +38,12 @@ public class GuideBloodArsenal implements IGuideBook
         binder.setAuthor("guide.bloodarsenal.author");
         binder.setColor(new Color(119, 0, 0));
         binder.addCategory(new CategoryItemStack(CategoryLifebringer.buildCategory(), "guide.bloodarsenal.category.lifebringer", EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack()));
-        return binder.build();
+        return GUIDE_BOOK = binder.build();
     }
 
     @Override
     public IRecipe getRecipe(@Nonnull ItemStack bookStack)
     {
-        return new ShapelessOreRecipe(new ResourceLocation(BloodArsenal.MOD_ID, "guide"), GuideAPI.getStackFromBook(buildBook()), Items.BOOK, Items.FLINT_AND_STEEL, RegistrarBloodMagicItems.BLOOD_ORB, FluidUtil.getFilledBucket(new FluidStack(BlockLifeEssence.getLifeEssence(), 0))).setRegistryName("bloodarsenal_guide");
+        return new ShapelessOreRecipe(new ResourceLocation(BloodArsenal.MOD_ID, "guide"), GuideAPI.getStackFromBook(GUIDE_BOOK), Items.BOOK, Items.FLINT_AND_STEEL, RegistrarBloodMagicItems.BLOOD_ORB, FluidUtil.getFilledBucket(new FluidStack(BlockLifeEssence.getLifeEssence(), 0))).setRegistryName("bloodarsenal_guide");
     }
 }
