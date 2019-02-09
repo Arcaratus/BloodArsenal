@@ -227,7 +227,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
             for (EnumModifierType type : EnumModifierType.values())
             {
-                tooltip.add(TextHelper.localize("tooltip.bloodarsenal.modifierType." + WordUtils.swapCase(type.toString())));
+                tooltip.add(TextHelper.localize("tooltip.bloodarsenal.modifier_type." + WordUtils.swapCase(type.toString())));
                 for (Pair<Modifier, ModifierTracker> entry : modifiable.getModifierMap().values())
                 {
                     Modifier modifier = entry.getLeft();
@@ -242,7 +242,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
         }
         else
         {
-            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.holdShift"));
+            tooltip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.hold_shift"));
         }
 
         super.addInformation(itemStack, world, tooltip, flag);
