@@ -194,6 +194,7 @@ chat.bloodarsenal.setLevel=Set Level to: %d
 chat.bloodarsenal.tooWeak=You feel a bit too weak to do that...
 chat.bloodarsenal.setOwner=Set bound owner to: %s
 chat.bloodarsenal.alreadyOwner=You are already bound to this!
+chat.bloodarsenal.noOwner=This item is not bound!
 
 chat.bloodarsenal.modifierAdded=&4%s (Level %d) added to %s!&f
 chat.bloodarsenal.modifierReady=&4%s (Level %d) is ready to be upgraded!&f

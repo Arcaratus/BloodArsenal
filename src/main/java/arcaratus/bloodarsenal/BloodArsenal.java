@@ -1,5 +1,6 @@
 package arcaratus.bloodarsenal;
 
+import WayofTime.bloodmagic.iface.IActivatable;
 import arcaratus.bloodarsenal.client.gui.GuiHandler;
 import arcaratus.bloodarsenal.compat.ICompatibility;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
@@ -38,7 +39,10 @@ public class BloodArsenal
         @Override
         public ItemStack createIcon()
         {
-            return new ItemStack(RegistrarBloodArsenalItems.BLOOD_ORANGE);
+            ItemStack sword = new ItemStack(RegistrarBloodArsenalItems.STASIS_SWORD);
+            IActivatable activatable = (IActivatable) sword.getItem();
+            activatable.setActivatedState(sword, true);
+            return sword;
         }
     };
 

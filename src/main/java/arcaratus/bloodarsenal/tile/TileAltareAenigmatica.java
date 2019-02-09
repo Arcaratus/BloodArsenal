@@ -1,8 +1,10 @@
 package arcaratus.bloodarsenal.tile;
 
 import WayofTime.bloodmagic.altar.IBloodAltar;
+import WayofTime.bloodmagic.api.impl.BloodMagicAPI;
+import WayofTime.bloodmagic.api.impl.recipe.RecipeBloodAltar;
+import WayofTime.bloodmagic.core.data.Binding;
 import WayofTime.bloodmagic.core.data.SoulTicket;
-import WayofTime.bloodmagic.core.registry.AltarRecipeRegistry;
 import WayofTime.bloodmagic.iface.IBindable;
 import WayofTime.bloodmagic.orb.IBloodOrb;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
@@ -11,6 +13,7 @@ import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.block.BlockAltareAenigmatica;
 import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
+import com.google.common.base.Strings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -131,7 +134,7 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
 
         if (sameOrb.getBinding(orbStack) != null)
         {
-            if (canInsertIntoAltar(altarInventory))
+//            if (checkOrb(altarInventory.getStackInSlot(0)))
             {
                 ItemStack stackInSlot = ItemStack.EMPTY;
 
@@ -150,14 +153,18 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
 
                 if (!stackInSlot.isEmpty() && slot > -1)
                 {
-                    AltarRecipeRegistry.AltarRecipe altarRecipe = AltarRecipeRegistry.getRecipeForInput(stackInSlot);
-                    if (altarRecipe != null && altarRecipe.doesRequiredItemMatch(stackInSlot, altar.getTier()))
+                    RecipeBloodAltar altarRecipe = BloodMagicAPI.INSTANCE.getRecipeRegistrar().getBloodAltar(stackInSlot);
+                    if (altarRecipe != null && altarRecipe.getInput().apply(stackInSlot) && altar.getTier().toInt() >= altarRecipe.getMinimumTier().toInt())
                     {
                         if (checkOrb(altarInventory.getStackInSlot(0))) //Check for Blood Orb in Altar and remove if found
                         {
                             ItemStack copyStack = altarInventory.getStackInSlot(0).copy();
                             altarInventory.extractItem(0, 1, false);
                             setInventorySlotContents(ORB_SLOT, copyStack);
+
+                            altarInventory.insertItem(0, stackInSlot.copy(), false);
+                            setInventorySlotContents(slot, ItemStack.EMPTY);
+                            NetworkHelper.syphonFromContainer(orbStack, SoulTicket.block(world, pos, stackInSlot.getCount() * ConfigHandler.values.altareAenigmaticaMoveMultiplier));
                         }
                         else if (altarRecipe.getSyphon() * stackInSlot.getCount() <= altarEssence && NetworkHelper.canSyphonFromContainer(orbStack, stackInSlot.getCount() * ConfigHandler.values.altareAenigmaticaMoveMultiplier)) //Move items into the Altar after checking LP levels
                         {
@@ -198,15 +205,21 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
 
     public boolean setLinkedOrbOwner(EntityPlayer player)
     {
-        String dontKnowWhatToCallThis = ((IBindable) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand()).getOwnerName();
-        if (linkedOrbOwner.equals(dontKnowWhatToCallThis))
+        Binding binding = ((IBindable) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand());
+        String probablyOwnerName = binding == null ? "" : binding.getOwnerName();
+        if (Strings.isNullOrEmpty(probablyOwnerName))
+        {
+            player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.noOwner")), true);
+            return false;
+        }
+        else if (linkedOrbOwner.equals(probablyOwnerName))
         {
             player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.alreadyOwner")), true);
             return false;
         }
         else
         {
-            linkedOrbOwner = dontKnowWhatToCallThis;
+            linkedOrbOwner = probablyOwnerName;
             player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.setOwner", player.getName())), true);
             return true;
         }

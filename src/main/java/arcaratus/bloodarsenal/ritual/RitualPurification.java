@@ -8,10 +8,8 @@ import WayofTime.bloodmagic.tile.TileBloodTank;
 import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.block.BlockStasisPlate;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
-import arcaratus.bloodarsenal.item.types.EnumBaseTypes;
 import arcaratus.bloodarsenal.tile.TileStasisPlate;
 import com.google.common.collect.Sets;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -21,13 +19,14 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.*;
 import java.util.function.Consumer;
 
+import static arcaratus.bloodarsenal.registry.ModRecipes.PURIFICATION_1;
+
 @RitualRegister("purification")
 public class RitualPurification extends RitualBloodArsenal
 {
     private static final Set<BlockPos> STASIS_PLATE_POS = Sets.newHashSet(new BlockPos(2, 1, 0), new BlockPos(-2, 1, 0), new BlockPos(0, 1, 2), new BlockPos(0, 1, -2));
     private static final BlockPos INPUT_TANK_POS = new BlockPos(0, 3, 0);
     private static final BlockPos OUTPUT_TANK_POS = new BlockPos(0, 2, 0);
-    private static final Set<ItemStack> PURIFICATION_1 = Sets.newHashSet(new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.REDSTONE), new ItemStack(Items.BLAZE_POWDER), EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack());
 
     private boolean active;
     private int fluidLeft;
