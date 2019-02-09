@@ -1,6 +1,5 @@
 package arcaratus.bloodarsenal.item.tool;
 
-import WayofTime.bloodmagic.altar.IBloodAltar;
 import WayofTime.bloodmagic.client.IMeshProvider;
 import WayofTime.bloodmagic.event.SacrificeKnifeUsedEvent;
 import WayofTime.bloodmagic.util.Constants;
@@ -18,9 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
@@ -54,7 +51,8 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft)
     {
         if (entityLiving instanceof EntityPlayer && !entityLiving.getEntityWorld().isRemote)
-            PlayerSacrificeHelper.sacrificePlayerHealth((EntityPlayer) entityLiving);
+            if (PlayerSacrificeHelper.sacrificePlayerHealth((EntityPlayer) entityLiving))
+                IncenseHelper.setHasMaxIncense(stack, (EntityPlayer) entityLiving, false);
     }
 
     @Override
@@ -73,7 +71,7 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
         ItemStack stack = player.getHeldItem(hand);
-        if (PlayerHelper.isFakePlayer(player))
+        if (PlayerHelper.isFakePlayer(player) || player.capabilities.isCreativeMode)
             return super.onItemRightClick(world, player, hand);
 
         if (canUseForSacrifice(stack))
@@ -84,42 +82,30 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
 
         int lpAdded = ConfigHandler.values.glassSacrificialDaggerLP;
 
-        RayTraceResult rayTrace = rayTrace(world, player, false);
-        if (rayTrace != null && rayTrace.typeOfHit == RayTraceResult.Type.BLOCK)
+        SacrificeKnifeUsedEvent evt = new SacrificeKnifeUsedEvent(player, true, true, 2, lpAdded);
+        if (MinecraftForge.EVENT_BUS.post(evt))
+            return super.onItemRightClick(world, player, hand);
+
+        if (evt.shouldDrainHealth)
         {
-            TileEntity tile = world.getTileEntity(rayTrace.getBlockPos());
+            player.hurtResistantTime = 0;
+            player.attackEntityFrom(DamageSourceGlass.INSTANCE, 0.001F);
+            player.setHealth(Math.max(player.getHealth() - (float) (ConfigHandler.values.glassSacrificialDaggerHealth + itemRand.nextInt(3)), 0.0001f));
 
-            if (tile != null && tile instanceof IBloodAltar && stack.getItemDamage() == 1)
-                lpAdded = ((IBloodAltar) tile).getCapacity();
-        }
+            if (itemRand.nextBoolean())
+                player.addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, 20 + (itemRand.nextInt(4) * 20), itemRand.nextInt(2)));
 
-        if (!player.capabilities.isCreativeMode)
-        {
-            SacrificeKnifeUsedEvent evt = new SacrificeKnifeUsedEvent(player, true, true, 2, lpAdded);
-            if (MinecraftForge.EVENT_BUS.post(evt))
-                return super.onItemRightClick(world, player, hand);
-
-            if (evt.shouldDrainHealth)
+            if (player.getHealth() <= 0.001f)
             {
-                player.hurtResistantTime = 0;
-                player.attackEntityFrom(DamageSourceGlass.INSTANCE, 0.001F);
-                player.setHealth(Math.max(player.getHealth() - (float) (ConfigHandler.values.glassSacrificialDaggerHealth + itemRand.nextInt(3)), 0.0001f));
-
-                if (itemRand.nextBoolean())
-                    player.addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, 20 + (itemRand.nextInt(4) * 20), itemRand.nextInt(2)));
-
-                if (player.getHealth() <= 0.001f)
-                {
-                    player.onDeath(DamageSourceGlass.INSTANCE);
-                    player.setHealth(0);
-                }
+                player.onDeath(DamageSourceGlass.INSTANCE);
+                player.setHealth(0);
             }
-
-            if (!evt.shouldFillAltar)
-                return super.onItemRightClick(world, player, hand);
-
-            lpAdded = evt.lpAdded;
         }
+
+        if (!evt.shouldFillAltar)
+            return super.onItemRightClick(world, player, hand);
+
+        lpAdded = evt.lpAdded;
 
         double posX = player.posX;
         double posY = player.posY;
@@ -129,7 +115,7 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
         for (int l = 0; l < 8; ++l)
             world.spawnParticle(EnumParticleTypes.REDSTONE, posX + Math.random() - Math.random(), posY + Math.random() - Math.random(), posZ + Math.random() - Math.random(), 0, 0, 0);
 
-        if (!world.isRemote && PlayerHelper.isFakePlayer(player))
+        if (!world.isRemote && PlayerHelper.isFakePlayer(player) || player.isPotionActive(PlayerSacrificeHelper.soulFrayId))
             return super.onItemRightClick(world, player, hand);
 
         PlayerSacrificeHelper.findAndFillAltar(world, player, lpAdded, false);
@@ -140,8 +126,16 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
-        if (!world.isRemote && entity instanceof EntityPlayer)
-            setUseForSacrifice(stack, isPlayerPreparedForSacrifice(world, (EntityPlayer) entity));
+        if (!world.isRemote && entity instanceof EntityPlayer) {
+            boolean prepared = this.isPlayerPreparedForSacrifice(world, (EntityPlayer) entity);
+            this.setUseForSacrifice(stack, prepared);
+            if (IncenseHelper.getHasMaxIncense(stack) && !prepared)
+                IncenseHelper.setHasMaxIncense(stack, (EntityPlayer) entity, false);
+            if (prepared) {
+                boolean isMax = IncenseHelper.getMaxIncense((EntityPlayer) entity) == IncenseHelper.getCurrentIncense((EntityPlayer) entity);
+                IncenseHelper.setHasMaxIncense(stack, (EntityPlayer) entity, isMax);
+            }
+        }
     }
 
     public boolean isPlayerPreparedForSacrifice(World world, EntityPlayer player)
@@ -173,5 +167,11 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
     {
         variants.accept("type=normal");
         variants.accept("type=ceremonial");
+    }
+
+    @Override
+    public boolean hasEffect(ItemStack stack)
+    {
+        return IncenseHelper.getHasMaxIncense(stack) || super.hasEffect(stack);
     }
 }
