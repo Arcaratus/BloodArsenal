@@ -13,6 +13,7 @@ import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.item.types.EnumBaseTypes;
 import arcaratus.bloodarsenal.recipe.RecipeFilter;
 import arcaratus.bloodarsenal.recipe.SanguineInfusionRecipeRegistry;
+import com.google.common.collect.Sets;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
@@ -21,10 +22,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.Set;
+
 public class ModRecipes
 {
+    public static Set<ItemStack> PURIFICATION_1;
+
     public static void init()
     {
+        PURIFICATION_1 = Sets.newHashSet(new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.REDSTONE), new ItemStack(Items.BLAZE_POWDER), EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack());
+
         addOreDictItems();
         addAlchemyArrayRecipes();
         addSanguineInfusionRecipes();
