@@ -27,6 +27,16 @@ public class GuiAltareAenigmatica extends GuiContainer
     {
         super(new ContainerAltareAenigmatica(inventoryPlayer, tileAltareAenigmatica));
         this.tileAltareAenigmatica = tileAltareAenigmatica;
+        xSize = 176;
+        ySize = 163;
+    }
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    {
+        drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        renderHoveredToolTip(mouseX, mouseY);
     }
 
     @Override
@@ -34,7 +44,6 @@ public class GuiAltareAenigmatica extends GuiContainer
     {
         fontRenderer.drawString(TextHelper.localize("tile.bloodarsenal.altare_aenigmatica.name"), 43, 6, 4210752);
         fontRenderer.drawString(TextHelper.localize("container.inventory"), 7, 71, 4210752);
-
         if (tileAltareAenigmatica instanceof TileAltareAenigmatica)
         {
             TileEntity altar = ((TileAltareAenigmatica) tileAltareAenigmatica).getWorld().getTileEntity(((TileAltareAenigmatica) tileAltareAenigmatica).getAltarPos());

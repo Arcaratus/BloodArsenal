@@ -26,7 +26,7 @@ public class PotionEventHandlers
             int amplifier = entityLiving.getActivePotionEffect(RegistrarBloodArsenal.BLEEDING).getAmplifier();
             int damage = (rand.nextInt(amplifier + 1) * 2 + rand.nextInt(2));
 
-            if (entityLiving.getEntityWorld().getWorldTime() % (30 / (amplifier + 1)) == 0)
+            if (entityLiving.getEntityWorld().getWorldTime() % (40 / (amplifier + 1)) == 0)
             {
                 entityLiving.attackEntityFrom(DamageSourceBleeding.INSTANCE, damage);
                 entityLiving.hurtResistantTime = Math.min(entityLiving.hurtResistantTime, 30 / (amplifier + 1));

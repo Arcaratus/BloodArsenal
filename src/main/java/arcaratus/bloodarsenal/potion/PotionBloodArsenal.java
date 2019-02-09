@@ -2,6 +2,7 @@ package arcaratus.bloodarsenal.potion;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -16,6 +17,18 @@ public class PotionBloodArsenal extends Potion
         setPotionName(name);
         setRegistryName(regName);
         setIconIndex(iconIndexX, iconIndexY);
+    }
+
+    @Override
+    public boolean shouldRenderInvText(PotionEffect effect)
+    {
+        return true;
+    }
+
+    @Override
+    public boolean shouldRender(PotionEffect effect)
+    {
+        return true;
     }
 
     @Override

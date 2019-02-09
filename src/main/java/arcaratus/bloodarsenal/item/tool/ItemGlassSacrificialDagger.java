@@ -90,12 +90,12 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
         {
             player.hurtResistantTime = 0;
             player.attackEntityFrom(DamageSourceGlass.INSTANCE, 0.001F);
-            player.setHealth(Math.max(player.getHealth() - (float) (ConfigHandler.values.glassSacrificialDaggerHealth + itemRand.nextInt(3)), 0.0001f));
+            player.setHealth(Math.max(player.getHealth() - (float) (ConfigHandler.values.glassSacrificialDaggerHealth + itemRand.nextInt(3)), 0.0001F));
 
-            if (itemRand.nextBoolean())
-                player.addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, 20 + (itemRand.nextInt(4) * 20), itemRand.nextInt(2)));
+            if (!player.isPotionActive(RegistrarBloodArsenal.BLEEDING) && itemRand.nextBoolean())
+                player.addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, 40 + (itemRand.nextInt(4) * 20), itemRand.nextInt(2)));
 
-            if (player.getHealth() <= 0.001f)
+            if (player.getHealth() <= 0.001F)
             {
                 player.onDeath(DamageSourceGlass.INSTANCE);
                 player.setHealth(0);
@@ -126,12 +126,15 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
-        if (!world.isRemote && entity instanceof EntityPlayer) {
-            boolean prepared = this.isPlayerPreparedForSacrifice(world, (EntityPlayer) entity);
-            this.setUseForSacrifice(stack, prepared);
+        if (!world.isRemote && entity instanceof EntityPlayer)
+        {
+            boolean prepared = isPlayerPreparedForSacrifice(world, (EntityPlayer) entity);
+            setUseForSacrifice(stack, prepared);
             if (IncenseHelper.getHasMaxIncense(stack) && !prepared)
                 IncenseHelper.setHasMaxIncense(stack, (EntityPlayer) entity, false);
-            if (prepared) {
+
+            if (prepared)
+            {
                 boolean isMax = IncenseHelper.getMaxIncense((EntityPlayer) entity) == IncenseHelper.getCurrentIncense((EntityPlayer) entity);
                 IncenseHelper.setHasMaxIncense(stack, (EntityPlayer) entity, isMax);
             }

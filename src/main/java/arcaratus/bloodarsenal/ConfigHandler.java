@@ -57,7 +57,7 @@ public class ConfigHandler
         public int bloodCapacitorTransfer = TEN_K;
         @Comment({ "Amount of LP the Glass Sacrificial Dagger (approximately) gives per use" })
         @RangeInt(min = 0, max = TEN_K)
-        public int glassSacrificialDaggerLP = 5 * HUNDRED;
+        public int glassSacrificialDaggerLP = 5 * WayofTime.bloodmagic.ConfigHandler.values.sacrificialDaggerConversion;
         @Comment({ "Amount of damage the Glass Sacrificial Dagger deals per use" })
         @RangeInt(min = 1, max = TEN_K)
         public double glassSacrificialDaggerHealth = 2;
@@ -177,6 +177,8 @@ public class ConfigHandler
     {
         @Comment({ "Should be set to false when another mod adds in its own Ore-Dict glass shards" })
         public boolean doGlassShardsDrop = true;
+        @Comment({ "Should glass/bleeding cause less drops" })
+        public boolean glassDeathLessDrops = true;
         @Comment({ "The max range for anything that uses raytracing (Ender Sigil, Lightning Sigil, etc.)" })
         @RangeDouble(min = 1, max = 256)
         public double rayTraceRange = 64;
