@@ -101,7 +101,7 @@ public class ModifierAOD extends Modifier
                     if (MinecraftForge.EVENT_BUS.post(event) || event.getResult() == Event.Result.DENY)
                         continue;
 
-                    if (blockState.getBlock().getBlockHardness(blockState, world, blockPos) != -1)
+                    if (blockState.getBlockHardness(world, blockPos) != -1)
                     {
                         float strengthVsBlock = itemStack.getDestroySpeed(blockState);
 

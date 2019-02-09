@@ -13,6 +13,7 @@ import arcaratus.bloodarsenal.recipe.RecipeSanguineInfusion;
 import arcaratus.bloodarsenal.recipe.SanguineInfusionRecipeRegistry;
 import arcaratus.bloodarsenal.registry.Constants;
 import mezz.jei.api.*;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.*;
 import net.minecraft.potion.*;
@@ -43,7 +44,7 @@ public class BloodArsenalPlugin implements IModPlugin
 
         registry.addRecipeCatalyst(new ItemStack(RegistrarBloodMagicBlocks.RITUAL_CONTROLLER), Constants.Compat.JEI_CATEGORY_SANGUINE_INFUSION);
 
-        for (ItemStack itemStack : registry.getIngredientRegistry().getAllIngredients(ItemStack.class))
+        for (ItemStack itemStack : registry.getIngredientRegistry().getAllIngredients(VanillaTypes.ITEM))
         {
             if (!itemStack.isEmpty())
             {
@@ -91,9 +92,9 @@ public class BloodArsenalPlugin implements IModPlugin
 //            }
 //        }
 //
-        registry.addIngredientInfo(EnumBaseTypes.GLASS_SHARD.getStack(), ItemStack.class, "jei.bloodarsenal.desc.glass_shard");
-        registry.addIngredientInfo(EnumBaseTypes.REAGENT_LIGHTNING.getStack(), ItemStack.class, "jei.bloodarsenal.desc.reagent_lightning");
-        registry.addIngredientInfo(new FluidStack(RegistrarBloodArsenalBlocks.FLUID_REFINED_LIFE_ESSENCE, Fluid.BUCKET_VOLUME), FluidStack.class, "jei.bloodarsenal.desc.refined_life_essence");
+        registry.addIngredientInfo(EnumBaseTypes.GLASS_SHARD.getStack(), VanillaTypes.ITEM, "jei.bloodarsenal.desc.glass_shard");
+        registry.addIngredientInfo(EnumBaseTypes.REAGENT_LIGHTNING.getStack(), VanillaTypes.ITEM, "jei.bloodarsenal.desc.reagent_lightning");
+        registry.addIngredientInfo(new FluidStack(RegistrarBloodArsenalBlocks.FLUID_REFINED_LIFE_ESSENCE, Fluid.BUCKET_VOLUME), VanillaTypes.FLUID, "jei.bloodarsenal.desc.refined_life_essence");
     }
 
     @Override
