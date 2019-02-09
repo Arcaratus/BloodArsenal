@@ -34,7 +34,7 @@ public class BloodArsenal
     @Mod.Instance(BloodArsenal.MOD_ID)
     public static BloodArsenal INSTANCE;
 
-    public final static CreativeTabs TAB_BLOOD_ARSENAL = new CreativeTabs(BloodArsenal.MOD_ID + ".creativeTab")
+    public final static CreativeTabs TAB_BLOOD_ARSENAL = new CreativeTabs(BloodArsenal.MOD_ID + ".creative_tab")
     {
         @Override
         public ItemStack createIcon()

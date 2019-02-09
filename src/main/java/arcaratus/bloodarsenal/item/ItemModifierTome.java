@@ -95,7 +95,7 @@ public class ItemModifierTome extends Item implements IVariantProvider
                             modifier.writeSpecialNBT(otherStack, tracker.getLevel());
                         StasisModifiable.setModifiable(otherStack, modifiable, false);
                         String name = modifier.hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
-                        player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.modifierAdded", name, tracker.getLevel() + 1, otherStack.getDisplayName())), true);
+                        player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.modifier_added", name, tracker.getLevel() + 1, otherStack.getDisplayName())), true);
                         itemStack.shrink(1);
                     }
                 }

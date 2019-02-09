@@ -45,7 +45,7 @@ public class ItemSigilLightning extends ItemSigilBase
                     stack.getTagCompound().setInteger(Constants.NBT.LEVEL, stack.getTagCompound().getInteger(Constants.NBT.LEVEL) + 1);
 
                 level = stack.getTagCompound().getInteger(Constants.NBT.LEVEL);
-                player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.setLevel", NumeralHelper.toRoman(stack.getTagCompound().getInteger(Constants.NBT.LEVEL) + 1))), true);
+                player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.set_level", NumeralHelper.toRoman(stack.getTagCompound().getInteger(Constants.NBT.LEVEL) + 1))), true);
                 return super.onItemRightClick(world, player, hand);
             }
             else if (!isUnusable(stack))
@@ -267,7 +267,7 @@ public class ItemSigilLightning extends ItemSigilBase
                         NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(stack, world, player, cost));
                     }
                     else
-                        player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.tooWeak")), true);
+                        player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.too_weak")), true);
                 }
             }
         }

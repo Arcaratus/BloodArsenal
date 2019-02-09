@@ -209,18 +209,18 @@ public class TileAltareAenigmatica extends TileInventory implements ISidedInvent
         String probablyOwnerName = binding == null ? "" : binding.getOwnerName();
         if (Strings.isNullOrEmpty(probablyOwnerName))
         {
-            player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.noOwner")), true);
+            player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.no_owner")), true);
             return false;
         }
         else if (linkedOrbOwner.equals(probablyOwnerName))
         {
-            player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.alreadyOwner")), true);
+            player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.already_owner")), true);
             return false;
         }
         else
         {
             linkedOrbOwner = probablyOwnerName;
-            player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.setOwner", player.getName())), true);
+            player.sendStatusMessage(new TextComponentString(TextHelper.localize("chat.bloodarsenal.set_owner", player.getName())), true);
             return true;
         }
     }

@@ -1,0 +1,118 @@
+# Creative Tab
+itemGroup.bloodarsenal.creative_tab=§4Blood Arsenal
+
+# Items
+item.bloodarsenal.base_item.glass_shard.name=ガラス片
+item.bloodarsenal.base_item.blood_infused_stick.name=血を注入した棒
+item.bloodarsenal.blood_burned_string.name=血焼きした糸
+item.bloodarsenal.base_item.blood_infused_glowstone_dust.name=血を注入したグロウストーンダスト
+item.bloodarsenal.base_item.inert_blood_infused_iron_ingot.name=不活性な血を注入した鉄インゴット
+item.bloodarsenal.base_item.blood_infused_iron_ingot.name=血を注入した鉄インゴット
+item.bloodarsenal.blood_orange.name=ブラッドオレンジ
+
+item.bloodarsenal.blood_infused_wooden.pickaxe.name=血を注入した木のツルハシ
+item.bloodarsenal.blood_infused_wooden.axe.name=血を注入した木の斧
+item.bloodarsenal.blood_infused_wooden.shovel.name=血を注入した木のシャベル
+item.bloodarsenal.blood_infused_wooden.sword.name=血を注入した木の剣
+item.bloodarsenal.blood_infused_iron.pickaxe.name=血を注入した鉄のツルハシ
+item.bloodarsenal.blood_infused_iron.axe.name=血を注入した鉄の斧
+item.bloodarsenal.blood_infused_iron.shovel.name=血を注入した鉄のシャベル
+item.bloodarsenal.blood_infused_iron.sword.name=血を注入した鉄の剣
+item.bloodarsenal.blood_infused_shield.name=血を注入した盾
+
+item.bloodarsenal.glass_sacrificial_dagger.name=ガラスの生贄のダガー
+item.bloodarsenal.glass_dagger_of_sacrifice.name=ガラスのサクリファイスダガー
+
+item.bloodarsenal.base_item.reagent_swimming.name=遊泳の試薬
+item.bloodarsenal.base_item.reagent_ender.name=エンダーの試薬
+item.bloodarsenal.base_item.reagent_lightning.name=雷の試薬
+item.bloodarsenal.base_item.reagent_divinity.name=神性の試薬
+
+item.bloodarsenal.sigil.swimming.name=遊泳の印章
+item.bloodarsenal.sigil.ender.name=エンダーの印章
+item.bloodarsenal.sigil.augmented_holding.name=増強した貯蔵の印章
+item.bloodarsenal.sigil.lightning.name=雷の印章
+item.bloodarsenal.sigil.divinity.name=神性の印章
+
+item.bloodarsenal.gem.sacrifice.name=生贄の宝珠
+item.bloodarsenal.gem.self_sacrifice.name=自己犠牲の宝珠
+item.bloodarsenal.gem.tartaric.name=タルタリックウィルの宝珠
+
+item.bloodarsenal.sacrifice_amulet.name=生贄の魔除け
+item.bloodarsenal.self_sacrifice_amulet.name=自己犠牲の魔除け
+item.bloodarsenal.soul_pendant.petty.name=微細な魂のペンダント
+item.bloodarsenal.soul_pendant.lesser.name=小さな魂のペンダント
+item.bloodarsenal.soul_pendant.common.name=普通の魂のペンダント
+item.bloodarsenal.soul_pendant.greater.name=大きな魂のペンダント
+item.bloodarsenal.soul_pendant.grand.name=巨大な魂のペンダント
+
+# Blocks
+tile.bloodarsenal.slate.blank.name=空の石版ブロック
+tile.bloodarsenal.slate.reinforced.name=強化された石版ブロック
+tile.bloodarsenal.slate.imbued.name=染みこんだ石版ブロック
+tile.bloodarsenal.slate.demonic.name=悪魔の石版ブロック
+tile.bloodarsenal.slate.ethereal.name=エーテルの石版ブロック
+tile.bloodarsenal.blood_infused_wooden_log.name=血を注入した原木
+tile.bloodarsenal.blood_infused_wooden_planks.name=血を注入した木材
+tile.bloodarsenal.blood_infused_wooden_stairs.name=血を注入した木の階段
+tile.bloodarsenal.blood_infused_wooden_double_slab.name=血を注入した木材ハーフブロック
+tile.bloodarsenal.blood_infused_wooden_slab.name=血を注入した木材ハーフブロック
+tile.bloodarsenal.blood_infused_wooden_fence.name=血を注入した木のフェンス
+tile.bloodarsenal.blood_infused_wooden_fence_gate.name=血を注入した木のフェンスゲート
+tile.bloodarsenal.blood_stained_glass.name=血色の色付きガラス
+tile.bloodarsenal.blood_stained_glass_pane.name=血色の色付きガラス板
+tile.bloodarsenal.blood_torch.name=血の松明
+tile.bloodarsenal.blood_infused_iron_block.name=血を注入した鉄ブロック
+tile.bloodarsenal.blood_infused_glowstone.name=血を注入したグロウストーン
+tile.bloodarsenal.glass_shards.name=複数のガラス片
+tile.bloodarsenal.block_blood_burned_string.name=血焼きした糸
+tile.bloodarsenal.altare_aenigmatica.name=謎めいた祭壇
+
+# Tooltips
+tooltip.bloodarsenal.glass_shard.desc=鋭い無色
+tooltip.bloodarsenal.blood_infused_stick.desc=生命力が吹きこまれた棒！
+tooltip.bloodarsenal.blood_orange.desc=熟していて瑞々しい！
+tooltip.bloodarsenal.blood_infused_glowstone_dust.desc=魔力がこもった妖精の粉
+tooltip.bloodarsenal.inert_blood_infused_iron_ingot.desc=生命力が全く無い...
+tooltip.bloodarsenal.blood_infused_iron_ingot.desc=生命の輝き
+tooltip.bloodarsenal.glass_sacrificial_dagger.desc=切り裂く刃
+tooltip.bloodarsenal.glass_dagger_of_sacrifice.desc=流血する刃
+
+tooltip.bloodarsenal.sigil.swimming.desc=泳ぎ続けろ！
+tooltip.bloodarsenal.sigil.ender.desc=エンドへのミニポータル
+tooltip.bloodarsenal.sigil.lightning.desc=&b雷への変質
+tooltip.bloodarsenal.sigil.divinity.desc=&6&n窮極の神性
+
+tooltip.bloodarsenal.sacrifice_amulet.desc=無駄にせず、欲しがらず！
+tooltip.bloodarsenal.self_sacrifice_amulet.desc=コラテラルの蒐集
+
+tooltip.bloodarsenal.soul_pendant.petty=このペンダントは微量のウィルを貯蔵できます
+tooltip.bloodarsenal.soul_pendant.lesser=このペンダントは少量のウィルを貯蔵できます
+tooltip.bloodarsenal.soul_pendant.common=このペンダントはそこそこのウィルを貯蔵できます
+tooltip.bloodarsenal.soul_pendant.greater=このペンダントは大量のウィルを貯蔵できます
+tooltip.bloodarsenal.soul_pendant.grand=このペンダントは莫大なウィルを貯蔵できます
+
+tooltip.bloodarsenal.stored=貯蔵: &c%d &7LP
+tooltip.bloodarsenal.level=レベル: %d
+
+# Chat
+chat.bloodarsenal.damage_source_glass=%s は刺し過ぎてしまった
+chat.bloodarsenal.damage_source_bleeding=%s は生命力を使い果たした
+chat.bloodarsenal.set_level=以下のレベルに設定: %d
+chat.bloodarsenal.too_weak=実行するには弱すぎるように感じた...
+chat.bloodarsenal.set_owner=以下の所有者に設定： %s
+chat.bloodarsenal.already_owner=これは既に契約済みです！
+
+# Tinker's
+modifier.serrated.name=鋸刃
+modifier.serrated.desc=§o切除！§r\n対象を血まみれにする！
+modifier.serrated.extra=威力: %s
+
+modifier.living.name=活力
+modifier.living.desc=§4再生！§r\n使用者のソウルネットワークを利用して治癒する。
+
+material.bloodinfusedwood.name=血を注入した木
+material.bloodinfusedwood.prefix=血を注入した木の%s
+material.bloodinfusediron.name=血を注入した鉄の
+
+fluid.tconstruct.molten_blood_infused_iron.name=血液を注入した融解鉄

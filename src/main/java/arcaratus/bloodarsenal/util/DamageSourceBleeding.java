@@ -21,6 +21,6 @@ public class DamageSourceBleeding extends DamageSource
     @Override
     public ITextComponent getDeathMessage(EntityLivingBase livingBase)
     {
-        return new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.damageSourceBleeding", livingBase.getName()));
+        return new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.damage_source_bleeding", livingBase.getName()));
     }
 }
