@@ -1,4 +1,14 @@
 ------------------------------------------------------
+Version 2.2.0-27
+------------------------------------------------------
+- Update to latest Blood Magic version
+- Fixed losing items due to glass death bug (for real this time)
+- Fixed Purification Ritual not working properly
+- Fixed the Altare Aenigmatica
+- Tinkers!
+- Probably a few more bugs that got squashed too
+
+------------------------------------------------------
 Version 2.1.0-26
 ------------------------------------------------------
 - Update to latest Blood Magic version

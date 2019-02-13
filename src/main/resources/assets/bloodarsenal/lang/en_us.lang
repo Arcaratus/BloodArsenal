@@ -244,4 +244,4 @@ material.blood_infused_wood.name=Blood Infused Wood
 material.blood_infused_wood.prefix=Blood Infused Wooden %s
 material.blood_infused_iron.name=Blood Infused Iron
 
-fluid.tconstruct.molten_blood_infused_iron.name=Molten Blood Infused Iron
+fluid.bloodarsenal.molten_blood_infused_iron.name=Molten Blood Infused Iron
