@@ -69,7 +69,7 @@ public class RegistrarBloodArsenalBlocks
                 new BlockBloodInfusedWoodenLog("blood_infused_wooden_log"),
                 new BlockBloodInfusedWoodenPlanks("blood_infused_wooden_planks"),
                 new BlockBloodInfusedWoodenStairs("blood_infused_wooden_stairs"),
-                new BlockBloodInfusedWoodenSlab.Double("blood_infused_wooden_double_slab"),
+//                new BlockBloodInfusedWoodenSlab.Double("blood_infused_wooden_double_slab"),
 //                new BlockBloodInfusedWoodenSlab.Half("blood_infused_wooden_slab"),
 //                new ItemBlockBloodInfusedWoodenSlab("blood_infused_wooden_slab").getBlock(),
                 new BlockBloodInfusedWoodenFence("blood_infused_wooden_fence"),

@@ -240,8 +240,8 @@ modifier.serrated.extra=Severity: %s
 modifier.living.name=Living
 modifier.living.desc=§4Regenerative!§r\nHeals itself via the user's Soul Network
 
-material.bloodinfusedwood.name=Blood Infused Wood
-material.bloodinfusedwood.prefix=Blood Infused Wooden %s
-material.bloodinfusediron.name=Blood Infused Iron
+material.blood_infused_wood.name=Blood Infused Wood
+material.blood_infused_wood.prefix=Blood Infused Wooden %s
+material.blood_infused_iron.name=Blood Infused Iron
 
 fluid.tconstruct.molten_blood_infused_iron.name=Molten Blood Infused Iron

@@ -31,6 +31,7 @@ public class RegistrarBloodArsenalRecipes
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event)
     {
         OreDictionary.registerOre("shardGlass", EnumBaseTypes.GLASS_SHARD.getStack());
+        OreDictionary.registerOre("blockBloodInfusedWood", RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
         OreDictionary.registerOre("ingotBloodInfusedIron", EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack());
     }
 

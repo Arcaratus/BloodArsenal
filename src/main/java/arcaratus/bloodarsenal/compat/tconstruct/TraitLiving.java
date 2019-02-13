@@ -1,5 +1,6 @@
 package arcaratus.bloodarsenal.compat.tconstruct;
 
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import arcaratus.bloodarsenal.ConfigHandler;
 import net.minecraft.entity.Entity;
@@ -16,7 +17,7 @@ public class TraitLiving extends AbstractTraitLeveled
 {
     public TraitLiving(int level)
     {
-        super("living", 0x7A1E0E, 3, level);
+        super("living", 0xD82000, 3, level);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class TraitLiving extends AbstractTraitLeveled
 
             if (world.getWorldTime() % time == 0)
             {
-                if (NetworkHelper.syphonFromContainer(tool, cost))
+                if (NetworkHelper.syphonFromContainer(tool, SoulTicket.item(tool, world, entity, cost)))
                     ToolHelper.healTool(tool, 1, (EntityLivingBase) entity);
             }
         }

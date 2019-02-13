@@ -4,9 +4,7 @@ import arcaratus.bloodarsenal.core.RegistrarBloodArsenal;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import slimeknights.tconstruct.library.modifiers.ModifierAspect;
-import slimeknights.tconstruct.library.modifiers.ModifierNBT;
-import slimeknights.tconstruct.library.modifiers.ModifierTrait;
+import slimeknights.tconstruct.library.modifiers.*;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
 public class ModifierSerrated extends ModifierTrait

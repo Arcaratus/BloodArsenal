@@ -1,6 +1,7 @@
 package arcaratus.bloodarsenal.registry;
 
 import arcaratus.bloodarsenal.compat.ICompatibility;
+import arcaratus.bloodarsenal.compat.tconstruct.CompatTConstruct;
 import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class ModCompat
     public static void registerModCompat()
     {
 //        compatibilities.add(new CompatWaila());
-//        compatibilities.add(new CompatTConstruct());
+        compatibilities.add(new CompatTConstruct());
     }
 
     public static void loadCompat(ICompatibility.InitializationPhase phase)
