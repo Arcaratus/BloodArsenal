@@ -67,7 +67,7 @@ public class HandlerTConstruct
             {
                 return new MaterialRenderInfo.MultiColor(0x6C1E12, 0x7A1E0E, 0x982E1A);
             }
-        }, new BATinkerMaterial("blood_infused_iron", 0x4C1E1A, null, EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), true)
+        }, new BATinkerMaterial("blood_infused_iron", 0x4C1E1A, "BloodInfusedIron", EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack(), true)
         {
             public void addStats(List<IMaterialStats> stats)
             {
