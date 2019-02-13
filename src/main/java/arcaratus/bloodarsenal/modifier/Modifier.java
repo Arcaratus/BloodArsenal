@@ -146,7 +146,7 @@ public class Modifier
     /**
      * To be used with tag.merge()
      *
-     * @returns The NBT portion that the modifier writes, nothing else
+     * @return The NBT portion that the modifier writes, nothing else
      */
     public NBTTagCompound getSpecialNBT(ItemStack itemStack)
     {

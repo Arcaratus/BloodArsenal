@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -115,6 +116,6 @@ public class RegistrarBloodArsenalBlocks
 
     private static void registerTile(Class<? extends TileEntity> tile, String name)
     {
-        GameRegistry.registerTileEntity(tile, BloodArsenal.MOD_ID + ":" + name);
+        GameRegistry.registerTileEntity(tile, new ResourceLocation(BloodArsenal.MOD_ID, name));
     }
 }

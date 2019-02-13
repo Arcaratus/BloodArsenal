@@ -81,7 +81,7 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[]{VARIANT, LOG_AXIS});
+        return new BlockStateContainer(this, VARIANT, LOG_AXIS);
     }
 
 //    @Override

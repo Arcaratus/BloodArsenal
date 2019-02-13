@@ -12,6 +12,7 @@ import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -89,7 +90,7 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
         stackGroup.init(1, false, 77, 8);
 
         RecipeSanguineInfusion recipe = recipeWrapper.getRecipe();
-        List<List<ItemStack>> itemInputs = ingredients.getInputs(ItemStack.class);
+        List<List<ItemStack>> itemInputs = ingredients.getInputs(VanillaTypes.ITEM);
 
         if (recipe.isModifier())
         {
@@ -160,12 +161,12 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
         }
         else
         {
-            stackGroup.set(0, ingredients.getInputs(ItemStack.class).get(0));
-            stackGroup.set(1, ingredients.getOutputs(ItemStack.class).get(0));
-            ingredients.getInputs(ItemStack.class).remove(0);
+            stackGroup.set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
+            stackGroup.set(1, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+            ingredients.getInputs(VanillaTypes.ITEM).remove(0);
         }
 
-        double angleBetweenEach = 360.0 / ingredients.getInputs(ItemStack.class).size();
+        double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
         Point point = new Point(centerX, centerY - 35), center = new Point(centerX - 1, centerY);
         int maxLevel = recipe.isModifier() ? recipe.getModifier().getMaxLevel() : 0;
 

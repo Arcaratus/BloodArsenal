@@ -5,6 +5,7 @@ import arcaratus.bloodarsenal.compat.jei.BloodArsenalPlugin;
 import arcaratus.bloodarsenal.recipe.RecipeSanguineInfusion;
 import com.google.common.collect.Lists;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -36,8 +37,8 @@ public class SanguineInfusionRecipeJEI implements IRecipeWrapper
         List<List<ItemStack>> expandedInputs = BloodArsenalPlugin.jeiHelper.getStackHelper().expandRecipeItemStackInputs(recipe.getItemStackInputs(0));
         if (!recipe.isModifier())
             expandedInputs.add(0, Lists.newArrayList(recipe.getInfuse()));
-        ingredients.setInputLists(ItemStack.class, expandedInputs);
-        ingredients.setOutput(ItemStack.class, recipe.getOutput());
+        ingredients.setInputLists(VanillaTypes.ITEM, expandedInputs);
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
     }
 
     public RecipeSanguineInfusion getRecipe()

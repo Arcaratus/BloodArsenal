@@ -106,7 +106,7 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return isDouble() ? new BlockStateContainer(this, new IProperty[]{VARIANT}) : new BlockStateContainer(this, new IProperty[] {HALF, VARIANT});
+        return isDouble() ? new BlockStateContainer(this, VARIANT) : new BlockStateContainer(this, HALF, VARIANT);
     }
 
     @Override
