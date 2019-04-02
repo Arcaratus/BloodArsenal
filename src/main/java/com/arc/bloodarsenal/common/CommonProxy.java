@@ -9,7 +9,7 @@ public class CommonProxy
 {
     public void init()
     {
-        registerEntityTrackers();
+        //registerEntityTrackers();
     }
 
     public void registerRenders()
@@ -26,8 +26,7 @@ public class CommonProxy
         return null;
     }
 
-    public void registerEntityTrackers()
-    {
+    public static void registerEntityTrackers() {
         int entityID = EntityRegistry.findGlobalUniqueEntityId();
         EntityRegistry.registerGlobalEntityID(EntityBloodTNT.class, "bloodTNT", entityID);
         EntityRegistry.registerModEntity(EntityBloodTNT.class, "bloodTNT", entityID, BloodArsenal.instance, 64, 100, true);
