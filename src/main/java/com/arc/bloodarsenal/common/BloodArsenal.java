@@ -133,6 +133,8 @@ public class BloodArsenal
         RitualRegistry.initRituals();
 
         proxy.init();
+	//manual call to registerEntityTrackers bc it wont get called client side... also removed the internal call from the proxy
+	CommonProxy.registerEntityTrackers();
 
         FMLInterModComms.sendMessage("Waila", "register", "com.arc.bloodarsenal.common.misc.WAILAPlugin.registerAddon");
 
