@@ -1,4 +1,11 @@
 ------------------------------------------------------
+Version 2.2.0-28
+------------------------------------------------------
+- ADDED THE SENTIENT MODIFIER FOR TINKERS CONSTRUCT
+- Added actual particle effects to rituals
+- Fixed some more bugs
+
+------------------------------------------------------
 Version 2.2.0-27
 ------------------------------------------------------
 - Update to latest Blood Magic version

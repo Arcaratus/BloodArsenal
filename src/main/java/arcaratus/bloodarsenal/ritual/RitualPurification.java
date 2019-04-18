@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.*;
@@ -115,6 +116,12 @@ public class RitualPurification extends RitualBloodArsenal
 
         fluidLeft -= conversion;
         network.syphon(SoulTicket.block(world, pos, getRefreshCost()));
+        if (world instanceof WorldServer && world.getWorldTime() % 4 == 0)
+        {
+            WorldServer server = (WorldServer) world;
+            for (int i = 0; i < 4; i++)
+                server.spawnParticle(EnumParticleTypes.REDSTONE, pos.getX() + 0.5, pos.getY() + 0.5 + i, pos.getZ() + 0.5, 1, 0.2, 0, 0.2, 0);
+        }
     }
 
     private void endRitual(World world, BlockPos pos, IMasterRitualStone mrs)

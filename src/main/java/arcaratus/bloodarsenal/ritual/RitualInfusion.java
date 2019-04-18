@@ -12,16 +12,18 @@ import arcaratus.bloodarsenal.recipe.RecipeSanguineInfusion;
 import arcaratus.bloodarsenal.recipe.SanguineInfusionRecipeRegistry;
 import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.tile.TileStasisPlate;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.items.ItemHandlerHelper;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -203,6 +205,11 @@ public class RitualInfusion extends RitualBloodArsenal
 
         craftingTimer++;
         network.syphon(SoulTicket.block(world, pos, getRefreshCost()));
+        if (world instanceof WorldServer && world.getWorldTime() % 4 == 0)
+        {
+            WorldServer server = (WorldServer) world;
+            server.spawnParticle(EnumParticleTypes.REDSTONE, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 1, 0.2, 0, 0.2, 0);
+        }
     }
 
     private void endRitual(World world, BlockPos pos, IMasterRitualStone mrs)
@@ -260,11 +267,11 @@ public class RitualInfusion extends RitualBloodArsenal
         return stackList;
     }
 
-    private List<ItemStack> constructItemStackList(ImmutableMap<Ingredient, Integer> ingredients, List<ItemStack> inputs)
+    private List<ItemStack> constructItemStackList(List<Pair<Ingredient, Integer>> ingredients, List<ItemStack> inputs)
     {
         List<ItemStack> dummyList = new ArrayList<>();
 
-        for (Map.Entry<Ingredient, Integer> entry : ingredients.entrySet())
+        for (Pair<Ingredient, Integer> entry : ingredients)
         {
             for (ItemStack input : inputs)
             {

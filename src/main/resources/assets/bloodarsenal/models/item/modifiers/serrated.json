@@ -1,12 +1,15 @@
 {
     "textures": {
-        "battleaxe": "bloodarsenal:items/modifiers/serrated_battleaxe",
-        "broadsword": "bloodarsenal:items/modifiers/serrated_broadsword",
-        "rapier": "bloodarsenal:items/modifiers/serrated_rapier",
-        "cleaver": "bloodarsenal:items/modifiers/serrated_cleaver",
-        "frypan": "bloodarsenal:items/modifiers/serrated_frypan",
-        "hammer": "bloodarsenal:items/modifiers/serrated_hammer",
-        "hatchet": "bloodarsenal:items/modifiers/serrated_hatchet",
-        "longsword": "bloodarsenal:items/modifiers/serrated_longsword"
+        "battleaxe": "bloodarsenal:items/modifiers/serrated/battleaxe",
+        "battlesign": "bloodarsenal:items/modifiers/serrated/battlesign",
+        "broadsword": "bloodarsenal:items/modifiers/serrated/broadsword",
+        "cleaver": "bloodarsenal:items/modifiers/serrated/cleaver",
+        "cutlass": "bloodarsenal:items/modifiers/serrated/cutlass",
+        "frypan": "bloodarsenal:items/modifiers/serrated/frypan",
+        "hammer": "bloodarsenal:items/modifiers/serrated/hammer",
+        "hatchet": "bloodarsenal:items/modifiers/serrated/hatchet",
+        "longsword": "bloodarsenal:items/modifiers/serrated/longsword",
+        "rapier": "bloodarsenal:items/modifiers/serrated/rapier",
+        "shuriken": "bloodarsenal:items/modifiers/serrated/shuriken"
     }
 }

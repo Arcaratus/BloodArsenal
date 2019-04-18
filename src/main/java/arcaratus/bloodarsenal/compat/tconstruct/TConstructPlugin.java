@@ -1,10 +1,12 @@
 package arcaratus.bloodarsenal.compat.tconstruct;
 
+import WayofTime.bloodmagic.core.RegistrarBloodMagicItems;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.compat.CompatibilityPlugin;
 import arcaratus.bloodarsenal.compat.ICompatibilityPlugin;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
 import arcaratus.bloodarsenal.item.types.EnumBaseTypes;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -29,6 +31,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 public class TConstructPlugin implements ICompatibilityPlugin
 {
     public static final Modifier MODIFIER_SERRATED = new ModifierSerrated();
+    public static final Modifier MODIFIER_SENTIENCE = new ModifierSentience();
 
     public static final ITrait TRAIT_LIVING_1 = new TraitLiving(1);
     public static final ITrait TRAIT_LIVING_2 = new TraitLiving(2);
@@ -71,6 +74,7 @@ public class TConstructPlugin implements ICompatibilityPlugin
         TinkerRegistry.registerMelting(RegistrarBloodArsenalBlocks.BLOOD_INFUSED_IRON_BLOCK, FLUID_MOLTEN_BLOOD_INFUSED_IRON, Material.VALUE_Block);
 
         MODIFIER_SERRATED.addItem(EnumBaseTypes.GLASS_SHARD.getStack(), 1, 1);
+        MODIFIER_SENTIENCE.addItem(new ItemStack(RegistrarBloodMagicItems.SOUL_GEM, 1, 3), 1, 1);
 
         MATERIAL_BLOOD_INFUSED_WOOD.addItem(RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_PLANKS, Material.VALUE_Ingot);
         MATERIAL_BLOOD_INFUSED_WOOD.setRepresentativeItem(RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_PLANKS);
@@ -83,6 +87,7 @@ public class TConstructPlugin implements ICompatibilityPlugin
     public void registerModels(ModelRegistryEvent event)
     {
         ModelRegisterUtil.registerModifierModel(MODIFIER_SERRATED, new ResourceLocation(BloodArsenal.MOD_ID, "models/item/modifiers/serrated"));
+        ModelRegisterUtil.registerModifierModel(MODIFIER_SENTIENCE, new ResourceLocation(BloodArsenal.MOD_ID, "models/item/modifiers/sentience"));
 
         MATERIAL_BLOOD_INFUSED_WOOD.setRenderInfo(new MaterialRenderInfo.MultiColor(0x6C1E12, 0x7A1E0E, 0x982E1A));
         MATERIAL_BLOOD_INFUSED_IRON.setRenderInfo(new MaterialRenderInfo.Metal(0x9B1B12, 0F, 0.1F, 0F));

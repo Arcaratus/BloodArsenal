@@ -22,6 +22,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.Fluid;
 
@@ -78,6 +79,12 @@ public class RitualBloodBurner extends RitualBloodArsenal
                         network.syphon(SoulTicket.block(world, pos, rateRF / 100));
                         energyHandler.getCapability(CapabilityEnergy.ENERGY, EnumFacing.DOWN).receiveEnergy(rateRF, false);
                         secondsLeft--;
+                        if (world instanceof WorldServer && world.getWorldTime() % 4 == 0)
+                        {
+                            WorldServer server = (WorldServer) world;
+                            server.spawnParticle(EnumParticleTypes.REDSTONE, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 1, 0.2, 0, 0.2, 0);
+                            server.spawnParticle(EnumParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 1, 0.2, 0, 0.2, 0);
+                        }
                     }
                 }
                 else if (secondsLeft == 0)

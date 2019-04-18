@@ -3,7 +3,6 @@ package arcaratus.bloodarsenal.recipe;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.modifier.Modifier;
 import arcaratus.bloodarsenal.modifier.ModifierHandler;
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,7 +26,7 @@ public class RecipeSanguineInfusion
     private final ItemStack infuse;
     // Contains the Ingredient and the amount required
     @Nonnull
-    private final ImmutableMap<Ingredient, Integer> inputs;
+    private final List<Pair<Ingredient, Integer>> inputs = new ArrayList<>();
 
     @Nonnegative
     private final int lpCost;
@@ -49,26 +48,23 @@ public class RecipeSanguineInfusion
 
         this.lpCost = lpCost;
 
-        ImmutableMap.Builder<Ingredient, Integer> inputsToMap = ImmutableMap.builder();
         for (Pair<Object, Integer> pair : inputs)
         {
             Object o = pair.getLeft();
             Integer i = pair.getRight();
             if (o instanceof Item)
-                inputsToMap.put(Ingredient.fromStacks(new ItemStack((Item) o)), i);
+                this.inputs.add(p(Ingredient.fromStacks(new ItemStack((Item) o)), i));
             else if (o instanceof Block)
-                inputsToMap.put(Ingredient.fromStacks(new ItemStack((Block) o)), i);
+                this.inputs.add(p(Ingredient.fromStacks(new ItemStack((Block) o)), i));
             else if (o instanceof ItemStack)
-                inputsToMap.put(Ingredient.fromStacks(((ItemStack) o).copy()), i);
+                this.inputs.add(p(Ingredient.fromStacks(((ItemStack) o).copy()), i));
             else if (o instanceof String)
-                inputsToMap.put(new OreIngredient((String) o), i);
+                this.inputs.add(p(new OreIngredient((String) o), i));
             else if (o instanceof RecipeFilter)
                 filter = (RecipeFilter) o;
             else
                 throw new IllegalArgumentException("Invalid input: " + o);
         }
-
-        this.inputs = inputsToMap.build();
     }
 
     @SafeVarargs
@@ -81,26 +77,23 @@ public class RecipeSanguineInfusion
         this.modifierKey = modifierKey;
         this.modifier = ModifierHandler.getModifierFromKey(BloodArsenal.MOD_ID + ".modifier." + modifierKey);
 
-        ImmutableMap.Builder<Ingredient, Integer> inputsToMap = ImmutableMap.builder();
         for (Pair<Object, Integer> pair : inputs)
         {
             Object o = pair.getLeft();
             Integer i = pair.getRight();
             if (o instanceof Item)
-                inputsToMap.put(Ingredient.fromStacks(new ItemStack((Item) o)), i);
+                this.inputs.add(p(Ingredient.fromStacks(new ItemStack((Item) o)), i));
             else if (o instanceof Block)
-                inputsToMap.put(Ingredient.fromStacks(new ItemStack((Block) o)), i);
+                this.inputs.add(p(Ingredient.fromStacks(new ItemStack((Block) o)), i));
             else if (o instanceof ItemStack)
-                inputsToMap.put(Ingredient.fromStacks(((ItemStack) o).copy()), i);
+                this.inputs.add(p(Ingredient.fromStacks(((ItemStack) o).copy()), i));
             else if (o instanceof String)
-                inputsToMap.put(new OreIngredient((String) o), i);
+                this.inputs.add(p(new OreIngredient((String) o), i));
             else if (o instanceof RecipeFilter)
                 filter = (RecipeFilter) o;
             else
                 throw new IllegalArgumentException("Invalid input");
         }
-
-        this.inputs = inputsToMap.build();
     }
 
     public RecipeSanguineInfusion setLevelMultiplier(int levelMultiplier)
@@ -149,26 +142,26 @@ public class RecipeSanguineInfusion
         return filter;
     }
 
-    public ImmutableMap<Ingredient, Integer> getInputs()
+    public List<Pair<Ingredient, Integer>> getInputs()
     {
         return getInputsForLevel(-1);
     }
 
-    public ImmutableMap<Ingredient, Integer> getInputsForLevel(int modifierLevel)
+    public List<Pair<Ingredient, Integer>> getInputsForLevel(int modifierLevel)
     {
         if (modifierLevel <= 0)
             return inputs;
 
-        ImmutableMap.Builder<Ingredient, Integer> builder = ImmutableMap.builder();
-        for (Map.Entry<Ingredient, Integer> entry : inputs.entrySet())
-            builder.put(entry.getKey(), entry.getValue() * (modifierLevel + 1) * getLevelMultiplier());
-        return builder.build();
+        List<Pair<Ingredient, Integer>> inputsForLevel = new ArrayList<>();
+        for (Pair<Ingredient, Integer> entry : inputs)
+            inputsForLevel.add(p(entry.getKey(), entry.getValue() * (modifierLevel + 1) * getLevelMultiplier()));
+        return inputsForLevel;
     }
 
     public List<List<ItemStack>> getItemStackInputs(int modifierLevel)
     {
         List<List<ItemStack>> stackSet = new ArrayList<>();
-        for (Map.Entry<Ingredient, Integer> entry : getInputsForLevel(modifierLevel).entrySet())
+        for (Pair<Ingredient, Integer> entry : getInputsForLevel(modifierLevel))
         {
             List<ItemStack> actualStacks = new ArrayList<>();
             for (ItemStack itemStack : entry.getKey().getMatchingStacks())
@@ -192,10 +185,10 @@ public class RecipeSanguineInfusion
             return false;
 
         List<ItemStack> dummyList = itemStackInputs.stream().map(ItemStack::copy).collect(Collectors.toList());
-        ImmutableMap<Ingredient, Integer> ingredientsMap = getInputsForLevel(modifierLevel);
+        List<Pair<Ingredient, Integer>> ingredientsMap = getInputsForLevel(modifierLevel);
 
         boolean foundFilter = filter == null;
-        for (Map.Entry<Ingredient, Integer> entry : ingredientsMap.entrySet())
+        for (Pair<Ingredient, Integer> entry : ingredientsMap)
         {
             boolean foundIngredient = false;
 
@@ -249,5 +242,10 @@ public class RecipeSanguineInfusion
         {
             return (filter == null || filter.matches(itemStack)) && ItemStack.areItemsEqual(itemStack, compareStack);
         }
+    }
+
+    public Pair<Ingredient, Integer> p(Ingredient ingredient, int i)
+    {
+        return Pair.of(ingredient, i);
     }
 }
