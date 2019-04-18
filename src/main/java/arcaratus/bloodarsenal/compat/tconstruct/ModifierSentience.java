@@ -34,22 +34,22 @@ import java.util.*;
 @Mod.EventBusSubscriber(modid = BloodArsenal.MOD_ID)
 public class ModifierSentience extends ModifierTrait
 {
-    public static int[] soulBracket = new int[]{16, 60, 200, 400, 1000, 2000, 4000, 8000, 16000};
-    public static double[] defaultDamageAdded = new double[]{1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5};
-    public static double[] destructiveDamageAdded = new double[]{1.5, 2.25, 3, 3.75, 4.5, 5.25, 6, 6.75, 7.5};
-    public static double[] vengefulDamageAdded = new double[]{0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4};
-    public static double[] steadfastDamageAdded = new double[]{0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4};
-    public static double[] defaultDigSpeedAdded = new double[]{1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5};
-    public static double[] soulDrainPerSwing = new double[]{0.05, 0.1, 0.2, 0.4, 0.75, 1, 1.25, 1.5, 2};
-    public static double[] soulDrop = new double[]{2, 4, 7, 10, 13, 15, 18, 20, 22};
-    public static double[] staticDrop = new double[]{1, 1, 2, 3, 3, 4, 4, 5, 5};
+    public static int[] soulBracket = new int[]{16, 60, 200, 400, 1000, 2000, 4000};
+    public static double[] defaultDamageAdded = new double[]{1, 1.5, 2, 2.5, 3, 3.5, 4};
+    public static double[] destructiveDamageAdded = new double[]{1.5, 2.25, 3, 3.75, 4.5, 5.25, 6};
+    public static double[] vengefulDamageAdded = new double[]{0, 0.5, 1, 1.5, 2, 2.5, 3};
+    public static double[] steadfastDamageAdded = new double[]{0, 0.5, 1, 1.5, 2, 2.5, 3};
+    public static double[] defaultDigSpeedAdded = new double[]{1, 1.5, 2, 2.5, 3, 3.5, 4};
+    public static double[] soulDrainPerSwing = new double[]{0.05, 0.1, 0.2, 0.4, 0.75, 1, 1.25};
+    public static double[] soulDrop = new double[]{2, 4, 7, 10, 13, 15, 18};
+    public static double[] staticDrop = new double[]{1, 1, 2, 3, 3, 4, 4};
 
-    public static int[] absorptionTime = new int[]{200, 300, 400, 500, 600, 700, 800, 900, 1000};
+    public static int[] absorptionTime = new int[]{200, 300, 400, 500, 600, 700, 800};
 
     public static double maxAbsorptionHearts = 10;
 
-    public static int[] poisonTime = new int[]{25, 50, 60, 80, 100, 120, 150, 170, 200};
-    public static int[] poisonLevel = new int[]{0, 0, 0, 1, 1, 1, 1, 2, 2};
+    public static int[] poisonTime = new int[]{25, 50, 60, 80, 100, 120, 150};
+    public static int[] poisonLevel = new int[]{0, 0, 0, 1, 1, 1, 1};
 
     public ModifierSentience()
     {
