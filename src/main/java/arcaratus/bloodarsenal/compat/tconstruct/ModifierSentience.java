@@ -5,7 +5,6 @@ import WayofTime.bloodmagic.iface.ISentientSwordEffectProvider;
 import WayofTime.bloodmagic.soul.*;
 import WayofTime.bloodmagic.util.Constants;
 import WayofTime.bloodmagic.util.helper.NBTHelper;
-import arcaratus.bloodarsenal.BloodArsenal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -20,9 +19,9 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
@@ -31,7 +30,6 @@ import slimeknights.tconstruct.library.utils.*;
 
 import java.util.*;
 
-@Mod.EventBusSubscriber(modid = BloodArsenal.MOD_ID)
 public class ModifierSentience extends ModifierTrait
 {
     public static int[] soulBracket = new int[]{16, 60, 200, 400, 1000, 2000, 4000};
@@ -54,6 +52,8 @@ public class ModifierSentience extends ModifierTrait
     public ModifierSentience()
     {
         super("sentience", 0x6BF6FE, 2, 1);
+
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private int getLevel(ItemStack tool)
@@ -197,7 +197,7 @@ public class ModifierSentience extends ModifierTrait
         }
     }
 
-    public static List<ItemStack> getRandomDemonWillDrop(EntityLivingBase killedEntity, EntityLivingBase attackingEntity, ItemStack stack, int looting) {
+    public List<ItemStack> getRandomDemonWillDrop(EntityLivingBase killedEntity, EntityLivingBase attackingEntity, ItemStack stack, int looting) {
         List<ItemStack> soulList = new ArrayList<>();
 
         if (killedEntity.getEntityWorld().getDifficulty() != EnumDifficulty.PEACEFUL && !(killedEntity instanceof IMob)) {
@@ -220,7 +220,7 @@ public class ModifierSentience extends ModifierTrait
         return soulList;
     }
 
-    public static EnumDemonWillType getCurrentType(ItemStack stack) {
+    public EnumDemonWillType getCurrentType(ItemStack stack) {
         NBTHelper.checkNBT(stack);
 
         NBTTagCompound tag = stack.getTagCompound();
@@ -240,14 +240,14 @@ public class ModifierSentience extends ModifierTrait
         tag.setString(Constants.NBT.WILL_TYPE, type.toString());
     }
 
-    public static double getDrainOfActivatedSword(ItemStack stack) {
+    public double getDrainOfActivatedSword(ItemStack stack) {
         NBTHelper.checkNBT(stack);
 
         NBTTagCompound tag = stack.getTagCompound();
         return tag.getDouble(Constants.NBT.SOUL_SWORD_ACTIVE_DRAIN);
     }
 
-    public static void setDrainOfActivatedSword(ItemStack stack, double drain) {
+    public void setDrainOfActivatedSword(ItemStack stack, double drain) {
         NBTHelper.checkNBT(stack);
 
         NBTTagCompound tag = stack.getTagCompound();
@@ -255,14 +255,14 @@ public class ModifierSentience extends ModifierTrait
         tag.setDouble(Constants.NBT.SOUL_SWORD_ACTIVE_DRAIN, drain);
     }
 
-    public static double getStaticDropOfActivatedSword(ItemStack stack) {
+    public double getStaticDropOfActivatedSword(ItemStack stack) {
         NBTHelper.checkNBT(stack);
 
         NBTTagCompound tag = stack.getTagCompound();
         return tag.getDouble(Constants.NBT.SOUL_SWORD_STATIC_DROP);
     }
 
-    public static void setStaticDropOfActivatedSword(ItemStack stack, double drop) {
+    public void setStaticDropOfActivatedSword(ItemStack stack, double drop) {
         NBTHelper.checkNBT(stack);
 
         NBTTagCompound tag = stack.getTagCompound();
@@ -270,14 +270,14 @@ public class ModifierSentience extends ModifierTrait
         tag.setDouble(Constants.NBT.SOUL_SWORD_STATIC_DROP, drop);
     }
 
-    public static double getDropOfActivatedSword(ItemStack stack) {
+    public double getDropOfActivatedSword(ItemStack stack) {
         NBTHelper.checkNBT(stack);
 
         NBTTagCompound tag = stack.getTagCompound();
         return tag.getDouble(Constants.NBT.SOUL_SWORD_DROP);
     }
 
-    public static void setDropOfActivatedSword(ItemStack stack, double drop) {
+    public void setDropOfActivatedSword(ItemStack stack, double drop) {
         NBTHelper.checkNBT(stack);
 
         NBTTagCompound tag = stack.getTagCompound();
@@ -286,7 +286,7 @@ public class ModifierSentience extends ModifierTrait
     }
 
     @SubscribeEvent
-    public static void onLivingDrops(LivingDropsEvent event)
+    public void onLivingDrops(LivingDropsEvent event)
     {
         EntityLivingBase attackedEntity = event.getEntityLiving();
         DamageSource source = event.getSource();
