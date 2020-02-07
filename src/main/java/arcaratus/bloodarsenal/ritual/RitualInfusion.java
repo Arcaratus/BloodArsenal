@@ -143,7 +143,7 @@ public class RitualInfusion extends RitualBloodArsenal
 
                     tickCrafting(world, pos, network);
 
-                    if (craftingTimer == recipe.getLpCost() * (level + 1) / getRefreshCost())
+                    if (craftingTimer >= recipe.getLpCost() * (level + 1) / getRefreshCost())
                     {
                         modifiable.applyModifier(ModifierHelper.getModifierAndTracker(modifierKey, level));
                         if (trackerFlag)
@@ -172,7 +172,7 @@ public class RitualInfusion extends RitualBloodArsenal
                 {
                     tickCrafting(world, pos, network);
 
-                    if (craftingTimer == recipe.getLpCost() / getRefreshCost())
+                    if (craftingTimer >= recipe.getLpCost() / getRefreshCost())
                     {
                         shrinkItemStackInputs(world, pos, constructItemStackList(recipe.getInputs(), inputStacks), ItemStack.EMPTY);
                         altarInv.setInventorySlotContents(0, recipe.getOutput());
@@ -217,6 +217,8 @@ public class RitualInfusion extends RitualBloodArsenal
         List<TileStasisPlate> stasisPlates = getStasisPlates(world, pos);
         setStasisPlates(world, stasisPlates, false);
         mrs.setActive(false);
+        isCrafting = false;
+        craftingTimer = 0;
     }
 
     private boolean checkStructure(World world, BlockPos pos)
