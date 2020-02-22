@@ -1,6 +1,5 @@
 package com.arc.bloodarsenal.common;
 
-import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import com.arc.bloodarsenal.common.items.ModItems;
 import com.arc.bloodarsenal.common.items.armor.GlassArmor;
@@ -18,8 +17,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -67,13 +64,13 @@ public class BloodArsenalEventHooks
                 if (entityAttacked instanceof EntityPlayerMP && !(entityAttacked instanceof FakePlayer))
                 {
 	                EntityPlayerMP player = (EntityPlayerMP) entityAttacked;
-	
+
 	                if (player.inventory.armorInventory != null)
 	                {
 	                    for (int i = 0; i < 4; i++)
 	                    {
 	                        ItemStack armorStack = player.inventory.armorInventory[3 - i];
-	
+
 	                        if (armorStack != null && armorStack.getItem() instanceof GlassArmor)
 	                        {
 	                            if (entityAttacking instanceof EntityLivingBase)
@@ -97,7 +94,7 @@ public class BloodArsenalEventHooks
         {
         	if (entityLiving instanceof FakePlayer)
         		return;
-        		
+
             if (entityLiving.isPotionActive(BloodArsenal.bleeding))
             {
                 int amplifier = entityLiving.getActivePotionEffect(BloodArsenal.bleeding).getAmplifier();
@@ -122,19 +119,8 @@ public class BloodArsenalEventHooks
                 {
                     if (entityLiving.worldObj.getWorldTime() % (10 / (amplifier + 1)) == 0)
                     {
-                        String owner = entityLiving.getCommandSenderName();
-                        World worldSave = MinecraftServer.getServer().worldServers[0];
-                        LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
-
-                        if (data == null)
-                        {
-                            data = new LifeEssenceNetwork(owner);
-                            worldSave.setItemData(owner, data);
-                        }
-
                         int lpToMinus = 1000 * (2 ^ (amplifier + 1));
-
-                        SoulNetworkHandler.syphonAndDamageFromNetwork(owner, (EntityPlayer) entityLiving, lpToMinus);
+                        SoulNetworkHandler.syphonAndDamageFromNetwork(entityLiving.getCommandSenderName(), (EntityPlayer) entityLiving, lpToMinus);
                     }
                 }
             }
