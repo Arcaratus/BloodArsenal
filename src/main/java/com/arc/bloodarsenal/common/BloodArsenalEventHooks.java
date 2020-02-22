@@ -118,7 +118,7 @@ public class BloodArsenalEventHooks
                 int amplifier = entityLiving.getActivePotionEffect(BloodArsenal.soulBurn).getAmplifier();
                 entityLiving.setFire(2);
 
-                if (entityLiving instanceof EntityPlayer)
+                if (entityLiving instanceof EntityPlayer && entityLiving.getHealth() > 0.0)
                 {
                     if (entityLiving.worldObj.getWorldTime() % (10 / (amplifier + 1)) == 0)
                     {
