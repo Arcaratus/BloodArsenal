@@ -25,6 +25,7 @@ public class Constants
         public static final String POS = "pos";
         public static final String ITEMS = "Items";
         public static final String SLOT = "Slot";
+        public static final String ITEM_INVENTORY = "itemInventory";
 
         public static final String LEVEL = "Level";
         public static final String KEY = "Key";

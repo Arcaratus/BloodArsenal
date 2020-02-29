@@ -17,10 +17,6 @@ plugins {
 
 apply plugin: 'maven-publish'
 
-def build_number = 'CUSTOM'
-if (System.getenv('BUILD_NUMBER') != null)
-    build_number = System.getenv('BUILD_NUMBER')
-
 def username = 'Arcaratus'
 
 if (project.hasProperty('dev_username'))

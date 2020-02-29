@@ -1,5 +1,6 @@
 package arcaratus.bloodarsenal.compat.tconstruct;
 
+import WayofTime.bloodmagic.core.data.SoulNetwork;
 import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import arcaratus.bloodarsenal.ConfigHandler;
@@ -23,7 +24,7 @@ public class TraitLiving extends AbstractTraitLeveled
     @Override
     public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected)
     {
-        if (!world.isRemote && tool.isItemDamaged() && entity instanceof EntityPlayer && random.nextBoolean())
+        if (!world.isRemote && tool.isItemDamaged() && entity instanceof EntityPlayer)
         {
             ModifierNBT data = new ModifierNBT(TinkerUtil.getModifierTag(tool, name));
             int time = 0;
@@ -40,9 +41,9 @@ public class TraitLiving extends AbstractTraitLeveled
                     break;
             }
 
-            if (world.getWorldTime() % time == 0)
+            if (world.getWorldTime() % time == 0 && random.nextBoolean())
             {
-                if (NetworkHelper.syphonFromContainer(tool, SoulTicket.item(tool, world, entity, cost)))
+                if (NetworkHelper.getSoulNetwork((EntityPlayer) entity).syphonAndDamage((EntityPlayer) entity, SoulTicket.item(tool, world, entity, cost)).isSuccess())
                     ToolHelper.healTool(tool, 1, (EntityLivingBase) entity);
             }
         }

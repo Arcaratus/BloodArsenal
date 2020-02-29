@@ -4,10 +4,10 @@
     "model": "forge:fluid"
   },
   "variants": {
-    "bloodinfusediron": [
+    "molten_blood_infused_iron": [
       {
         "custom": {
-          "fluid": "bloodinfusediron"
+          "fluid": "molten_blood_infused_iron"
         }
       }
     ]

@@ -143,8 +143,9 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
         NBTTagCompound itemTag = itemStack.getTagCompound();
 
         if (itemTag == null)
-            itemStack.setTagCompound(new NBTTagCompound());
+            itemStack.setTagCompound(itemTag = new NBTTagCompound());
 
+        NBTTagCompound inventoryTag = new NBTTagCompound();
         NBTTagList itemList = new NBTTagList();
 
         for (int i = 0; i < INVENTORY_SIZE; i++)
@@ -158,13 +159,14 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
             }
         }
 
-        itemTag.setTag(Constants.NBT.ITEMS, itemList);
+        inventoryTag.setTag(Constants.NBT.ITEMS, itemList);
+        itemTag.setTag(Constants.NBT.ITEM_INVENTORY, inventoryTag);
     }
 
     @Override
     public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, boolean isSelected)
     {
-        if (!itemStack.hasTagCompound())
+        if (itemStack.hasTagCompound())
             tickInternalInventory(itemStack, world, entity, itemSlot, isSelected);
     }
 
@@ -273,7 +275,8 @@ public class ItemSigilAugmentedHolding extends ItemSigilBase implements IKeybind
             return NonNullList.withSize(INVENTORY_SIZE, ItemStack.EMPTY);
         }
 
-        NBTTagList tagList = tagCompound.getTagList(Constants.NBT.ITEMS, 10);
+        NBTTagCompound inventoryTag = tagCompound.getCompoundTag(Constants.NBT.ITEM_INVENTORY);
+        NBTTagList tagList = inventoryTag.getTagList(Constants.NBT.ITEMS, 10);
 
         if (tagList.isEmpty())
         {

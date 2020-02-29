@@ -41,6 +41,7 @@ public class ModRecipes
     {
         OreDictionary.registerOre("shardGlass", EnumBaseTypes.GLASS_SHARD.getStack());
         OreDictionary.registerOre("ingotBloodInfusedIron", EnumBaseTypes.BLOOD_INFUSED_IRON_INGOT.getStack());
+        OreDictionary.registerOre("blockBloodInfusedIron", RegistrarBloodArsenalBlocks.BLOOD_INFUSED_IRON_BLOCK);
     }
 
     public static void addAlchemyArrayRecipes()
