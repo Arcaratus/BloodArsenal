@@ -89,10 +89,4 @@ public class BloodArsenal
 
         PROXY.postInit();
     }
-
-//    @Mod.EventHandler
-//    public void serverStarting(FMLServerStartingEvent event)
-//    {
-//        event.registerServerCommand(new CommandBloodArsenal());
-//    }
 }

@@ -14,11 +14,13 @@ import static arcaratus.bloodarsenal.registry.Constants.Misc.PLAYER_INVENTORY_RO
 public class ContainerAugmentedHolding extends Container
 {
     private final EntityPlayer player;
+    private final ItemStack sigil;
     public final InventoryAugmentedHolding inventoryHolding;
 
-    public ContainerAugmentedHolding(EntityPlayer player, InventoryAugmentedHolding inventoryHolding)
+    public ContainerAugmentedHolding(EntityPlayer player, InventoryAugmentedHolding inventoryHolding, ItemStack sigil)
     {
         this.player = player;
+        this.sigil = sigil;
         this.inventoryHolding = inventoryHolding;
         int currentSlotHeldIn = player.inventory.currentItem;
 
@@ -51,7 +53,8 @@ public class ContainerAugmentedHolding extends Container
     @Override
     public boolean canInteractWith(EntityPlayer entityPlayer)
     {
-        return true;
+        ItemStack main = entityPlayer.getHeldItemMainhand();
+        return !main.isEmpty() && main == sigil;
     }
 
     @Override

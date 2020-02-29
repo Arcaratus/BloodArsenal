@@ -14,6 +14,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockFire;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -38,7 +40,7 @@ public class RitualBloodBurner extends RitualBloodArsenal
     private static final Set<BlockPos> LAVA_POS = Sets.newHashSet(new BlockPos(3, 1, 1), new BlockPos(3, 1, -1), new BlockPos(-3, 1, 1), new BlockPos(-3, 1, -1), new BlockPos(3, 1, 2), new BlockPos(-3, 1, 2), new BlockPos(3, 1, -2), new BlockPos(-3, 1, -2), new BlockPos(1, 1, 3), new BlockPos(-1, 1, 3), new BlockPos(1, 1, -3), new BlockPos(-1, 1, -3), new BlockPos(2, 1, 3), new BlockPos(-2, 1, 3), new BlockPos(2, 1, -3), new BlockPos(-2, 1, -3));
     private static final Set<BlockPos> LIFE_ESSENCE_POS = Sets.newHashSet(new BlockPos(4, 1, 0), new BlockPos(-4, 1, 0), new BlockPos(0, 1, 4), new BlockPos(0, 1, -4), new BlockPos(4, 1, 2), new BlockPos(-4, 1, 2), new BlockPos(4, 1, -2), new BlockPos(-4, 1, -2), new BlockPos(2, 1, 4), new BlockPos(-2, 1, 4), new BlockPos(2, 1, -4), new BlockPos(-2, 1, -4), new BlockPos(4, 1, 4), new BlockPos(-4, 1, 4), new BlockPos(4, 1, -4), new BlockPos(-4, 1, -4));
 
-    private static final Set<Item> IGNITERS = Sets.newHashSet(Items.FLINT_AND_STEEL, RegistrarBloodArsenalItems.BOUND_IGNITER);
+    private static Set<Item> IGNITERS = Sets.newHashSet(Items.FLINT_AND_STEEL, RegistrarBloodArsenalItems.BOUND_IGNITER);
 
     private static final BiFunction<Integer, Integer, BiFunction<Double, Integer, Integer>> TOTAL_RF = (a, g) -> (u, l) -> (int) (u * ((double) a * (g + 1D) - 0.8 * l));
     private static final TriFunction<Integer, Integer, Integer, Integer> TIME = (a, g, l) -> (int) (20D * (3D * a * (g + 8D)) / (1322D * Math.pow(1.00036, l) + 16425.5 - 0.68756 * l));
@@ -53,6 +55,15 @@ public class RitualBloodBurner extends RitualBloodArsenal
         active = false;
         secondsLeft = 0;
         rateRF = 0;
+    }
+
+    @Override
+    public boolean activateRitual(IMasterRitualStone masterRitualStone, EntityPlayer player, World world, SoulNetwork network)
+    {
+        BlockPos pos = masterRitualStone.getBlockPos();
+        boolean yes = checkStructure(world, pos);
+        if (!yes) player.sendStatusMessage(new TextComponentTranslation("chat.bloodarsenal.ritual.configuration"), true);
+        return yes;
     }
 
     @Override
@@ -154,7 +165,7 @@ public class RitualBloodBurner extends RitualBloodArsenal
             return false;
 
         ItemStack igniter = ((TileStasisPlate) tile).getStackInSlot(0);
-        if (igniter.isEmpty() || !IGNITERS.contains(igniter.getItem()))
+        if (igniter.isEmpty() || IGNITERS.stream().noneMatch(item -> ItemStack.areItemsEqual(igniter, new ItemStack(item))))
             return false;
 
         for (BlockPos firePos : FIRE_POS)

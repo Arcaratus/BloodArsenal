@@ -22,7 +22,7 @@ public class GuiAugmentedHolding extends GuiContainer
 
     public GuiAugmentedHolding(EntityPlayer player, InventoryAugmentedHolding inventoryHolding)
     {
-        super(new ContainerAugmentedHolding(player, inventoryHolding));
+        super(new ContainerAugmentedHolding(player, inventoryHolding, player.getHeldItemMainhand()));
         xSize = 176;
         ySize = 123;
         this.player = player;
@@ -55,7 +55,8 @@ public class GuiAugmentedHolding extends GuiContainer
         if (player.getHeldItemMainhand().getItem() == RegistrarBloodArsenalItems.SIGIL_AUGMENTED_HOLDING)
         {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            drawTexturedModalRect(5 + x + (int) (17.5 * ItemSigilAugmentedHolding.getCurrentItemOrdinal(player.getHeldItemMainhand())), y + 14, 0, 123, 22, 22);
+            int ordinal = ItemSigilAugmentedHolding.getCurrentItemOrdinal(player.getHeldItemMainhand());
+            drawTexturedModalRect(5 + x + ordinal * 18, y + 14, 0, 123, 22, 22);
         }
     }
 }

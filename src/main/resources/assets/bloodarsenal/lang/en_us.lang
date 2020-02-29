@@ -150,7 +150,7 @@ tooltip.bloodarsenal.bound.shears.desc=Shearing sheep, oh so fun!
 
 tooltip.bloodarsenal.stored=Stored: &c%d &7LP
 tooltip.bloodarsenal.level=Level: %d
-tooltip.bloodarsenal.stasis=Stasis: %b
+tooltip.bloodarsenal.stasis=In stasis
 tooltip.bloodarsenal.energy=Energy: %d
 
 tooltip.bloodarsenal.modifier_type.head=Head:
@@ -175,7 +175,7 @@ tooltip.bloodarsenal.modifier.sigil=Sigil
 
 tooltip.bloodarsenal.modifier.level=%s (Level %d%s)
 
-tooltip.bloodarsenal.hold_shift=Hold -&1SHIFT&7- for more information
+tooltip.bloodarsenal.hold_shift=Hold -&9SHIFT&7- for more information
 
 # Ritual
 ritual.bloodarsenal.infusion_ritual=Infusion de Sanguine
@@ -195,6 +195,7 @@ chat.bloodarsenal.too_weak=You feel a bit too weak to do that...
 chat.bloodarsenal.set_owner=Set bound owner to: %s
 chat.bloodarsenal.already_owner=You are already bound to this!
 chat.bloodarsenal.no_owner=This item is not bound!
+chat.bloodarsenal.ritual.configuration=There is something wrong with the configuration!
 
 chat.bloodarsenal.modifier_added=&4%s (Level %d) added to %s!&f
 chat.bloodarsenal.modifier_ready=&4%s (Level %d) is ready to be upgraded!&f

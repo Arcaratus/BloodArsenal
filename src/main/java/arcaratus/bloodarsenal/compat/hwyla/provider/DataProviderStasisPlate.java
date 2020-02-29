@@ -25,7 +25,8 @@ public class DataProviderStasisPlate implements IWailaDataProvider
         if (!config.getConfig(Constants.Compat.WAILA_CONFIG_STASIS_PLATE))
             return currenttip;
 
-        currenttip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.stasis", accessor.getNBTData().getBoolean("inStasis")));
+        if (accessor.getNBTData().getBoolean("inStasis"))
+            currenttip.add(TextHelper.localizeEffect("tooltip.bloodarsenal.stasis"));
 
         return currenttip;
     }

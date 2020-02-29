@@ -21,7 +21,7 @@ public class GuiHandler implements IGuiHandler
         switch (id)
         {
             case Constants.Gui.SIGIL_AUGMENTED_HOLDING_GUI:
-                return new ContainerAugmentedHolding(player, new InventoryAugmentedHolding(player.getHeldItemMainhand()));
+                return new ContainerAugmentedHolding(player, new InventoryAugmentedHolding(player.getHeldItemMainhand()), player.getHeldItemMainhand());
             case Constants.Gui.ALTARE_AENIGMATICA_GUI:
                 return new ContainerAltareAenigmatica(player.inventory, (TileAltareAenigmatica) world.getTileEntity(pos));
         }
