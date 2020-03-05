@@ -159,7 +159,7 @@ tooltip.bloodarsenal.modifier_type.handle=Handle:
 tooltip.bloodarsenal.modifier_type.ability=Ability:
 
 tooltip.bloodarsenal.modifier.flame=Ember's Touch
-tooltip.bloodarsenal.modifier.bad_potion=Potion
+tooltip.bloodarsenal.modifier.bad_potion=Potion (Debuff)
 tooltip.bloodarsenal.modifier.sharpness=Razor Edge
 tooltip.bloodarsenal.modifier.bloodlust=Bloodlust
 tooltip.bloodarsenal.modifier.silky=Silky Smooth
@@ -169,7 +169,7 @@ tooltip.bloodarsenal.modifier.looting=Loot Farmer
 tooltip.bloodarsenal.modifier.xperienced=XPerienced
 tooltip.bloodarsenal.modifier.quick_draw=Quick Draw
 tooltip.bloodarsenal.modifier.shadow_tool=Shadow Tool
-tooltip.bloodarsenal.modifier.beneficial_potion=Potion
+tooltip.bloodarsenal.modifier.beneficial_potion=Potion (Buff)
 tooltip.bloodarsenal.modifier.aod=Aura of Destruction
 tooltip.bloodarsenal.modifier.sigil=Sigil
 
@@ -196,8 +196,13 @@ chat.bloodarsenal.set_owner=Set bound owner to: %s
 chat.bloodarsenal.already_owner=You are already bound to this!
 chat.bloodarsenal.no_owner=This item is not bound!
 chat.bloodarsenal.ritual.configuration=There is something wrong with the configuration!
+chat.bloodarsenal.ritual.notEnoughLava=Not enough Lava present!
+chat.bloodarsenal.ritual.notEnoughLE=Not enough Life Essence present!
+chat.bloodarsenal.ritual.noGlowstone=No Glowstone available!
+chat.bloodarsenal.ritual.noIgniter=There is no Igniter in the center!
 
 chat.bloodarsenal.modifier_added=&4%s (Level %d) added to %s!&f
+chat.bloodarsenal.modifier_incompatible=&4%s cannot be added to %s!&f
 chat.bloodarsenal.modifier_ready=&4%s (Level %d) is ready to be upgraded!&f
 
 # Commands

@@ -1,7 +1,9 @@
 package arcaratus.bloodarsenal;
 
 import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.Config.*;
+import net.minecraftforge.common.config.Config.Comment;
+import net.minecraftforge.common.config.Config.RangeDouble;
+import net.minecraftforge.common.config.Config.RangeInt;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -142,12 +144,15 @@ public class ConfigHandler
         @Comment({ "Amount of Life Essence (in mB) per mB of Refined Life Essence" })
         @RangeInt(min = 1, max = TEN_K)
         public int refinedLifeEssenceConversion = 10;
-        @Comment({ "Activation cost of the Ritual of Purification (purificationRitual)" })
+        @Comment({ "Activation cost of the Blood Burner Rites (blood_burner)" })
         @RangeInt(min = 0, max = HUNDRED_K)
         public int bloodBurnerRitualActivationCost = TEN_K;
-        @Comment({ "Refresh cost of the Ritual of Purification (purificationRitual)" })
+        @Comment({ "Refresh cost of the Blood Burner Rites (blood_burner)" })
         @RangeInt(min = 0, max = HUNDRED_K)
         public int bloodBurnerRitualRefreshCost = 2 * HUNDRED;
+        @Comment({ "Network drain of the Blood Burner Rites (multiplied by the rate of RF generated)" })
+        @RangeInt(min = 0, max = HUNDRED_K)
+        public int bloodBurnerRitualNetworkCost = ONE_K;
 
         public ConfigImperfectRituals imperfect = new ConfigImperfectRituals();
     }

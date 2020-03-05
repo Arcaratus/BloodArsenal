@@ -58,7 +58,7 @@ public class SanguineInfusionRecipeJEI implements IRecipeWrapper
         {
             minecraft.fontRenderer.drawString(TextHelper.localize(infoString[0], (level + 1) * recipe.getLpCost()), 110 - minecraft.fontRenderer.getStringWidth(TextHelper.localize(infoString[0], (level + 1) * recipe.getLpCost())) / 2, 40, Color.gray.getRGB());
             minecraft.fontRenderer.drawString(infoString[1], 10 - minecraft.fontRenderer.getStringWidth(infoString[1]) / 2, 4, Color.gray.getRGB());
-            minecraft.fontRenderer.drawString(TextHelper.localize(infoString[2], level + 1), 10 - minecraft.fontRenderer.getStringWidth(TextHelper.localize(infoString[2], level + 1)) / 2, 14, Color.gray.getRGB());
+            minecraft.fontRenderer.drawString(TextHelper.localize(infoString[2], level == -1 ? 1 : level + 1), 10 - minecraft.fontRenderer.getStringWidth(TextHelper.localize(infoString[2], level + 1)) / 2, 14, Color.gray.getRGB());
         }
         else
         {

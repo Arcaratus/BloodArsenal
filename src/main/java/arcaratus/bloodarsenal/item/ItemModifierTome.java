@@ -14,7 +14,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -22,7 +25,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class ItemModifierTome extends Item implements IVariantProvider
 {
@@ -79,25 +84,29 @@ public class ItemModifierTome extends Item implements IVariantProvider
             if (!otherStack.isEmpty() && otherStack.getItem() instanceof IModifiableItem)
             {
                 StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(otherStack);
-                if (modifiable != null)
+                if (modifiable.canApplyModifier(modifier) && modifiable.applyModifier(pair))
                 {
-                    if (modifiable.canApplyModifier(modifier) && modifiable.applyModifier(pair))
-                    {
-                        boolean hasSpecialNBT = modifier.getSpecialNBT(itemStack) != null;
-                        if (hasSpecialNBT)
-                            specialNBT = modifier.getSpecialNBT(itemStack);
+                    boolean hasSpecialNBT = modifier.getSpecialNBT(itemStack) != null;
+                    if (hasSpecialNBT)
+                        specialNBT = modifier.getSpecialNBT(itemStack);
 
-                        modifier.removeSpecialNBT(otherStack); // Needed here in order to reset NBT data
+                    modifier.removeSpecialNBT(otherStack); // Needed here in order to reset NBT data
 
-                        if (hasSpecialNBT)
-                            modifier.writeSpecialNBT(otherStack, new ItemStack(specialNBT.getCompoundTag(Constants.NBT.ITEMSTACK)), tracker.getLevel());
-                        else
-                            modifier.writeSpecialNBT(otherStack, tracker.getLevel());
-                        StasisModifiable.setModifiable(otherStack, modifiable, false);
-                        String name = modifier.hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
-                        player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.modifier_added", name, tracker.getLevel() + 1, otherStack.getDisplayName())), true);
-                        itemStack.shrink(1);
-                    }
+                    if (hasSpecialNBT)
+                        modifier.writeSpecialNBT(otherStack, new ItemStack(specialNBT.getCompoundTag(Constants.NBT.ITEMSTACK)), tracker.getLevel());
+                    else
+                        modifier.writeSpecialNBT(otherStack, tracker.getLevel());
+
+                    modifiable.setMod(itemStack);
+                    String name = modifier.hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
+                    player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.modifier_added", name, tracker.getLevel() + 1, otherStack.getDisplayName())), true);
+                    itemStack.shrink(1);
+                }
+                else
+                {
+                    String name = modifier.hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
+                    player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.modifier_incompatible", name, otherStack.getDisplayName())), true);
+                    return ActionResult.newResult(EnumActionResult.FAIL, itemStack);
                 }
             }
         }

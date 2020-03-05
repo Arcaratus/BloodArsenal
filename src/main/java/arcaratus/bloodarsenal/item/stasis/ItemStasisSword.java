@@ -12,16 +12,27 @@ import arcaratus.bloodarsenal.client.mesh.CustomMeshDefinitionActivatable;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.registry.Constants;
-import com.google.common.collect.*;
+import arcaratus.bloodarsenal.registry.ModModifiers;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Multimap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,8 +43,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class ItemStasisSword extends ItemSword implements IBindable, IActivatable, IModifiableItem, IMeshProvider
@@ -91,7 +105,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             }
             else
             {
-                if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
+                if (modifiable.hasShadow())
                     StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
             }
         }
@@ -107,7 +121,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
         }
         else
         {
-            if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
+            if (modifiable.hasShadow())
                 StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
         }
 
@@ -130,7 +144,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             }
             else
             {
-                if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
+                if (modifiable.hasShadow())
                     StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
             }
         }
@@ -309,7 +323,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
         {
             if (getActivated(itemStack))
             {
-                Multimap<String, AttributeModifier> map = HashMultimap.create();
+                Multimap<String, AttributeModifier> map = modifiable.getAttributeModifiers();
                 map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 6.7, 0));
                 map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5, 0));
 
@@ -319,14 +333,13 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             }
             else
             {
-                Multimap<String, AttributeModifier> map = modifiable.getAttributeModifiers();
-                boolean hasShadow = modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL);
+                Multimap<String, AttributeModifier> map = HashMultimap.create();
 
-                if (hasShadow)
+                if (modifiable.hasShadow())
                 {
-                    int level = modifiable.getTrackerForModifier(Constants.Modifiers.SHADOW_TOOL).getLevel() + 1;
-                    map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 6.7 * level / 5, 0));
-                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5 * level / 5, 0));
+                    int level = modifiable.getTrackerForModifier(ModModifiers.MODIFIER_SHADOW_TOOL.getUniqueIdentifier()).getLevel() + 1;
+                    map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 6.7 * level / 3, 0));
+                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5 * level / 3, 0));
                 }
                 else
                 {

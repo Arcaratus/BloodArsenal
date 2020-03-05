@@ -12,17 +12,24 @@ import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.registry.Constants;
+import arcaratus.bloodarsenal.registry.ModModifiers;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -34,8 +41,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public abstract class ItemStasisTool extends ItemTool implements IBindable, IActivatable, IModifiableItem, IMeshProvider//, IProfilable
@@ -94,7 +104,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
             }
             else
             {
-                if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
+                if (modifiable.hasShadow())
                     StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
             }
         }
@@ -110,7 +120,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
         }
         else
         {
-            if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
+            if (modifiable.hasShadow())
                 StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
         }
 
@@ -129,12 +139,11 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
                 {
                     EntityPlayer player = (EntityPlayer) entityLivingBase;
                     modifiable.onBlockDestroyed(itemStack, world, state, pos, player);
-                    StasisModifiable.setModifiable(itemStack, modifiable, false);
                 }
             }
             else
             {
-                if (modifiable != null && modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL))
+                if (modifiable.hasShadow())
                     StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
             }
         }
@@ -210,7 +219,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
     public float getDestroySpeed(ItemStack itemStack, IBlockState state)
     {
         StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
-        return getActivated(itemStack) ? efficiency : (modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL) ? efficiency * (((float) modifiable.getTrackerForModifier(Constants.Modifiers.SHADOW_TOOL).getLevel() + 1) / 3F) : 1);
+        return getActivated(itemStack) ? efficiency : (modifiable.hasShadow() ? efficiency * (((float) modifiable.getTrackerForModifier(Constants.Modifiers.SHADOW_TOOL).getLevel() + 1) / 3F) : 1);
     }
 
     @Override
@@ -327,21 +336,21 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
     {
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
+            StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
+
             if (getActivated(itemStack))
             {
-                return StasisModifiable.getModifiableFromStack(itemStack).getAttributeModifiers();
+                return modifiable.getAttributeModifiers();
             }
             else
             {
-                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
-                Multimap<String, AttributeModifier> map = modifiable.getAttributeModifiers();
-                boolean hasShadow = modifiable.hasModifier(Constants.Modifiers.SHADOW_TOOL);
+                Multimap<String, AttributeModifier> map = HashMultimap.create();
 
-                if (hasShadow)
+                if (modifiable.hasShadow())
                 {
-                    int level = modifiable.getTrackerForModifier(Constants.Modifiers.SHADOW_TOOL).getLevel() + 1;
-                    map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 2.7 * level / 5, 0));
-                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5 * level / 5, 0));
+                    int level = modifiable.getTrackerForModifier(ModModifiers.MODIFIER_SHADOW_TOOL.getUniqueIdentifier()).getLevel() + 1;
+                    map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 2.7 * level / 3, 0));
+                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5 * level / 3, 0));
                 }
                 else
                 {

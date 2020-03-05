@@ -21,8 +21,10 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusionRecipeJEI>
 {
@@ -167,7 +169,7 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
         }
 
         double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
-        Point point = new Point(centerX, centerY - 35), center = new Point(centerX - 1, centerY);
+        Point point = new Point(centerX + 11, centerY - 34), center = new Point(centerX - 1, centerY);
         int maxLevel = recipe.isModifier() ? recipe.getModifier().getMaxLevel() : 0;
 
         for (List<ItemStack> inputs : itemInputs)

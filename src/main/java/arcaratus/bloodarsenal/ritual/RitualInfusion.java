@@ -12,8 +12,10 @@ import arcaratus.bloodarsenal.recipe.RecipeSanguineInfusion;
 import arcaratus.bloodarsenal.recipe.SanguineInfusionRecipeRegistry;
 import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.tile.TileStasisPlate;
+import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -25,7 +27,9 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @RitualRegister("infusion")
@@ -42,6 +46,19 @@ public class RitualInfusion extends RitualBloodArsenal
 
         craftingTimer = 0;
         isCrafting = false;
+    }
+
+    @Override
+    public boolean activateRitual(IMasterRitualStone masterRitualStone, EntityPlayer player, World world, SoulNetwork network)
+    {
+        BlockPos pos = masterRitualStone.getBlockPos();
+        if (!checkStructure(world, pos))
+        {
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.configuration", true);
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -143,7 +160,7 @@ public class RitualInfusion extends RitualBloodArsenal
 
                     tickCrafting(world, pos, network);
 
-                    if (craftingTimer == recipe.getLpCost() * (level + 1) / getRefreshCost())
+                    if (craftingTimer >= recipe.getLpCost() * (level + 1) / getRefreshCost())
                     {
                         modifiable.applyModifier(ModifierHelper.getModifierAndTracker(modifierKey, level));
                         if (trackerFlag)
@@ -152,12 +169,13 @@ public class RitualInfusion extends RitualBloodArsenal
                         NBTHelper.checkNBT(copyStack);
                         modifier.removeSpecialNBT(copyStack); // Needed here in order to reset NBT data
                         modifier.writeSpecialNBT(copyStack, wildStack, level);
-                        StasisModifiable.setModifiable(copyStack, modifiable, false);
+                        modifiable.setMod(copyStack);
 
                         shrinkItemStackInputs(world, pos, constructItemStackList(recipe.getInputs(), inputStacks), wildStack);
                         altarInv.setInventorySlotContents(0, copyStack);
 
                         world.spawnEntity(new EntityLightningBolt(world, masterRitualStone.getBlockPos().getX(), masterRitualStone.getBlockPos().getY() + 1, masterRitualStone.getBlockPos().getZ(), true));
+                        world.createExplosion(null, pos.getX() + 0.5, pos.getY() + 2.5, pos.getZ() + 0.5, 0, false);
                         endRitual(world, pos, masterRitualStone);
                         return;
                     }
@@ -172,7 +190,7 @@ public class RitualInfusion extends RitualBloodArsenal
                 {
                     tickCrafting(world, pos, network);
 
-                    if (craftingTimer == recipe.getLpCost() / getRefreshCost())
+                    if (craftingTimer >= recipe.getLpCost() / getRefreshCost())
                     {
                         shrinkItemStackInputs(world, pos, constructItemStackList(recipe.getInputs(), inputStacks), ItemStack.EMPTY);
                         altarInv.setInventorySlotContents(0, recipe.getOutput());
@@ -204,11 +222,15 @@ public class RitualInfusion extends RitualBloodArsenal
             return;
 
         craftingTimer++;
-        network.syphon(SoulTicket.block(world, pos, getRefreshCost()));
-        if (world instanceof WorldServer && world.getWorldTime() % 4 == 0)
+        if (world.getWorldTime() % 4 == 0)
         {
-            WorldServer server = (WorldServer) world;
-            server.spawnParticle(EnumParticleTypes.REDSTONE, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 1, 0.2, 0, 0.2, 0);
+            network.syphon(SoulTicket.block(world, pos, ConfigHandler.rituals.infusionRitualRefreshCost));
+            if (world instanceof WorldServer)
+            {
+                WorldServer server = (WorldServer) world;
+                server.spawnParticle(EnumParticleTypes.REDSTONE, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 5, 0.2, 0, 0.2, 0.2);
+                server.spawnParticle(EnumParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 5, 0.2, 0, 0.2, 0.1);
+            }
         }
     }
 
@@ -216,6 +238,8 @@ public class RitualInfusion extends RitualBloodArsenal
     {
         List<TileStasisPlate> stasisPlates = getStasisPlates(world, pos);
         setStasisPlates(world, stasisPlates, false);
+        isCrafting = false;
+        craftingTimer = 0;
         mrs.setActive(false);
     }
 

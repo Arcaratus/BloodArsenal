@@ -20,19 +20,29 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.*;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import static arcaratus.bloodarsenal.registry.Constants.Item.*;
 
 public class BloodArsenalUtils
 {
+    public static void sendPlayerMessage(EntityPlayer player, String key, boolean actionBar)
+    {
+        player.sendStatusMessage(new TextComponentTranslation(key), actionBar);
+    }
+
     /**
      * @see #insertItemIntoTile(EntityPlayer, int, TileInventory, int)
      */

@@ -4,7 +4,9 @@ import arcaratus.bloodarsenal.modifier.EnumModifierType;
 import arcaratus.bloodarsenal.modifier.Modifier;
 import arcaratus.bloodarsenal.registry.Constants;
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,14 +26,14 @@ public class ModifierBloodlust extends Modifier
     @Override
     public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, int level)
     {
-        if (world.getWorldTime() % 5 == 0 && random.nextInt(3) < 2 && multiplier > 0)
-            multiplier = Math.max(multiplier - (0.02 + ((double) random.nextInt(5) / 100)), 0);
+        if (world.getWorldTime() % 20 == 0 && multiplier > 0 && random.nextInt(4) < 2)
+            multiplier = Math.max(multiplier - (0.05 + ((double) random.nextInt(5) / 100)), 0);
     }
 
     @Override
     public void hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker, int level)
     {
-        multiplier = getMultiplier(multiplier + (random.nextDouble() * (level + 1)) / 6, level);
+        multiplier = getMultiplier(multiplier + (random.nextDouble() * (level + 1)) / 3, level);
     }
 
     @Override
@@ -78,12 +80,6 @@ public class ModifierBloodlust extends Modifier
                 break;
             case 6:
                 max = 15;
-                break;
-            case 7:
-                max = 16;
-                break;
-            case 8:
-                max = 17;
                 break;
         }
 

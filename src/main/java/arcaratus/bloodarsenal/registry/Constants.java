@@ -46,6 +46,7 @@ public class Constants
         public static final String STASIS_MODIFIERS = "stasisModifiers";
         public static final String MODIFIERS = "modifiers";
         public static final String MODIFIER = "modifier";
+        public static final String SHADOW = "shadow";
 
         public static final String MULTIPLIER = "multiplier";
 

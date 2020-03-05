@@ -15,7 +15,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import java.io.File;
@@ -78,6 +80,7 @@ public class BloodArsenal
         for (ICompatibilityPlugin plugin : COMPAT_PLUGINS)
             plugin.init();
 
+        RegistryShenanigans.init();
         PROXY.init();
     }
 

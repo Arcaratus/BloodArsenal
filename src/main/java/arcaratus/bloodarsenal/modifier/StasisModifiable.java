@@ -2,6 +2,7 @@ package arcaratus.bloodarsenal.modifier;
 
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.registry.Constants;
+import arcaratus.bloodarsenal.registry.ModModifiers;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import joptsimple.internal.Strings;
@@ -28,6 +29,7 @@ import java.util.Map;
 public class StasisModifiable implements IModifiable
 {
     private Map<String, Pair<Modifier, ModifierTracker>> modifierMap = new HashMap<>();
+    private boolean shadow = false;
 
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers()
@@ -103,6 +105,9 @@ public class StasisModifiable implements IModifiable
         if (!hasModifier(key))
         {
             modifierMap.put(key, modifierPair);
+            if (key.equals(ModModifiers.MODIFIER_SHADOW_TOOL.getUniqueIdentifier()))
+                shadow = true;
+
             return true;
         }
 
@@ -116,6 +121,9 @@ public class StasisModifiable implements IModifiable
         if (hasModifier(key))
         {
             modifierMap.remove(key);
+            if (key.equals(ModModifiers.MODIFIER_SHADOW_TOOL.getUniqueIdentifier()))
+                shadow = false;
+
             return true;
         }
 
@@ -154,6 +162,8 @@ public class StasisModifiable implements IModifiable
             if (tracker.onTick() && entity instanceof EntityPlayer)
                 markModifierReady(itemStack, (EntityPlayer) entity, modifier);
         }
+
+        setMod(itemStack);
     }
 
     @Override
@@ -168,6 +178,8 @@ public class StasisModifiable implements IModifiable
 
             modifier.hitEntity(itemStack, target, attacker, tracker.getLevel());
         }
+
+        setMod(itemStack);
     }
 
     @Override
@@ -185,6 +197,8 @@ public class StasisModifiable implements IModifiable
 
             modifier.onBlockDestroyed(itemStack, world, state, pos, player, tracker.getLevel());
         }
+
+        setMod(itemStack);
     }
 
     @Override
@@ -199,6 +213,8 @@ public class StasisModifiable implements IModifiable
 
             modifier.onRelease(itemStack, world, player, charge, tracker.getLevel());
         }
+
+        setMod(itemStack);
     }
 
     @Override
@@ -213,6 +229,8 @@ public class StasisModifiable implements IModifiable
 
             modifier.onRightClick(itemStack, world, player, tracker.getLevel());
         }
+
+        setMod(itemStack);
     }
 
     @Override
@@ -225,10 +243,12 @@ public class StasisModifiable implements IModifiable
             {
                 NBTTagCompound modTag = modTags.getCompoundTagAt(i);
                 String key = modTag.getString(Constants.NBT.KEY);
+                int level = modTag.getInteger(Constants.NBT.LEVEL);
                 NBTTagCompound nbtTag = modTag.getCompoundTag(Constants.NBT.MODIFIER);
 
                 Modifier modifier = ModifierHandler.getModifierFromKey(key, nbtTag);
-                int level = modTag.getInteger(Constants.NBT.LEVEL);
+                modifier.readFromNBT(nbtTag);
+
                 ModifierTracker tracker = ModifierHandler.getTrackerFromKey(key, level);
 
                 String trackerKey = tracker.getUniqueIdentifier();
@@ -242,6 +262,8 @@ public class StasisModifiable implements IModifiable
                     modTags.removeTag(i);
             }
         }
+
+        shadow = tag.getBoolean(Constants.NBT.SHADOW);
     }
 
     @Override
@@ -259,9 +281,6 @@ public class StasisModifiable implements IModifiable
 
             if (forceWrite || tracker.isDirty())
             {
-//                modifierTag.setDouble(Constants.NBT.COUNTER, tracker.getCounter());
-//                tracker.resetDirty();
-
                 String key = tracker.getUniqueIdentifier();
                 NBTTagCompound trackerTag = new NBTTagCompound();
                 tracker.writeToNBT(trackerTag);
@@ -277,6 +296,7 @@ public class StasisModifiable implements IModifiable
         }
 
         tag.setTag(Constants.NBT.MODIFIERS, tags);
+        tag.setBoolean(Constants.NBT.SHADOW, shadow);
     }
 
     /**
@@ -315,6 +335,17 @@ public class StasisModifiable implements IModifiable
         return modifierMap.getOrDefault(modifierKey, Pair.of(Modifier.EMPTY_MODIFIER, null)).getRight();
     }
 
+    public boolean hasShadow()
+    {
+        return shadow;
+    }
+
+    // Updates the StasisModifiable after every action
+    public void setMod(ItemStack itemStack)
+    {
+        setModifiable(itemStack, this, false);
+    }
+
     // Static methods
 
     public static StasisModifiable getModifiableFromStack(ItemStack itemStack)
@@ -335,7 +366,7 @@ public class StasisModifiable implements IModifiable
         }
         else
         {
-            modifiable.writeDirtyToNBT(tag);
+            modifiable.writeToNBT(tag);
         }
 
         setNBTTag(itemStack, tag);
@@ -370,8 +401,12 @@ public class StasisModifiable implements IModifiable
     public static void incrementModifierTracker(ItemStack itemStack, String modifierKey, double increment)
     {
         StasisModifiable modifiable = getModifiableFromStack(itemStack);
-        modifiable.getTrackerForModifier(modifierKey).incrementCounter(increment);
-        StasisModifiable.setModifiable(itemStack, modifiable, false);
+        ModifierTracker tracker = modifiable.getTrackerForModifier(modifierKey);
+        if (tracker != null)
+        {
+            tracker.incrementCounter(increment);
+            modifiable.setMod(itemStack);
+        }
     }
 
     public static void incrementModifierTracker(ItemStack itemStack, String modifierKey)
