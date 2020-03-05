@@ -11,7 +11,6 @@ import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.client.mesh.CustomMeshDefinitionActivatable;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.modifier.*;
-import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.registry.ModModifiers;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
@@ -105,8 +104,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             }
             else
             {
-                if (modifiable.hasShadow())
-                    StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
+                modifiable.checkAndIncrementTracker(itemStack, ModModifiers.MODIFIER_SHADOW_TOOL);
             }
         }
     }
@@ -115,15 +113,11 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
     public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker)
     {
         StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
+
         if (getActivated(itemStack))
-        {
             modifiable.hitEntity(itemStack, target, attacker);
-        }
         else
-        {
-            if (modifiable.hasShadow())
-                StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
-        }
+            modifiable.checkAndIncrementTracker(itemStack, ModModifiers.MODIFIER_SHADOW_TOOL);
 
         return true;
     }
@@ -144,8 +138,7 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             }
             else
             {
-                if (modifiable.hasShadow())
-                    StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
+                modifiable.checkAndIncrementTracker(itemStack, ModModifiers.MODIFIER_SHADOW_TOOL);
             }
         }
 
@@ -335,11 +328,11 @@ public class ItemStasisSword extends ItemSword implements IBindable, IActivatabl
             {
                 Multimap<String, AttributeModifier> map = HashMultimap.create();
 
-                if (modifiable.hasShadow())
+                if (modifiable.hasModifier(ModModifiers.MODIFIER_SHADOW_TOOL))
                 {
                     int level = modifiable.getTrackerForModifier(ModModifiers.MODIFIER_SHADOW_TOOL.getUniqueIdentifier()).getLevel() + 1;
                     map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 6.7 * level / 3, 0));
-                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5 * level / 3, 0));
+                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.8, 0));
                 }
                 else
                 {

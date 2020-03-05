@@ -1,6 +1,8 @@
 package arcaratus.bloodarsenal.modifier.modifiers;
 
-import arcaratus.bloodarsenal.modifier.*;
+import arcaratus.bloodarsenal.modifier.EnumModifierType;
+import arcaratus.bloodarsenal.modifier.Modifier;
+import arcaratus.bloodarsenal.modifier.StasisModifiable;
 import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import net.minecraft.block.Block;
@@ -23,7 +25,7 @@ public class ModifierFortunate extends Modifier
     {
         Block block = state.getBlock();
         if (block.getDrops(world, pos, state, level + 1).size() > block.getDrops(world, pos, state, 0).size())
-            StasisModifiable.incrementModifierTracker(itemStack, this);
+            StasisModifiable.getModifiableFromStack(itemStack).incrementModifierTracker(itemStack, this);
     }
 
     @Override

@@ -3,7 +3,9 @@ package arcaratus.bloodarsenal.ritual;
 import WayofTime.bloodmagic.BloodMagic;
 import WayofTime.bloodmagic.core.RegistrarBloodMagicItems;
 import WayofTime.bloodmagic.item.armour.ItemLivingArmour;
-import WayofTime.bloodmagic.livingArmour.*;
+import WayofTime.bloodmagic.livingArmour.LivingArmour;
+import WayofTime.bloodmagic.livingArmour.LivingArmourUpgrade;
+import WayofTime.bloodmagic.livingArmour.StatTracker;
 import WayofTime.bloodmagic.ritual.*;
 import WayofTime.bloodmagic.util.helper.ItemHelper;
 import WayofTime.bloodmagic.util.helper.NBTHelper;
@@ -101,7 +103,10 @@ public class RitualModifierRemove extends Ritual
         }
 
         if (modifierRemove)
+        {
+            masterRitualStone.setActive(false);
             return;
+        }
 
         List<EntityPlayer> playerList = world.getEntitiesWithinAABB(EntityPlayer.class, checkRange.getAABB(pos));
 

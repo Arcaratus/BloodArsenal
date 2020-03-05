@@ -9,7 +9,9 @@ import arcaratus.bloodarsenal.ConfigHandler;
 import arcaratus.bloodarsenal.block.BlockStasisPlate;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
 import arcaratus.bloodarsenal.tile.TileStasisPlate;
+import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import com.google.common.collect.Sets;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -17,7 +19,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import static arcaratus.bloodarsenal.registry.ModRecipes.PURIFICATION_1;
@@ -37,6 +42,19 @@ public class RitualPurification extends RitualBloodArsenal
         super("purification", 0, ConfigHandler.rituals.purificationtRitualActivationCost, 1, ConfigHandler.rituals.purificationRitualRefreshCost);
         active = false;
         fluidLeft = 0;
+    }
+
+    @Override
+    public boolean activateRitual(IMasterRitualStone masterRitualStone, EntityPlayer player, World world, SoulNetwork network)
+    {
+        BlockPos pos = masterRitualStone.getBlockPos();
+        if (!checkStructure(world, pos))
+        {
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.configuration", true);
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -120,7 +138,7 @@ public class RitualPurification extends RitualBloodArsenal
         {
             WorldServer server = (WorldServer) world;
             for (int i = 0; i < 4; i++)
-                server.spawnParticle(EnumParticleTypes.REDSTONE, pos.getX() + 0.5, pos.getY() + 0.5 + i, pos.getZ() + 0.5, 1, 0.2, 0, 0.2, 0);
+                server.spawnParticle(EnumParticleTypes.REDSTONE, pos.getX() + 0.5, pos.getY() + 0.5 + i, pos.getZ() + 0.5, 3, 0.2, 0.2, 0.2, 0.1);
         }
     }
 

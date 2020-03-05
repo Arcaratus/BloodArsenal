@@ -11,7 +11,6 @@ import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.modifier.*;
-import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.registry.ModModifiers;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import com.google.common.collect.HashMultimap;
@@ -104,8 +103,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
             }
             else
             {
-                if (modifiable.hasShadow())
-                    StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
+                modifiable.checkAndIncrementTracker(itemStack, ModModifiers.MODIFIER_SHADOW_TOOL);
             }
         }
     }
@@ -114,15 +112,11 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
     public boolean hitEntity(ItemStack itemStack, EntityLivingBase target, EntityLivingBase attacker)
     {
         StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
+
         if (getActivated(itemStack))
-        {
             modifiable.hitEntity(itemStack, target, attacker);
-        }
         else
-        {
-            if (modifiable.hasShadow())
-                StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
-        }
+            modifiable.checkAndIncrementTracker(itemStack, ModModifiers.MODIFIER_SHADOW_TOOL);
 
         return true;
     }
@@ -133,19 +127,12 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
         if (!world.isRemote)
         {
             StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
+
             if (getActivated(itemStack))
-            {
                 if (entityLivingBase instanceof EntityPlayer)
-                {
-                    EntityPlayer player = (EntityPlayer) entityLivingBase;
-                    modifiable.onBlockDestroyed(itemStack, world, state, pos, player);
-                }
-            }
+                    modifiable.onBlockDestroyed(itemStack, world, state, pos, (EntityPlayer) entityLivingBase);
             else
-            {
-                if (modifiable.hasShadow())
-                    StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.SHADOW_TOOL);
-            }
+                modifiable.checkAndIncrementTracker(itemStack, ModModifiers.MODIFIER_SHADOW_TOOL);
         }
 
         return true;
@@ -219,7 +206,7 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
     public float getDestroySpeed(ItemStack itemStack, IBlockState state)
     {
         StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
-        return getActivated(itemStack) ? efficiency : (modifiable.hasShadow() ? efficiency * (((float) modifiable.getTrackerForModifier(Constants.Modifiers.SHADOW_TOOL).getLevel() + 1) / 3F) : 1);
+        return getActivated(itemStack) ? efficiency : (modifiable.hasModifier(ModModifiers.MODIFIER_SHADOW_TOOL) ? efficiency * (((float) modifiable.getTrackerForModifier(ModModifiers.MODIFIER_SHADOW_TOOL).getLevel() + 1) / 3F) : 1);
     }
 
     @Override
@@ -346,11 +333,11 @@ public abstract class ItemStasisTool extends ItemTool implements IBindable, IAct
             {
                 Multimap<String, AttributeModifier> map = HashMultimap.create();
 
-                if (modifiable.hasShadow())
+                if (modifiable.hasModifier(ModModifiers.MODIFIER_SHADOW_TOOL))
                 {
                     int level = modifiable.getTrackerForModifier(ModModifiers.MODIFIER_SHADOW_TOOL.getUniqueIdentifier()).getLevel() + 1;
-                    map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 2.7 * level / 3, 0));
-                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.5 * level / 3, 0));
+                    map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 4.7 * level / 3, 0));
+                    map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.8, 0));
                 }
                 else
                 {

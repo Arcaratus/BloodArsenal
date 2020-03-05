@@ -46,7 +46,6 @@ public class Constants
         public static final String STASIS_MODIFIERS = "stasisModifiers";
         public static final String MODIFIERS = "modifiers";
         public static final String MODIFIER = "modifier";
-        public static final String SHADOW = "shadow";
 
         public static final String MULTIPLIER = "multiplier";
 
@@ -93,7 +92,7 @@ public class Constants
         public static final String SIGIL = "sigil";
 
         public static final int[] BAD_POTION_COUNTER = new int[] { 0, 64, 256, 1024 };
-        public static final int[] BLOODLUST_COUNTER = new int[] { 0, 64, 128, 256, 512, 1024, 2048 };
+        public static final int[] BLOODLUST_COUNTER = new int[] { 0, 2, 128, 256, 512, 1024, 2048 };
         public static final int[] FLAME_COUNTER = new int[] { 0, 40, 80, 160, 320, 640, 1280 };
         public static final int[] SHARPNESS_COUNTER = new int[] { 0, 4, 128, 256, 512, 1024, 2048 };
 
@@ -104,7 +103,7 @@ public class Constants
 
         public static final int[] BENEFICIAL_POTION_COUNTER = new int[] { 0, 64, 256, 1024 };
         public static final int[] QUICK_DRAW_COUNTER = new int[] { 0, 500, 1000 };
-        public static final int[] SHADOW_TOOL_COUNTER = new int[] { 0, 64, 256, 1024 };
+        public static final int[] SHADOW_TOOL_COUNTER = new int[] { 0, 256, 1024, 16384 };
 
         public static final int[] AOD_COUNTER = new int[] { 0, 64, 256, 512, 1024, 2048 };
     }

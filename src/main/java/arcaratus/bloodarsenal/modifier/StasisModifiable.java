@@ -2,7 +2,6 @@ package arcaratus.bloodarsenal.modifier;
 
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.registry.Constants;
-import arcaratus.bloodarsenal.registry.ModModifiers;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import joptsimple.internal.Strings;
@@ -29,7 +28,6 @@ import java.util.Map;
 public class StasisModifiable implements IModifiable
 {
     private Map<String, Pair<Modifier, ModifierTracker>> modifierMap = new HashMap<>();
-    private boolean shadow = false;
 
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers()
@@ -52,6 +50,16 @@ public class StasisModifiable implements IModifiable
     @Override
     public boolean hasModifier(String modifierKey)
     {
+        return !Strings.isNullOrEmpty(modifierKey) && modifierMap.containsKey(modifierKey);
+    }
+
+    @Override
+    public boolean hasModifier(Modifier modifier)
+    {
+        if (modifier == null || modifier == Modifier.EMPTY_MODIFIER)
+            return false;
+
+        String modifierKey = modifier.getUniqueIdentifier();
         return !Strings.isNullOrEmpty(modifierKey) && modifierMap.containsKey(modifierKey);
     }
 
@@ -105,9 +113,6 @@ public class StasisModifiable implements IModifiable
         if (!hasModifier(key))
         {
             modifierMap.put(key, modifierPair);
-            if (key.equals(ModModifiers.MODIFIER_SHADOW_TOOL.getUniqueIdentifier()))
-                shadow = true;
-
             return true;
         }
 
@@ -121,8 +126,6 @@ public class StasisModifiable implements IModifiable
         if (hasModifier(key))
         {
             modifierMap.remove(key);
-            if (key.equals(ModModifiers.MODIFIER_SHADOW_TOOL.getUniqueIdentifier()))
-                shadow = false;
 
             return true;
         }
@@ -262,8 +265,6 @@ public class StasisModifiable implements IModifiable
                     modTags.removeTag(i);
             }
         }
-
-        shadow = tag.getBoolean(Constants.NBT.SHADOW);
     }
 
     @Override
@@ -296,7 +297,6 @@ public class StasisModifiable implements IModifiable
         }
 
         tag.setTag(Constants.NBT.MODIFIERS, tags);
-        tag.setBoolean(Constants.NBT.SHADOW, shadow);
     }
 
     /**
@@ -335,9 +335,45 @@ public class StasisModifiable implements IModifiable
         return modifierMap.getOrDefault(modifierKey, Pair.of(Modifier.EMPTY_MODIFIER, null)).getRight();
     }
 
-    public boolean hasShadow()
+    public void incrementModifierTracker(ItemStack itemStack, String modifierKey, double increment)
     {
-        return shadow;
+        ModifierTracker tracker = getTrackerForModifier(modifierKey);
+        if (tracker != null)
+        {
+            tracker.incrementCounter(increment);
+            setMod(itemStack);
+        }
+    }
+
+    public void incrementModifierTracker(ItemStack itemStack, Modifier modifier, double increment)
+    {
+        incrementModifierTracker(itemStack, modifier.getUniqueIdentifier(), increment);
+    }
+
+    public void incrementModifierTracker(ItemStack itemStack, Modifier modifier)
+    {
+        incrementModifierTracker(itemStack, modifier.getUniqueIdentifier(), 1);
+    }
+
+    public void incrementModifierTracker(ItemStack itemStack, String modifierKey)
+    {
+        incrementModifierTracker(itemStack, modifierKey, 1);
+    }
+
+    public boolean checkAndIncrementTracker(ItemStack itemStack, Modifier modifier, double increment)
+    {
+        if (hasModifier(modifier))
+        {
+            incrementModifierTracker(itemStack, modifier, increment);
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean checkAndIncrementTracker(ItemStack itemStack, Modifier modifier)
+    {
+        return checkAndIncrementTracker(itemStack, modifier, 1);
     }
 
     // Updates the StasisModifiable after every action
@@ -386,31 +422,5 @@ public class StasisModifiable implements IModifiable
             stack.setTagCompound(new NBTTagCompound());
 
         stack.getTagCompound().setTag(Constants.NBT.STASIS_MODIFIERS, tag);
-    }
-
-    public static void incrementModifierTracker(ItemStack itemStack, Modifier modifier, double increment)
-    {
-        incrementModifierTracker(itemStack, modifier.getUniqueIdentifier(), increment);
-    }
-
-    public static void incrementModifierTracker(ItemStack itemStack, Modifier modifier)
-    {
-        incrementModifierTracker(itemStack, modifier.getUniqueIdentifier(), 1);
-    }
-
-    public static void incrementModifierTracker(ItemStack itemStack, String modifierKey, double increment)
-    {
-        StasisModifiable modifiable = getModifiableFromStack(itemStack);
-        ModifierTracker tracker = modifiable.getTrackerForModifier(modifierKey);
-        if (tracker != null)
-        {
-            tracker.incrementCounter(increment);
-            modifiable.setMod(itemStack);
-        }
-    }
-
-    public static void incrementModifierTracker(ItemStack itemStack, String modifierKey)
-    {
-        incrementModifierTracker(itemStack, modifierKey, 1);
     }
 }

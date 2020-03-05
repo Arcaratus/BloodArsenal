@@ -1,6 +1,8 @@
 package arcaratus.bloodarsenal.modifier.modifiers;
 
-import arcaratus.bloodarsenal.modifier.*;
+import arcaratus.bloodarsenal.modifier.EnumModifierType;
+import arcaratus.bloodarsenal.modifier.Modifier;
+import arcaratus.bloodarsenal.modifier.StasisModifiable;
 import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import net.minecraft.block.Block;
@@ -38,7 +40,8 @@ public class ModifierSmelting extends Modifier
         world.setBlockToAir(pos);// Needed to prevent duplicates
         if (!resultStack.isEmpty())
         {
-            boolean hasFortune = StasisModifiable.getModifiableFromStack(itemStack).hasModifier(Constants.Modifiers.FORTUNATE);
+            StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
+            boolean hasFortune = modifiable.hasModifier(Constants.Modifiers.FORTUNATE);
             if (level > 0 && hasFortune) // Written in a jiffy
             {
                 int i = random.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack) + 2) - 1;
@@ -46,7 +49,7 @@ public class ModifierSmelting extends Modifier
                 NonNullList<ItemStack> drops = NonNullList.create();
                 drops.add(ItemHandlerHelper.copyStackWithSize(resultStack, resultStack.getCount() * (i + 1)));
                 BloodArsenalUtils.dropStacks(drops, world, pos);
-                StasisModifiable.incrementModifierTracker(itemStack, this);
+                modifiable.incrementModifierTracker(itemStack, this);
             }
             else if (level == 0 && !(resultStack.getItem() instanceof ItemBlock))
             {
@@ -55,7 +58,7 @@ public class ModifierSmelting extends Modifier
             else
             {
                 Block.spawnAsEntity(world, pos, resultStack);
-                StasisModifiable.incrementModifierTracker(itemStack, this);
+                modifiable.incrementModifierTracker(itemStack, this);
             }
         }
         else

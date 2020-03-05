@@ -65,6 +65,7 @@ public class BloodArsenal
         for (ICompatibilityPlugin plugin : COMPAT_PLUGINS)
             plugin.preInit();
 
+        ModModifiers.init();
         PROXY.preInit();
     }
 
@@ -73,7 +74,6 @@ public class BloodArsenal
     {
         BloodArsenalPacketHandler.init();
 
-        ModModifiers.init();
         ModRecipes.init();
         NetworkRegistry.INSTANCE.registerGuiHandler(BloodArsenal.INSTANCE, new GuiHandler());
 

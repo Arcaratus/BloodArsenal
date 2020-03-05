@@ -1,6 +1,8 @@
 package arcaratus.bloodarsenal.modifier.modifiers;
 
-import arcaratus.bloodarsenal.modifier.*;
+import arcaratus.bloodarsenal.modifier.EnumModifierType;
+import arcaratus.bloodarsenal.modifier.Modifier;
+import arcaratus.bloodarsenal.modifier.StasisModifiable;
 import arcaratus.bloodarsenal.registry.Constants;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
@@ -22,7 +24,7 @@ public class ModifierQuickDraw extends Modifier
     public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, int level)
     {
         if (world.getWorldTime() % 200 == 0)
-            StasisModifiable.incrementModifierTracker(itemStack, this);
+            StasisModifiable.getModifiableFromStack(itemStack).incrementModifierTracker(itemStack, this);
     }
 
     @Override

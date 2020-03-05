@@ -2,7 +2,9 @@ package arcaratus.bloodarsenal.modifier.modifiers;
 
 import WayofTime.bloodmagic.iface.ISigil;
 import WayofTime.bloodmagic.util.helper.TextHelper;
-import arcaratus.bloodarsenal.modifier.*;
+import arcaratus.bloodarsenal.modifier.EnumModifierType;
+import arcaratus.bloodarsenal.modifier.Modifier;
+import arcaratus.bloodarsenal.modifier.StasisModifiable;
 import arcaratus.bloodarsenal.registry.Constants;
 import joptsimple.internal.Strings;
 import net.minecraft.entity.Entity;
@@ -38,7 +40,7 @@ public class ModifierSigil extends Modifier
             {
                 sigilStack.getItem().onUpdate(itemStack, world, entity, itemSlot, true);
                 if (world.getWorldTime() % 100 == 0)
-                    StasisModifiable.incrementModifierTracker(itemStack, this);
+                    StasisModifiable.getModifiableFromStack(itemStack).incrementModifierTracker(itemStack, this);
             }
         }
     }

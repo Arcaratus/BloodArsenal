@@ -2,13 +2,15 @@ package arcaratus.bloodarsenal.modifier;
 
 import WayofTime.bloodmagic.util.Utils;
 import arcaratus.bloodarsenal.BloodArsenal;
-import arcaratus.bloodarsenal.registry.Constants;
+import arcaratus.bloodarsenal.registry.ModModifiers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -39,15 +41,12 @@ public class TrackerHandler
                 StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(modifiableStack);
                 float amount = Math.min(Utils.getModifiedDamage(attackedEntity, event.getSource(), event.getAmount()), attackedEntity.getHealth());
 
-                if (modifiable.hasModifier(Constants.Modifiers.FLAME) && source.isFireDamage())
-                    StasisModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.FLAME);
+                modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_FLAME);
 
                 float reducedAmount = amount / 4;
 
-                if (modifiable.hasModifier(Constants.Modifiers.BLOODLUST))
-                    StasisModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.BLOODLUST, reducedAmount);
-                else if (modifiable.hasModifier(Constants.Modifiers.SHARPNESS))
-                    StasisModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.SHARPNESS, reducedAmount);
+                modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_BLOODLUST, reducedAmount);
+                modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_SHARPNESS, reducedAmount);
             }
         }
     }
@@ -67,9 +66,7 @@ public class TrackerHandler
                 if (!modifiableStack.isEmpty() && modifiableStack.getItem() instanceof IModifiableItem)
                 {
                     StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(modifiableStack);
-
-                    if (modifiable.hasModifier(Constants.Modifiers.LOOTING))
-                        StasisModifiable.incrementModifierTracker(modifiableStack, Constants.Modifiers.LOOTING);
+                    modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_LOOTING);
                 }
             }
         }
@@ -86,9 +83,9 @@ public class TrackerHandler
             {
                 StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
 
-                if (modifiable.hasModifier(Constants.Modifiers.XPERIENCED))
+                if (modifiable.hasModifier(ModModifiers.MODIFIER_XPERIENCED))
                 {
-                    ModifierTracker xpTracker = modifiable.getTrackerForModifier(Constants.Modifiers.XPERIENCED);
+                    ModifierTracker xpTracker = modifiable.getTrackerForModifier(ModModifiers.MODIFIER_XPERIENCED);
                     event.setDroppedExperience(event.getOriginalExperience() * (rand.nextInt(xpTracker.getLevel() + 2) + 1));
                 }
             }
@@ -106,10 +103,7 @@ public class TrackerHandler
             {
                 StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
 
-                if (modifiable.hasModifier(Constants.Modifiers.XPERIENCED))
-                {
-                    StasisModifiable.incrementModifierTracker(itemStack, Constants.Modifiers.XPERIENCED, (double) event.getOrb().getXpValue() / 4D);
-                }
+                modifiable.checkAndIncrementTracker(itemStack, ModModifiers.MODIFIER_XPERIENCED, (double) event.getOrb().getXpValue() / 4D);
             }
         }
     }
@@ -125,9 +119,9 @@ public class TrackerHandler
             {
                 StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
 
-                if (modifiable.hasModifier(Constants.Modifiers.XPERIENCED) && event.getExpToDrop() > 0)
+                if (modifiable.hasModifier(ModModifiers.MODIFIER_XPERIENCED) && event.getExpToDrop() > 0)
                 {
-                    ModifierTracker xpTracker = modifiable.getTrackerForModifier(Constants.Modifiers.XPERIENCED);
+                    ModifierTracker xpTracker = modifiable.getTrackerForModifier(ModModifiers.MODIFIER_XPERIENCED);
                     event.setExpToDrop(event.getExpToDrop() * (rand.nextInt(xpTracker.getLevel() + 2) + 1));
                 }
             }

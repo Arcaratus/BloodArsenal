@@ -2,7 +2,9 @@ package arcaratus.bloodarsenal.modifier.modifiers;
 
 import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
-import arcaratus.bloodarsenal.modifier.*;
+import arcaratus.bloodarsenal.modifier.EnumModifierType;
+import arcaratus.bloodarsenal.modifier.Modifier;
+import arcaratus.bloodarsenal.modifier.StasisModifiable;
 import arcaratus.bloodarsenal.registry.Constants;
 import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import net.minecraft.block.Block;
@@ -12,7 +14,10 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
@@ -51,6 +56,7 @@ public class ModifierAOD extends Modifier
         BlockPos playerPos = player.getPosition();
 
         StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
+        int cost = (int) (Math.pow(charge, 3) * (level + 1) / 2.7);
 
         if (name.equals("sword"))
         {
@@ -64,8 +70,8 @@ public class ModifierAOD extends Modifier
 
                 living.attackEntityFrom(DamageSource.GENERIC, (float) (damage * ((level + 1) / getMaxLevel())));
                 living.attackEntityAsMob(player);
-                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(itemStack, world, player, (int) (Math.pow(charge, 3) * (level + 1) / 2.7)));
-                StasisModifiable.incrementModifierTracker(itemStack, this);
+                NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(itemStack, world, player, cost));
+                modifiable.incrementModifierTracker(itemStack, this);
             }
 
             return;
@@ -123,7 +129,7 @@ public class ModifierAOD extends Modifier
                                         int fortune = random.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack) + 2) - 1;
 
                                         drops.add(ItemHandlerHelper.copyStackWithSize(resultStack, resultStack.getCount() * (fortune + 1)));
-                                        StasisModifiable.incrementModifierTracker(itemStack, this);
+                                        modifiable.incrementModifierTracker(itemStack, this);
                                     }
                                     else if (level == 0 && !(resultStack.getItem() instanceof ItemBlock))
                                     {
@@ -132,7 +138,7 @@ public class ModifierAOD extends Modifier
                                     else
                                     {
                                         drops.add(ItemHandlerHelper.copyStackWithSize(resultStack, resultStack.getCount()));
-                                        StasisModifiable.incrementModifierTracker(itemStack, this, 1);
+                                        modifiable.incrementModifierTracker(itemStack, this, 1);
                                     }
                                 }
                                 else
@@ -148,14 +154,14 @@ public class ModifierAOD extends Modifier
                             }
 
                             world.setBlockToAir(blockPos);
-                            StasisModifiable.incrementModifierTracker(itemStack, this, 1);
+                            modifiable.incrementModifierTracker(itemStack, this, 1);
                         }
                     }
                 }
             }
         }
 
-        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(itemStack, world, player, (int) (Math.pow(charge, 3) * (level + 1) / 2.7)));
+        NetworkHelper.getSoulNetwork(player).syphonAndDamage(player, SoulTicket.item(itemStack, world, player, cost));
         world.createExplosion(player, playerPos.getX(), playerPos.getY(), playerPos.getZ(), 0.1F, false);
         BloodArsenalUtils.dropStacks(drops, world, playerPos.add(0, 1, 0));
     }

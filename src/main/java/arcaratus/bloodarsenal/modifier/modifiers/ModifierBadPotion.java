@@ -1,12 +1,16 @@
 package arcaratus.bloodarsenal.modifier.modifiers;
 
-import arcaratus.bloodarsenal.modifier.*;
+import arcaratus.bloodarsenal.modifier.EnumModifierType;
+import arcaratus.bloodarsenal.modifier.Modifier;
+import arcaratus.bloodarsenal.modifier.StasisModifiable;
 import arcaratus.bloodarsenal.registry.Constants;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.*;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionUtils;
 
 public class ModifierBadPotion extends Modifier
 {
@@ -37,7 +41,7 @@ public class ModifierBadPotion extends Modifier
                 else
                     target.addPotionEffect(new PotionEffect(potion, 20 + 40 * (level + 1), level));
 
-                StasisModifiable.incrementModifierTracker(itemStack, this);
+                StasisModifiable.getModifiableFromStack(itemStack).incrementModifierTracker(itemStack, this);
             }
         }
     }

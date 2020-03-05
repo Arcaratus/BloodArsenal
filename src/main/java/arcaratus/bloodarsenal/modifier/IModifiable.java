@@ -18,6 +18,8 @@ public interface IModifiable
 
     boolean hasModifier(String modifierKey);
 
+    boolean hasModifier(Modifier modifier);
+
     boolean canApplyModifier(Modifier modifier);
 
     boolean markModifierReady(ItemStack itemStack, EntityPlayer player, Modifier modifier);

@@ -6,6 +6,7 @@ import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.modifier.*;
 import arcaratus.bloodarsenal.registry.Constants;
+import arcaratus.bloodarsenal.registry.ModModifiers;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import joptsimple.internal.Strings;
 import net.minecraft.client.util.ITooltipFlag;
@@ -46,7 +47,7 @@ public class ItemModifierTome extends Item implements IVariantProvider
     {
         if (creativeTab == BloodMagic.TAB_TOMES)
         {
-            List<String> blackListedTomes = Arrays.asList(Constants.Modifiers.BAD_POTION, Constants.Modifiers.BENEFICIAL_POTION, Constants.Modifiers.SIGIL);
+            List<String> blackListedTomes = Arrays.asList(ModModifiers.MODIFIER_BAD_POTION.getUniqueIdentifier(), ModModifiers.MODIFIER_BENEFICIAL_POTION.getUniqueIdentifier(), ModModifiers.MODIFIER_SIGIL.getUniqueIdentifier());
             for (Map.Entry<String, Integer> entry : ModifierHandler.modifierMaxLevelMap.entrySet())
             {
                 String key = entry.getKey();
@@ -54,7 +55,7 @@ public class ItemModifierTome extends Item implements IVariantProvider
                     continue;
 
                 int maxLevel = entry.getValue();
-                for (int i = 0; i < maxLevel; i++)
+                for (int i = 0; i <= maxLevel; i++)
                 {
                     ItemStack stack = new ItemStack(this);
                     ModifierHelper.setKey(stack, key);
@@ -97,7 +98,7 @@ public class ItemModifierTome extends Item implements IVariantProvider
                     else
                         modifier.writeSpecialNBT(otherStack, tracker.getLevel());
 
-                    modifiable.setMod(itemStack);
+                    modifiable.setMod(otherStack);
                     String name = modifier.hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
                     player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.modifier_added", name, tracker.getLevel() + 1, otherStack.getDisplayName())), true);
                     itemStack.shrink(1);
