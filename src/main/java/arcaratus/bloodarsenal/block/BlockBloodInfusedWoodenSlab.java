@@ -4,13 +4,16 @@ import WayofTime.bloodmagic.client.IVariantProvider;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.block.BlockBloodInfusedWoodenLog.EnumType;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
@@ -163,12 +166,6 @@ public abstract class BlockBloodInfusedWoodenSlab extends BlockSlab implements I
     {
         Block block = state.getBlock();
         return block == RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_SLAB;
-    }
-
-    @Override
-    public ItemBlock getItem()
-    {
-        return new ItemBlock(this);
     }
 
     public static class Double extends BlockBloodInfusedWoodenSlab

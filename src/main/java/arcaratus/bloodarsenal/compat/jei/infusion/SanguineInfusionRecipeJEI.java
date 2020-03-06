@@ -35,7 +35,9 @@ public class SanguineInfusionRecipeJEI implements IRecipeWrapper
     public void getIngredients(@Nonnull IIngredients ingredients)
     {
         List<List<ItemStack>> expandedInputs = BloodArsenalPlugin.jeiHelper.getStackHelper().expandRecipeItemStackInputs(recipe.getItemStackInputs(0));
-        if (!recipe.isModifier())
+        if (recipe.isModifier())
+            expandedInputs.add(BloodArsenalPlugin.modifiables); // Add "ingredients" so that the recipe usage function will trigger properly
+        else
             expandedInputs.add(0, Lists.newArrayList(recipe.getInfuse()));
         ingredients.setInputLists(VanillaTypes.ITEM, expandedInputs);
         ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());

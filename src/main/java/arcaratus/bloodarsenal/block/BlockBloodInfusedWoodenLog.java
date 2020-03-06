@@ -4,13 +4,13 @@ import WayofTime.bloodmagic.client.IVariantProvider;
 import arcaratus.bloodarsenal.BloodArsenal;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.MapColor;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -106,12 +106,6 @@ public class BlockBloodInfusedWoodenLog extends BlockLog implements IVariantProv
     public boolean canSustainLeaves(IBlockState state, net.minecraft.world.IBlockAccess world, BlockPos pos)
     {
         return false;
-    }
-
-    @Override
-    public ItemBlock getItem()
-    {
-        return new ItemBlock(this);
     }
 
     public enum EnumType implements IStringSerializable

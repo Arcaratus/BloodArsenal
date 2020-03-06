@@ -96,6 +96,9 @@ public class SanguineInfusionCategory implements IRecipeCategory<SanguineInfusio
 
         if (recipe.isModifier())
         {
+            // Remove extra modifiable "ingredients"
+            itemInputs.remove(itemInputs.size() - 1);
+
             List<ItemStack> inputs = new LinkedList<>();
 
             switch (recipe.getModifierKey())

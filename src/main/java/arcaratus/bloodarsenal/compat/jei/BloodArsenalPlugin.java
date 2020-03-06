@@ -15,8 +15,12 @@ import arcaratus.bloodarsenal.registry.Constants;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
-import net.minecraft.item.*;
-import net.minecraft.potion.*;
+import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemSplashPotion;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -76,9 +80,9 @@ public class BloodArsenalPlugin implements IModPlugin
                 }
             }
         }
-//
-//        jeiHelper.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.BLOOD_BURNED_STRING));
-//
+
+        jeiHelper.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(RegistrarBloodArsenalBlocks.BLOCK_BLOOD_BURNED_STRING));
+
 //        for (Map.Entry<String, Integer> entry : ModifierHandler.modifierMaxLevelMap.entrySet())
 //        {
 //            String key = entry.getKey();
@@ -91,7 +95,7 @@ public class BloodArsenalPlugin implements IModPlugin
 //                jeiHelper.getIngredientBlacklist().addIngredientToBlacklist(stack);
 //            }
 //        }
-//
+
         registry.addIngredientInfo(EnumBaseTypes.GLASS_SHARD.getStack(), VanillaTypes.ITEM, "jei.bloodarsenal.desc.glass_shard");
         registry.addIngredientInfo(EnumBaseTypes.REAGENT_LIGHTNING.getStack(), VanillaTypes.ITEM, "jei.bloodarsenal.desc.reagent_lightning");
         registry.addIngredientInfo(new FluidStack(RegistrarBloodArsenalBlocks.FLUID_REFINED_LIFE_ESSENCE, Fluid.BUCKET_VOLUME), VanillaTypes.FLUID, "jei.bloodarsenal.desc.refined_life_essence");
@@ -102,6 +106,12 @@ public class BloodArsenalPlugin implements IModPlugin
     {
         subtypeRegistry.useNbtForSubtypes(RegistrarBloodArsenalItems.MODIFIER_TOME);
     }
+
+//    @Override
+//    public void registerIngredients(IModIngredientRegistration ingredientRegistration)
+//    {
+//        ingredientRegistration.
+//    }
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry)

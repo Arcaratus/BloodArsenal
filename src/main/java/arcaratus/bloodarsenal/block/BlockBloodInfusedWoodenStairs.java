@@ -2,16 +2,15 @@ package arcaratus.bloodarsenal.block;
 
 import WayofTime.bloodmagic.client.IVariantProvider;
 import arcaratus.bloodarsenal.BloodArsenal;
-import arcaratus.bloodarsenal.core.RegistrarBloodArsenalBlocks;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.SoundType;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.block.state.IBlockState;
 
 public class BlockBloodInfusedWoodenStairs extends BlockStairs implements IVariantProvider, IBABlock
 {
-    public BlockBloodInfusedWoodenStairs(String name)
+    public BlockBloodInfusedWoodenStairs(IBlockState blockState, String name)
     {
-        super(RegistrarBloodArsenalBlocks.BLOOD_INFUSED_WOODEN_PLANKS.getDefaultState());
+        super(blockState);
 
         setTranslationKey(BloodArsenal.MOD_ID + "." + name);
         setRegistryName(name);
@@ -21,11 +20,5 @@ public class BlockBloodInfusedWoodenStairs extends BlockStairs implements IVaria
         setHarvestLevel("axe", 0);
         setSoundType(SoundType.WOOD);
         useNeighborBrightness = true;
-    }
-
-    @Override
-    public ItemBlock getItem()
-    {
-        return new ItemBlock(this);
     }
 }

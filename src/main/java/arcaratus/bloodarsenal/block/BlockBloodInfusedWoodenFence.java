@@ -6,7 +6,6 @@ import net.minecraft.block.BlockFence;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -30,11 +29,5 @@ public class BlockBloodInfusedWoodenFence extends BlockFence implements IVariant
     public boolean isFireSource(World world, BlockPos pos, EnumFacing side)
     {
         return true;
-    }
-
-    @Override
-    public ItemBlock getItem()
-    {
-        return new ItemBlock(this);
     }
 }

@@ -19,7 +19,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -126,6 +128,16 @@ public class ItemBoundIgniter extends Item implements IBindable, IActivatable, I
             NetworkHelper.getSoulNetwork((EntityPlayer) attacker).syphonAndDamage((EntityPlayer) attacker, SoulTicket.item(stack, attacker.world, attacker, 2 * ConfigHandler.values.boundIgniterCost));
         }
 
+        return true;
+    }
+
+    @Override
+    public ItemStack getContainerItem(ItemStack stack) {
+        return stack.copy();
+    }
+
+    @Override
+    public boolean hasContainerItem(ItemStack stack) {
         return true;
     }
 

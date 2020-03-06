@@ -2,9 +2,10 @@ package arcaratus.bloodarsenal.block;
 
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.util.IComplexVariantProvider;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockFenceGate;
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -34,11 +35,5 @@ public class BlockBloodInfusedWoodenFenceGate extends BlockFenceGate implements 
     public IProperty[] getIgnoredProperties()
     {
         return new IProperty[] {POWERED};
-    }
-
-    @Override
-    public ItemBlock getItem()
-    {
-        return new ItemBlock(this);
     }
 }

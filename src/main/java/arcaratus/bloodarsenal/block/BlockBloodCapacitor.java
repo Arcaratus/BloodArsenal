@@ -3,14 +3,12 @@ package arcaratus.bloodarsenal.block;
 import WayofTime.bloodmagic.client.IVariantProvider;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import arcaratus.bloodarsenal.BloodArsenal;
-import arcaratus.bloodarsenal.item.block.ItemBlockBloodCapacitor;
 import arcaratus.bloodarsenal.tile.TileBloodCapacitor;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -138,11 +136,5 @@ public class BlockBloodCapacitor extends Block implements IVariantProvider, IBAB
 
             drops.add(drop);
         }
-    }
-
-    @Override
-    public ItemBlock getItem()
-    {
-        return new ItemBlockBloodCapacitor(this);
     }
 }

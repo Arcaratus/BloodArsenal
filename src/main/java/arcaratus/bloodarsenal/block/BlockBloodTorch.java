@@ -5,7 +5,6 @@ import arcaratus.bloodarsenal.BloodArsenal;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumBlockRenderType;
 
 public class BlockBloodTorch extends BlockTorch implements IVariantProvider, IBABlock
@@ -27,11 +26,5 @@ public class BlockBloodTorch extends BlockTorch implements IVariantProvider, IBA
     public EnumBlockRenderType getRenderType(IBlockState state)
     {
         return EnumBlockRenderType.MODEL;
-    }
-
-    @Override
-    public ItemBlock getItem()
-    {
-        return new ItemBlock(this);
     }
 }

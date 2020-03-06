@@ -4,7 +4,9 @@ import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.block.*;
 import arcaratus.bloodarsenal.block.fluid.BlockFluidRefinedLifeEssence;
 import arcaratus.bloodarsenal.fluid.FluidCore;
-import arcaratus.bloodarsenal.tile.*;
+import arcaratus.bloodarsenal.tile.TileAltareAenigmatica;
+import arcaratus.bloodarsenal.tile.TileBloodCapacitor;
+import arcaratus.bloodarsenal.tile.TileStasisPlate;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -35,7 +37,7 @@ public class RegistrarBloodArsenalBlocks
     public static final Block SLATE = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_LOG = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_PLANKS = Blocks.AIR;
-    public static final Block BLOOD_INFUSED_WOODEN_STAIRS = Blocks.AIR;
+    public static Block BLOOD_INFUSED_WOODEN_STAIRS = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_DOUBLE_SLAB = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_SLAB = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_FENCE = Blocks.AIR;
@@ -69,7 +71,7 @@ public class RegistrarBloodArsenalBlocks
                 new BlockSlate("slate"),
                 new BlockBloodInfusedWoodenLog("blood_infused_wooden_log"),
                 new BlockBloodInfusedWoodenPlanks("blood_infused_wooden_planks"),
-                new BlockBloodInfusedWoodenStairs("blood_infused_wooden_stairs"),
+//                new BlockBloodInfusedWoodenStairs("blood_infused_wooden_stairs"),
 //                new BlockBloodInfusedWoodenSlab.Double("blood_infused_wooden_double_slab"),
 //                new BlockBloodInfusedWoodenSlab.Half("blood_infused_wooden_slab"),
 //                new ItemBlockBloodInfusedWoodenSlab("blood_infused_wooden_slab").getBlock(),
@@ -89,6 +91,9 @@ public class RegistrarBloodArsenalBlocks
         );
 
         event.getRegistry().registerAll(blocks.toArray(new Block[0]));
+        BLOOD_INFUSED_WOODEN_STAIRS = new BlockBloodInfusedWoodenStairs(BLOOD_INFUSED_WOODEN_PLANKS.getDefaultState(), "blood_infused_wooden_stairs");
+        blocks.add(BLOOD_INFUSED_WOODEN_STAIRS);
+        event.getRegistry().register(BLOOD_INFUSED_WOODEN_STAIRS);
 
         registerTileEntities();
     }

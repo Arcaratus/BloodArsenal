@@ -5,10 +5,16 @@ import WayofTime.bloodmagic.client.IVariantProvider;
 import arcaratus.bloodarsenal.BloodArsenal;
 import arcaratus.bloodarsenal.block.IBABlock;
 import arcaratus.bloodarsenal.item.*;
-import arcaratus.bloodarsenal.item.baubles.*;
+import arcaratus.bloodarsenal.item.baubles.ItemSacrificeAmulet;
+import arcaratus.bloodarsenal.item.baubles.ItemSelfSacrificeAmulet;
+import arcaratus.bloodarsenal.item.baubles.ItemSoulPendant;
+import arcaratus.bloodarsenal.item.baubles.ItemVampireRing;
 import arcaratus.bloodarsenal.item.block.ItemBlockBloodBurnedString;
 import arcaratus.bloodarsenal.item.sigil.*;
-import arcaratus.bloodarsenal.item.stasis.*;
+import arcaratus.bloodarsenal.item.stasis.ItemStasisAxe;
+import arcaratus.bloodarsenal.item.stasis.ItemStasisPickaxe;
+import arcaratus.bloodarsenal.item.stasis.ItemStasisShovel;
+import arcaratus.bloodarsenal.item.stasis.ItemStasisSword;
 import arcaratus.bloodarsenal.item.tool.*;
 import arcaratus.bloodarsenal.util.IComplexVariantProvider;
 import com.google.common.collect.Lists;
@@ -20,6 +26,7 @@ import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -100,10 +107,11 @@ public class RegistrarBloodArsenalItems
     {
         items = Lists.newArrayList();
 
-        RegistrarBloodArsenalBlocks.blocks.stream().filter(block -> block instanceof IBABlock && ((IBABlock) block).getItem() != null).forEach(block ->
+        RegistrarBloodArsenalBlocks.blocks.stream().filter(block -> block instanceof IBABlock).forEach(block ->
         {
-            IBABlock baBlock = (IBABlock) block;
-            items.add(baBlock.getItem().setRegistryName(block.getRegistryName()));
+            ItemBlock itemBlock = new ItemBlock(block);
+            itemBlock.setRegistryName(block.getRegistryName());
+            items.add(itemBlock);
         });
 
         items.addAll(Lists.newArrayList(
