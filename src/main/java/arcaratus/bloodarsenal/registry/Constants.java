@@ -73,28 +73,37 @@ public class Constants
 
     public static class Modifiers
     {
+        // HEAD Modifiers
         public static final String BAD_POTION = "bad_potion";
         public static final String BLOODLUST = "bloodlust";
+        public static final String CRIT_STRIKER = "crit_striker";
         public static final String FLAME = "flame";
         public static final String SHARPNESS = "sharpness";
+        public static final String VAMPIRIC = "vampiric";
 
+        // CORE Modifiers
         public static final String FORTUNATE = "fortunate";
         public static final String LOOTING = "looting";
         public static final String SILKY = "silky";
         public static final String SMELTING = "smelting";
         public static final String XPERIENCED = "xperienced";
 
+        // HANDLE Modifiers
         public static final String BENEFICIAL_POTION = "beneficial_potion";
         public static final String QUICK_DRAW = "quick_draw";
         public static final String SHADOW_TOOL = "shadow_tool";
 
+        // ABILITY Modifiers
         public static final String AOD = "aod";
         public static final String SIGIL = "sigil";
 
+        // How many units until the modifier can be upgraded
         public static final int[] BAD_POTION_COUNTER = new int[] { 0, 64, 256, 1024 };
         public static final int[] BLOODLUST_COUNTER = new int[] { 0, 2, 128, 256, 512, 1024, 2048 };
+        public static final int[] CRIT_STRIKER_COUNTER = new int[] { 0, 10, 50, 200, 400 };
         public static final int[] FLAME_COUNTER = new int[] { 0, 40, 80, 160, 320, 640, 1280 };
         public static final int[] SHARPNESS_COUNTER = new int[] { 0, 4, 128, 256, 512, 1024, 2048 };
+        public static final int[] VAMPIRIC_COUNTER = new int[] { 0, 100, 500, 2500, 10000 };
 
         public static final int[] FORTUNATE_COUNTER = new int[] { 0, 64, 256, 1024, 4096 };
         public static final int[] LOOTING_COUNTER = new int[] { 0, 36, 72, 144, 288 };

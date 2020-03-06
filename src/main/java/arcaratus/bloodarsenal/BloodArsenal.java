@@ -7,6 +7,7 @@ import arcaratus.bloodarsenal.compat.ICompatibilityPlugin;
 import arcaratus.bloodarsenal.core.RegistrarBloodArsenalItems;
 import arcaratus.bloodarsenal.network.BloodArsenalPacketHandler;
 import arcaratus.bloodarsenal.proxy.CommonProxy;
+import arcaratus.bloodarsenal.registry.BloodArsenalSounds;
 import arcaratus.bloodarsenal.registry.ModModifiers;
 import arcaratus.bloodarsenal.registry.ModRecipes;
 import com.google.common.collect.Sets;
@@ -81,6 +82,7 @@ public class BloodArsenal
             plugin.init();
 
         RegistryShenanigans.init();
+        BloodArsenalSounds.init();
         PROXY.init();
     }
 

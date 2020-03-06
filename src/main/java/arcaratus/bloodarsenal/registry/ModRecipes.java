@@ -16,7 +16,10 @@ import arcaratus.bloodarsenal.recipe.SanguineInfusionRecipeRegistry;
 import com.google.common.collect.Sets;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemSplashPotion;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
@@ -61,6 +64,7 @@ public class ModRecipes
 
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.BAD_POTION, 1, ItemSplashPotion.class, p(Items.GLASS_BOTTLE, 4), p(Items.NETHER_WART, 16), p(Items.FERMENTED_SPIDER_EYE, 8), p(Items.GUNPOWDER, 16), p(Items.SPIDER_EYE, 8), p(Items.GLOWSTONE_DUST, 16), p(Items.NETHER_WART, 16), p(new RecipeFilter(stack -> !PotionUtils.getEffectsFromStack(stack).isEmpty() && PotionUtils.getEffectsFromStack(stack).get(0).getPotion().isBadEffect()), 0));
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.BLOODLUST, 1, p(EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack(), 9), p(Blocks.REDSTONE_BLOCK, 3), p(new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 2), 1), p(EnumBaseTypes.GLASS_SHARD.getStack(), 16), p(EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack(), 9), p(Blocks.REDSTONE_BLOCK, 3), p(new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 2), 1), p(EnumBaseTypes.GLASS_SHARD.getStack(), 16));
+        SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.CRIT_STRIKER, 1, p(Items.QUARTZ, 8), p(EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack(), 8), p(Items.FLINT, 8), p(EnumBaseTypes.GLASS_SHARD, 8), p(RegistrarBloodArsenalItems.BLOOD_DIAMOND, 8), p(Blocks.OBSIDIAN, 8), p(new ItemStack(RegistrarBloodArsenalBlocks.SLATE, 1, 3), 8), p(Items.PRISMARINE_SHARD, 8));
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.FLAME, 1, p(Items.FLINT, 8), p(Items.COAL, 8), p(Items.FIRE_CHARGE, 8), p(Items.BLAZE_POWDER, 8), p(Items.FLINT, 8), p(Items.BLAZE_POWDER, 8), p(Items.FIRE_CHARGE, 8), p(Items.COAL, 8));
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.SHARPNESS, 1, p(Items.QUARTZ, 9), p(Items.IRON_INGOT, 4), p(Items.FLINT, 9), p(Blocks.QUARTZ_BLOCK, 9), p(EnumBaseTypes.GLASS_SHARD.getStack(), 9), p(Blocks.QUARTZ_BLOCK, 9), p(Items.FLINT, 9), p(Items.IRON_INGOT, 4));
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.FORTUNATE, 1, p(new ItemStack(Items.DYE, 1, 4), 12), p(Blocks.LAPIS_BLOCK, 4), p(Items.EMERALD, 12), p(Blocks.EMERALD_BLOCK, 4), p(new ItemStack(Items.DYE, 1, 4), 12), p(Blocks.EMERALD_BLOCK, 4), p(Items.EMERALD, 12), p(Blocks.LAPIS_BLOCK, 4));
@@ -69,6 +73,7 @@ public class ModRecipes
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.SMELTING, 1, p(Blocks.FURNACE, 16), p(Blocks.COAL_BLOCK, 32), p(Items.BLAZE_ROD, 16), p(Blocks.NETHER_BRICK, 32), p(Blocks.FURNACE, 16), p(Blocks.COAL_BLOCK, 32), p(Items.BLAZE_ROD, 16), p(Blocks.NETHER_BRICK, 32));
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.XPERIENCED, 1, p(Items.EXPERIENCE_BOTTLE, 4), p(Items.EMERALD, 8), p(Items.BOOK, 4), p(Items.GOLD_INGOT, 9), p(Blocks.BOOKSHELF, 8), p(Items.EMERALD, 8), p(Items.BOOK, 4), p(Items.GOLD_INGOT, 9));
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.BENEFICIAL_POTION, 1, ItemPotion.class, p(Items.GLASS_BOTTLE, 4), p(Items.NETHER_WART, 16), p(Items.REDSTONE, 8), p(Items.GUNPOWDER, 16), p(Items.SPECKLED_MELON, 8), p(Items.GLOWSTONE_DUST, 16), p(Items.NETHER_WART, 16), p(new RecipeFilter(stack -> !PotionUtils.getEffectsFromStack(stack).isEmpty() && PotionUtils.getEffectsFromStack(stack).get(0).getPotion().isBeneficial()), 1));
+        SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.VAMPIRIC, 1, p(RegistrarBloodArsenalItems.BLOOD_DIAMOND, 4), p(EnumBaseTypes.GLASS_SHARD.getStack(), 12), p(RegistrarBloodArsenalItems.BLOOD_BURNED_STRING, 8), p(new ItemStack(RegistrarBloodMagicItems.SLATE, 1, 3), 4), p(Items.DIAMOND, 4), p(RegistrarBloodArsenalBlocks.BLOOD_STAINED_GLASS, 12), p(Items.STRING, 8), p(Items.GHAST_TEAR, 4));
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.QUICK_DRAW, 1, p(Items.FEATHER, 16), p(new ItemStack(Items.DYE, 1, 3), 8), p(Items.FEATHER, 16), p(new ItemStack(Items.DYE, 1, 3), 8));
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.SHADOW_TOOL, 1, p(Blocks.OBSIDIAN, 16), p(Items.STICK, 8), p(ComponentTypes.REAGENT_BRIDGE.getStack(), 1), p(EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 4), p(Blocks.OBSIDIAN, 16), p(Items.STICK, 8), p(ComponentTypes.REAGENT_BRIDGE.getStack(), 1), p(EnumBaseTypes.BLOOD_INFUSED_STICK.getStack(), 4));
         SanguineInfusionRecipeRegistry.registerModificationRecipe(10000, Constants.Modifiers.AOD, 1, p(Blocks.TNT, 9), p(Items.GUNPOWDER, 8), p(EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack(), 8), p(ComponentTypes.REAGENT_BINDING.getStack(), 1), p(Blocks.TNT, 9), p(Items.GUNPOWDER, 8), p(EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack(), 8), p(ComponentTypes.REAGENT_BINDING.getStack(), 1));

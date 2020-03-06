@@ -1,25 +1,34 @@
 package arcaratus.bloodarsenal.registry;
 
-import arcaratus.bloodarsenal.modifier.*;
+import arcaratus.bloodarsenal.modifier.EnumModifierType;
+import arcaratus.bloodarsenal.modifier.Modifier;
+import arcaratus.bloodarsenal.modifier.ModifierHandler;
+import arcaratus.bloodarsenal.modifier.ModifierTracker;
 import arcaratus.bloodarsenal.modifier.modifiers.*;
 
 public class ModModifiers
 {
+    // HEAD Modifiers
     public static Modifier MODIFIER_BAD_POTION;
     public static Modifier MODIFIER_BLOODLUST;
+    public static Modifier MODIFIER_CRIT_STRIKER;
     public static Modifier MODIFIER_FLAME;
     public static Modifier MODIFIER_SHARPNESS;
+    public static Modifier MODIFIER_VAMPIRIC;
 
+    // CORE Modifiers
     public static Modifier MODIFIER_FORTUNATE;
     public static Modifier MODIFIER_LOOTING;
     public static Modifier MODIFIER_SILKY;
     public static Modifier MODIFIER_SMELTING;
     public static Modifier MODIFIER_XPERIENCED;
 
+    // HANDLE Modifiers
     public static Modifier MODIFIER_BENEFICIAL_POTION;
     public static Modifier MODIFIER_QUICK_DRAW;
     public static Modifier MODIFIER_SHADOW_TOOL;
 
+    // ABILITY Modifiers
     public static Modifier MODIFIER_AOD;
     public static Modifier MODIFIER_SIGIL;
 
@@ -29,8 +38,10 @@ public class ModModifiers
 
         MODIFIER_BAD_POTION = ModifierHandler.registerModifier(new ModifierBadPotion(), new ModifierTracker(Constants.Modifiers.BAD_POTION, Constants.Modifiers.BAD_POTION_COUNTER));
         MODIFIER_BLOODLUST = ModifierHandler.registerModifier(new ModifierBloodlust(), new ModifierTracker(Constants.Modifiers.BLOODLUST, Constants.Modifiers.BLOODLUST_COUNTER));
+        MODIFIER_CRIT_STRIKER = ModifierHandler.registerModifier(new ModifierCritStriker(), new ModifierTracker(Constants.Modifiers.CRIT_STRIKER, Constants.Modifiers.CRIT_STRIKER_COUNTER));
         MODIFIER_FLAME = ModifierHandler.registerModifier(new ModifierFlame(), new ModifierTracker(Constants.Modifiers.FLAME, Constants.Modifiers.FLAME_COUNTER));
         MODIFIER_SHARPNESS = ModifierHandler.registerModifier(new ModifierSharpness(), new ModifierTracker(Constants.Modifiers.SHARPNESS, Constants.Modifiers.SHARPNESS_COUNTER));
+        MODIFIER_VAMPIRIC = ModifierHandler.registerModifier(new ModifierVampiric(), new ModifierTracker(Constants.Modifiers.VAMPIRIC, Constants.Modifiers.VAMPIRIC_COUNTER));
 
         MODIFIER_FORTUNATE = ModifierHandler.registerModifier(new ModifierFortunate(), new ModifierTracker(Constants.Modifiers.FORTUNATE, Constants.Modifiers.FORTUNATE_COUNTER));
         MODIFIER_LOOTING = ModifierHandler.registerModifier(new ModifierLooting(), new ModifierTracker(Constants.Modifiers.LOOTING, Constants.Modifiers.LOOTING_COUNTER));

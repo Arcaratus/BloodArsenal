@@ -160,16 +160,21 @@ tooltip.bloodarsenal.modifier_type.ability=Ability:
 
 tooltip.bloodarsenal.modifier.flame=Ember's Touch
 tooltip.bloodarsenal.modifier.bad_potion=Potion (Debuff)
-tooltip.bloodarsenal.modifier.sharpness=Razor Edge
 tooltip.bloodarsenal.modifier.bloodlust=Bloodlust
+tooltip.bloodarsenal.modifier.crit_striker=Crit Striker
+tooltip.bloodarsenal.modifier.sharpness=Razor Edge
+tooltip.bloodarsenal.modifier.vampiric=Vampiric Fangs
+
 tooltip.bloodarsenal.modifier.silky=Silky Smooth
 tooltip.bloodarsenal.modifier.smelting=Shmelty Smelt
 tooltip.bloodarsenal.modifier.fortunate=Luck's Charm
 tooltip.bloodarsenal.modifier.looting=Loot Farmer
 tooltip.bloodarsenal.modifier.xperienced=XPerienced
+
+tooltip.bloodarsenal.modifier.beneficial_potion=Potion (Buff)
 tooltip.bloodarsenal.modifier.quick_draw=Quick Draw
 tooltip.bloodarsenal.modifier.shadow_tool=Shadow Tool
-tooltip.bloodarsenal.modifier.beneficial_potion=Potion (Buff)
+
 tooltip.bloodarsenal.modifier.aod=Aura of Destruction
 tooltip.bloodarsenal.modifier.sigil=Sigil
 
@@ -190,20 +195,32 @@ ritual.bloodarsenal.imperfect.snow=Imperfect Snow Ritual
 # Chat
 chat.bloodarsenal.damage_source_glass=%s was pricked too much
 chat.bloodarsenal.damage_source_bleeding=%s ran out of life
+chat.bloodarsenal.damage_source_crit=%s was crit!
+
 chat.bloodarsenal.set_level=Set Level to: %d
 chat.bloodarsenal.too_weak=You feel a bit too weak to do that...
 chat.bloodarsenal.set_owner=Set bound owner to: %s
 chat.bloodarsenal.already_owner=You are already bound to this!
 chat.bloodarsenal.no_owner=This item is not bound!
+chat.bloodarsenal.crit=Critical Hit!
+chat.bloodarsenal.sigil_activated=%s activated
+chat.bloodarsenal.sigil_deactivated=%s deactivated
+
 chat.bloodarsenal.ritual.configuration=There is something wrong with the configuration!
 chat.bloodarsenal.ritual.notEnoughLava=Not enough Lava present!
 chat.bloodarsenal.ritual.notEnoughLE=Not enough Life Essence present!
 chat.bloodarsenal.ritual.noGlowstone=No Glowstone available!
 chat.bloodarsenal.ritual.noIgniter=There is no Igniter in the center!
+chat.bloodarsenal.ritual.outputTankWrong=There is something else in the output tank!
+chat.bloodarsenal.ritual.inputTankEmpty=There is not enough Life Essence in the input tank!
+chat.bloodarsenal.ritual.inputError=There is something wrong with the inputs!
 
 chat.bloodarsenal.modifier_added=&4%s (Level %d) added to %s!&f
 chat.bloodarsenal.modifier_incompatible=&4%s cannot be added to %s!&f
 chat.bloodarsenal.modifier_ready=&4%s (Level %d) is ready to be upgraded!&f
+
+# Subtitles
+bloodarsenal.subtitle.crit=Critical hit!
 
 # Commands
 commands.bloodarsenal.error.arg.invalid=Invalid arguments

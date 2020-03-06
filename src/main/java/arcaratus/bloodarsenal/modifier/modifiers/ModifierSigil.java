@@ -6,6 +6,7 @@ import arcaratus.bloodarsenal.modifier.EnumModifierType;
 import arcaratus.bloodarsenal.modifier.Modifier;
 import arcaratus.bloodarsenal.modifier.StasisModifiable;
 import arcaratus.bloodarsenal.registry.Constants;
+import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import joptsimple.internal.Strings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,6 +50,17 @@ public class ModifierSigil extends Modifier
     public void onRightClick(ItemStack itemStack, World world, EntityPlayer player, int level)
     {
         activated = !activated;
+
+        if (itemStack.hasTagCompound())
+        {
+            NBTTagCompound data = itemStack.getTagCompound().getCompoundTag(Constants.NBT.ITEMSTACK);
+            ItemStack sigilStack = new ItemStack(data);
+
+            if (activated)
+                BloodArsenalUtils.sendPlayerMessage(player, TextHelper.localizeEffect("chat.bloodarsenal.sigil_activated", sigilStack.getDisplayName()), true);
+            else
+                BloodArsenalUtils.sendPlayerMessage(player, TextHelper.localizeEffect("chat.bloodarsenal.sigil_deactivated", sigilStack.getDisplayName()), true);
+        }
     }
 
     @Override

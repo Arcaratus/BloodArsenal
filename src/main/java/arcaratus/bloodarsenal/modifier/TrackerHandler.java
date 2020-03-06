@@ -1,8 +1,11 @@
 package arcaratus.bloodarsenal.modifier;
 
+import WayofTime.bloodmagic.iface.IActivatable;
 import WayofTime.bloodmagic.util.Utils;
 import arcaratus.bloodarsenal.BloodArsenal;
+import arcaratus.bloodarsenal.registry.BloodArsenalSounds;
 import arcaratus.bloodarsenal.registry.ModModifiers;
+import arcaratus.bloodarsenal.util.BloodArsenalUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,22 +34,46 @@ public class TrackerHandler
         Entity sourceEntity = source.getImmediateSource();
         EntityLivingBase attackedEntity = event.getEntityLiving();
 
-        if (attackedEntity.getAttackingEntity() instanceof EntityPlayer)
+        if (sourceEntity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) attackedEntity.getAttackingEntity();
+            EntityPlayer player = (EntityPlayer) sourceEntity;
             ItemStack modifiableStack = player.getHeldItemMainhand();
 
-            if (!modifiableStack.isEmpty() && modifiableStack.getItem() instanceof IModifiableItem)
+            if (modifiableStack.getItem() instanceof IActivatable && ((IActivatable) modifiableStack.getItem()).getActivated(modifiableStack))
             {
-                StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(modifiableStack);
-                float amount = Math.min(Utils.getModifiedDamage(attackedEntity, event.getSource(), event.getAmount()), attackedEntity.getHealth());
+                if (!modifiableStack.isEmpty() && modifiableStack.getItem() instanceof IModifiableItem)
+                {
+                    StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(modifiableStack);
+                    float amount = Math.min(Utils.getModifiedDamage(attackedEntity, event.getSource(), event.getAmount()), attackedEntity.getHealth());
 
-                modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_FLAME);
+                    modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_FLAME);
 
-                float reducedAmount = amount / 4;
+                    if (modifiable.hasModifier(ModModifiers.MODIFIER_CRIT_STRIKER))
+                    {
+                        int level = modifiable.getTrackerForModifier(ModModifiers.MODIFIER_CRIT_STRIKER).getLevel() + 1;
+                        if (rand.nextInt(10) < level)
+                        {
+                            modifiable.incrementModifierTracker(modifiableStack, ModModifiers.MODIFIER_CRIT_STRIKER);
+                            event.setAmount(amount * ((float) level / 2F));
+                            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.crit", true);
+                            player.playSound(BloodArsenalSounds.SOUND_CRIT, 0.2F, 1);
+                        }
+                    }
 
-                modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_BLOODLUST, reducedAmount);
-                modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_SHARPNESS, reducedAmount);
+                    float reducedAmount;
+
+                    if (modifiable.hasModifier(ModModifiers.MODIFIER_VAMPIRIC))
+                    {
+                        reducedAmount = 1F + amount * (modifiable.getTrackerForModifier(ModModifiers.MODIFIER_VAMPIRIC).getLevel() + 1F) / 10F;
+                        if (modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_VAMPIRIC, reducedAmount))
+                            player.heal(reducedAmount);
+                    }
+
+                    reducedAmount = amount / 4;
+
+                    modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_BLOODLUST, reducedAmount);
+                    modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_SHARPNESS, reducedAmount);
+                }
             }
         }
     }
@@ -63,7 +90,7 @@ public class TrackerHandler
                 EntityPlayer player = (EntityPlayer) attackedEntity.getAttackingEntity();
                 ItemStack modifiableStack = player.getHeldItemMainhand();
 
-                if (!modifiableStack.isEmpty() && modifiableStack.getItem() instanceof IModifiableItem)
+                if (!modifiableStack.isEmpty() && modifiableStack.getItem() instanceof IActivatable && ((IActivatable) modifiableStack.getItem()).getActivated(modifiableStack) && modifiableStack.getItem() instanceof IModifiableItem)
                 {
                     StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(modifiableStack);
                     modifiable.checkAndIncrementTracker(modifiableStack, ModModifiers.MODIFIER_LOOTING);
@@ -79,7 +106,7 @@ public class TrackerHandler
         {
             EntityPlayer player = event.getAttackingPlayer();
             ItemStack itemStack = player.getHeldItemMainhand();
-            if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
+            if (!itemStack.isEmpty() && itemStack.getItem() instanceof IActivatable && ((IActivatable) itemStack.getItem()).getActivated(itemStack) && itemStack.getItem() instanceof IModifiableItem)
             {
                 StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
 
@@ -99,7 +126,7 @@ public class TrackerHandler
         {
             EntityPlayer player = event.getEntityPlayer();
             ItemStack itemStack = player.getHeldItemMainhand();
-            if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
+            if (!itemStack.isEmpty() && itemStack.getItem() instanceof IActivatable && ((IActivatable) itemStack.getItem()).getActivated(itemStack) &&  itemStack.getItem() instanceof IModifiableItem)
             {
                 StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
 
@@ -115,7 +142,7 @@ public class TrackerHandler
         {
             EntityPlayer player = event.getPlayer();
             ItemStack itemStack = player.getHeldItemMainhand();
-            if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModifiableItem)
+            if (!itemStack.isEmpty() && itemStack.getItem() instanceof IActivatable && ((IActivatable) itemStack.getItem()).getActivated(itemStack) &&  itemStack.getItem() instanceof IModifiableItem)
             {
                 StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(itemStack);
 

@@ -54,6 +54,25 @@ public class RitualPurification extends RitualBloodArsenal
             return false;
         }
 
+        TileBloodTank inputTank = (TileBloodTank) world.getTileEntity(pos.add(INPUT_TANK_POS));
+        TileBloodTank outputTank = (TileBloodTank) world.getTileEntity(pos.add(OUTPUT_TANK_POS));
+
+        if (outputTank.getTank().getFluidAmount() != 0 && outputTank.getTank().getFluid().getFluid() != RegistrarBloodArsenalBlocks.FLUID_REFINED_LIFE_ESSENCE)
+        {
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.outputTankWrong", true);
+            return false;
+        }
+        else if (inputTank.getTank().getFluidAmount() == 0 || inputTank.getTank().getFluid().getFluid() != BlockLifeEssence.getLifeEssence() || inputTank.getTank().getFluidAmount() < ConfigHandler.rituals.purificationRitualMinLP)
+        {
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.inputTankEmpty", true);
+            return false;
+        }
+        else if (!hasInputs(world, pos, PURIFICATION_1))
+        {
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.inputError", true);
+            return false;
+        }
+
         return true;
     }
 
@@ -76,7 +95,7 @@ public class RitualPurification extends RitualBloodArsenal
                 {
                     tickRitual(world, pos, network, inputTank, outputTank);
                 }
-                else if (fluidLeft == 0)
+                else
                 {
                     if (hasInputs(world, pos, PURIFICATION_1) && !(inputTank.getTank().getFluidAmount() == 0 || inputTank.getTank().getFluid().getFluid() != BlockLifeEssence.getLifeEssence() || inputTank.getTank().getFluidAmount() < ConfigHandler.rituals.purificationRitualMinLP))
                     {

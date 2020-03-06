@@ -1,0 +1,7 @@
+{
+  "crit": {
+    "category": "entity",
+    "subtitle": "bloodarsenal.subtitle.crit",
+    "sounds": [ "bloodarsenal:crit" ]
+  }
+}

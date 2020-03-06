@@ -236,6 +236,7 @@ public class RitualInfusion extends RitualBloodArsenal
 
     private void endRitual(World world, BlockPos pos, IMasterRitualStone mrs)
     {
+        world.createExplosion(null, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 0, false);
         List<TileStasisPlate> stasisPlates = getStasisPlates(world, pos);
         setStasisPlates(world, stasisPlates, false);
         isCrafting = false;
