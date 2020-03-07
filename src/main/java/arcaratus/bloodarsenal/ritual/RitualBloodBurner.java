@@ -80,7 +80,7 @@ public class RitualBloodBurner extends RitualBloodArsenal
 
         if (lavaAmount < Fluid.BUCKET_VOLUME)
         {
-            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.notEnoughLava", true);
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.not_enough_lava", true);
             return false;
         }
 
@@ -88,7 +88,7 @@ public class RitualBloodBurner extends RitualBloodArsenal
         int lifeEssenceAmount = getFluidNumber(lifeEssenceTanks, false);
         if (lifeEssenceAmount < Fluid.BUCKET_VOLUME)
         {
-            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.notEnoughLE", true);
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.not_enough_life_essence", true);
             return false;
         }
 
@@ -100,14 +100,14 @@ public class RitualBloodBurner extends RitualBloodArsenal
             return !plateStack.isEmpty() && (ItemStack.areItemsEqual(plateStack, new ItemStack(Items.GLOWSTONE_DUST)) || ItemStack.areItemsEqual(plateStack, EnumBaseTypes.BLOOD_INFUSED_GLOWSTONE_DUST.getStack()));
         }))
         {
-            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.noGlowstone", true);
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.no_glowstone", true);
             return false;
         }
 
         ItemStack igniter = ((TileStasisPlate) world.getTileEntity(pos.add(0, 1, 0))).getStackInSlot(0);
         if (igniter.isEmpty() || IGNITERS.stream().noneMatch(item -> ItemStack.areItemsEqual(igniter, new ItemStack(item))))
         {
-            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.noIgniter", true);
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.no_igniter", true);
             return false;
         }
 

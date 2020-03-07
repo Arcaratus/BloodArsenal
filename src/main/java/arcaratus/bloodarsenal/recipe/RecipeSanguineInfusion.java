@@ -15,7 +15,8 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class RecipeSanguineInfusion
@@ -155,6 +156,7 @@ public class RecipeSanguineInfusion
         List<Pair<Ingredient, Integer>> inputsForLevel = new ArrayList<>();
         for (Pair<Ingredient, Integer> entry : inputs)
             inputsForLevel.add(p(entry.getKey(), entry.getValue() * (modifierLevel + 1) * getLevelMultiplier()));
+
         return inputsForLevel;
     }
 
@@ -187,36 +189,31 @@ public class RecipeSanguineInfusion
         List<ItemStack> dummyList = itemStackInputs.stream().map(ItemStack::copy).collect(Collectors.toList());
         List<Pair<Ingredient, Integer>> ingredientsMap = getInputsForLevel(modifierLevel);
 
-        boolean foundFilter = filter == null;
+        boolean filterExists = filter != null;
         for (Pair<Ingredient, Integer> entry : ingredientsMap)
         {
             boolean foundIngredient = false;
 
-            // TODO fix an error here, not working for Potion Recipes
-            for (Iterator<ItemStack> iterator = dummyList.iterator(); iterator.hasNext();)
+            for (ItemStack input : dummyList)
             {
-                ItemStack input = iterator.next();
                 Ingredient ingredient = entry.getKey();
                 if (ingredient.apply(input) && input.getCount() >= entry.getValue())
                 {
                     foundIngredient = true;
-                    iterator.remove();
+                    dummyList.remove(input);
                     break;
                 }
 
-                if (!foundFilter && filter.matches(input))
+                if (filterExists && filter.matches(input))
                 {
-                    foundFilter = true;
-                    iterator.remove();
+                    dummyList.remove(input);
+                    break;
                 }
             }
 
             if (!foundIngredient)
                 return false;
         }
-
-        if (!foundFilter)
-            return false;
 
         for (ItemStack input : dummyList)
             if (!input.isEmpty())

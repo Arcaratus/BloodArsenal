@@ -207,13 +207,17 @@ chat.bloodarsenal.sigil_activated=%s activated
 chat.bloodarsenal.sigil_deactivated=%s deactivated
 
 chat.bloodarsenal.ritual.configuration=There is something wrong with the configuration!
-chat.bloodarsenal.ritual.notEnoughLava=Not enough Lava present!
-chat.bloodarsenal.ritual.notEnoughLE=Not enough Life Essence present!
-chat.bloodarsenal.ritual.noGlowstone=No Glowstone available!
-chat.bloodarsenal.ritual.noIgniter=There is no Igniter in the center!
-chat.bloodarsenal.ritual.outputTankWrong=There is something else in the output tank!
-chat.bloodarsenal.ritual.inputTankEmpty=There is not enough Life Essence in the input tank!
-chat.bloodarsenal.ritual.inputError=There is something wrong with the inputs!
+chat.bloodarsenal.ritual.not_enough_lava=Not enough Lava present!
+chat.bloodarsenal.ritual.not_enough_life_essence=Not enough Life Essence present!
+chat.bloodarsenal.ritual.no_glowstone=No Glowstone available!
+chat.bloodarsenal.ritual.no_igniter=There is no Igniter in the center!
+chat.bloodarsenal.ritual.output_tank_wrong=There is something else in the output tank!
+chat.bloodarsenal.ritual.input_tank_empty=There is not enough Life Essence in the input tank!
+chat.bloodarsenal.ritual.input_error=There is something wrong with the inputs!
+chat.bloodarsenal.ritual.recipe_error=There is something wrong with the recipe!
+chat.bloodarsenal.ritual.altar_no_item=There is no item in the Blood Altar!
+chat.bloodarsenal.ritual.modifier_incompatible=%s (Level %d) cannot be applied to %s!
+chat.bloodarsenal.ritual.input_specific_error=%s is the wrong input for this recipe!
 
 chat.bloodarsenal.modifier_added=&4%s (Level %d) added to %s!&f
 chat.bloodarsenal.modifier_incompatible=&4%s cannot be added to %s!&f

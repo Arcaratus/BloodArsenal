@@ -20,7 +20,7 @@ public interface IModifiable
 
     boolean hasModifier(Modifier modifier);
 
-    boolean canApplyModifier(Modifier modifier);
+    boolean canApplyModifier(Modifier modifier, int level);
 
     boolean markModifierReady(ItemStack itemStack, EntityPlayer player, Modifier modifier);
 

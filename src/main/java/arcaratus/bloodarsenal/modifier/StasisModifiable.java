@@ -64,8 +64,15 @@ public class StasisModifiable implements IModifiable
     }
 
     @Override
-    public boolean canApplyModifier(Modifier modifier)
+    public boolean canApplyModifier(Modifier modifier, int level)
     {
+        if (hasModifier(modifier))
+        {
+            ModifierTracker existingModifier = getTrackerForModifier(modifier);
+            if (!existingModifier.isReadyToUpgrade() || existingModifier.getLevel() < level)
+                return false;
+        }
+
         if (!ModifierHandler.isModifierCompatible(modifierMap.keySet(), modifier))
             return false;
 
@@ -98,7 +105,7 @@ public class StasisModifiable implements IModifiable
             {
 //                tracker.setReadyToUpgrade(true);
                 String name = modifierMap.get(key).getLeft().hasAltName() ? TextHelper.localize(modifier.getAlternateName(itemStack)) : TextHelper.localize(modifier.getUnlocalizedName());
-                player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.modifier_ready", name, tracker.getLevel() + 1)), true);
+                player.sendStatusMessage(new TextComponentString(TextHelper.localizeEffect("chat.bloodarsenal.modifier_ready", name, tracker.getLevel() + 1)), false);
                 return true;
             }
         }

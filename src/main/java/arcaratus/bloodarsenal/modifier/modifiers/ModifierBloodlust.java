@@ -27,7 +27,7 @@ public class ModifierBloodlust extends Modifier
     public void onUpdate(ItemStack itemStack, World world, Entity entity, int itemSlot, int level)
     {
         if (world.getWorldTime() % 20 == 0 && multiplier > 0 && random.nextInt(4) < 2)
-            multiplier = Math.max(multiplier - (0.05 + ((double) random.nextInt(5) / 100)), 0);
+            multiplier = Math.max(multiplier - (0.1 + ((double) random.nextInt(5) / 100)), 0);
     }
 
     @Override

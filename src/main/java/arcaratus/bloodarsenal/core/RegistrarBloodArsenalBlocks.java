@@ -36,8 +36,8 @@ public class RegistrarBloodArsenalBlocks
 {
     public static final Block SLATE = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_LOG = Blocks.AIR;
-    public static final Block BLOOD_INFUSED_WOODEN_PLANKS = Blocks.AIR;
-    public static Block BLOOD_INFUSED_WOODEN_STAIRS = Blocks.AIR;
+    public static Block BLOOD_INFUSED_WOODEN_PLANKS = Blocks.AIR;
+    public static final Block BLOOD_INFUSED_WOODEN_STAIRS = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_DOUBLE_SLAB = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_SLAB = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_FENCE = Blocks.AIR;
@@ -67,11 +67,13 @@ public class RegistrarBloodArsenalBlocks
         FluidRegistry.registerFluid(FLUID_REFINED_LIFE_ESSENCE);
         FluidRegistry.addBucketForFluid(FLUID_REFINED_LIFE_ESSENCE);
 
+        // Needed because it has to register first for things to work properly
+        BLOOD_INFUSED_WOODEN_PLANKS = registerBlock(event, new BlockBloodInfusedWoodenPlanks("blood_infused_wooden_planks"));
+
         blocks = Lists.newArrayList(
                 new BlockSlate("slate"),
                 new BlockBloodInfusedWoodenLog("blood_infused_wooden_log"),
-                new BlockBloodInfusedWoodenPlanks("blood_infused_wooden_planks"),
-//                new BlockBloodInfusedWoodenStairs("blood_infused_wooden_stairs"),
+                new BlockBloodInfusedWoodenStairs(BLOOD_INFUSED_WOODEN_PLANKS.getDefaultState(), "blood_infused_wooden_stairs"),
 //                new BlockBloodInfusedWoodenSlab.Double("blood_infused_wooden_double_slab"),
 //                new BlockBloodInfusedWoodenSlab.Half("blood_infused_wooden_slab"),
 //                new ItemBlockBloodInfusedWoodenSlab("blood_infused_wooden_slab").getBlock(),
@@ -91,9 +93,11 @@ public class RegistrarBloodArsenalBlocks
         );
 
         event.getRegistry().registerAll(blocks.toArray(new Block[0]));
-        BLOOD_INFUSED_WOODEN_STAIRS = new BlockBloodInfusedWoodenStairs(BLOOD_INFUSED_WOODEN_PLANKS.getDefaultState(), "blood_infused_wooden_stairs");
-        blocks.add(BLOOD_INFUSED_WOODEN_STAIRS);
-        event.getRegistry().register(BLOOD_INFUSED_WOODEN_STAIRS);
+
+        blocks.add(BLOOD_INFUSED_WOODEN_PLANKS);
+//        blocks.add(BLOOD_INFUSED_WOODEN_STAIRS);
+
+//        event.getRegistry().register(BLOOD_INFUSED_WOODEN_STAIRS);
 
         registerTileEntities();
     }
@@ -117,6 +121,12 @@ public class RegistrarBloodArsenalBlocks
                 return new ModelResourceLocation(state.getBlock().getRegistryName(), "fluid");
             }
         });
+    }
+
+    private static Block registerBlock(RegistryEvent.Register<Block> event, Block block)
+    {
+        event.getRegistry().register(block);
+        return block;
     }
 
     private static void registerTile(Class<? extends TileEntity> tile, String name)

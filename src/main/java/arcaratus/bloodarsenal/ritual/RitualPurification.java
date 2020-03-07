@@ -59,17 +59,17 @@ public class RitualPurification extends RitualBloodArsenal
 
         if (outputTank.getTank().getFluidAmount() != 0 && outputTank.getTank().getFluid().getFluid() != RegistrarBloodArsenalBlocks.FLUID_REFINED_LIFE_ESSENCE)
         {
-            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.outputTankWrong", true);
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.output_tank_wrong", true);
             return false;
         }
         else if (inputTank.getTank().getFluidAmount() == 0 || inputTank.getTank().getFluid().getFluid() != BlockLifeEssence.getLifeEssence() || inputTank.getTank().getFluidAmount() < ConfigHandler.rituals.purificationRitualMinLP)
         {
-            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.inputTankEmpty", true);
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.input_tank_empty", true);
             return false;
         }
         else if (!hasInputs(world, pos, PURIFICATION_1))
         {
-            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.inputError", true);
+            BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.ritual.input_error", true);
             return false;
         }
 

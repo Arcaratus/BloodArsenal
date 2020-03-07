@@ -85,7 +85,7 @@ public class ItemModifierTome extends Item implements IVariantProvider
             if (!otherStack.isEmpty() && otherStack.getItem() instanceof IModifiableItem)
             {
                 StasisModifiable modifiable = StasisModifiable.getModifiableFromStack(otherStack);
-                if (modifiable.canApplyModifier(modifier) && modifiable.applyModifier(pair))
+                if (modifiable.canApplyModifier(modifier, tracker.getLevel()) && modifiable.applyModifier(pair))
                 {
                     boolean hasSpecialNBT = modifier.getSpecialNBT(itemStack) != null;
                     if (hasSpecialNBT)
