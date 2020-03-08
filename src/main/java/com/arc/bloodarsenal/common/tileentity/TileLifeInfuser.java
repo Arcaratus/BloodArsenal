@@ -216,12 +216,10 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
 
     //Logic for the actual block is under here
     @Override
-    public void updateEntity()
-    {
+    public void updateEntity() {
         super.updateEntity();
 
-        if (worldObj.getWorldTime() % 10 == 0)
-        {
+        if (worldObj.getWorldTime() % 10 == 0) {
             int intakeMax = 500;
             int fluidInputted;
             fluidInputted = Math.min(intakeMax, capacity - this.fluid.amount);
@@ -230,62 +228,48 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
             this.fluidInput.amount -= fluidInputted;
         }
 
-        if (++ticksExisted % 10 == 0)
-        {
-            if (inv[0] != null)
-            {
-                if (inv[0].getItem() instanceof IFillable)
-                {
-                    IFillable fillable = (IFillable) inv[0].getItem();
+        if (++ticksExisted % 10 == 0) {
+            ItemStack inputStack = inv[0];
+            if (inputStack != null) {
+                if (inputStack.getItem() instanceof IFillable) {
+                    IFillable fillable = (IFillable) inputStack.getItem();
                     int fillAmount = 200;
 
-                    if (fillable.getLPStored(inv[0]) < fillable.getMaxLP() && !(fillable.getLPStored(inv[0]) + fillAmount > fillable.getMaxLP()) && getFluidAmount() >= fillAmount)
-                    {
+                    if (fillable.getLPStored(inputStack) < fillable.getMaxLP() && !(fillable.getLPStored(inputStack) + fillAmount > fillable.getMaxLP()) && getFluidAmount() >= fillAmount) {
                         fluid.amount = fluid.amount - fillAmount;
-                        fillable.incrementLPStored(inv[0], fillAmount);
+                        fillable.incrementLPStored(inputStack, fillAmount);
                         SpellHelper.sendIndexedParticleToAllAround(worldObj, xCoord, yCoord, zCoord, 20, worldObj.provider.dimensionId, 1, xCoord, yCoord, zCoord);
                     }
-                }
-                else if (inv[0].getItemDamage() > 0)
-                {
+                } else if (inputStack.getItem().isDamageable() && inputStack.getItem().isDamaged(inputStack)) {
                     int lpCost = 300;
-                    int damage = inv[0].getItemDamage();
+                    int damage = inputStack.getItemDamage();
 
-                    if (getFluidAmount() >= lpCost)
-                    {
+                    if (getFluidAmount() >= lpCost) {
                         fluid.amount = fluid.amount - lpCost;
-                        inv[0].setItemDamage(Math.max(0, damage - 1));
-                    }
-                    else
-                    {
+                        inputStack.setItemDamage(Math.max(0, damage - 1));
+                    } else {
                         return;
                     }
 
                     processInput();
                     markDirty();
 
-                    if (damageLastTick != 0 && damageLastTick != damage)
-                    {
+                    if (damageLastTick != 0 && damageLastTick != damage) {
                         //Insert fancy particles here
                         SpellHelper.sendIndexedParticleToAllAround(worldObj, xCoord, yCoord, zCoord, 20, worldObj.provider.dimensionId, 1, xCoord, yCoord, zCoord);
                         tookLastTick = true;
-                    }
-                    else
-                    {
+                    } else {
                         tookLastTick = false;
                     }
                 }
-            }
-            else
-            {
+            } else {
                 tookLastTick = false;
             }
 
-            damageLastTick = inv[0] == null ? 0 : inv[0].getItemDamage();
+            damageLastTick = inputStack == null ? 0 : inputStack.getItemDamage();
         }
 
-        if (worldObj != null)
-        {
+        if (worldObj != null) {
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
