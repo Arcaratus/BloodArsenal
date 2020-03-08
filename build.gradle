@@ -69,9 +69,9 @@ repositories {
         name 'rx14'
         url 'http://mvn.rx14.co.uk/local/'
     }
-    maven { // Baubles
-    	name 'UsrvDE_3rdParty'
-    	url "http://jenkins.usrv.eu:8081/nexus/content/repositories/thirdparty/"
+    maven {
+        name = "gt"
+        url = "http://gregtech.overminddl1.com/"
     }
 }
 
@@ -92,7 +92,7 @@ dependencies {
     compile "mantle:Mantle:1.7.10-0.3.2.jenkins187:deobf"
     compile "tconstruct:TConstruct:" + config.mc_version + "-" + config.tconstruct_version + ":deobf"
     compile "info.amerifrance.guideapi:Guide-API:" + config.mc_version + "-" + config.guideapi_version + ":deobf"
-    compile "com.azanor.baubles:Baubles:" + config.baubles_version + ":deobf"
+    compile "com.azanor.baubles:Baubles:1.7.10-" + config.baubles_version + ":deobf"
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
