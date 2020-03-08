@@ -240,7 +240,7 @@ public class TileLifeInfuser extends TileEntity implements IInventory, IFluidTan
                         fillable.incrementLPStored(inputStack, fillAmount);
                         SpellHelper.sendIndexedParticleToAllAround(worldObj, xCoord, yCoord, zCoord, 20, worldObj.provider.dimensionId, 1, xCoord, yCoord, zCoord);
                     }
-                } else if (inputStack.getItemDamage() > 0) {
+                } else if (inputStack.getItem().isDamageable() && inputStack.getItem().isDamaged(inputStack)) {
                     int lpCost = 300;
                     int damage = inputStack.getItemDamage();
 
