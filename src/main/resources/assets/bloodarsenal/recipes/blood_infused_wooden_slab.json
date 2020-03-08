@@ -1,6 +1,8 @@
 {
   "result": {
-    "item": "bloodarsenal:blood_infused_wooden_slab"
+    "item": "bloodarsenal:blood_infused_wooden_slab",
+    "data": 0,
+    "count": 6
   },
   "pattern": [
     "aaa"

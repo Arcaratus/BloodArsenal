@@ -38,8 +38,8 @@ public class RegistrarBloodArsenalBlocks
     public static final Block BLOOD_INFUSED_WOODEN_LOG = Blocks.AIR;
     public static Block BLOOD_INFUSED_WOODEN_PLANKS = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_STAIRS = Blocks.AIR;
-    public static final Block BLOOD_INFUSED_WOODEN_DOUBLE_SLAB = Blocks.AIR;
-    public static final Block BLOOD_INFUSED_WOODEN_SLAB = Blocks.AIR;
+    public static Block BLOOD_INFUSED_WOODEN_DOUBLE_SLAB = Blocks.AIR;
+    public static Block BLOOD_INFUSED_WOODEN_SLAB = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_FENCE = Blocks.AIR;
     public static final Block BLOOD_INFUSED_WOODEN_FENCE_GATE = Blocks.AIR;
     public static final Block BLOOD_STAINED_GLASS = Blocks.AIR;
@@ -69,14 +69,13 @@ public class RegistrarBloodArsenalBlocks
 
         // Needed because it has to register first for things to work properly
         BLOOD_INFUSED_WOODEN_PLANKS = registerBlock(event, new BlockBloodInfusedWoodenPlanks("blood_infused_wooden_planks"));
+        BLOOD_INFUSED_WOODEN_SLAB = registerBlock(event, new BlockBloodInfusedWoodenSlab.Half("blood_infused_wooden_slab"));
+        BLOOD_INFUSED_WOODEN_DOUBLE_SLAB = registerBlock(event, new BlockBloodInfusedWoodenSlab.Double("blood_infused_wooden_double_slab"));
 
         blocks = Lists.newArrayList(
                 new BlockSlate("slate"),
                 new BlockBloodInfusedWoodenLog("blood_infused_wooden_log"),
                 new BlockBloodInfusedWoodenStairs(BLOOD_INFUSED_WOODEN_PLANKS.getDefaultState(), "blood_infused_wooden_stairs"),
-//                new BlockBloodInfusedWoodenSlab.Double("blood_infused_wooden_double_slab"),
-//                new BlockBloodInfusedWoodenSlab.Half("blood_infused_wooden_slab"),
-//                new ItemBlockBloodInfusedWoodenSlab("blood_infused_wooden_slab").getBlock(),
                 new BlockBloodInfusedWoodenFence("blood_infused_wooden_fence"),
                 new BlockBloodInfusedWoodenFenceGate("blood_infused_wooden_fence_gate"),
                 new BlockBloodStainedGlass("blood_stained_glass"),
@@ -95,9 +94,7 @@ public class RegistrarBloodArsenalBlocks
         event.getRegistry().registerAll(blocks.toArray(new Block[0]));
 
         blocks.add(BLOOD_INFUSED_WOODEN_PLANKS);
-//        blocks.add(BLOOD_INFUSED_WOODEN_STAIRS);
-
-//        event.getRegistry().register(BLOOD_INFUSED_WOODEN_STAIRS);
+        blocks.add(BLOOD_INFUSED_WOODEN_SLAB);
 
         registerTileEntities();
     }

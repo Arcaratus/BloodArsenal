@@ -26,7 +26,6 @@ import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -109,9 +108,7 @@ public class RegistrarBloodArsenalItems
 
         RegistrarBloodArsenalBlocks.blocks.stream().filter(block -> block instanceof IBABlock).forEach(block ->
         {
-            ItemBlock itemBlock = new ItemBlock(block);
-            itemBlock.setRegistryName(block.getRegistryName());
-            items.add(itemBlock);
+            items.add(((IBABlock) block).getItemBlock(block));
         });
 
         items.addAll(Lists.newArrayList(
