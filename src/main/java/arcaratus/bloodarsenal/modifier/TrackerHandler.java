@@ -54,7 +54,7 @@ public class TrackerHandler
                         if (rand.nextInt(10) < level)
                         {
                             modifiable.incrementModifierTracker(modifiableStack, ModModifiers.MODIFIER_CRIT_STRIKER);
-                            event.setAmount(amount * ((float) level / 2F));
+                            event.setAmount(amount * (1F + (float) level / 2F));
                             BloodArsenalUtils.sendPlayerMessage(player, "chat.bloodarsenal.crit", true);
                             player.playSound(BloodArsenalSounds.SOUND_CRIT, 0.2F, 1);
                         }

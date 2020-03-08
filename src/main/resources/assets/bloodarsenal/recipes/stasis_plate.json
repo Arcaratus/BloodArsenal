@@ -14,8 +14,7 @@
       "item": "bloodarsenal:blood_stained_glass"
     },
     "b": {
-      "item": "bloodarsenal:base_item",
-      "data": 8
+      "item": "minecraft:heavy_weighted_pressure_plate"
     },
     "c": {
       "item": "bloodmagic:slate",
