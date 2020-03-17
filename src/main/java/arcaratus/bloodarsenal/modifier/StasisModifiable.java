@@ -69,13 +69,13 @@ public class StasisModifiable implements IModifiable
         if (hasModifier(modifier))
         {
             ModifierTracker existingModifier = getTrackerForModifier(modifier);
-            if (!existingModifier.isReadyToUpgrade() || existingModifier.getLevel() < level)
+            if (!existingModifier.isReadyToUpgrade() || !(existingModifier.getLevel() < level))
                 return false;
         }
 
         if (!ModifierHandler.isModifierCompatible(modifierMap.keySet(), modifier))
             return false;
-
+        
         for (EnumModifierType modType : EnumModifierType.values()) // Checks for max modifiers for modifier type
         {
             int count = 0;

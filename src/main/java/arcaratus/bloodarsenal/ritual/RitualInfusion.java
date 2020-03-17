@@ -98,8 +98,6 @@ public class RitualInfusion extends RitualBloodArsenal
             }
         }
 
-        System.out.println("EL: " + inputStacks);
-
         ItemStack input = altarInv.getStackInSlot(0);
         recipe = SanguineInfusionRecipeRegistry.getRecipeFromInputs(input, inputStacks); // Checks if the inputs match a recipe
 
