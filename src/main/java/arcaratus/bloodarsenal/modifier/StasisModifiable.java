@@ -75,7 +75,7 @@ public class StasisModifiable implements IModifiable
 
         if (!ModifierHandler.isModifierCompatible(modifierMap.keySet(), modifier))
             return false;
-        
+
         for (EnumModifierType modType : EnumModifierType.values()) // Checks for max modifiers for modifier type
         {
             int count = 0;
