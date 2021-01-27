@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "bloodarsenal:block/ethereal_slate"
+  }
+}

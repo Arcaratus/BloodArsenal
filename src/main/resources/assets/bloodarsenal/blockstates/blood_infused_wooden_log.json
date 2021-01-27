@@ -1,9 +1,0 @@
-{
-  "variants": {
-	"normal": { "model": "bloodarsenal:blood_infused_wooden_log" },
-	"axis=y,variant=blood_infused": { "model": "bloodarsenal:blood_infused_wooden_log" },
-	"axis=z,variant=blood_infused": { "model": "bloodarsenal:blood_infused_wooden_log", "x": 90 },
-	"axis=x,variant=blood_infused": { "model": "bloodarsenal:blood_infused_wooden_log", "x": 90, "y": 90 },
-	"axis=none,variant=blood_infused": {"model": "bloodarsenal:blood_infused_wooden_log_bark"}
-  }
-}

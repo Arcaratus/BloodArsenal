@@ -1,178 +1,159 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url "http://files.minecraftforge.net/maven" }
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven {
+            name "forge"
+            url "https://files.minecraftforge.net/maven"
+        }
     }
     dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath 'org.ajoberstar:gradle-git:0.10.1'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
 
-plugins {
-	id "net.minecraftforge.gradle.forge" version "2.0.2"
-    id 'com.matthewprenger.cursegradle' version '1.0.10'
-}
-
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-
-def username = 'Arcaratus'
-
-if (project.hasProperty('dev_username'))
-    username = "${dev_username}"
 
 group = package_group
 archivesBaseName = mod_name
-version = "${mc_version}-${mod_version}-${build_number}"
+version = "${mc_version}-${build_number}"
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation" << "-Werror"
+
+minecraft {
+    mappings channel: 'snapshot', version: "20200916-1.16.2"
+//    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    runs {
+        client {
+            properties 'forge.logging.console.level': 'debug'
+            properties 'fml.earlyprogresswindow': 'false'
+            properties 'mixin.env.disableRefMap': 'true'
+            workingDirectory project.file('run')
+            mods {
+                bloodarsenal {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            properties 'forge.logging.console.level': 'debug'
+            properties 'mixin.env.disableRefMap': 'true'
+            workingDirectory project.file('run')
+            mods {
+                bloodarsenal {
+                    source sourceSets.main
+                }
+            }
+        }
+        data {
+            properties 'fml.earlyprogresswindow': 'false'
+            properties 'mixin.env.disableRefMap': 'true'
+            workingDirectory project.file('run')
+            forceExit false
+            mods {
+                bloodarsenal {
+                    source sourceSets.main
+                }
+            }
+            args '--mod', 'bloodarsenal', '--all',
+                    '--existing', '"' + file('src/main/resources/') + '"',
+                    '--existing', '"' + file('src/generated/resources/') + '"',
+                    '--output', '"' + file('src/generated/resources/') + '"'
+        }
+    }
+}
+
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
 
 repositories {
-    maven { url "http://dvs1.progwml6.com/files/maven" }
-    maven {	url "http://tehnut.info/maven" }
-    maven { url "http://maven.covers1624.net" }
-
+    mavenCentral()
     maven {
-        name = "thiakil"
-        url = "http://maven.thiakil.com"
+        url "https://maven.blamejared.com"
+    }
+    maven {
+        url "https://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        url "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+        url "https://www.cursemaven.com"
     }
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
-	deobfCompile "com.wayoftime.bloodmagic:BloodMagic:${mc_version}-${bloodmagic_version}"
-	deobfCompile "info.amerifrance.guideapi:Guide-API:${guideapi_version}"
+    minecraft "net.minecraftforge:forge:${forge_version}"
 
-	deobfCompile "mcp.mobius.waila:Hwyla:${waila_version}"
-//    compile name: "Thaumcraft", version: "${mc_version}-${thaumcraft_version}", ext: "jar"
-    deobfCompile "com.azanor.baubles:Baubles:1.12-${baubles_version}"
-	
-	deobfCompile "slimeknights.mantle:Mantle:1.12-${mantle_version}"
-    compile "slimeknights:TConstruct:${mc_version}-${tconstruct_version}"
-//    deobfCompile "cofh:RedstoneFlux:1.12-${redstoneflux_version}:deobf"
-}
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
-minecraft {
-    version = "${mc_version}-${forge_version}"
-    runDir = "run"
+    compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
 
-    replace "@VERSION@", project.version
-    replaceIn "BloodArsenal.java"
-    replaceIn "mcmod.info"
-
-    clientRunArgs += "--username=${username}"
-
-    if (project.hasProperty('mappings_version'))
-        mappings = project.mappings_version
-}
-
-processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include '**/*.info'
-        include '**/*.properties'
-
-        expand 'version': project.version, 'mcversion': project.minecraft.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
-        exclude '**/*.properties'
-    }
-}
-
-if (JavaVersion.current().isJava8Compatible()) {
-    allprojects {
-        tasks.withType(Javadoc) {
-            options.addStringOption('Xdoclint:none', '-quiet')
-        }
-    }
+//    compileOnly "com.wayoftime.bloodmagic:BloodMagic:${bloodmagic_version}:api"
+//    runtimeOnly "com.wayoftime.bloodmagic:BloodMagic:${bloodmagic_version}"
+    compileOnly fg.deobf("curse.maven:bloodmagic-224791:3170548")
+    runtimeOnly fg.deobf("curse.maven:bloodmagic-224791:3170548")
 }
 
 jar {
-    classifier = ''
-    manifest.mainAttributes(
-        "Built-By": System.getProperty('user.name'),
-        "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
-        "Implementation-Title": project.name,
-        "Implementation-Version": project.version,
-        "Built-On": "${mc_version}-${forge_version}"
-    )
+    manifest {
+        attributes(["Specification-Title": "bloodarsenal",
+                    "Specification-Vendor": "bloodarsenal",
+                    "Specification-Version": "1",
+                    "Implementation-Title": project.name,
+                    "Implementation-Version": "${version}",
+                    "Implementation-Vendor": "bloodarsenal",
+                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+
+    exclude "**/*.bat"
+    exclude "**/*.psd"
+    exclude "**/*.exe"
 }
 
-task sourcesJar(type: Jar) {
+task srcJar(type: Jar) {
+    from(sourceSets.main.java)
     classifier = 'sources'
-    from sourceSets.main.allJava
-    from sourceSets.api.allJava
 }
 
-tasks.build.dependsOn sourcesJar
+artifacts {
+    archives srcJar
+}
 
-tasks.withType(JavaCompile) { task ->
-    task.options.encoding = 'UTF-8'
+/**
+ * Increments the buildnumber in your config file, and saves it
+ * Note: The doFirst is important, without it the build number
+ * will be incremented every time tasks are configured, i.e every
+ * time gradle is run on this project.
+ */
+task incrementBuildNumber {
+    doFirst {
+        build_number = (build_number.toString().toInteger()) + 1
+        configFile.withWriter {
+            config.toProperties().store(it, "")
+        }
+    }
 }
 
 publishing {
-    tasks.publish.dependsOn 'build'
+    tasks.publish.dependsOn build
     publications {
         mavenJava(MavenPublication) {
             artifact jar
-            artifact sourcesJar
+            artifact srcJar
         }
     }
+
     repositories {
-        if (project.hasProperty('maven_repo')) {
-            maven { url maven_repo }
-        } else {
-            mavenLocal()
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
         }
-    }
-}
-
-String getChangelogText() {
-    def changelogFile = new File('changelog.txt')
-    String str = ''
-    String separator = '---'
-    int lineCount = 0
-    boolean done = false
-    changelogFile.eachLine {
-        if (done || it == null) {
-            return
-        }
-        if (lineCount < 3) {
-            lineCount++
-            if (it.startsWith(separator)) {return}
-        }
-        if (!it.startsWith(separator)) {
-            str += "$it" + (lineCount < 3 ? ':\n\n' : '\n')
-            return
-        }
-        done = true // once we go past the first version block, parse no more
-    }
-    return str
-}
-
-def curseRelations = {
-	requiredLibrary 'blood-magic'
-    requiredLibrary 'baubles'
-    optionalLibrary 'jei'
-    optionalLibrary 'waila'
-	optionalLibrary 'guide-api'
-	optionalLibrary 'tinkers-construct'
-}
-
-curseforge {
-	if (project.hasProperty('curse_key_Arcaratus'))
-        apiKey = project.curse_key_Arcaratus
-
-    project {
-        id = "${curse_id}"
-        changelog = getChangelogText()
-        releaseType = 'beta'
-
-        relations curseRelations
-		
-        addArtifact sourcesJar
     }
 }

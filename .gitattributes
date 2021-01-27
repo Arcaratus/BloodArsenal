@@ -1,5 +1,4 @@
 # Auto detect text files and perform LF normalization
-# This line is to get rid of the stupid commit message made 2 years ago :D
 * text=auto
 
 # Custom for Visual Studio

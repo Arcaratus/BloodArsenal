@@ -1,6 +1,6 @@
 {
-    "pack": {
-        "description": "Blood Arsenal resources",
-        "pack_format": 3
-    }
+  "pack": {
+    "pack_format": 6,
+    "description": "Resources used for Blood Arsenal"
+  }
 }

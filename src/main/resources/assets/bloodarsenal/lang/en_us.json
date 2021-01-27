@@ -1,0 +1,25 @@
+{
+  "itemGroup.bloodarsenal": "Blood Arsenal",
+
+  "item.bloodarsenal.glass_shard": "Glass Shard",
+  "item.bloodarsenal.blood_infused_stick": "Blood Infused Stick",
+  "item.bloodarsenal.blood_infused_glowstone_dust": "Blood Infused Glowstone Dust",
+  "item.bloodarsenal.inert_blood_infused_iron_ingot": "Inert Blood Infused Iron Ingot",
+  "item.bloodarsenal.blood_infused_iron_ingot": "Blood Infused Iron Ingot",
+  "item.bloodarsenal.stasis_plate": "Stasis Plate",
+  "item.bloodarsenal.reagent_swimming": "Swimming Reagent",
+  "item.bloodarsenal.reagent_ender": "Ender Reagent",
+  "item.bloodarsenal.reagent_lightning": "Lightning Reagent",
+  "item.bloodarsenal.reagent_divinity": "Divinity Reagent",
+
+  "block.bloodarsenal.blank_slate": "Blank Slate Block",
+  "block.bloodarsenal.reinforced_slate": "Reinforced Slate Block",
+  "block.bloodarsenal.imbued_slate": "Imbued Slate Block",
+  "block.bloodarsenal.demonic_slate": "Demonic Slate Block",
+  "block.bloodarsenal.ethereal_slate": "Ethereal Slate Block",
+
+  "tooltip.bloodarsenal.glass_shard.info": "Obtained by breaking Glass while holding Flint",
+  "tooltip.bloodarsenal.reagent_lightning.info": "Place the following into water and strike with lightning:\n -Binding Reagent\n -Glowstone Block\n -Redstone Block\n -Gunpowder\n -Iron Block\n -Gold Block",
+
+  "tooltip.bloodarsenal.more_info": "Hold SHIFT for more info"
+}

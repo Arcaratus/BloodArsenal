@@ -1,22 +1,38 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
+# General use .gitignore for Minecraft modding.
 
-# idea
-out
+# Directories
+/.gradle/
+/build/
+/eclipse
+/run/
+/out/
+/asm/
+/bin/
+/config/
+crash-reports/
+/.idea/
+/.metadata/
+/libs/
+/saves/
+/resourcepacks/
+/logs/
+/mods/
+/screenshots/
+/classes/
+
+# File Extensions
+*.psd
+*.iml
 *.ipr
 *.iws
-*.iml
-.idea
+*.classpath
+*.project
 
-# gradle
-build
-.gradle
+# Specific files
+Thumbs.db
+usernamecache.json
+options.txt
+BloodArsenal_Client.launch
+BloodArsenal_Server.launch
 
-# other
-eclipse
-run
+usercache.json

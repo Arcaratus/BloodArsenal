@@ -1,0 +1,25 @@
+modLoader="javafml" #mandatory
+loaderVersion="[35,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+license="All rights reserved"
+issueTrackerURL="https://github.com/Arcaratus/BloodArsenal/issues" #optional
+[[mods]] #mandatory
+modId="bloodarsenal" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Blood Arsenal" #mandatory
+logoFile="examplemod.png" #optional
+authors="Arcaratus" #optional
+description='''
+This addon to Blood Magic adds in a bunch of neat tools and weaponry to augment sanguine gameplay.
+'''
+[[dependencies.bloodarsenal]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[35,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.bloodarsenal]]
+    modId="bloodmagic"
+    mandatory=true
+    versionRange="[1.16.3-3.0,)"
+    ordering="NONE"
+    side="BOTH"
