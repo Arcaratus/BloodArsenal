@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bloodarsenal:item/inert_blood_diamond"
+  }
+}

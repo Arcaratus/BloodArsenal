@@ -4,6 +4,7 @@ import arcaratus.bloodarsenal.client.ClientProxy;
 import arcaratus.bloodarsenal.common.block.ModBlocks;
 import arcaratus.bloodarsenal.common.core.IProxy;
 import arcaratus.bloodarsenal.common.item.ModItems;
+import arcaratus.bloodarsenal.common.potion.ModEffects;
 import arcaratus.bloodarsenal.data.DataGenerators;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -14,7 +15,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -36,9 +39,13 @@ public class BloodArsenal
         DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> proxy = new ClientProxy());
         proxy.registerHandlers();
 
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
+
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         modBus.addListener(DataGenerators::gatherData);
 //        modBus.addGenericListener(EntityType.class, ModEntities::registerEntities);
+        ModEffects.EFFECTS.register(modBus);
         ModBlocks.BLOCKS.register(modBus);
         ModItems.ITEMS.register(modBus);
 //        modBus.addGenericListener(Block.class, ModBlocks::registerBlocks);

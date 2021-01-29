@@ -97,8 +97,8 @@ dependencies {
 
 //    compileOnly "com.wayoftime.bloodmagic:BloodMagic:${bloodmagic_version}:api"
 //    runtimeOnly "com.wayoftime.bloodmagic:BloodMagic:${bloodmagic_version}"
-    compileOnly fg.deobf("curse.maven:bloodmagic-224791:3170548")
-    runtimeOnly fg.deobf("curse.maven:bloodmagic-224791:3170548")
+    compileOnly fg.deobf("curse.maven:bloodmagic-224791:${bloodmagic_fileid}")
+    runtimeOnly fg.deobf("curse.maven:bloodmagic-224791:${bloodmagic_fileid}")
 }
 
 jar {

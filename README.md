@@ -14,28 +14,6 @@ Addon based around Blood Magic!
 * [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=J7SNY7L82PQ82)
 * [Patreon](https://www.patreon.com/Arcaratus)
 
-## Development Setup
-
-1. Fork this project to your own Github repository and clone it to your desktop.
-2. Navigate to the directory you cloned to. Open a command window there and run `gradlew setupDevWorkspace` then (if you use Eclipse) `gradlew eclipse` or (if you use IDEA) `gradlew idea`. 
-3. This process will setup [Forge](http://www.minecraftforge.net/forum/), your workspace, and link [MineTweaker](http://minetweaker3.powerofbytes.com/) as a dependency.
-4. Open the project in your IDE of choice.
-5. Set `../src/api/java` as a source directory.
-
-#### IntelliJ IDEA extra steps
-
-[Setup video](https://www.youtube.com/watch?v=8VEdtQLuLO0&feature=youtu.be) by LexManos. For more information, refer to the [Forge Forums](http://www.minecraftforge.net/forum/index.php/topic,14048.0.html).
-
-## Custom Builds
-
-**Custom builds are *unsupported*. If you have an issue while using an unofficial build, it is not guaranteed that you will get support.**
-
-#### How to make a custom build:
-
-1. Clone directly from this repository to your desktop.
-2. Navigate to the directory you cloned to. Open a command window there and run `gradlew build`
-3. Once it completes, your new build will be found at `../build/libs/BloodArsenal-*.jar`. You can ignore the `deobf`, `sources`, jars.
-
 ## License
 
 ![CCA4.0](https://licensebuttons.net/l/by/4.0/88x31.png)

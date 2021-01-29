@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bloodarsenal:item/glass_dagger_of_sacrifice"
+  }
+}
