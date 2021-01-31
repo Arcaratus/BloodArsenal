@@ -1,9 +1,7 @@
 package arcaratus.bloodarsenal.common.item;
 
-import arcaratus.bloodarsenal.common.BloodArsenal;
 import arcaratus.bloodarsenal.common.util.helper.TextHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.Item;
@@ -14,8 +12,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.settings.KeyBindingMap;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 

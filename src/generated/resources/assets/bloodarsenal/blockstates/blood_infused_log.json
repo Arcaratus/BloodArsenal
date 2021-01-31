@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "bloodarsenal:block/blood_infused_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "bloodarsenal:block/blood_infused_log"
+    },
+    "axis=z": {
+      "model": "bloodarsenal:block/blood_infused_log",
+      "x": 90
+    }
+  }
+}

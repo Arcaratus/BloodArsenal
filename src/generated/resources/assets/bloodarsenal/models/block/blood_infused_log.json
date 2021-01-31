@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "bloodarsenal:block/blood_infused_log",
+    "end": "bloodarsenal:block/blood_infused_log_top"
+  }
+}

@@ -6,6 +6,7 @@ import arcaratus.bloodarsenal.common.core.IProxy;
 import arcaratus.bloodarsenal.common.item.ModItems;
 import arcaratus.bloodarsenal.common.potion.ModEffects;
 import arcaratus.bloodarsenal.data.DataGenerators;
+import arcaratus.bloodarsenal.integration.BloodMagicIntegration;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -51,5 +53,15 @@ public class BloodArsenal
 //        modBus.addGenericListener(Block.class, ModBlocks::registerBlocks);
 //        modBus.addGenericListener(Item.class, ModBlocks::registerItemBlocks);
 //        modBus.addGenericListener(TileEntityType.class, ModTiles::registerTiles);
+    }
+
+    private void commonSetup(FMLCommonSetupEvent event)
+    {
+        BloodMagicIntegration.integrate();
+    }
+
+    public static ResourceLocation rl(String path)
+    {
+        return new ResourceLocation(MOD_ID, path);
     }
 }

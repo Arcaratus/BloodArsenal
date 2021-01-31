@@ -28,11 +28,11 @@ public final class ModItems
     public static final RegistryObject<Item> BLOOD_DIAMOND = registerItem("blood_diamond", new BloodArsenalItem(defaultBuilder()));
     public static final RegistryObject<Item> INERT_BLOOD_DIAMOND = registerItem("inert_blood_diamond", new BloodArsenalItem(defaultBuilder()));
     public static final RegistryObject<Item> INFUSED_BLOOD_DIAMOND = registerItem("infused_blood_diamond", new BloodArsenalItem(defaultBuilder()));
-    public static final RegistryObject<Item> BOUND_BLOOD_DIAMOND = registerItem("bound_blood_diamond", new BloodArsenalItem(defaultBuilder()));
+    public static final RegistryObject<Item> BOUND_BLOOD_DIAMOND = registerItem("bound_blood_diamond", new BloodArsenalItem(defaultBuilder().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> STASIS_PLATE = registerItem("stasis_plate", new BloodArsenalItem(defaultBuilder()));
     public static final RegistryObject<Item> REAGENT_SWIMMING = registerItem("reagent_swimming", new BloodArsenalItem(defaultBuilder()));
     public static final RegistryObject<Item> REAGENT_ENDER = registerItem("reagent_ender", new BloodArsenalItem(defaultBuilder()));
-    public static final RegistryObject<Item> REAGENT_LIGHTNING = registerItem("reagent_lightning", new BloodArsenalItem(defaultBuilder(), true, true));
+    public static final RegistryObject<Item> REAGENT_LIGHTNING = registerItem("reagent_lightning", new BloodArsenalItem(defaultBuilder().rarity(Rarity.RARE), true, true));
     public static final RegistryObject<Item> REAGENT_DIVINITY = registerItem("reagent_divinity", new BloodArsenalItem(defaultBuilder().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> GLASS_SACRIFICIAL_DAGGER = registerItem("glass_sacrificial_dagger", new GlassSacrificialDaggerItem(unstackable()));
