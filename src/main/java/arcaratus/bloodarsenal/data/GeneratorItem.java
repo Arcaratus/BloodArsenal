@@ -10,9 +10,12 @@ import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static arcaratus.bloodarsenal.common.item.ModItems.*;
 
 /**
  * Code partially adapted from Botania
@@ -25,14 +28,21 @@ public class GeneratorItem extends ItemModelProvider
         super(generator, BloodArsenal.MOD_ID, existingFileHelper);
     }
 
+    @Nonnull
+    @Override
+    public String getName()
+    {
+        return "Blood Arsenal item models";
+    }
+
     @Override
     protected void registerModels()
     {
         Set<Item> items = Registry.ITEM.stream().filter(i -> BloodArsenal.MOD_ID.equals(Registry.ITEM.getKey(i).getNamespace()))
                 .collect(Collectors.toSet());
         registerItemBlocks(takeAll(items, i -> i instanceof BlockItem).stream().map(i -> (BlockItem) i).collect(Collectors.toSet()));
-        //        registerItemOverrides(items);
-        items.forEach(this::generatedItem);
+        registerItemOverrides(items);
+        registerItems(items);
     }
 
     private static String name(Item i)
@@ -45,7 +55,7 @@ public class GeneratorItem extends ItemModelProvider
 
     private ItemModelBuilder handheldItem(String name)
     {
-        return withExistingParent(name, HANDHELD).texture("layer0", new ResourceLocation(BloodArsenal.MOD_ID, "item/" + name));
+        return withExistingParent(name, HANDHELD).texture("layer0", BloodArsenal.rl("item/" + name));
     }
 
     private ItemModelBuilder handheldItem(Item i)
@@ -56,7 +66,7 @@ public class GeneratorItem extends ItemModelProvider
     private ItemModelBuilder generatedItem(String name)
     {
         return withExistingParent(name, GENERATED)
-                .texture("layer0", new ResourceLocation(BloodArsenal.MOD_ID, "item/" + name));
+                .texture("layer0", BloodArsenal.rl("item/" + name));
     }
 
     private ItemModelBuilder generatedItem(Item i)
@@ -112,7 +122,20 @@ public class GeneratorItem extends ItemModelProvider
     {
         itemBlocks.forEach(i -> {
             String name = Registry.ITEM.getKey(i).getPath();
-            withExistingParent(name, new ResourceLocation(BloodArsenal.MOD_ID, "block/" + name));
+            withExistingParent(name, BloodArsenal.rl("block/" + name));
         });
+    }
+
+    private void registerItemOverrides(Set<Item> items)
+    {
+
+    }
+
+    private void registerItems(Set<Item> items)
+    {
+        takeAll(items, BLOOD_INFUSED_WOODEN_AXE.get(), BLOOD_INFUSED_WOODEN_PICKAXE.get(), BLOOD_INFUSED_WOODEN_SHOVEL.get(), BLOOD_INFUSED_WOODEN_SWORD.get(),
+                BLOOD_INFUSED_IRON_AXE.get(), BLOOD_INFUSED_IRON_PICKAXE.get(), BLOOD_INFUSED_IRON_SHOVEL.get(), BLOOD_INFUSED_IRON_SWORD.get()).forEach(this::handheldItem);
+
+        items.forEach(this::generatedItem);
     }
 }

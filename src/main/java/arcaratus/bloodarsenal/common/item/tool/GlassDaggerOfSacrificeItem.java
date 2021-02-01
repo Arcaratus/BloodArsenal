@@ -15,9 +15,9 @@ import wayoftime.bloodmagic.util.helper.PlayerSacrificeHelper;
 
 public class GlassDaggerOfSacrificeItem extends Item
 {
-    public GlassDaggerOfSacrificeItem(Properties builder)
+    public GlassDaggerOfSacrificeItem(Properties properties)
     {
-        super(builder);
+        super(properties);
     }
 
     @Override

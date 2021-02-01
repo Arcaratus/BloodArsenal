@@ -1,17 +1,23 @@
 package arcaratus.bloodarsenal.common.item;
 
 import arcaratus.bloodarsenal.common.BloodArsenal;
+import arcaratus.bloodarsenal.common.block.ModBlocks;
 import arcaratus.bloodarsenal.common.core.BloodArsenalCreativeTab;
-import arcaratus.bloodarsenal.common.item.tool.GlassDaggerOfSacrificeItem;
-import arcaratus.bloodarsenal.common.item.tool.GlassSacrificialDaggerItem;
+import arcaratus.bloodarsenal.common.item.tool.*;
+import arcaratus.bloodarsenal.common.item.tool.iron.*;
+import arcaratus.bloodarsenal.common.item.tool.wood.*;
 import net.minecraft.item.Food;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.function.Supplier;
 
 public final class ModItems
 {
@@ -38,6 +44,15 @@ public final class ModItems
     public static final RegistryObject<Item> GLASS_SACRIFICIAL_DAGGER = registerItem("glass_sacrificial_dagger", new GlassSacrificialDaggerItem(unstackable()));
     public static final RegistryObject<Item> GLASS_DAGGER_OF_SACRIFICE = registerItem("glass_dagger_of_sacrifice", new GlassDaggerOfSacrificeItem(unstackable()));
 
+    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_PICKAXE = registerItem("blood_infused_wooden_pickaxe", new BloodInfusedWoodenPickaxe(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_SHOVEL = registerItem("blood_infused_wooden_shovel", new BloodInfusedWoodenShovel(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_AXE = registerItem("blood_infused_wooden_axe", new BloodInfusedWoodenAxe(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_SWORD = registerItem("blood_infused_wooden_sword", new BloodInfusedWoodenSword(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_PICKAXE = registerItem("blood_infused_iron_pickaxe", new BloodInfusedIronPickaxe(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_SHOVEL = registerItem("blood_infused_iron_shovel", new BloodInfusedIronShovel(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_AXE = registerItem("blood_infused_iron_axe", new BloodInfusedIronAxe(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_SWORD = registerItem("blood_infused_iron_sword", new BloodInfusedIronSword(unstackable()));
+
     public static Item.Properties defaultBuilder()
     {
         return new Item.Properties().group(BloodArsenalCreativeTab.INSTANCE);
@@ -51,5 +66,65 @@ public final class ModItems
     public static RegistryObject<Item> registerItem(String name, Item item)
     {
         return ITEMS.register(name, () -> item);
+    }
+
+    public enum ItemTier implements IItemTier
+    {
+        BLOOD_INFUSED_WOOD(180, 5.5F, 1, 1, 25, () -> ModBlocks.BLOOD_INFUSED_PLANKS.get().asItem()),
+        BLOOD_INFUSED_IRON(900, 7.5F, 2.7F, 3, 30, ModItems.BLOOD_INFUSED_IRON_INGOT),
+        ;
+
+        private final int maxUses;
+        private final float efficiency;
+        private final float attackDamage;
+        private final int harvestLevel;
+        private final int enchantability;
+        private final Supplier<Item> repairItem;
+
+        ItemTier(int maxUses, float efficiency, float attackDamage, int harvestLevel, int enchantability, Supplier<Item> repairItem)
+        {
+            this.maxUses = maxUses;
+            this.efficiency = efficiency;
+            this.attackDamage = attackDamage;
+            this.harvestLevel = harvestLevel;
+            this.enchantability = enchantability;
+            this.repairItem = repairItem;
+        }
+
+        @Override
+        public int getMaxUses()
+        {
+            return maxUses;
+        }
+
+        @Override
+        public float getEfficiency()
+        {
+            return efficiency;
+        }
+
+        @Override
+        public float getAttackDamage()
+        {
+            return attackDamage;
+        }
+
+        @Override
+        public int getHarvestLevel()
+        {
+            return harvestLevel;
+        }
+
+        @Override
+        public int getEnchantability()
+        {
+            return enchantability;
+        }
+
+        @Override
+        public Ingredient getRepairMaterial()
+        {
+            return Ingredient.fromItems(repairItem.get());
+        }
     }
 }

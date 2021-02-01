@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "bloodarsenal:item/blood_infused_iron_shovel"
+  }
+}

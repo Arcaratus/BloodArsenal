@@ -4,8 +4,8 @@ import net.minecraft.block.AbstractGlassBlock;
 
 public class BloodStainedGlassBlock extends AbstractGlassBlock
 {
-    public BloodStainedGlassBlock(Properties builder)
+    public BloodStainedGlassBlock(Properties properties)
     {
-        super(builder);
+        super(properties);
     }
 }

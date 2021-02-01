@@ -20,21 +20,21 @@ public class BloodArsenalItem extends Item
     private final boolean desc;
     private final boolean extended;
 
-    public BloodArsenalItem(Properties builder, boolean desc, boolean extended)
+    public BloodArsenalItem(Properties properties, boolean desc, boolean extended)
     {
-        super(builder);
+        super(properties);
         this.desc = desc;
         this.extended = extended;
     }
 
-    public BloodArsenalItem(Properties builder, boolean desc)
+    public BloodArsenalItem(Properties properties, boolean desc)
     {
-        this(builder, desc, false);
+        this(properties, desc, false);
     }
 
-    public BloodArsenalItem(Properties builder)
+    public BloodArsenalItem(Properties properties)
     {
-        this(builder, false);
+        this(properties, false);
     }
 
     @Override

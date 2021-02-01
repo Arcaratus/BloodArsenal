@@ -17,6 +17,15 @@
   "item.bloodarsenal.reagent_lightning": "Lightning Reagent",
   "item.bloodarsenal.reagent_divinity": "Divinity Reagent",
 
+  "item.bloodarsenal.blood_infused_wooden_pickaxe": "Blood Infused Wooden Pickaxe",
+  "item.bloodarsenal.blood_infused_wooden_shovel": "Blood Infused Wooden Shovel",
+  "item.bloodarsenal.blood_infused_wooden_axe": "Blood Infused Wooden Axe",
+  "item.bloodarsenal.blood_infused_wooden_sword": "Blood Infused Wooden Sword",
+  "item.bloodarsenal.blood_infused_iron_pickaxe": "Blood Infused Iron Pickaxe",
+  "item.bloodarsenal.blood_infused_iron_shovel": "Blood Infused Iron Shovel",
+  "item.bloodarsenal.blood_infused_iron_axe": "Blood Infused Iron Axe",
+  "item.bloodarsenal.blood_infused_iron_sword": "Blood Infused Iron Sword",
+
   "item.bloodarsenal.glass_sacrificial_dagger": "Glass Sacrificial Dagger",
   "item.bloodarsenal.glass_dagger_of_sacrifice": "Glass Dagger of Sacrifice",
 

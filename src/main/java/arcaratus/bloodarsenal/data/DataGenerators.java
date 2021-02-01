@@ -8,7 +8,7 @@ public class DataGenerators
     {
         if (event.includeServer())
         {
-
+            event.getGenerator().addProvider(new GeneratorLootTable(event.getGenerator()));
         }
 
         if (event.includeClient())
