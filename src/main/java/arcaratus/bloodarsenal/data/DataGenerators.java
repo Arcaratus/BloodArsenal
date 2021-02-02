@@ -1,5 +1,6 @@
 package arcaratus.bloodarsenal.data;
 
+import arcaratus.bloodarsenal.data.recipe.GeneratorRecipe;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
 public class DataGenerators
@@ -9,6 +10,7 @@ public class DataGenerators
         if (event.includeServer())
         {
             event.getGenerator().addProvider(new GeneratorLootTable(event.getGenerator()));
+            event.getGenerator().addProvider(new GeneratorRecipe(event.getGenerator()));
         }
 
         if (event.includeClient())

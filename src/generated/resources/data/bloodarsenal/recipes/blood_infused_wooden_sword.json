@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "S",
+    "T"
+  ],
+  "key": {
+    "S": {
+      "item": "bloodarsenal:blood_infused_planks"
+    },
+    "T": {
+      "item": "bloodarsenal:blood_infused_stick"
+    }
+  },
+  "result": {
+    "item": "bloodarsenal:blood_infused_wooden_sword"
+  }
+}

@@ -20,6 +20,6 @@ public class BloodArsenalCreativeTab extends ItemGroup
     @Override
     public ItemStack createIcon()
     {
-        return new ItemStack(ModItems.BLOOD_INFUSED_IRON_INGOT.get());
+        return new ItemStack(ModItems.INFUSED_BLOOD_DIAMOND.get());
     }
 }

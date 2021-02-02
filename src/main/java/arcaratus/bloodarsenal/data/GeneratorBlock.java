@@ -1,8 +1,7 @@
 package arcaratus.bloodarsenal.data;
 
 import arcaratus.bloodarsenal.common.BloodArsenal;
-import net.minecraft.block.Block;
-import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -15,6 +14,9 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import javax.annotation.Nonnull;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static arcaratus.bloodarsenal.common.block.ModBlocks.*;
+import static arcaratus.bloodarsenal.data.GeneratorItem.takeAll;
 
 /**
  * Code partially adapted from Botania
@@ -42,10 +44,31 @@ public class GeneratorBlock extends BlockStateProvider
 
         // Remove manually written models
 
+        // Single blocks
+        stairsBlock((StairsBlock) BLOOD_INFUSED_WOOD_STAIRS.get(), BloodArsenal.rl("block/blood_infused_planks"));
+        fenceBlock((FenceBlock) BLOOD_INFUSED_WOOD_FENCE.get(), BloodArsenal.rl("block/blood_infused_planks"));
+        fenceGateBlock((FenceGateBlock) BLOOD_INFUSED_WOOD_FENCE_GATE.get(), BloodArsenal.rl("block/blood_infused_planks"));
+        remainingBlocks.remove(BLOOD_INFUSED_WOOD_STAIRS.get());
+        remainingBlocks.remove(BLOOD_INFUSED_WOOD_FENCE.get());
+        remainingBlocks.remove(BLOOD_INFUSED_WOOD_FENCE_GATE.get());
+
         // Process special block types
-        GeneratorItem.takeAll(remainingBlocks, b -> b instanceof RotatedPillarBlock).forEach(b -> buildRotatedPillars(b, b.getRegistryName()));
+        takeAll(remainingBlocks, b -> b instanceof RotatedPillarBlock).forEach(b -> buildRotatedPillars(b, b.getRegistryName()));
+
+        takeAll(remainingBlocks, b -> b instanceof PaneBlock).forEach(b ->
+        {
+            String name = Registry.BLOCK.getKey(b).getPath();
+            ResourceLocation edge = BloodArsenal.rl("block/" + name);
+            ResourceLocation pane = BloodArsenal.rl("block/" + name.substring(0, name.length() - 5));
+            paneBlock((PaneBlock) b, pane, edge);
+        });
+
+        remainingBlocks.remove(BLOOD_INFUSED_WOOD_SLAB.get());
 
         remainingBlocks.forEach(this::simpleBlock);
+
+        // Slabs come after the double-slabs gen
+        slabBlock((SlabBlock) BLOOD_INFUSED_WOOD_SLAB.get(), BloodArsenal.rl("blood_infused_planks"), BloodArsenal.rl("block/blood_infused_planks"));
     }
 
     private void buildRotatedPillars(Block pillar, ResourceLocation rl)

@@ -57,6 +57,11 @@ public class GeneratorLootTable implements IDataProvider
             {
                 continue;
             }
+
+            if (b instanceof SlabBlock)
+            {
+                functionTable.put(b, GeneratorLootTable::genSlab);
+            }
         }
 
         // Silk Touch

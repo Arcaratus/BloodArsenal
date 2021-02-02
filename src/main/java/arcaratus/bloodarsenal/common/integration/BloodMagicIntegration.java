@@ -1,4 +1,4 @@
-package arcaratus.bloodarsenal.integration;
+package arcaratus.bloodarsenal.common.integration;
 
 import arcaratus.bloodarsenal.common.block.ModBlocks;
 import wayoftime.bloodmagic.api.IBloodMagicAPI;

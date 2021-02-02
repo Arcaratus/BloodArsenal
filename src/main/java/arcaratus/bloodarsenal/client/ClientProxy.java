@@ -31,6 +31,7 @@ public class ClientProxy implements IProxy
     private static void registerRenderTypes()
     {
         RenderTypeLookup.setRenderLayer(ModBlocks.BLOOD_STAINED_GLASS.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlocks.BLOOD_STAINED_GLASS_PANE.get(), RenderType.getTranslucent());
     }
 
     private static void registerEntityRenderers()

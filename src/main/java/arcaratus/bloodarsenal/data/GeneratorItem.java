@@ -1,6 +1,8 @@
 package arcaratus.bloodarsenal.data;
 
 import arcaratus.bloodarsenal.common.BloodArsenal;
+import arcaratus.bloodarsenal.common.block.ModBlocks;
+import net.minecraft.block.PaneBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -120,6 +122,19 @@ public class GeneratorItem extends ItemModelProvider
 
     private void registerItemBlocks(Set<BlockItem> itemBlocks)
     {
+        takeAll(itemBlocks, i -> i.getBlock() instanceof PaneBlock).forEach(i ->
+        {
+            String name = Registry.ITEM.getKey(i).getPath();
+            String baseName = name.substring(0, name.length() - 5);
+            withExistingParent(name, "item/generated")
+                    .texture("layer0", BloodArsenal.rl("block/" + baseName));
+        });
+
+        String bloodInfusedWoodFenceName = Registry.ITEM.getKey(ModBlocks.BLOOD_INFUSED_WOOD_FENCE.get().asItem()).getPath();
+        withExistingParent(bloodInfusedWoodFenceName, "block/fence_inventory")
+                .texture("texture", BloodArsenal.rl("block/blood_infused_planks"));
+        itemBlocks.remove(ModBlocks.BLOOD_INFUSED_WOOD_FENCE.get().asItem());
+
         itemBlocks.forEach(i -> {
             String name = Registry.ITEM.getKey(i).getPath();
             withExistingParent(name, BloodArsenal.rl("block/" + name));
