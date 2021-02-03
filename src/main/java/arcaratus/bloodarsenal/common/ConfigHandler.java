@@ -39,6 +39,14 @@ public final class ConfigHandler
         public final ForgeConfigSpec.IntValue bloodInfusedWoodenToolsRepairCost;
         public final ForgeConfigSpec.IntValue bloodInfusedIronToolsRepairUpdate;
         public final ForgeConfigSpec.IntValue bloodInfusedIronToolsRepairCost;
+        public final ForgeConfigSpec.IntValue enderSigilCost;
+        public final ForgeConfigSpec.IntValue enderSigilTeleportMultiplier;
+        public final ForgeConfigSpec.IntValue enderSigilTeleportCooldown;
+        public final ForgeConfigSpec.IntValue lightningSigilMaxLevel;
+        public final ForgeConfigSpec.IntValue lightningSigilCost;
+        public final ForgeConfigSpec.IntValue lightningSigilCooldown;
+
+        public final ForgeConfigSpec.DoubleValue rayTraceRange;
 
         public Common(ForgeConfigSpec.Builder builder)
         {
@@ -64,6 +72,30 @@ public final class ConfigHandler
             bloodInfusedIronToolsRepairCost = builder
                     .comment("The amount of LP required for a repair for Blood Infused Iron Tools. Default: 50")
                     .defineInRange("bloodInfusedWoodenToolsRepairUpdate", 50, 0, Integer.MAX_VALUE);
+            enderSigilCost = builder
+                    .comment("The amount of LP used to use the Ender Sigil. Default: 100")
+                    .defineInRange("enderSigilCost", 100, 0, Integer.MAX_VALUE);
+            enderSigilTeleportMultiplier = builder
+                    .comment("Multiplier LP per block needed to teleport with the Ender Sigil. Default: 100")
+                    .defineInRange("enderSigilTeleportMultiplier", 100, 0, Integer.MAX_VALUE);
+            enderSigilTeleportCooldown = builder
+                    .comment("The cooldown (in ticks) after teleporting with the Ender Sigil. Default: 20")
+                    .defineInRange("enderSigilTeleportCooldown", 20, 0, Integer.MAX_VALUE);
+            lightningSigilMaxLevel = builder
+                    .comment("The maximum level allowed for the Lightning Sigil (good for conscious server owners). Default: 5 (6 levels total)")
+                    .defineInRange("lightningSigilMaxLevel", 5, 0, 5);
+            lightningSigilCost = builder
+                    .comment("The amount of LP required per lightning bolt summoned by the Lightning Sigil. Default: 1000")
+                    .defineInRange("lightningSigilCost", 1000, 0, Integer.MAX_VALUE);
+            lightningSigilCooldown = builder
+                    .comment("The cooldown (in ticks) after using the Lightning Sigil. Default: 20")
+                    .defineInRange("lightningSigilCooldown", 20, 0, Integer.MAX_VALUE);
+            builder.pop();
+
+            builder.push("misc");
+            rayTraceRange = builder
+                    .comment("Maximum raytracing distance (used by the Ender Sigil and Lightning Sigil) for certain mechanics. Default: 128")
+                    .defineInRange("rayTraceRange", 128, 1D, 264);
         }
     }
 }

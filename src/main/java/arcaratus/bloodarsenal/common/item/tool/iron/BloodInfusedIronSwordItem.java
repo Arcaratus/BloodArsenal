@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShovelItem;
+import net.minecraft.item.SwordItem;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -21,16 +21,16 @@ import wayoftime.bloodmagic.util.helper.NetworkHelper;
 
 import java.util.List;
 
-public class BloodInfusedIronShovel extends ShovelItem implements IBindable
+public class BloodInfusedIronSwordItem extends SwordItem implements IBindable
 {
-    public BloodInfusedIronShovel(Properties properties)
+    public BloodInfusedIronSwordItem(Properties properties)
     {
         this(ModItems.ItemTier.BLOOD_INFUSED_IRON, properties);
     }
 
-    public BloodInfusedIronShovel(IItemTier material, Properties properties)
+    public BloodInfusedIronSwordItem(IItemTier material, Properties properties)
     {
-        super(material, 1.5F, -3, properties);
+        super(material, 3, -2.4F, properties);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class BloodInfusedIronShovel extends ShovelItem implements IBindable
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged)
     {
-        return oldStack.getItem() != newStack.getItem();
+        return slotChanged || oldStack.getItem() != newStack.getItem();
     }
 
     @Override

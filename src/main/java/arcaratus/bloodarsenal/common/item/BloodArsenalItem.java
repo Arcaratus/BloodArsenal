@@ -53,5 +53,7 @@ public class BloodArsenalItem extends Item
                 tooltip.add(new TranslationTextComponent("tooltip.bloodarsenal." + getRegistryName().getPath() + ".desc").mergeStyle(TextFormatting.GRAY));
             }
         }
+
+        super.addInformation(stack, world, tooltip, flag);
     }
 }

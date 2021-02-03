@@ -5,9 +5,9 @@ import arcaratus.bloodarsenal.common.item.ModItems;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -21,16 +21,16 @@ import wayoftime.bloodmagic.util.helper.NetworkHelper;
 
 import java.util.List;
 
-public class BloodInfusedIronSword extends SwordItem implements IBindable
+public class BloodInfusedIronAxeItem extends AxeItem implements IBindable
 {
-    public BloodInfusedIronSword(Properties properties)
+    public BloodInfusedIronAxeItem(Properties properties)
     {
         this(ModItems.ItemTier.BLOOD_INFUSED_IRON, properties);
     }
 
-    public BloodInfusedIronSword(IItemTier material, Properties properties)
+    public BloodInfusedIronAxeItem(IItemTier material, Properties properties)
     {
-        super(material, 3, -2.4F, properties);
+        super(material, 6, -3.1F, properties);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class BloodInfusedIronSword extends SwordItem implements IBindable
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged)
     {
-        return oldStack.getItem() != newStack.getItem();
+        return slotChanged || oldStack.getItem() != newStack.getItem();
     }
 
     @Override

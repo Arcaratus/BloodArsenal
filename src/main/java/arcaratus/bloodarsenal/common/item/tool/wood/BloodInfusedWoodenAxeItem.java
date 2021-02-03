@@ -5,9 +5,9 @@ import arcaratus.bloodarsenal.common.item.ModItems;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShovelItem;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -21,16 +21,16 @@ import wayoftime.bloodmagic.util.helper.NetworkHelper;
 
 import java.util.List;
 
-public class BloodInfusedWoodenShovel extends ShovelItem implements IBindable
+public class BloodInfusedWoodenAxeItem extends AxeItem implements IBindable
 {
-    public BloodInfusedWoodenShovel(Properties properties)
+    public BloodInfusedWoodenAxeItem(Properties properties)
     {
         this(ModItems.ItemTier.BLOOD_INFUSED_WOOD, properties);
     }
 
-    public BloodInfusedWoodenShovel(IItemTier material, Properties properties)
+    public BloodInfusedWoodenAxeItem(IItemTier material, Properties properties)
     {
-        super(material, 1.5F, -3, properties);
+        super(material, 6, -3.1F, properties);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class BloodInfusedWoodenShovel extends ShovelItem implements IBindable
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged)
     {
-        return oldStack.getItem() != newStack.getItem();
+        return slotChanged || oldStack.getItem() != newStack.getItem();
     }
 
     @Override

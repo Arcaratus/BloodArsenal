@@ -1,4 +1,4 @@
-package arcaratus.bloodarsenal.common.item.tool.iron;
+package arcaratus.bloodarsenal.common.item.tool.wood;
 
 import arcaratus.bloodarsenal.common.ConfigHandler;
 import arcaratus.bloodarsenal.common.item.ModItems;
@@ -21,14 +21,14 @@ import wayoftime.bloodmagic.util.helper.NetworkHelper;
 
 import java.util.List;
 
-public class BloodInfusedIronPickaxe extends PickaxeItem implements IBindable
+public class BloodInfusedWoodenPickaxeItem extends PickaxeItem implements IBindable
 {
-    public BloodInfusedIronPickaxe(Properties properties)
+    public BloodInfusedWoodenPickaxeItem(Properties properties)
     {
-        this(ModItems.ItemTier.BLOOD_INFUSED_IRON, -2.8F, properties);
+        this(ModItems.ItemTier.BLOOD_INFUSED_WOOD, -2.8F, properties);
     }
 
-    public BloodInfusedIronPickaxe(IItemTier material, float attackSpeed, Properties properties)
+    public BloodInfusedWoodenPickaxeItem(IItemTier material, float attackSpeed, Properties properties)
     {
         super(material, 1, attackSpeed, properties);
     }
@@ -36,9 +36,9 @@ public class BloodInfusedIronPickaxe extends PickaxeItem implements IBindable
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected)
     {
-        if (!world.isRemote && world.getGameTime() % ConfigHandler.COMMON.bloodInfusedIronToolsRepairUpdate.get() == 0)
+        if (!world.isRemote && world.getGameTime() % ConfigHandler.COMMON.bloodInfusedWoodenToolsRepairUpdate.get() == 0)
         {
-            if (player instanceof PlayerEntity && stack.getDamage() > 0 && NetworkHelper.syphonFromContainer(stack, SoulTicket.item(stack, world, player, ConfigHandler.COMMON.bloodInfusedIronToolsRepairCost.get())))
+            if (player instanceof PlayerEntity && stack.getDamage() > 0 && NetworkHelper.syphonFromContainer(stack, SoulTicket.item(stack, world, player, ConfigHandler.COMMON.bloodInfusedWoodenToolsRepairCost.get())))
             {
                 stack.setDamage(stack.getDamage() - 1);
             }
@@ -48,7 +48,7 @@ public class BloodInfusedIronPickaxe extends PickaxeItem implements IBindable
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged)
     {
-        return oldStack.getItem() != newStack.getItem();
+        return slotChanged || oldStack.getItem() != newStack.getItem();
     }
 
     @Override

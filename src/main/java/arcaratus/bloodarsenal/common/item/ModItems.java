@@ -3,6 +3,8 @@ package arcaratus.bloodarsenal.common.item;
 import arcaratus.bloodarsenal.common.BloodArsenal;
 import arcaratus.bloodarsenal.common.block.ModBlocks;
 import arcaratus.bloodarsenal.common.core.BloodArsenalCreativeTab;
+import arcaratus.bloodarsenal.common.item.sigil.EnderSigilItem;
+import arcaratus.bloodarsenal.common.item.sigil.LightningSigilItem;
 import arcaratus.bloodarsenal.common.item.tool.*;
 import arcaratus.bloodarsenal.common.item.tool.iron.*;
 import arcaratus.bloodarsenal.common.item.tool.wood.*;
@@ -44,14 +46,17 @@ public final class ModItems
     public static final RegistryObject<Item> GLASS_SACRIFICIAL_DAGGER = registerItem("glass_sacrificial_dagger", new GlassSacrificialDaggerItem(unstackable()));
     public static final RegistryObject<Item> GLASS_DAGGER_OF_SACRIFICE = registerItem("glass_dagger_of_sacrifice", new GlassDaggerOfSacrificeItem(unstackable()));
 
-    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_PICKAXE = registerItem("blood_infused_wooden_pickaxe", new BloodInfusedWoodenPickaxe(unstackable()));
-    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_SHOVEL = registerItem("blood_infused_wooden_shovel", new BloodInfusedWoodenShovel(unstackable()));
-    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_AXE = registerItem("blood_infused_wooden_axe", new BloodInfusedWoodenAxe(unstackable()));
-    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_SWORD = registerItem("blood_infused_wooden_sword", new BloodInfusedWoodenSword(unstackable()));
-    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_PICKAXE = registerItem("blood_infused_iron_pickaxe", new BloodInfusedIronPickaxe(unstackable()));
-    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_SHOVEL = registerItem("blood_infused_iron_shovel", new BloodInfusedIronShovel(unstackable()));
-    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_AXE = registerItem("blood_infused_iron_axe", new BloodInfusedIronAxe(unstackable()));
-    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_SWORD = registerItem("blood_infused_iron_sword", new BloodInfusedIronSword(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_PICKAXE = registerItem("blood_infused_wooden_pickaxe", new BloodInfusedWoodenPickaxeItem(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_SHOVEL = registerItem("blood_infused_wooden_shovel", new BloodInfusedWoodenShovelItem(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_AXE = registerItem("blood_infused_wooden_axe", new BloodInfusedWoodenAxeItem(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_WOODEN_SWORD = registerItem("blood_infused_wooden_sword", new BloodInfusedWoodenSwordItem(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_PICKAXE = registerItem("blood_infused_iron_pickaxe", new BloodInfusedIronPickaxeItem(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_SHOVEL = registerItem("blood_infused_iron_shovel", new BloodInfusedIronShovelItem(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_AXE = registerItem("blood_infused_iron_axe", new BloodInfusedIronAxeItem(unstackable()));
+    public static final RegistryObject<Item> BLOOD_INFUSED_IRON_SWORD = registerItem("blood_infused_iron_sword", new BloodInfusedIronSwordItem(unstackable()));
+
+    public static final RegistryObject<Item> ENDER_SIGIL = registerItem("ender_sigil", new EnderSigilItem(unstackable()));
+    public static final RegistryObject<Item> LIGHTNING_SIGIL = registerItem("lightning_sigil", new LightningSigilItem(unstackable().rarity(Rarity.RARE)));
 
     public static Item.Properties defaultBuilder()
     {

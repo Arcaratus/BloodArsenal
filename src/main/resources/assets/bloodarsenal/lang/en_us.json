@@ -29,6 +29,9 @@
   "item.bloodarsenal.glass_sacrificial_dagger": "Glass Sacrificial Dagger",
   "item.bloodarsenal.glass_dagger_of_sacrifice": "Glass Dagger of Sacrifice",
 
+  "item.bloodarsenal.ender_sigil": "Ender Sigil",
+  "item.bloodarsenal.lightning_sigil": "Lightning Sigil",
+
   "block.bloodarsenal.blood_infused_planks": "Blood Infused Planks",
   "block.bloodarsenal.blood_infused_log": "Blood Infused Log",
   "block.bloodarsenal.stripped_blood_infused_log": "Stripped Blood Infused Log",
@@ -49,10 +52,16 @@
   "tooltip.bloodarsenal.glass_shard.desc": "Obtained by breaking Glass while holding Flint",
   "tooltip.bloodarsenal.blood_orange.desc": "Bursting with juice!",
   "tooltip.bloodarsenal.reagent_lightning.desc": "Place the following into water and strike with lightning:\n -Binding Reagent\n -Glowstone Block\n -Redstone Block\n -Gunpowder\n -Iron Block\n -Gold Block",
+  "tooltip.bloodarsenal.ender_sigil.desc": "Slipping through End space",
+  "tooltip.bloodarsenal.lightning_sigil.desc": "\"I am lightning, the rain transformed\"",
 
   "tooltip.bloodarsenal.more_info": "Hold SHIFT for more info",
+  "tooltip.bloodarsenal.level": "Level: %d",
 
   "effect.bloodarsenal.bleeding": "Bleeding",
+
+  "chat.bloodarsenal.set_level": "Set level to: %d",
+  "chat.bloodarsenal.too_weak": "You feel a bit too weak to do that...",
 
   "chat.bloodarsenal.damage_source_glass": "%s was pricked by glass too much",
   "chat.bloodarsenal.damage_source_bleeding": "%s ran out of life",
