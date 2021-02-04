@@ -3,7 +3,9 @@ package arcaratus.bloodarsenal.common.item;
 import arcaratus.bloodarsenal.common.BloodArsenal;
 import arcaratus.bloodarsenal.common.block.ModBlocks;
 import arcaratus.bloodarsenal.common.core.BloodArsenalCreativeTab;
+import arcaratus.bloodarsenal.common.item.sigil.DivinitySigilItem;
 import arcaratus.bloodarsenal.common.item.sigil.EnderSigilItem;
+import arcaratus.bloodarsenal.common.item.sigil.ForceSigilItem;
 import arcaratus.bloodarsenal.common.item.sigil.LightningSigilItem;
 import arcaratus.bloodarsenal.common.item.tool.*;
 import arcaratus.bloodarsenal.common.item.tool.iron.*;
@@ -57,6 +59,8 @@ public final class ModItems
 
     public static final RegistryObject<Item> ENDER_SIGIL = registerItem("ender_sigil", new EnderSigilItem(unstackable()));
     public static final RegistryObject<Item> LIGHTNING_SIGIL = registerItem("lightning_sigil", new LightningSigilItem(unstackable().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> DIVINITY_SIGIL = registerItem("divinity_sigil", new DivinitySigilItem(unstackable()));
+    public static final RegistryObject<Item> FORCE_SIGIL = registerItem("force_sigil", new ForceSigilItem(unstackable()));
 
     public static Item.Properties defaultBuilder()
     {

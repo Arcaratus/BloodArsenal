@@ -28,6 +28,8 @@ public class BloodArsenal
 
     public static IProxy proxy = new IProxy() {};
 
+    public static boolean curiosLoaded = false;
+
     public BloodArsenal()
     {
         DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> proxy = new ClientProxy());

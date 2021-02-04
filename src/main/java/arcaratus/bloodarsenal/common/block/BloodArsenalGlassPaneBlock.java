@@ -2,9 +2,9 @@ package arcaratus.bloodarsenal.common.block;
 
 import net.minecraft.block.PaneBlock;
 
-public class BloodStainedGlassPaneBlock extends PaneBlock
+public class BloodArsenalGlassPaneBlock extends PaneBlock
 {
-    public BloodStainedGlassPaneBlock(Properties properties)
+    public BloodArsenalGlassPaneBlock(Properties properties)
     {
         super(properties);
     }

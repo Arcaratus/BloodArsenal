@@ -16,12 +16,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import wayoftime.bloodmagic.common.item.IBindable;
 import wayoftime.bloodmagic.core.data.Binding;
+import wayoftime.bloodmagic.core.data.SoulNetwork;
 import wayoftime.bloodmagic.core.data.SoulTicket;
 import wayoftime.bloodmagic.util.helper.NetworkHelper;
 
 import java.util.List;
 
-public class BloodInfusedWoodenAxeItem extends AxeItem implements IBindable
+public class BloodInfusedWoodenAxeItem extends AxeItem
 {
     public BloodInfusedWoodenAxeItem(Properties properties)
     {
@@ -38,9 +39,13 @@ public class BloodInfusedWoodenAxeItem extends AxeItem implements IBindable
     {
         if (!world.isRemote && world.getGameTime() % ConfigHandler.COMMON.bloodInfusedWoodenToolsRepairUpdate.get() == 0)
         {
-            if (player instanceof PlayerEntity && stack.getDamage() > 0 && NetworkHelper.syphonFromContainer(stack, SoulTicket.item(stack, world, player, ConfigHandler.COMMON.bloodInfusedWoodenToolsRepairCost.get())))
+            if (player instanceof PlayerEntity && stack.getDamage() > 0)
             {
-                stack.setDamage(stack.getDamage() - 1);
+                SoulNetwork network = NetworkHelper.getSoulNetwork((PlayerEntity) player);
+                if (network != null && network.syphon(SoulTicket.item(stack, world, player, ConfigHandler.COMMON.bloodInfusedWoodenToolsRepairCost.get())) > 0)
+                {
+                    stack.setDamage(stack.getDamage() - 1);
+                }
             }
         }
     }
@@ -49,17 +54,5 @@ public class BloodInfusedWoodenAxeItem extends AxeItem implements IBindable
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged)
     {
         return slotChanged || oldStack.getItem() != newStack.getItem();
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag)
-    {
-        if (!stack.hasTag())
-            return;
-
-        Binding binding = getBinding(stack);
-        if (binding != null)
-            tooltip.add(new TranslationTextComponent("tooltip.bloodmagic.currentOwner", binding.getOwnerName()).mergeStyle(TextFormatting.GRAY));
     }
 }

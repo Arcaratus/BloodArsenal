@@ -30,8 +30,10 @@ public final class ModBlocks
     public static final RegistryObject<Block> STRIPPED_BLOOD_INFUSED_LOG = registerBlock("stripped_blood_infused_log", new RotatedPillarBlock(Properties.create(Material.WOOD, state -> state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.CRIMSON_HYPHAE : MaterialColor.ADOBE).hardnessAndResistance(3, 6).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> BLOOD_INFUSED_IRON_BLOCK = registerBlock("blood_infused_iron_block", new BloodArsenalBlock(PROP_BLOOD_INFUSED_IRON));
     public static final RegistryObject<Block> BLOOD_INFUSED_GLOWSTONE = registerBlock("blood_infused_glowstone", new BloodArsenalBlock(Properties.create(Material.GLASS, MaterialColor.RED).hardnessAndResistance(0.75F, 1).sound(SoundType.GLASS).setLightLevel(s -> 15)));
-    public static final RegistryObject<Block> BLOOD_STAINED_GLASS = registerBlock("blood_stained_glass", new BloodStainedGlassBlock(PROP_BLOOD_STAINED_GLASS));
-    public static final RegistryObject<Block> BLOOD_STAINED_GLASS_PANE = registerBlock("blood_stained_glass_pane", new BloodStainedGlassPaneBlock(PROP_BLOOD_STAINED_GLASS));
+    public static final RegistryObject<Block> FRACTURED_GLASS = registerBlock("fractured_glass", new BloodArsenalGlassBlock(Properties.from(Blocks.GLASS)));
+    public static final RegistryObject<Block> BLOOD_STAINED_GLASS = registerBlock("blood_stained_glass", new BloodArsenalGlassBlock(PROP_BLOOD_STAINED_GLASS));
+    public static final RegistryObject<Block> SPARKLING_BLOOD_STAINED_GLASS = registerBlock("sparkling_blood_stained_glass", new BloodArsenalGlassBlock(PROP_BLOOD_STAINED_GLASS.setLightLevel(s -> 15)));
+    public static final RegistryObject<Block> BLOOD_STAINED_GLASS_PANE = registerBlock("blood_stained_glass_pane", new BloodArsenalGlassPaneBlock(PROP_BLOOD_STAINED_GLASS));
     public static final RegistryObject<Block> BLOOD_INFUSED_WOOD_STAIRS = registerBlock("blood_infused_wood_stairs", new StairsBlock(() -> BLOOD_INFUSED_PLANKS.get().getDefaultState(), PROP_BLOOD_INFUSED_WOOD));
     public static final RegistryObject<Block> BLOOD_INFUSED_WOOD_SLAB = registerBlock("blood_infused_wood_slab", new SlabBlock(PROP_BLOOD_INFUSED_WOOD));
     public static final RegistryObject<Block> BLOOD_INFUSED_WOOD_FENCE = registerBlock("blood_infused_wood_fence", new FenceBlock(PROP_BLOOD_INFUSED_WOOD));

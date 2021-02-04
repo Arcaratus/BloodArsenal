@@ -45,6 +45,8 @@ public final class ConfigHandler
         public final ForgeConfigSpec.IntValue lightningSigilMaxLevel;
         public final ForgeConfigSpec.IntValue lightningSigilCost;
         public final ForgeConfigSpec.IntValue lightningSigilCooldown;
+        public final ForgeConfigSpec.IntValue divinitySigilCost;
+        public final ForgeConfigSpec.IntValue forceSigilCost;
 
         public final ForgeConfigSpec.DoubleValue rayTraceRange;
 
@@ -90,6 +92,12 @@ public final class ConfigHandler
             lightningSigilCooldown = builder
                     .comment("The cooldown (in ticks) after using the Lightning Sigil. Default: 20")
                     .defineInRange("lightningSigilCooldown", 20, 0, Integer.MAX_VALUE);
+            divinitySigilCost = builder
+                    .comment("The amount of LP used every 5 seconds by the Divinity Sigil. Default: 10000")
+                    .defineInRange("divinitySigilCost", 10000, 0, Integer.MAX_VALUE);
+            forceSigilCost = builder
+                    .comment("The amount of LP used for every usage of the Force Sigil. Default: 2000")
+                    .defineInRange("forceSigilCost", 2000, 0, Integer.MAX_VALUE);
             builder.pop();
 
             builder.push("misc");
