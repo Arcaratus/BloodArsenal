@@ -31,6 +31,7 @@
 
   "item.bloodarsenal.ender_sigil": "Ender Sigil",
   "item.bloodarsenal.lightning_sigil": "Lightning Sigil",
+  "item.bloodarsenal.divinity_sigil": "Sigil of Divinity",
 
   "block.bloodarsenal.blood_infused_planks": "Blood Infused Planks",
   "block.bloodarsenal.blood_infused_log": "Blood Infused Log",
@@ -54,6 +55,7 @@
   "tooltip.bloodarsenal.reagent_lightning.desc": "Place the following into water and strike with lightning:\n -Binding Reagent\n -Glowstone Block\n -Redstone Block\n -Gunpowder\n -Iron Block\n -Gold Block",
   "tooltip.bloodarsenal.ender_sigil.desc": "Slipping through End space",
   "tooltip.bloodarsenal.lightning_sigil.desc": "\"I am lightning, the rain transformed\"",
+  "tooltip.bloodarsenal.divinity_sigil.desc": "Ultimate divine protection",
 
   "tooltip.bloodarsenal.more_info": "Hold SHIFT for more info",
   "tooltip.bloodarsenal.level": "Level: %d",
