@@ -2,19 +2,23 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            name = "GT"
+            url = "http://gregtech.overminddl1.com/"
         }
         maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
         maven {
+            name = "jitpack"
+            url = "https://jitpack.io"
+        }
+        maven {
             url "https://plugins.gradle.org/m2/"
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'com.github.GTNH2:ForgeGradle:FG_1.2-SNAPSHOT'
         classpath 'org.ajoberstar:gradle-git:0.10.1'
         classpath "de.undercouch:gradle-download-task:3.1.2"
     }
@@ -58,20 +62,12 @@ repositories {
         url "http://mobiusstrip.eu/maven"
     }
     maven {
-        name "ForgeFS"
-        url 'http://files.minecraftforge.net/maven'
-    }
-    maven {
-    	name 'TehNut Repo'
-    	url 'http://tehnut.info/maven/'
-    }
-    maven {
-        name 'rx14'
-        url 'http://mvn.rx14.co.uk/local/'
-    }
-    maven {
         name = "gt"
         url = "http://gregtech.overminddl1.com/"
+    }
+    ivy {
+        name = "gtnh_download_source"
+        artifactPattern("http://downloads.gtnewhorizons.com/Mods_for_Jenkins/[module]-[revision].[ext]")
     }
 }
 
