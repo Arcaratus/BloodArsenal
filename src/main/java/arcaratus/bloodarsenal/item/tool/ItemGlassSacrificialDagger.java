@@ -89,19 +89,20 @@ public class ItemGlassSacrificialDagger extends Item implements IMeshProvider
         if (evt.shouldDrainHealth)
         {
             player.hurtResistantTime = 0;
-            float nextHitDmg = (float)(ConfigHandler.values.glassSacrificialDaggerHealth + itemRand.nextInt(3)
+            float nextHitDmg = (float)(ConfigHandler.values.glassSacrificialDaggerHealth + itemRand.nextInt(3));
             if (Math.ceil(player.getHealth() - nextHitDmg) <= 0)
             {
                 player.attackEntityFrom(DamageSourceGlass.INSTANCE, Float.MAX_VALUE);
             } else
             {
                 player.attackEntityFrom(DamageSourceGlass.INSTANCE, 0.001F);
-                float damageAmount = net.minecraftforge.common.ForgeHooks.onLivingDamage(player, damageSrc, nextHitDmg);
-                player.getCombatTracker().trackDamage(damageSrc, player.getHealth(), damageAmount);
-                player.setHealth(Math.max(player.getHealth() - nextHitDmg), 0.001F));
+                float damageAmount = net.minecraftforge.common.ForgeHooks.onLivingDamage(player, DamageSourceGlass.INSTANCE, nextHitDmg);
+                player.getCombatTracker().trackDamage(DamageSourceGlass.INSTANCE, player.getHealth(), damageAmount);
+                player.setHealth(Math.max(player.getHealth() - nextHitDmg, 0.001F));
                 
                 if (!player.isPotionActive(RegistrarBloodArsenal.BLEEDING) && itemRand.nextBoolean())
                     player.addPotionEffect(new PotionEffect(RegistrarBloodArsenal.BLEEDING, 40 + (itemRand.nextInt(4) * 20), itemRand.nextInt(2)));
+
             }
         }
 
